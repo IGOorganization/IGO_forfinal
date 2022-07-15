@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 p-0" style="background-image: url('/img/taipei.jpg');">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">商品細節</h1>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Booking Start -->
+<div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row g-2">
+                <div class="col-md-10">
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <div class="date" id="date1" data-target-input="nearest">
+                                <input type="text" class="form-control date"
+                                       placeholder="Check in" data-target="#date1" data-toggle="datetimepicker" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="date" id="date2" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>Adult</option>
+                                <option value="1">Adult 1</option>
+                                <option value="2">Adult 2</option>
+                                <option value="3">Adult 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>Child</option>
+                                <option value="1">Child 1</option>
+                                <option value="2">Child 2</option>
+                                <option value="3">Child 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking End -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">商品細節</h6>
+            <h1 class="mb-5">台北好行 <span class="text-primary text-uppercase">方案</span></h1>
+        </div>
+        <div class="row g-4">
+            @*商品組件*@
+            <div class="col-lg-6 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="~/img/food1.jpg" alt="" />
+                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">台北喜來登大飯店｜十二廚</h5>
+                            <div class="ps-2">
+                                <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
+                                <small class="fa fa-star text-primary"><span> 5.0</span></small>
+                            </div>
+                        </div>
+                        <p class="text-body mb-3 ellipsis">
+                            鄰近捷運板南線【善導寺站】2 號出口，步行約 1 分鐘，12 區全開放式的美食料理區，各式生魚片、清燉越南河粉、爐烤嫩牛排、中東風味料理、精緻手工甜點
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            @Html.ActionLink("細節", "Food", "Products", null,
+                           new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
+                            @Html.ActionLink("訂購", "Order", "Coupon", null,
+                           new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*商品組件*@
+            <div class="col-lg-6 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="room-item shadow rounded overflow-hidden">
+                    <div class="position-relative">
+                        <img class="img-fluid" src="~/img/exhibition1.jpg" alt="">
+                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
+                    </div>
+                    <div class="p-4 mt-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="mb-0">普立茲獎80週年展</h5>
+                            <div class="ps-2">
+                                <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
+                                <small class="fa fa-star text-primary"><span> 5.0</span></small>
+                            </div>
+                        </div>
+                        <p class="text-body mb-3 ellipsis">
+                            橫跨80年、138 幀得獎作品就在普立茲新聞攝影獎80週年展，今年暑假將於華山1914文化創意產業園區正式開展，「靜止的瞬間是很特別的，那一個瞬間，觸動了無數人心。」―卡洛·古茲(𝑪𝒂𝒓𝒐𝒍 𝑮𝒖𝒛𝒚)，1986、1995、2000、2011 年普立茲新聞攝影獎得獎得主
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            @Html.ActionLink("細節", "Exhibit", "Products", null,
+                           new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
+                            @Html.ActionLink("訂購", "Order", "Coupon", null,
+                           new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+
+@section Styles{
+    <style>
+        .ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+}

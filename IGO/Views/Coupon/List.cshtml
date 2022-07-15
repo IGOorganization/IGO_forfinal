@@ -1,0 +1,124 @@
+﻿@model IEnumerable<IGO.CouponViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 p-5" style="background-image: url('/img/Couponh.jpg');">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">特惠組合</h1>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Booking Start -->
+<div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row g-2">
+                <div class="col-md-10">
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>所有城市</option>
+                                <option value="1">台北</option>
+                                <option value="2">高雄</option>
+                                <option value="3">花蓮</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>價格高到低</option>
+                                <option value="1">價格低到高</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>評價高到低</option>
+                                <option value="1">評價低到高</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select">
+                                <option selected>人氣高到低</option>
+                                <option value="1">人氣低到高</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">搜尋</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking End -->
+<!-- Room Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">商品列表</h6>
+            <h1 class="mb-5">超值特惠 <span class="text-primary text-uppercase">組合</span></h1>
+        </div>
+        <div class="row g-5 align-items-center">
+            <div class="row g-4">
+                @{
+                    foreach (CouponViewModel coupon in Model)
+                    {
+                        @*商品組件*@
+                        <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="room-item shadow rounded overflow-hidden">
+                                <div class="position-relative">
+                                    <img class="img-fluid" src="/img/Coupon1.jpg" alt="">
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">@coupon.product1.FSubCategory.FSubCategoryName</h5>
+                                        <div class="ps-2">
+                                            <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
+                                            <small class="fa fa-star text-primary"><span> 5.0</span></small>
+                                        </div>
+                                    </div>
+                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#Coupon1" aria-expanded="false" aria-controls="#Coupon1">產品介紹</p>
+                                    <div class="list-group list-group-flush collapse" id="Coupon1">
+                                        @foreach (TProduct product in coupon.products)
+                                        {
+                                            <p>@product.FProductName</p>
+                                        }
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        @Html.ActionLink("細節", "Detail", "Coupon", new { id = coupon.FCouponId },
+                                       new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
+                                        @Html.ActionLink("訂購", "Order", "Coupon", null,
+                                       new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@

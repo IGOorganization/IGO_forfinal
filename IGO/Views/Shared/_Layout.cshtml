@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - prjIGOfront</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />*@
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Site CSS -->
+    <link href="/css/site.css?v=@(DateTime.Now.ToString("yyyyMMddHHmmss"))" rel="stylesheet" />
+    @*育緯新增*@
+
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    @*宜潔新增*@
+    <style>
+        .message-fix {
+            position: fixed;
+            right: 20px;
+            bottom: 300px;
+            /* left: 50px;*/
+            z-index: $zindex-fixed;
+            font-size: 200%;
+            color: cornflowerblue;
+        }
+    </style>
+
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+<body>
+    <!-- Header Start -->
+    <div class="container-fluid bg-dark px-0">
+        <div class="row gx-0 fixed-top">
+            <div class="col-lg-3 bg-dark d-none d-lg-block">
+                <a href="~/Home/Home" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <h1 class="m-0 text-primary text-uppercase">IGO</h1>
+                </a>
+            </div>
+            <div class="col-lg-9">
+                <div class="row gx-0 bg-dark d-none d-lg-flex">
+                    <div class="col-lg-7 px-5 text-start">
+                        @*<div class="h-100 d-inline-flex align-items-center py-2 me-4">
+                                <i class="fa fa-envelope text-primary me-2"></i>
+                                <p class="mb-0">info@example.com</p>
+                            </div>*@
+                        @*<div class="h-100 d-inline-flex align-items-center py-2">
+                                <i class="fa fa-phone-alt text-primary me-2"></i>
+                                <p class="mb-0">+012 345 6789</p>
+                            </div>*@
+                    </div>
+                    <div class="col-lg-5 px-5 text-end">
+                        <div class="d-inline-flex align-items-center py-2">
+                            @*<a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="" href=""><i class="fa-brands fa-line"></i></a>*@
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
+                    <a href="~/Home/Home" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 text-primary text-uppercase">IGO</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="~/Discount/ShowView" class="nav-item nav-link" style="font-size:120%">限時優惠</a>
+                            <a href="~/Coupon/List" class="nav-item nav-link" style="font-size:120%">特惠組合</a>
+                            <a href="~/Product/FoodView" class="nav-item nav-link" style="font-size:120%">美食</a>
+                            <a href="~/Live/List" class="nav-item nav-link" style="font-size:120%">飯店</a>
+                            <a href="~/Product/ExhibitionView" class="nav-item nav-link" style="font-size:120%">展覽</a>
+                            <a href="~/Product/ViewPointView" class="nav-item nav-link" style="font-size:120%">景點</a>
+                            <a href="../Movie/List" class="nav-item nav-link" style="font-size:120%">電影</a>
+                            <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
+                            @*<a href="#Investegate" class="nav-item nav-link" style="font-size:150%"><i class="fa-solid fa-file-lines"></i></a>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                    <div class="dropdown-menu rounded-0 m-0">
+                                        <a href="~/booking.html" class="dropdown-item">Booking</a>
+                                        <a href="~/team.html" class="dropdown-item">Our Team</a>
+                                        <a href="~/testimonial.html" class="dropdown-item">Testimonial</a>
+                                    </div>
+                                </div>
+                                <a href="~/contact.html" class="nav-item nav-link">Contact</a>*@
+                        </div>
+
+                        @*宜潔新增*@
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-eye"></i>
+                                <span style="font-size:120%">瀏覽紀錄</span><span id="ShowViewRecord" style="color: #DEDEBE; font-size: 120%"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none">
+                                <a href="/Products/Food" class="dropdown-item">
+                                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
+                                    <small>台北喜來登大飯店｜十二廚</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="/Products/Exhibit" class="dropdown-item">
+                                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
+                                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
+                                </a>
+                                @*<a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
+                            </div>
+                        </div>
+                        <div class="nav-item">
+                            <a href="~/ShoppingCart/List">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
+                            </a>
+                        </div>
+
+
+
+                        <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
+                            <a class="btn dropdown-toggle nav-item nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/img/UserPhoto.jpg" alt="mdo" width="50" height="50" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
+                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
+                                    <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
+                                    <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
+                                    <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
+                                    <li><a class="dropdown-item" href="/Customer/List"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/Home/Login"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <a href=""></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <div class="container-xxl py-5" id="startnow">
+        @*使下面部分不會被擋住*@
+    </div>
+    <div class="container-xxl py-2" id="startnow">
+        @*使下面部分不會被擋住*@
+    </div>
+
+
+    @RenderBody()
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
+        <div class="container pb-5">
+            <div class="row g-5">
+                <div class="col-md-10 col-lg-4">
+                    <div class="bg-primary rounded p-4">
+                        <a href="index.html"><h1 class="text-white text-uppercase mb-3">IGO</h1></a>
+                        <p class="text-white mb-0">
+                            <a class="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro"></a>
+                    </div>
+                </div>
+                <div class="col-md-10 col-lg-3 justify-content-xxl-center">
+                    <h6 class="section-title text-start text-primary text-uppercase mb-4">聯絡我們</h6>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>台北市大安區復興南路1段390號2樓</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>02-66316588</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <div class="d-flex pt-5">
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
+
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 justify-content-xxl-center">
+                    <div class="row gy-5 g-4">
+                        <div class="col-md-10">
+                            <h6 class="section-title text-start text-primary text-uppercase mb-4">IGO</h6>
+                            <a class="btn btn-link" href="/About/index">關於IGO</a>
+                            <a class="btn btn-link" href="/Helper/index">幫助中心</a>
+                            <a class="btn btn-link" href="/Privacy/index">隱私權</a>
+                            <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
+                            <a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>
+                        </div>
+                        @*<div class="col-md-6">
+                                <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
+                                <a class="btn btn-link" href="">Food & Restaurant</a>
+                                <a class="btn btn-link" href="">Spa & Fitness</a>
+                                <a class="btn btn-link" href="">Sports & Gaming</a>
+                                <a class="btn btn-link" href="">Event & Party</a>
+                                <a class="btn btn-link" href="">GYM & Yoga</a>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">IGO</a>, All Right Reserved.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        @*Designed By*@ <a class="border-bottom" href="https://htmlcodex.com">@*HTML Codex*@</a>
+                        <br>@*Distributed By:*@ <a class="border-bottom" href="https://themewagon.com" target="_blank">@*ThemeWagon*@</a>
+                    </div>
+                    @*<div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+                                <a href="">Home</a>
+                                <a href="">Cookies</a>
+                                <a href="">Help</a>
+                                <a href="">FQAs</a>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="message-fix"><i class="fa-solid fa-message"></i><p style="font-size:18px">小幫手</p></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/counterup/counterup.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="~/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        //顯示瀏覽過的次數(之後用id/session)
+
+        window.addEventListener("load", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
+        let eleDropdown = document.querySelector(".viewRecordDropdown");
+        async function ViewRecord()
+        {
+            if (window.location.href.indexOf("Products") > -1)
+            /*if (window.location.href.indexOf("Products") > -1)*/ //連結中是否包含City 之後改為Product
+            {
+                //顯示瀏覽過的次數
+                const response = await fetch('@Url.Content("~/HomeApi/showViewProductCountBySession")');
+                //console.log(response);
+                const datas = await response.text();
+                //console.log(datas);
+
+                $("#ShowViewRecord").text(`(${datas})`);
+
+                //顯示瀏覽過的內容
+                const response2 = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
+                console.log(response2);
+                //const datas2 = await response2.json();
+                const datas2 = await response2.text();
+                console.log(datas2);
+
+                /*$("#ShowViewRecord").text(`(${datas2})`);*/
+
+                //let eleA = document.createElement("a");
+                //let eleSmall = document.createElement("small");
+                //let txtSmall = document.createTextNode("普立");
+                //eleSmall.appendChild(txtSmall);
+                //eleA.appendChild(eleSmall);
+
+                /*eleDropdown.appendChild(eleA);*/
+            }
+
+            else
+            {
+                //顯示瀏覽過的次數
+                const response = await fetch('@Url.Content("~/HomeApi/showViewNoProductCountBySession")');
+                //console.log(response);
+                const datas = await response.text();
+                //console.log(datas);
+
+                $("#ShowViewRecord").text(`(${datas})`);
+
+                  //顯示瀏覽過的內容
+                const response2 = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
+                console.log(response2);
+                //const datas2 = await response2.json();
+                const datas2 = await response2.text();
+                console.log(datas2);
+
+                /*$("#ShowViewRecord").text(`(${datas2})`);*/
+
+                let eleHr = document.createElement("hr");
+                eleDropdown.appendChild(eleHr);
+            }
+        }
+
+        //顯示瀏覽過的內容
+        @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
+        async function ViewRecordContent()
+        {
+            if (window.location.href.indexOf("City") > -1) //連結中是否包含City 之後改為Product
+            {
+                //顯示瀏覽過的內容
+                const response = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
+                console.log(response);
+                /*const datas = await response.json();*/
+                const datas = await response.text();
+                console.log(datas);
+
+                /*$("#ShowViewRecord").text(`(${datas})`);*/
+
+            };
+        }*@
+    </script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

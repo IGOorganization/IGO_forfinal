@@ -1,0 +1,327 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">產品列表</h6>
+            <form class="d-none d-md-flex ms-4">
+                <div class="col-md-3">
+                    <input class="form-control bg-dark border-0 " type="search" placeholder="輸入商品名稱">
+                    <input class="btn btn-secondary m-2" type="submit" value="搜尋" />
+                    <button class="btn btn-secondary m-2 float-lg-end" type="button" data-bs-toggle="modal" data-bs-target="#createproduct">新增</button>
+                </div>
+
+            </form>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">序號</th>
+                            <th scope="col">商品名稱</th>
+                            <th scope="col">商品</th>
+                            <th scope="col">折數</th>
+                            <th scope="col">販售期限</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*商品組*@
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>台北好行</td>
+                            <td>
+                                <ul>
+                                    <li>台北喜來登大飯店｜十二廚</li>
+                                    <li>普立茲獎80週年展</li>
+                                </ul>
+                            </td>
+                            <td>85</td>
+                            <td>2022/8/31</td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>
+                        @*商品組*@
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>高雄好行</td>
+                            <td>
+                                <ul>
+                                    <li>高雄翰品酒店 | 品日式料理</li>
+                                    <li>會動的文藝復興</li>
+                                </ul>
+                            </td>
+                            <td>85</td>
+                            <td>2022/8/31</td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>
+                        @*商品組*@
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>台中之旅</td>
+                            <td>
+                                <ul>
+                                    <li>侏羅紀Ｘ恐龍3.0 台中站</li>
+                                    <li>台中長榮桂冠自助餐</li>
+                                </ul>
+                            </td>
+                            <td>85</td>
+                            <td>2022/8/31</td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>
+                        @*商品組*@
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>台南一日遊</td>
+                            <td>
+                                <ul>
+                                    <li>頑皮世界野生動物園</li>
+                                    <li>漢來海港城南紡夢時代店</li>
+                                </ul>
+                            </td>
+                            <td>85</td>
+                            <td>2022/8/31</td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>
+                        @*商品組*@
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>台東溫泉之旅</td>
+                            <td>
+                                <ul>
+                                    <li>台東桂田喜來登酒店</li>
+                                    <li>桂田酒店｜阿力海百匯餐廳</li>
+                                    <li>知本國家森林遊樂園</li>
+                                </ul>
+                            </td>
+                            <td>85</td>
+                            <td>2022/8/31</td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>
+                        @*商品組*@
+                        <tr class="a" name="6">
+                            <th scope="row">6</th>
+                            <td>宜蘭田野之旅</td>
+                            <td>
+                                <ul>
+                                    <li>宜蘭二結穀倉稻農文化館</li>
+                                    <li>蘭城百匯自助餐廳</li>
+                                    <li>煙波大飯店 宜蘭館</li>
+                                </ul>
+                            </td>
+                            <td>85</td>
+                            <td>2022/8/31</td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    產品新增作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h6 class="mb-4">商品新增作業</h6>
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">組合名稱</label>
+                                        <input type="text" class="form-control" id="couponName"
+                                               aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3" id="dropzone">
+                                        <label for="text" class="form-label">組合內容</label>
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">折數</label>
+                                        <input type="number" class="form-control" id="discount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">販售期限</label>
+                                        <input type="date" class="form-control" id="deadtime">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">新增</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>商品列表</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="1">
+                                                <input type="hidden" value="1" />
+                                                <label>世界宗教博物館門票</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="2">
+                                                <input type="hidden" value="2" />
+                                                <label>遠雄海洋公園門票</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="3">
+                                                <input type="hidden" value="1" />
+                                                <label>野柳海洋世界</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="4">
+                                                <input type="hidden" value="1" />
+                                                <label>六福村票券</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="5">
+                                                <input type="hidden" value="1" />
+                                                <label>麗寶票券</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="6">
+                                                <input type="hidden" value="1" />
+                                                <label>劍湖山票券</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="7">
+                                                <input type="hidden" value="1" />
+                                                <label>台北喜來登大飯店｜十二廚</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div name="dragitem" draggable="true" id="8">
+                                                <input type="hidden" value="1" />
+                                                <label>台北君悅酒店｜凱菲屋</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        const items = document.getElementsByName("dragitem");
+        const zone = document.querySelector("#dropzone");
+
+        items.forEach(function (item) {
+            item.addEventListener("dragstart", dragstartHandler);
+        })
+
+
+        zone.addEventListener("dragover", dragoverHandler);
+        zone.addEventListener("drop", dropHandler);
+
+        function dragstartHandler(e) {
+            //儲存要拖放的資料
+            e.dataTransfer.setData("text/plain", e.currentTarget.id);
+        }
+
+
+        function dragoverHandler(e) {
+            //取消預設動作
+            e.preventDefault();
+        }
+
+        function dropHandler(e) {
+            //取消預設動作
+            e.preventDefault();
+            //取出拖放資料
+            e.stopPropagation();
+            //建立div元素
+            let sourceid = e.dataTransfer.getData('text/plain');
+            let source = document.getElementById(sourceid);
+            //設定屬性及外觀s
+            console.log(source);
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
+            let div3 = document.createElement("div");
+            let span = document.createElement("span");
+            let button = document.createElement("button");
+            div1.className = "d-flex align-items-center border-bottom py-2";
+            div2.className = "w-100 ms-3";
+            div3.className = "d-flex w-100 align-items-center justify-content-between";
+            span.textContent = source.lastElementChild.textContent;
+            button.className = "btn btn-sm";
+            button.innerHTML = '<i class="fa fa-times"></i>';
+
+            div3.appendChild(span);
+            div3.appendChild(button);
+            div2.appendChild(div3);
+            div1.appendChild(div2);
+            e.currentTarget.appendChild(div1);
+            //新增到dropZone or dropZone1元素後面
+
+        }
+
+        const btn_dels = document.getElementsByName("delete");
+        btn_dels.forEach(function (del) {
+            del.addEventListener("click", (event) => {
+                let d = event.currentTarget
+                $(event.currentTarget).closest("tr").remove();
+                //d.parentElement.parentElement.remove();
+            });
+        })
+
+    </script>
+}
