@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace IGO.Areas.Admin.Controllers
 {
-    [Area(areaName: "Admin")]
-    public class ProductController : Controller
+    public class MovieController : Controller
     {
-        
-        public IActionResult List()
+        public IActionResult Index()
         {
             return View();
         }
-
     }
 }
