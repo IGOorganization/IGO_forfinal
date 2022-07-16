@@ -20,7 +20,6 @@ namespace IGO
         }
         public TCoupon coupon
         {
-            
             get { return _Cou; }
             set { _Cou = value; }
         }
