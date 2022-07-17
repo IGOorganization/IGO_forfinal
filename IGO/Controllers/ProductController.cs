@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IGO.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,19 @@ namespace IGO.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult FoodView()
+        public IActionResult IndexTotal(int City,int ProductID)
         {
             return View();
         }
-        public IActionResult ExhibitionView()
-        {
-            return View();
-        }
-        public IActionResult ViewPointView()
-        {
-            return View();
-        }
+
+        //public string TitleList(int fsubCategoryId)
+        //{
+        //    DemoIgoContext db = new DemoIgoContext();
+        //    var q = from p in db.TSubCategories
+        //            where p.FSubCategoryId == fsubCategoryId
+        //            select p;
+        //    string a = q.ToString();
+        //    return a;
+        //}
     }
 }
