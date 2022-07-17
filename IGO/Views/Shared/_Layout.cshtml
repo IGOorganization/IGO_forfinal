@@ -45,7 +45,7 @@
             right: 20px;
             bottom: 300px;
             /* left: 50px;*/
-            z-index: $zindex-fixed;
+            /*z-index: $zindex-fixed;*/
             font-size: 200%;
             color: cornflowerblue;
         }
@@ -267,7 +267,7 @@
     <script>
         //顯示瀏覽過的次數(之後用id/session)
 
-        window.addEventListener("load", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
+        @*window.addEventListener("load", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
         let eleDropdown = document.querySelector(".viewRecordDropdown");
         async function ViewRecord()
         {
@@ -322,7 +322,7 @@
                 let eleHr = document.createElement("hr");
                 eleDropdown.appendChild(eleHr);
             }
-        }
+        }*@
 
         //顯示瀏覽過的內容
         @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄

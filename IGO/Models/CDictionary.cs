@@ -8,5 +8,7 @@ namespace IGO.Models
     public class CDictionary
     {
         public static readonly string SK_LOGINED_USER = "SK_LOGINED_USER";
+        public static readonly string SK_Selected_Item = "SK_Selected_Item";
+       
     }
 }

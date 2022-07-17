@@ -1,0 +1,196 @@
+﻿@model IEnumerable<IGO.ViewModels.CShoppingCartViewModel>
+
+@{
+    ViewData["Title"] = "購物車";
+}
+<div class="col-md-2"></div>
+<div class="col-md-8" style="margin: auto">
+
+    <div style="margin:1em 0 1em 0">
+
+        <span style="font-weight:bold">
+            購物車
+        </span>
+        <i s class="fa-solid fa-angle-right"></i>
+        <span style="font-weight:lighter">
+            填寫資料與付款
+        </span>
+        <i class="fa-solid fa-angle-right"></i>
+        <span style="font-weight:lighter">訂購完成</span>
+
+    </div>
+
+
+    <div class="card card p-5" style="width: 100%">
+
+        <h1>購物車</h1>
+        <table class="table  data-table2" style="min-width: 100%">
+
+            <thead style="text-align:center">
+                <tr>
+
+                    <th>
+                        產品名稱
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FBookingTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FQuantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FTotalPrice)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody style="text-align:center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span class="form-check" style="float:left">
+                                <input class="form-check-input" data-id="@item.FShoppingCartId" type="checkbox" id="gridCheck">
+                            </span>
+
+                            @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
+                            @Html.DisplayFor(modelItem => item.product.FProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FBookingTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FQuantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FTotalPrice)
+                        </td>
+                        <td>
+                            <i style="margin-right:10px" id="heart" class="fa-regular fa-heart"></i>
+                            <i data-id="@item.FShoppingCartId" class='btnGarbage fa-regular fa-trash-can'></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="offset-1"></div>
+        <p><input type="checkbox" class="form-check-input" name="chkAll" id="chkAll" />全選 | 刪除已選項目</p>
+        <div style="display:flex;justify-content:end">
+            <input id="btnSend" class="btn btn-light btn-lg" style="font-family:Arial;color:brown" type="button" name="btnPay" value="結帳" />
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+@section Scripts{
+
+    <script>
+
+        let AllCheckFlag = false;
+        const chkAll = $("#chkAll");
+        const btngarbage = document.querySelectorAll(".btnGarbage");
+        const heart = document.querySelectorAll("#heart");
+        const chkAllButton = $('input[type="checkbox"]');
+        const btnSend = $("#btnSend");
+
+
+        //===============================刪除單筆===============================================
+        btngarbage.forEach(function (data) {
+            data.addEventListener('click', function () {
+
+                if (confirm("確定刪除嗎")) {
+                    $.ajax({
+                        url: '@Url.Content("~/ShoppingCart/Delete")',
+                        type: 'POST',
+                        data: { id: $(data).data("id") }
+                    }).done(function (r) {
+                        alert(r.description);
+                        if (r.flag) {
+                            $(data).closest("tr").remove();
+                        }
+                    })
+                }
+            })
+        })
+
+
+
+   //==============================================加到我的最愛=================================================
+
+        heart.forEach(function (data) {
+
+
+            data.addEventListener("click", function () {
+
+                $(this).toggleClass("fa-regular fa-solid")
+
+            })
+
+
+        })
+
+      //===========================================全選功能====================================================
+        chkAll.click(function (e) {
+            if (AllCheckFlag == false) {
+                $.each($('input[type="checkbox"]'), function () {
+                    $(this).prop('checked', true);
+                });
+                AllCheckFlag = true;
+            }
+            else {
+
+                $.each($('input[type="checkbox"]'), function () {
+                    $(this).prop('checked', false);
+                });
+                AllCheckFlag = false;
+            }
+        });
+        //========================================加入打勾至結帳頁面=================================================
+        btnSend.click(function () {
+            let array = [];
+
+            $.each($('input[type="checkbox"]:checked'), function () {
+                if ($(this).prop("id") != 'chkAll')
+                {
+                   array.push(+$(this).data("id"))
+                }
+            })
+
+            if (array.length == 0) {
+
+                alert("至少勾選一筆訂單");
+            }
+            else {
+                $.ajax({
+                    url: '@Url.Content("~/ShoppingCart/Checked")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(array)
+
+
+                }).done(function () {
+                    window.location.href = '@Url.Content("~/ShoppingCart/Pay")';
+                })
+            }
+        });
+
+    </script>
+}}

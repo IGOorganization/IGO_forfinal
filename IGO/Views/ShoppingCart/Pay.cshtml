@@ -1,0 +1,239 @@
+﻿@model IEnumerable<IGO.ViewModels.CShoppingCartViewModel>
+
+@{
+    ViewData["Title"] = "Pay";
+}
+
+<div class="col-md-2"></div>
+<div class="col-md-8" style="margin: auto">
+
+    <div style="margin:1em 0 1em 0">
+
+        <a href="@Url.Content("~/ShoppingCart/List")">
+            <span style="font-weight:lighter;color:#666565">購物車</span>
+        </a>
+
+        <i s class="fa-solid fa-angle-right"></i>
+        <span style="font-weight:bold">
+            填寫資料與付款
+        </span>
+        <i class="fa-solid fa-angle-right"></i>
+        <span style="font-weight:lighter">訂購完成</span>
+    </div>
+
+
+
+    <div class="card p-3" style="margin-bottom:2%;">
+
+        <a data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" id="aArrowMember" aria-controls="collapseExample">
+            <h6><i id="arrowMember" class=" fa-arrow-right fa-solid ">訂購人資料</i></h6>
+
+        </a>
+
+        <form class="row collapse" id="collapseExample">
+            <hr>
+            <div class="col-md-4">
+                <label for="inputFirstName" class="form-label">名字</label>
+                <input type="text" class="form-control" id="inputFirstName">
+            </div>
+            <div class="col-md-4">
+                <label for="inputLastName" class="form-label">姓氏</label>
+                <input type="text" class="form-control" id="inputLastName">
+            </div>
+            <div class="col-4"></div>
+            <div class="col-md-4">
+                <label for="inputAddress" class="form-label">國家/地區</label>
+                <input type="text" class="form-control" id="inputAddress">
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputPhone" class="form-label">聯絡電話</label>
+                <input type="text" class="form-control" id="inputPhone">
+
+            </div>
+            <div class="col-md-8">
+                <label for="inputEmail" class="form-label">電子郵件</label>
+                <input type="email" class="form-control" id="inputEmail">
+
+            </div>
+
+
+
+        </form>
+
+    </div>
+
+
+
+    <div class="card card p-5" style="margin-bottom: 2%;">
+        <h3>付款明細</h3>
+        <table class="table  data-table2 col-12" style="min-width: 100%;">
+
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.product.FProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FBookingTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FQuantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FTotalPrice)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int Total = 0;
+
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.product.FProductName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FBookingTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FQuantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FTotalPrice)
+                            </td>
+                            <td>
+                                <i style="margin-right:10px" class="fa-regular fa-heart"></i>
+
+                                <i class="fa-regular fa-trash-can"></i>
+                            </td>
+
+                        </tr>
+
+                        Total +=(int)item.FTotalPrice;
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <h6>優惠券折抵</h6>
+    <div class="card p-5" style="margin-bottom:2%;">
+
+        <div class="col-md-4">
+            <label for="inputCoupon" class="form-label">優惠券代碼</label>
+            <div style="display:flex;">
+                <input type="text" class="form-control" id="inputCoupon">
+                <input type="button" name="btnCoupon" class="btn btn-light" style="font-family:Arial;color:brown;margin-left:10px;" value="確定" />
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    @*-------------------------------------------付款方式---------------------------------------------------*@
+    <h6>付款</h6>
+    <div class="card p-5" style="margin-bottom:2%;">
+
+        <a data-bs-toggle="collapse" href="#collapseExample1" aria-expanded="false" id="aArrowPay" aria-controls="collapseExample">
+            <h6><i id="arrowPay" class=" fa-arrow-right fa-solid ">請選擇付款方式</i></h6>
+
+        </a>
+        <div class="row collapse" id="collapseExample1">
+            <hr>
+            <div style="display:flex;">
+                <input type="radio" checked name="name123" id="linePay" value="" />
+                <label for="linePay">LinePay</label>
+                <img style="margin-left:83px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_linepay_2.svg" class="pmch-logo linepay-point">
+            </div>
+            <hr style="margin:10px">
+
+            <div style="display:flex">
+
+                <input type="radio" name="name123" id="creditPay" data-bs-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" />
+                <label for="creditPay" style="color: #666565;">信用卡/簽帳金融卡</label>
+                <img style="margin-left:2px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_visa.svg" class="pmch-logo pay-kind-img">
+                <img style="margin-left:2px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_master.svg" class="pmch-logo pay-kind-img">
+                <img style="margin-left:2px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_jcb.svg" class="pmch-logo pay-kind-img">
+
+            </div>
+            <div class="row collapse" id="collapseExample2">
+                <div style="display:flex">
+                    <div style="margin-right:10px">
+                        <label>信用卡號碼</label><br>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                    <div style="margin-right:10px">
+                        <label>有效期限</label><br>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                    <div>
+                        <label>背面末三碼</label><br>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card p-3" style="margin-bottom:2%;">
+        <div style="display:flex;justify-content:end">
+            <h4 style="color: #26bec9;margin-top:10px"> TWD @Total 元</h4>
+            <a href="@Url.Content("~/ShoppingCart/Finish")"><input class="btn btn-light btn-lg" style="font-family:Arial;color:brown" type="submit" name="btnPay" value="確認付款" /></a>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-2"></div>
+
+
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+@section Scripts{
+    <script>
+
+
+            const aArrowMember = $("#aArrowMember");
+            const arrowMember = $("#arrowMember");
+            const aArrowPay = $("#aArrowPay");
+            const arrowPay = $("#arrowPay");
+            aArrowMember.click(function () {
+                arrowMember.toggleClass("fa-arrow-right fa-arrow-down");
+
+            })
+            aArrowPay.click(function () {
+                arrowPay.toggleClass("fa-arrow-right fa-arrow-down");
+
+            })
+
+    </script>
+
+
+
+
+}
