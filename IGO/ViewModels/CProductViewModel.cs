@@ -1,4 +1,5 @@
 ﻿using IGO.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,7 +50,7 @@ namespace IGO.ViewModels
                 _prod.FProductName = value;
             }
         }
-        [DisplayName("商品名稱")]
+        [DisplayName("縣市")]
         public int? FCityId
         {
             get
@@ -61,7 +62,7 @@ namespace IGO.ViewModels
                 _prod.FCityId = value;
             }
         }
-        [DisplayName("商品名稱")]
+        [DisplayName("地址")]
         public string FAddress
         {
             get
@@ -73,7 +74,7 @@ namespace IGO.ViewModels
                 _prod.FAddress = value;
             }
         }
-        [DisplayName("商品名稱")]
+        [DisplayName("供應商")]
         public int? FSupplierId
         {
             get
@@ -85,7 +86,7 @@ namespace IGO.ViewModels
                 _prod.FSupplierId = value;
             }
         }
-        [DisplayName("商品名稱")]
+        [DisplayName("庫存量")]
         public int? FQuantity
         {
             get
@@ -97,7 +98,7 @@ namespace IGO.ViewModels
                 _prod.FQuantity = value;
             }
         }
-        [DisplayName("商品名稱")]
+        [DisplayName("上架時間")]
         public string FStartTime
         {
             get
@@ -157,6 +158,20 @@ namespace IGO.ViewModels
                 _prod.FDiscountOrNot = value;
             }
         }
-
+        public string CityName
+        {
+            get
+            {
+                return  _dbIgo.TProducts.Include(n => n.FCity).FirstOrDefault(n => n.FProductId == FProductId).FCity.FCityName;
+            }
+        }
+        public string SupplierName
+        {
+            get
+            {
+                string s = (_dbIgo.TProducts.Include(n => n.FSupplier).FirstOrDefault(n => n.FProductId == FProductId)).FSupplier.FCompanyName;
+                return s;
+            }
+        }
     }
 }

@@ -77,14 +77,14 @@
                                 </div>
                                 <div class="p-4 mt-2">
                                     <div class="d-flex justify-content-between mb-3">
-                                        <h5 class="mb-0">@coupon.product1.FSubCategory.FSubCategoryName</h5>
+                                        <h5 class="mb-0">@coupon.FCouponName</h5>
                                         <div class="ps-2">
                                             <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
                                             <small class="fa fa-star text-primary"><span> 5.0</span></small>
                                         </div>
                                     </div>
-                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#Coupon1" aria-expanded="false" aria-controls="#Coupon1">產品介紹</p>
-                                    <div class="list-group list-group-flush collapse" id="Coupon1">
+                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#@('p'+coupon.FCouponId.ToString())" aria-expanded="false" aria-controls="#@('p'+coupon.FCouponId.ToString())">產品介紹</p>
+                                    <div class="list-group list-group-flush collapse" id="@('p'+coupon.FCouponId.ToString())">
                                         @foreach (TProduct product in coupon.products)
                                         {
                                             <p>@product.FProductName</p>
