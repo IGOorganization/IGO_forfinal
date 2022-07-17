@@ -122,8 +122,8 @@
                         type: 'POST',
                         data: { id: $(data).data("id") }
                     }).done(function (r) {
-                        alert(r.description);
-                        if (r.flag) {
+                        alert(r.Description);
+                        if (r.Flag) {
                             $(data).closest("tr").remove();
                         }
                     })

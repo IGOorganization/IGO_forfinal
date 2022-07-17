@@ -36,6 +36,13 @@ namespace IGO
                     Configuration.GetConnectionString("IGOConnection")));
             services.AddDbContext<DemoIgoContext>(option =>
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                //  options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
+
+
+            });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
