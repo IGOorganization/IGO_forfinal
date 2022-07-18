@@ -24,8 +24,10 @@ namespace IGO.Controllers
     {
         private readonly IWebHostEnvironment webHostEnvironment;
         private DemoIgoContext _dbIgo;
+		
 
-        public ShoppingCartController(IWebHostEnvironment hostEnvironment, DemoIgoContext db)
+
+		public ShoppingCartController(IWebHostEnvironment hostEnvironment, DemoIgoContext db)
         {
 
             webHostEnvironment = hostEnvironment;
@@ -74,12 +76,14 @@ namespace IGO.Controllers
             List<int> IDs = JsonSerializer.Deserialize<List<int>>(json);
 
             List<CShoppingCartViewModel> lists = new List<CShoppingCartViewModel>();
-
-            foreach (TShoppingCart data in _dbIgo.TShoppingCarts.Where(c => IDs.Contains(c.FShoppingCartId)).ToList())
+			
+            
+			foreach (TShoppingCart data in _dbIgo.TShoppingCarts.Where(c => IDs.Contains(c.FShoppingCartId)).ToList())
             {
                 CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
                 shoppingCartViewModel.shoppingCart = data;
                 lists.Add(shoppingCartViewModel);
+				
             };
 
             //=======================================預設金流變數=========================================
@@ -88,11 +92,12 @@ namespace IGO.Controllers
             ViewData["MerchantID"] = Config.GetSection("MerchantID").Value;
             ViewData["MerchantOrderNo"] = DateTime.Now.ToString("yyyyMMddHHmmss");  //訂單編號
             ViewData["ExpireDate"] = DateTime.Now.AddDays(3).ToString("yyyyMMdd"); //繳費有效期限
-            ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}Home/CallbackReturn"; //支付完成返回商店網址
+            ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}ShoppingCart/Finish"; //支付完成返回商店網址
             ViewData["CustomerURL"] = ""; //商店取號網址
             ViewData["NotifyURL"] = ""; //支付通知網址
                                         //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
-            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}ShoppingCart/Finish"; //返回商店網址
+            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/ShoppingCart/Finish"; //返回商店網址
+
             //=======================================預設金流變數=========================================
 
             return View(lists);
@@ -243,8 +248,23 @@ namespace IGO.Controllers
 
 		public IActionResult Finish()
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("123", QRCodeGenerator.ECCLevel.Q);
+			//===============================取結帳清單資料=================================================
+			var json = HttpContext.Session.GetString(CDictionary.SK_Selected_Item);
+			List<int> IDs = JsonSerializer.Deserialize<List<int>>(json);
+
+			List<CShoppingCartViewModel> lists = new List<CShoppingCartViewModel>();
+
+
+			foreach (TShoppingCart data in _dbIgo.TShoppingCarts.Where(c => IDs.Contains(c.FShoppingCartId)).ToList())
+			{
+				CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
+				shoppingCartViewModel.shoppingCart = data;
+				lists.Add(shoppingCartViewModel);
+
+			};
+			//===============================產生QRCODE=================================================
+			QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(lists[0].product.FProductName, QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
             //Bitmap icon = new Bitmap(@"wwwroot\ShoppingCartImgs\IGO.jpg");
             Bitmap icon = new Bitmap(webHostEnvironment.WebRootPath + "/ShoppingCartImgs/IGO.jpg");

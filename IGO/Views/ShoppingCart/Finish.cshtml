@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "訂單完成";
+}
+
+
+<div class="col-md-2"></div>
+<div class="col-md-8" style="margin: auto">
+
+    <div style="margin:1em 0 1em 0">
+        <span style="font-weight:lighter">
+            購物車
+        </span>
+        <i s class="fa-solid fa-angle-right"></i>
+        <span style="font-weight:lighter">
+            填寫資料與付款
+        </span>
+        <i class="fa-solid fa-angle-right"></i>
+        <span style="font-weight:bold">訂購完成</span>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="card card p-5 text-center">
+        <h3 style="color:darkgray">訂購成功</h3>
+        <p>感謝您的購買!<br>您的訂單編號為ASDFGH</p>
+        <span>
+            <a href="@Url.Content("~/ShoppingCart/Finish")"><input class="btn btn-light btn-lg" style="font-family:Arial;color:brown" type="button" name="btnPay" value="查詢訂單" /></a>
+        </span>
+
+
+
+    </div>
+
+</div>
+<div class="col-md-2"></div>
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@

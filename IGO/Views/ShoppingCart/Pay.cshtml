@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IGO.ViewModels.CShoppingCartViewModel>
 
 @{
-    ViewData["Title"] = "Pay";
+    ViewData["Title"] = "確認付款資訊";
 }
 
 <div class="col-md-2"></div>
@@ -69,10 +69,10 @@
         <h3>付款明細</h3>
         <table class="table  data-table2 col-12" style="min-width: 100%;">
 
-            <thead>
+            <thead style="text-align:center">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.product.FProductName)
+                        產品名稱
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.FBookingTime)
@@ -83,10 +83,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.FTotalPrice)
                     </th>
-                    <th></th>
+                   
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="text-align:center">
                 @{ int Total = 0;
 
                     foreach (var item in Model)
@@ -105,11 +105,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.FTotalPrice)
                             </td>
-                            <td>
-                                <i style="margin-right:10px" class="fa-regular fa-heart"></i>
-
-                                <i class="fa-regular fa-trash-can"></i>
-                            </td>
+                            
 
                         </tr>
 
@@ -241,13 +237,13 @@
                         MerchantID: '@ViewData["MerchantID"]' //商品代號
                         , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
                         , ItemDesc: '測試商品'
-                        , Amt: '100'
+                        , Amt: '@Total'
                         , ExpireDate: '@ViewData["ExpireDate"]'
                         , ReturnURL: '@ViewData["ReturnURL"]'
                         , CustomerURL: '@ViewData["CustomerURL"]'
                         , NotifyURL: '@ViewData["NotifyURL"]'
                         , ClientBackURL: '@ViewData["ClientBackURL"]'
-                        , Email: 'mars@hungwin.com.tw'
+                        , Email: 'zeroqazggc0504@gmail.com'
                     }
                 }
             }
