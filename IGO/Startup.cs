@@ -38,6 +38,11 @@ namespace IGO
             services.AddDbContext<DemoIgoContext>(option =>
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
 
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

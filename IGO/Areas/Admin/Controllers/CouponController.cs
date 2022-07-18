@@ -1,7 +1,10 @@
 ﻿using IGO.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,10 +13,12 @@ namespace IGO.Areas.Admin.Controllers
     [Area(areaName: "Admin")]
     public class CouponController : Controller
     {
-        DemoIgoContext _dbIgo;
-        public CouponController(DemoIgoContext db)
+        private DemoIgoContext _dbIgo;
+        private IWebHostEnvironment _enviroment;
+        public CouponController(DemoIgoContext db,IWebHostEnvironment p)
         {
             _dbIgo = db;
+            _enviroment = p;
         }
         public IActionResult List()
         {
@@ -50,9 +55,8 @@ namespace IGO.Areas.Admin.Controllers
             }
             return Json(coupons);
         }
-        public IActionResult Edit(TCoupon cou)
+        public IActionResult Edit(CouponViewModel cou,IFormFile Photo)
         {
-            List<CouponViewModel> coupons = new List<CouponViewModel>();
             TCoupon c = _dbIgo.TCoupons.FirstOrDefault(n => n.FCouponId == cou.FCouponId);
             c.FCouponName = cou.FCouponName;
             c.FDeadTime = cou.FDeadTime;
@@ -70,7 +74,16 @@ namespace IGO.Areas.Admin.Controllers
                 }
             }
             c.FTimeOut = cou.FTimeOut;
+            if (Photo != null)
+            {
+                string pName = Guid.NewGuid().ToString() + ".jpg";
+                Photo.CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + pName, FileMode.Create));
+                c.FCouponImage = pName;
+            }
             _dbIgo.SaveChanges();
+            
+            //回傳商品列表===============
+            List<CouponViewModel> coupons = new List<CouponViewModel>();
             foreach (TCoupon coupon in _dbIgo.TCoupons)
             {
                 CouponViewModel coup = new CouponViewModel(_dbIgo);

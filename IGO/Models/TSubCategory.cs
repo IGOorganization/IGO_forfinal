@@ -10,6 +10,7 @@ namespace IGO.Models
         public TSubCategory()
         {
             TProducts = new HashSet<TProduct>();
+            TSuppliers = new HashSet<TSupplier>();
             TTicketTypes = new HashSet<TTicketType>();
         }
 
@@ -19,6 +20,7 @@ namespace IGO.Models
 
         public virtual TCategory FCategory { get; set; }
         public virtual ICollection<TProduct> TProducts { get; set; }
+        public virtual ICollection<TSupplier> TSuppliers { get; set; }
         public virtual ICollection<TTicketType> TTicketTypes { get; set; }
     }
 }

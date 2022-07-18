@@ -1,4 +1,5 @@
 ﻿using IGO.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace IGO
     {
         private TCoupon _Cou;
         private DemoIgoContext _dbIgo;
-        
+
         public CouponViewModel(DemoIgoContext db)
         {
             _Cou = new TCoupon();
@@ -81,6 +82,13 @@ namespace IGO
             get { return _Cou.FTimeOut; }
             set { _Cou.FTimeOut = value; }
         }
+        [DisplayName("封面圖片")]
+        public string FCouponImage
+        {
+            get { return _Cou.FCouponImage; }
+            set { _Cou.FCouponImage = value; }
+        }
+        //public IFormFile Photo { get; set; }
         public List<TProduct> products
         {
             get { return getproducts(); }
@@ -106,7 +114,7 @@ namespace IGO
         {
             get
             {
-                TProduct prod = _dbIgo.TProducts.Include(p => p.FCity).Include(p=>p.FSubCategory).FirstOrDefault(p => p.FProductId == FProductId1);
+                TProduct prod = _dbIgo.TProducts.Include(p => p.FCity).Include(p => p.FSubCategory).FirstOrDefault(p => p.FProductId == FProductId1);
                 if (prod != null)
                     return prod;
                 return null;

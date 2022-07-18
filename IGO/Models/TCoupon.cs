@@ -23,6 +23,7 @@ namespace IGO.Models
         public string FDiscount { get; set; }
         public string FDeadTime { get; set; }
         public bool? FTimeOut { get; set; }
+        public string FCouponImage { get; set; }
 
         public virtual TProduct FProductId1Navigation { get; set; }
         public virtual TProduct FProductId2Navigation { get; set; }

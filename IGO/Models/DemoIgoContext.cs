@@ -118,6 +118,10 @@ namespace IGO.Models
 
                 entity.Property(e => e.FCouponId).HasColumnName("fCouponID");
 
+                entity.Property(e => e.FCouponImage)
+                    .HasMaxLength(50)
+                    .HasColumnName("fCouponImage");
+
                 entity.Property(e => e.FCouponName)
                     .HasMaxLength(50)
                     .HasColumnName("fCouponName");
@@ -649,6 +653,13 @@ namespace IGO.Models
                 entity.Property(e => e.FPhone)
                     .HasMaxLength(20)
                     .HasColumnName("fPhone");
+
+                entity.Property(e => e.FSubCategoryId).HasColumnName("fSubCategoryID");
+
+                entity.HasOne(d => d.FSubCategory)
+                    .WithMany(p => p.TSuppliers)
+                    .HasForeignKey(d => d.FSubCategoryId)
+                    .HasConstraintName("FK_tSupplier_tSubCategory");
             });
 
             modelBuilder.Entity<TTicketAndProduct>(entity =>

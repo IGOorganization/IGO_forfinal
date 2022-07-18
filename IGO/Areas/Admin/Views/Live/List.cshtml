@@ -1,0 +1,223 @@
+﻿@model IEnumerable<IGO.Models.TSupplier>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="row g-4">
+            <div class="col-sm-12 col-md-6 col-xl-3 ">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4">飯店列表</h6>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    飯店列表
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb_suppliers">
+                            @foreach (var item in Model)
+                            {
+                                <tr id="@item.FSupplierId" data-sid="@item.FCompanyName">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FCompanyName)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-xl-9">
+                <div class="bg-secondary rounded h-100 p-4 ">
+                    <h4 class="mb-4" id="hotel"style="float:left">房型一覽</h4>
+                    <div style="float:right">
+                        <button class="btn btn-info m-2" type="button" data-bs-toggle="modal" data-bs-target="#createproduct">新增</button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">封面照片</th>
+                                <th scope="col">房型</th>
+                                <th scope="col">人數</th>
+                                <th scope="col">價格</th>
+                                <th scope="col">數量</th>
+                                <th scope="col" class="col-md-4">介紹</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb_room">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*商品新增*@
+<div class="modal fade" id="createproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    商品新增作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-secondary rounded h-100 p-2">
+                                <h6 class="mb-4">基本資料</h6>
+                                <form asp-area="Admin" asp-controller="Live" asp-action="Create" name="createForm">
+                                    <div class="mb-2">
+                                        <label for="ProductName" class="form-label">商品名稱</label>
+                                        <input type="text" class="form-control" name="fProductName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">人數</label>
+                                        <select id="sel_city" class="form-select" name="tickettype">
+                                            <option value="15">兩人</option>
+                                            <option value="16">四人</option>
+                                            <option value="17">八人</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">價格</label>
+                                        <input type="text" class="form-control" name="price">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">數量</label>
+                                        <input type="number" class="form-control" name="Quentity" />
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">介紹</label>
+                                        <input type="text" class="form-control" name="fIntroduction">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btn_createRoom" data-bs-dismiss="modal">新增</button>
+                                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts{
+    <script>
+
+        //let tSuppliers = document.querySelector("#tb_suppliers");
+
+        $("#tb_suppliers").on("click", "tr", (event) => {
+            /* console.log(event.currentTarget.id)*/
+            let id = event.currentTarget.id;
+            let hotel = document.querySelector("#hotel");
+            hotel.textContent = $(event.currentTarget).attr("data-sid");
+
+            getroomtype(id)
+        })
+
+        //==========依照飯店取得房型============
+        async function getroomtype(id) {
+            //console.log(id);
+            let jroomtypes = await fetch('@Url.Content("~/Admin/Live/getRoomTypeBySupplier")' + `?supplierid=${id}`)
+
+            let roomtypes = await jroomtypes.json();
+            console.log(roomtypes);
+            createroomtable(roomtypes);
+        }
+
+        //============產生房型列表==============
+        async function createroomtable(e) {
+            let tbRoom = document.querySelector("#tb_room");
+            tbRoom.textContent = "";
+            let frag = document.createDocumentFragment();
+            e.forEach(room => {
+                let tr = document.createElement("tr");
+                let tdp = document.createElement("td");
+                let img = document.createElement("img");
+                let td1 = document.createElement("td");
+                let td2 = document.createElement("td");
+                let td3 = document.createElement("td");
+                let td4 = document.createElement("td");
+                let td5 = document.createElement("td");
+                let td6 = document.createElement("td");
+
+                img.src = `/img/`;
+                img.style.width = "160px";
+                img.style.height = "90px";
+                tdp.appendChild(img);
+
+                td1.textContent = room.productName;
+                td2.textContent = room.roomtype;
+                td3.textContent = room.dataPrice;
+                td4.textContent = room.quantity;
+                td5.textContent = room.introduction;
+                td6.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${room.ticketAndProductId}>編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${room.ticketAndProductId}>刪除</button>`;
+                tr.appendChild(tdp);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+                tr.appendChild(td5);
+                tr.appendChild(td6);
+                frag.appendChild(tr);
+            })
+            tbRoom.appendChild(frag);
+        }
+
+
+        //============刪除商品=================
+        $("#tb_room").on("click", $("delete"), async function (event) {
+            console.log(event.target.getAttribute("data-did"));
+            if (event.target.hasAttribute("data-did")) {
+                alert("確定要刪除該商品?")
+                let @*jcoupons = await fetch('@Url.Content("~/Admin/Coupon/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
+
+                let coupons = await jcoupons.json();
+                refrechCoupon(coupons);*@
+             }
+        });
+
+
+        //============編輯商品=================
+        $("#tb_room").on("click", $("edit"), async function (event) {
+            //console.log(event.target.getAttribute("data-eid"));
+            if (event.target.hasAttribute("data-eid")) {
+                alert("edit");
+            }
+        });
+
+
+        //=========新增商品=============
+
+        let create = document.querySelector("#btn_createRoom");
+        create.addEventListener("click", async (event) => {
+            event.preventDefault();
+            alert("create");
+
+            //let createData = new FormData(document.createForm);
+
+            //let jproducts = await fetch("Create", {
+            //    body: createData,
+            //    method: "POST",
+            //})
+            //let products = await jproducts.json();
+            //createtable(products);
+        })
+
+
+
+    </script>
+}

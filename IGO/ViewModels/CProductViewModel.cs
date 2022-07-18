@@ -158,6 +158,14 @@ namespace IGO.ViewModels
                 _prod.FDiscountOrNot = value;
             }
         }
+        //public decimal? price
+        //{
+        //    get
+        //    {
+        //        IEnumerable<TTicketType> t = _dbIgo.TTicketTypes.Where(n => n.FSubCategoryId == FSubCategoryId);
+        //        return _dbIgo.TTicketAndProducts.Where(n => n.FTicketId == t.First().FTicketId && n.FProductId==FProductId).Select(n => n.FPrice).FirstOrDefault();
+        //    }
+        //}
         public string CityName
         {
             get

@@ -16,7 +16,9 @@ namespace IGO.Models
         public string FCompanyName { get; set; }
         public string FPhone { get; set; }
         public string FAddress { get; set; }
+        public int? FSubCategoryId { get; set; }
 
+        public virtual TSubCategory FSubCategory { get; set; }
         public virtual ICollection<TProduct> TProducts { get; set; }
     }
 }
