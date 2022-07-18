@@ -24,6 +24,7 @@ namespace IGO.Models
         public virtual DbSet<TCustomer> TCustomers { get; set; }
         public virtual DbSet<TDiscount> TDiscounts { get; set; }
         public virtual DbSet<TFeedbackManagement> TFeedbackManagements { get; set; }
+        public virtual DbSet<TMovie> TMovies { get; set; }
         public virtual DbSet<TOrder> TOrders { get; set; }
         public virtual DbSet<TOrderDetail> TOrderDetails { get; set; }
         public virtual DbSet<TPayment> TPayments { get; set; }
@@ -39,14 +40,14 @@ namespace IGO.Models
         public virtual DbSet<TTicketAndProduct> TTicketAndProducts { get; set; }
         public virtual DbSet<TTicketType> TTicketTypes { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -285,6 +286,27 @@ namespace IGO.Models
                     .HasConstraintName("FK_tFeedbackManagement_tProducts");
             });
 
+            modelBuilder.Entity<TMovie>(entity =>
+            {
+                entity.HasKey(e => e.MovieId);
+
+                entity.ToTable("tMovie");
+
+                entity.Property(e => e.MovieId).HasColumnName("MovieID");
+
+                entity.Property(e => e.Cname)
+                    .HasMaxLength(50)
+                    .HasColumnName("CName");
+
+                entity.Property(e => e.Description).HasMaxLength(200);
+
+                entity.Property(e => e.Ename)
+                    .HasMaxLength(50)
+                    .HasColumnName("EName");
+
+                entity.Property(e => e.Type).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<TOrder>(entity =>
             {
                 entity.HasKey(e => e.FOrderId)
@@ -476,6 +498,8 @@ namespace IGO.Models
 
                 entity.Property(e => e.FProductPhotoId).HasColumnName("fProductPhotoID");
 
+                entity.Property(e => e.FMovieId).HasColumnName("fMovieID");
+
                 entity.Property(e => e.FPhotoPath)
                     .HasMaxLength(50)
                     .HasColumnName("fPhotoPath");
@@ -532,6 +556,8 @@ namespace IGO.Models
                 entity.ToTable("tShipper");
 
                 entity.Property(e => e.FShipperId).HasColumnName("fShipperID");
+
+                entity.Property(e => e.FCategoryId).HasColumnName("fCategoryID");
 
                 entity.Property(e => e.FPhone)
                     .HasMaxLength(20)

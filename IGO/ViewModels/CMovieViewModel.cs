@@ -9,22 +9,49 @@ namespace IGO.ViewModels
 {
     public class CMovieViewModel
     {
-        private TProductsPhoto productsPhoto;
+        private TMovie _mov;
+
         public CMovieViewModel()
         {
-            productsPhoto =  new TProductsPhoto();
+            _mov = new TMovie();
         }
 
-        public TProductsPhoto theproductsPhoto
+        public TMovie Movie
         {
-            get { return productsPhoto; }
-            set { productsPhoto = value; }
+            get { return _mov; }
+            set { _mov = value; }
         }
-        public string FImagePath
+
+        public int MovieId 
         {
-            get { return productsPhoto.FPhotoPath; }
-            set { productsPhoto.FPhotoPath = value; } 
-       }
-        public IFormFile photo { get; set; }
+            get { return _mov.MovieId; }
+            set { _mov.MovieId = value; } 
+        }
+        public string Cname
+        {
+            get { return _mov.Cname; }
+            set { _mov.Cname = value; }
+        }
+        public string Description
+        {
+            get { return _mov.Description; }
+            set { _mov.Description = value; }
+        }
+        public string Ename
+        {
+            get { return _mov.Ename; }
+            set { _mov.Ename = value; }
+        }
+        public string Type
+        {
+            get { return _mov.Type; }
+            set { _mov.Type = value; }
+        }
+        public int? Time
+        {
+            get { return _mov.Time; }
+            set { _mov.Time = value; }
+        }
+
     }
 }
