@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using IGO.Hubs;
 namespace IGO
 {
     public class Startup
@@ -38,11 +38,12 @@ namespace IGO
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-
+           
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddSession();  //加入session服務
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +62,7 @@ namespace IGO
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+          
             app.UseSession();  //啟用session服務
 
             app.UseRouting();
@@ -76,8 +77,9 @@ namespace IGO
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Home}/{id?}");
+                    pattern: "{controller=Hubs}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

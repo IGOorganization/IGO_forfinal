@@ -17,6 +17,7 @@ namespace IGO.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private DemoIgoContext _IgoContext;
+       
 
         public HomeController(ILogger<HomeController> logger, DemoIgoContext db)
         {
@@ -83,7 +84,7 @@ namespace IGO.Controllers
                 if (cust.FPassword.Equals(vModel.txtPassword))
                 {
                     HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
-
+                
                     return RedirectToAction("Home", "Home");
                 }
             }
