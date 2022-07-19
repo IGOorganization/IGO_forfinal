@@ -366,7 +366,7 @@
                  let jproducts = await fetch('@Url.Content("~/Admin/Product/searchProductById")' + `?id=${event.target.getAttribute("data-eid")}`)
 
                  let products = await jproducts.json();
-                 console.log(products);
+                 //console.log(products);
                  $("#editId").val(products.fProductId);
                  $("#editName").val(products.fProductName);
                  console.log($("#edit_city").children("option"));
@@ -381,7 +381,6 @@
                  $("#editStart").val(products.fStartTime);
                  $("#editEnd").val(products.fEndTime);
                  $("#editIntroduction").val(products.fIntroduction);
-                 //createtable(products);
              }
         });
 

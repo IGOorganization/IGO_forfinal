@@ -646,6 +646,8 @@ namespace IGO.Models
                     .HasMaxLength(50)
                     .HasColumnName("fAddress");
 
+                entity.Property(e => e.FCityId).HasColumnName("fCityID");
+
                 entity.Property(e => e.FCompanyName)
                     .HasMaxLength(30)
                     .HasColumnName("fCompanyName");
@@ -655,6 +657,11 @@ namespace IGO.Models
                     .HasColumnName("fPhone");
 
                 entity.Property(e => e.FSubCategoryId).HasColumnName("fSubCategoryID");
+
+                entity.HasOne(d => d.FCity)
+                    .WithMany(p => p.TSuppliers)
+                    .HasForeignKey(d => d.FCityId)
+                    .HasConstraintName("FK_tSupplier_tCity");
 
                 entity.HasOne(d => d.FSubCategory)
                     .WithMany(p => p.TSuppliers)
