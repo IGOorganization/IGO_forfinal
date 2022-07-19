@@ -28,8 +28,10 @@ namespace IGO.Controllers
             {
                 CMovieViewModel cm = new CMovieViewModel();
                 cm.Movie = t;
+                var q = _dbIgo.TProductsPhotos.Where(p => p.FMovieId == t.MovieId);
+                cm.PhotoPathList = q.Select(x => x.FPhotoPath).ToList();
                 List.Add(cm);
-               // ---------------------------------------------------------------------
+                // ---------------------------------------------------------------------
                 //List.Add(new CMovieViewModel { Movie = t });
             }
 
@@ -41,9 +43,23 @@ namespace IGO.Controllers
             return View(List);
         }
 
-        public IActionResult Detail()
+        public IActionResult Detail(int ID)
         {
-            return View();
+            var movie = _dbIgo.TMovies.Where(t => t.MovieId == ID).FirstOrDefault();
+            var supplier = _dbIgo.TSuppliers.Where(t => t.FCompanyName.Contains("影城")).ToList();
+            var showing = _dbIgo.TShowings.ToList();
+            var seat = _dbIgo.TMovieSeats.ToList();
+            var ticketType = _dbIgo.TMovieTicketTypes.ToList();
+
+            List<CMovieSeatViewModel> List = new List<CMovieSeatViewModel>();
+            foreach (TMovieSeat data in seat)
+            {
+                CMovieSeatViewModel cm = new CMovieSeatViewModel();
+                cm.seat = data;
+                List.Add(cm);
+            }
+
+            return View(new Tuple<TMovie, List<TSupplier>,List<TShowing>,List<CMovieSeatViewModel>,List<TMovieTicketType>>(movie, supplier,showing,List, ticketType));
         }
     }
 }

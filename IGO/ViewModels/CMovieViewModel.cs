@@ -27,6 +27,10 @@ namespace IGO.ViewModels
             get { return _mov.MovieId; }
             set { _mov.MovieId = value; } 
         }
+        public List<string> PhotoPathList
+        {
+            get; set;
+        }
         public string Cname
         {
             get { return _mov.Cname; }
@@ -52,6 +56,7 @@ namespace IGO.ViewModels
             get { return _mov.Time; }
             set { _mov.Time = value; }
         }
+
 
     }
 }

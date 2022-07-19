@@ -25,6 +25,8 @@ namespace IGO.Models
         public virtual DbSet<TDiscount> TDiscounts { get; set; }
         public virtual DbSet<TFeedbackManagement> TFeedbackManagements { get; set; }
         public virtual DbSet<TMovie> TMovies { get; set; }
+        public virtual DbSet<TMovieSeat> TMovieSeats { get; set; }
+        public virtual DbSet<TMovieTicketType> TMovieTicketTypes { get; set; }
         public virtual DbSet<TOrder> TOrders { get; set; }
         public virtual DbSet<TOrderDetail> TOrderDetails { get; set; }
         public virtual DbSet<TPayment> TPayments { get; set; }
@@ -34,6 +36,7 @@ namespace IGO.Models
         public virtual DbSet<TSeat> TSeats { get; set; }
         public virtual DbSet<TShipper> TShippers { get; set; }
         public virtual DbSet<TShoppingCart> TShoppingCarts { get; set; }
+        public virtual DbSet<TShowing> TShowings { get; set; }
         public virtual DbSet<TStatus> TStatuses { get; set; }
         public virtual DbSet<TSubCategory> TSubCategories { get; set; }
         public virtual DbSet<TSupplier> TSuppliers { get; set; }
@@ -305,6 +308,37 @@ namespace IGO.Models
                     .HasColumnName("EName");
 
                 entity.Property(e => e.Type).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TMovieSeat>(entity =>
+            {
+                entity.HasKey(e => e.FSeatId);
+
+                entity.ToTable("tMovieSeat");
+
+                entity.Property(e => e.FSeatId).HasColumnName("fSeatID");
+
+                entity.Property(e => e.FSeatColumn).HasColumnName("fSeatColumn");
+
+                entity.Property(e => e.FSeatRow)
+                    .IsRequired()
+                    .HasMaxLength(1)
+                    .HasColumnName("fSeatRow");
+            });
+
+            modelBuilder.Entity<TMovieTicketType>(entity =>
+            {
+                entity.HasKey(e => e.FTicketTypeId);
+
+                entity.ToTable("tMovieTicketType");
+
+                entity.Property(e => e.FTicketTypeId).HasColumnName("fTicketTypeID");
+
+                entity.Property(e => e.FPrice).HasColumnName("fPrice");
+
+                entity.Property(e => e.FTicketName)
+                    .HasMaxLength(50)
+                    .HasColumnName("fTicketName");
             });
 
             modelBuilder.Entity<TOrder>(entity =>
@@ -618,6 +652,19 @@ namespace IGO.Models
                     .HasForeignKey(d => d.FProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tShoppingCart_tProducts");
+            });
+
+            modelBuilder.Entity<TShowing>(entity =>
+            {
+                entity.HasKey(e => e.FShowingId);
+
+                entity.ToTable("tShowing");
+
+                entity.Property(e => e.FShowingId).HasColumnName("fShowingID");
+
+                entity.Property(e => e.FShowingName)
+                    .HasMaxLength(50)
+                    .HasColumnName("fShowingName");
             });
 
             modelBuilder.Entity<TStatus>(entity =>
