@@ -52,6 +52,11 @@ namespace IGO.Controllers
             var ticketType = _dbIgo.TMovieTicketTypes.ToList();
 
             List<CMovieSeatViewModel> List = new List<CMovieSeatViewModel>();
+
+            CMovieViewModel cMovie = new CMovieViewModel();
+            cMovie.Movie = movie;
+            cMovie.PhotoPathList = _dbIgo.TProductsPhotos.Where(t => t.FMovieId == ID).Select(t => t.FPhotoPath).Skip(1).ToList();
+
             foreach (TMovieSeat data in seat)
             {
                 CMovieSeatViewModel cm = new CMovieSeatViewModel();
@@ -59,7 +64,7 @@ namespace IGO.Controllers
                 List.Add(cm);
             }
 
-            return View(new Tuple<TMovie, List<TSupplier>,List<TShowing>,List<CMovieSeatViewModel>,List<TMovieTicketType>>(movie, supplier,showing,List, ticketType));
+            return View(new Tuple<CMovieViewModel, List<TSupplier>, List<TShowing>, List<CMovieSeatViewModel>, List<TMovieTicketType>>(cMovie, supplier, showing, List, ticketType));
         }
     }
 }

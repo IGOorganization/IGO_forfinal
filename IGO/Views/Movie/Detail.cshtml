@@ -1,1 +1,319 @@
-﻿
+﻿@using IGO.ViewModels
+@model Tuple<CMovieViewModel, List<TSupplier>, List<TShowing>, List<CMovieSeatViewModel>, List<TMovieTicketType>>
+
+@section Styles{
+    <style>
+        .photo-fit {
+            width: 100%;
+            height: 360px;
+            /*object-fit: cover;*/
+        }
+    </style>
+}
+
+<div class="row" style="padding-top:1rem">
+
+    <div class="col-md-6 col-sm-12">
+        <h3 class="fw-bold">@Model.Item1.Cname</h3>
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                @for (int i = 0; i < Model.Item1.PhotoPathList.Count; i++)
+                {
+                    <button type="button" class="@(i == 0 ? "active" : "")" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
+                }
+            </div>
+            <div class="carousel-inner bg-secondary">
+                @{
+                    int index = 0;
+                    foreach (string path in Model.Item1.PhotoPathList)
+                    {
+                        <div class="carousel-item text-center @(index == 0 ? "active" : "") ">
+                            <img class="photo-fit" src="@path" />
+                        </div>
+                        index++;
+                    }
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">上一張</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">下一張</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12 my-3">
+                            <label class="control-label">影城</label>
+                            <select class="form-control" tabindex="1" id="supplier">
+                                @foreach (var a in Model.Item2)
+                                {
+                                    <option value="@a.FSupplierId">@a.FCompanyName</option>
+                                }
+                            </select>
+                        </div>
+                        @*日期========================================*@
+                        <div class="col-md-6 my-3">
+                            <label class="control-label">日期</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> <span class="input-group-addon"><i class="icon-calender"></i></span>
+                            </div>
+                        </div>
+                        @*場次========================================*@
+                        <div class="col-md-6 my-3">
+                            <label class="control-label">場次</label>
+                            @{
+                                int idx = 0;
+                                foreach (var a in Model.Item3)
+                                {
+                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="ticket" value="@a.FShowingId">
+                                    <label class="btn btn-outline-primary" for="@("ticket" + idx)">@a.FShowingName</label>
+                                    idx++;
+                                }
+                            }
+                        </div>
+                        <div class="col-md-4 my-3">
+                            <label class="control-label">票種</label>
+                            @{
+                                idx = 0;
+                                foreach (var a in Model.Item5)
+                                {
+                                    <input type="radio" class="form-control btn-check" id="@("ticketType" + idx)" name="ticket" value="@a.FTicketTypeId" data-hahaha="@a.FPrice">
+                                    <label class="btn btn-outline-primary" for="@("ticketType" + idx)">@a.FTicketName</label>
+                                    idx++;
+                                }
+                            }
+                        </div>
+                        <div class="col-md-4 my-3">
+                            <label class="control-label">張數</label>
+                            <select class="form-control" tabindex="1" id="count">
+                                @for (int i = 1; i <= 10; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4 my-3">
+                            <label class="control-label">價錢</label>
+                            <input type="text" id="money" readonly>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="m-3">
+                        <span class="fw-bold">票種</span>
+                        <input type="radio" class="btn-check" id="ticket1" name="ticket" value="1" data-price="350">
+                        <label class="btn btn-outline-primary" for="ticket1">全票</label>
+                        <input type="radio" class="btn-check" id="ticket2" name="ticket" value="2" data-price="300">
+                        <label class="btn btn-outline-primary" for="ticket2">優待票</label>
+                        <input type="radio" class="btn-check" id="ticket3" name="ticket" value="3" data-price="270">
+                        <label class="btn btn-outline-primary" for="ticket3">預售票</label>
+                    </div>
+                    <div class="m-3">
+                        <span class="fw-bold">日期</span>
+                        <input type="date" class="form-control" />
+                    </div>
+                    <div class="m-3">
+                        <span class="fw-bold">數量</span>
+                        <input type="number" class="form-control" id="input-quantity" />
+                    </div>
+                    <div class="m-3">
+                        <span class="fw-bold">價格</span>
+                        <span id="lbl-price">TWD - 元</span>
+                    </div>
+                    <div class="m-3">
+                        <button type="button" class="btn btn-primary" id="btn-add-cart">
+                            <i class="bi bi-cart-plus"></i>
+                            加入購物車
+                        </button>
+
+                        <button type="button" class="btn btn-outline-secondary" id="btn-collection">
+                            <i class="bi bi-heart"></i>
+                            加入收藏
+                        </button>
+
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr />
+<div class="row">
+    <div class="col-2 bg-light">
+        <nav id="side-nav" class="navbar navbar-light flex-column align-items-stretch p-3 fixedElement">
+            <nav class="nav nav-pills flex-column">
+                <a class="nav-link" href="#description">活動描述</a>
+                <a class="nav-link" href="#address">活動地址</a>
+                <a class="nav-link" href="#cancel-policy">取消政策</a>
+                <a class="nav-link" href="#reviews">客戶評論</a>
+            </nav>
+        </nav>
+    </div>
+    <div class="col-10">
+        <div>
+            <div id="description">
+                <h3 class="fw-bold text-primary">
+                    <u>活動描述</u>
+                </h3>
+                <div class="textEditor">
+
+                    <strong>橫跨80年、138 幀得獎作品就在普立茲新聞攝影獎80週年展，今年暑假將於華山1914文化創意產業園區正式開展</strong>
+                    <br>
+                    <strong>「靜止的瞬間是很特別的，那一個瞬間，觸動了無數人心。」―卡洛·古茲(𝑪𝒂𝒓𝒐𝒍 𝑮𝒖𝒛𝒚)，1986、1995、2000、2011 年普立茲新聞攝影獎得獎得主</strong><br>
+                    <br>
+                    <strong>本次特別設立「疫情下的世界」專區，讓同受困境中的臺灣人可以透過紀實照片看到各國人們的疫情生活，也學習與之共處</strong><br>
+                    <strong>2022 SHOOTING-普立茲新聞攝影獎80週年展將於6月23日至9月25日在台北華山登場，本次將展出138幀普立茲新聞攝影獎得獎作品，其中2022年最新攝影獎得獎作品也將搶先全球、首次曝光。</strong><br />
+                    <strong>被譽為「新聞界的奧斯卡」的普立茲新聞獎（The Pulitzer Prize），日前也公布了最新得獎名單，而當中，帶領人們從一張張照片中，</strong><br>
+                    <strong>窺見每個時代重要議題的普立茲新聞攝影獎（Pulitzer Prize for Photography），2022得獎作品包含：記錄下2021年印度在Covid-19疫情虐下的日常（特寫新聞攝影獎）、</strong><br>
+                    <strong>2021年美國選舉國會大廈抗議衝突與2021年5月發生的阿富汗塔利班奪取政權事件（突發新聞攝影獎），而這些獲獎攝影作品也將在本次的普立茲新聞攝影獎80週年展上展出</strong><br>
+
+                </div>
+            </div>
+
+
+            <div id="address" class="pt-5">
+                <hr />
+                <h3 class="fw-bold text-primary"><u>活動地址</u></h3>
+                <div class="row">
+                    <p style="font-size: 1.3em">台北市中正區八德路一段1號</p>
+                </div>
+                <div class="row">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.705260463208!2d121.52716961400287!3d25.04407464404373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96523e0246d%3A0xf1c9276707165c71!2z6I-v5bGxMTkxNOaWh-WMluWJteaEj-eUoualreWckuWNgA!5e0!3m2!1szh-TW!2stw!4v1657453804944!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+            </div>
+
+            <div id="cancel-policy" class="pt-5">
+                <hr />
+                <h3 class="fw-bold text-primary"><u>取消政策</u></h3>
+                <div>
+
+                    所選日期 1 天（含）之前取消，收取手續費 0%<br>
+                    所選日期 0 ~ 0 天之間取消，收取手續費 100%<br>
+                    <br>
+                    注意：由於站內商品來自全球各地，訂單取消時間將依該供應商所在時區判定。<br>
+                    供應商需 2-5 個工作天進行取消流程，依照您購買的商品取消政策收取手續費，並於取消流程完成後14 個工作天內退款。<br>
+                    <br>
+                </div>
+            </div>
+
+            <div id="reviews" class="pt-5">
+                <h3 class="fw-bold text-primary"><u>客戶評論</u></h3>
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center px-4">
+                            <div class="user-image">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                            </div>
+                            <div class="user-content">
+                                <h5 class="mb-0 fw-bold">howhow</h5>
+                                <h6>2022-07-10</h6>
+                                <p>
+                                    必推!值回票價
+                                </p>
+                            </div>
+                            <div class="ratings">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center px-4">
+                            <div class="user-image">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                            </div>
+                            <div class="user-content">
+                                <h5 class="mb-0 fw-bold">Jason</h5>
+                                <h6>2022-07-10</h6>
+                                <p>
+                                    必來看的一個展覽
+                                </p>
+                            </div>
+                            <div class="ratings">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-3 text-center px-4">
+                            <div class="user-image">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                            </div>
+                            <div class="user-content">
+                                <h5 class="mb-0 fw-bold">jack</h5>
+                                <h6>2022-07-10</h6>
+                                <p>
+                                    印入眼前的，難以形容的深刻
+                                </p>
+                            </div>
+                            <div class="ratings">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+@section Scripts
+{
+
+    <script>
+        $('.mydatepicker, #datepicker').datepicker();
+
+        function GetPrice() {
+            $('input[name="ticket"]:checked').data("hahaha")
+        }
+    </script>
+
+}
