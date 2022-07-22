@@ -1,5 +1,6 @@
 ﻿using IGO.Models;
 using IGO.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,12 @@ namespace IGO.Controllers
 
         public IActionResult Detail(int ID)
         {
+            int userid = 0;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            {
+                userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+            }
+
             var movie = _dbIgo.TMovies.Where(t => t.MovieId == ID).FirstOrDefault();
             var supplier = _dbIgo.TSuppliers.Where(t => t.FCompanyName.Contains("影城")).ToList();
             var showing = _dbIgo.TShowings.ToList();
@@ -55,6 +62,8 @@ namespace IGO.Controllers
 
             CMovieViewModel cMovie = new CMovieViewModel();
             cMovie.Movie = movie;
+            //cMovie.IsCollection = _dbIgo.TCollections.Where(t => t.FMovieId == ID && t.FCustomerId == userid).Count() > 0;
+            cMovie.IsCollection = _dbIgo.TCollections.Any(t => t.FMovieId == ID && t.FCustomerId == userid);
             cMovie.PhotoPathList = _dbIgo.TProductsPhotos.Where(t => t.FMovieId == ID).Select(t => t.FPhotoPath).Skip(1).ToList();
 
             foreach (TMovieSeat data in seat)
@@ -64,7 +73,51 @@ namespace IGO.Controllers
                 List.Add(cm);
             }
 
-            return View(new Tuple<CMovieViewModel, List<TSupplier>, List<TShowing>, List<CMovieSeatViewModel>, List<TMovieTicketType>>(cMovie, supplier, showing, List, ticketType));
+
+
+
+            return View(new Tuple<CMovieViewModel, List<TSupplier>, List<TShowing>, List<CMovieSeatViewModel>, List<TMovieTicketType>, int>(cMovie, supplier, showing, List, ticketType, userid));
+        }
+
+        public JsonResult CancelCollection(int customerID, int movieID)
+        {
+            //TCollection collection = _dbIgo.TCollections.Where(t => t.FMovieId == movieID && t.FCustomerId == customerID).FirstOrDefault();
+            TCollection collection = _dbIgo.TCollections.FirstOrDefault(t => t.FMovieId == movieID && t.FCustomerId == customerID);
+            _dbIgo.Remove(collection);
+            _dbIgo.SaveChanges();
+            return Json(true);
+        }
+
+        public JsonResult AddCollection(int customerID, int movieID)
+        {
+            TCollection collection = new TCollection
+            {
+                FCustomerId = customerID,
+                FMovieId = movieID,
+                FCollectionDate = DateTime.Now.ToString()
+            };
+
+            _dbIgo.Add(collection);
+            _dbIgo.SaveChanges();
+
+            return Json(true);
+        }
+
+        public JsonResult SearchChosenSeat(int movieID, string movieDate, int suppilerID, int showingID)
+        {
+            List<TShoppingCart> shoppingCarts = _dbIgo.TShoppingCarts.Where(t => t.FMovieId == movieID &&
+                                                                                                                                                          t.FBookingTime == movieDate &&
+                                                                                                                                                          t.FSuppilerId == suppilerID &&
+                                                                                                                                                          t.FShowingId == showingID).ToList();
+
+
+            List<int> seatIDs = shoppingCarts.Select(t => t.FMovieSeatId ?? 0).ToList();
+
+            List<TMovieSeat> seats = _dbIgo.TMovieSeats.Where(t => seatIDs.Contains(t.FSeatId)).ToList();
+
+            List<string> result = seats.Select(x => x.FSeatRow + x.FSeatColumn).ToList();
+
+            return Json(result);
         }
     }
 }

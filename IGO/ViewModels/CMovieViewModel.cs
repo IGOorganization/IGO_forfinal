@@ -57,6 +57,10 @@ namespace IGO.ViewModels
             set { _mov.Time = value; }
         }
 
+        public bool IsCollection
+        {
+            get;set;
+        }
 
     }
 }

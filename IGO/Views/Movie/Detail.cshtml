@@ -1,5 +1,5 @@
 ﻿@using IGO.ViewModels
-@model Tuple<CMovieViewModel, List<TSupplier>, List<TShowing>, List<CMovieSeatViewModel>, List<TMovieTicketType>>
+@model Tuple<CMovieViewModel, List<TSupplier>, List<TShowing>, List<CMovieSeatViewModel>, List<TMovieTicketType>, int>
 
 @section Styles{
     <style>
@@ -62,7 +62,7 @@
                         <div class="col-md-6 my-3">
                             <label class="control-label">日期</label>
                             <div class="input-group">
-                                <input type="text" class="form-control mydatepicker" placeholder="mm/dd/yyyy"> <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                <input type="text" class="form-control mydatepicker" placeholder="mm/dd/yyyy" id="movie-date"> <span class="input-group-addon"><i class="icon-calender"></i></span>
                             </div>
                         </div>
                         @*場次========================================*@
@@ -72,19 +72,20 @@
                                 int idx = 0;
                                 foreach (var a in Model.Item3)
                                 {
-                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="ticket" value="@a.FShowingId">
+                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="showing" value="@a.FShowingId">
                                     <label class="btn btn-outline-primary" for="@("ticket" + idx)">@a.FShowingName</label>
                                     idx++;
                                 }
                             }
                         </div>
+                        @*票種========================================*@
                         <div class="col-md-4 my-3">
                             <label class="control-label">票種</label>
                             @{
                                 idx = 0;
                                 foreach (var a in Model.Item5)
                                 {
-                                    <input type="radio" class="form-control btn-check" id="@("ticketType" + idx)" name="ticket" value="@a.FTicketTypeId" data-hahaha="@a.FPrice">
+                                    <input type="radio" class="form-control btn-check" id="@("ticketType" + idx)" name="ticket" value="@a.FTicketTypeId" data-price="@a.FPrice" onchange="GetPrice()">
                                     <label class="btn btn-outline-primary" for="@("ticketType" + idx)">@a.FTicketName</label>
                                     idx++;
                                 }
@@ -92,7 +93,7 @@
                         </div>
                         <div class="col-md-4 my-3">
                             <label class="control-label">張數</label>
-                            <select class="form-control" tabindex="1" id="count">
+                            <select class="form-control" tabindex="1" id="count" onchange="GetPrice()">
                                 @for (int i = 1; i <= 10; i++)
                                 {
                                     <option value="@i">@i</option>
@@ -103,8 +104,30 @@
                             <label class="control-label">價錢</label>
                             <input type="text" id="money" readonly>
                         </div>
+                        <div class="col-md-4 my-3">
+                            <button type="button" class="btn btn-success" id="btn-seat" data-bs-toggle="modal" data-bs-target="#seatModal">
+                                劃位
+                            </button>
+                        </div>
+                        <div class="col-md-4 my-3">
+                            @if (Model.Item1.IsCollection)
+                            {
+                                <button type="button" class="btn btn-success" id="btn-collection" onclick="CancelCollection()">
+                                    <i class="bi bi-bookmark-check"></i>
+                                    已收藏
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-secondary" id="btn-collection" onclick="AddCollection()">
+                                    <i class="bi bi-heart"></i>
+                                    加入收藏
+                                </button>
+                            }
+                        </div>
                     </div>
                 </div>
+
                 @*<div class="m-3">
                         <span class="fw-bold">票種</span>
                         <input type="radio" class="btn-check" id="ticket1" name="ticket" value="1" data-price="350">
@@ -148,8 +171,8 @@
     <div class="col-2 bg-light">
         <nav id="side-nav" class="navbar navbar-light flex-column align-items-stretch p-3 fixedElement">
             <nav class="nav nav-pills flex-column">
-                <a class="nav-link" href="#description">活動描述</a>
-                <a class="nav-link" href="#address">活動地址</a>
+                <a class="nav-link" href="#description">電影描述</a>
+                <a class="nav-link" href="#address">影城地址</a>
                 <a class="nav-link" href="#cancel-policy">取消政策</a>
                 <a class="nav-link" href="#reviews">客戶評論</a>
             </nav>
@@ -159,19 +182,12 @@
         <div>
             <div id="description">
                 <h3 class="fw-bold text-primary">
-                    <u>活動描述</u>
+                    <u>電影描述</u>
                 </h3>
                 <div class="textEditor">
 
-                    <strong>橫跨80年、138 幀得獎作品就在普立茲新聞攝影獎80週年展，今年暑假將於華山1914文化創意產業園區正式開展</strong>
-                    <br>
-                    <strong>「靜止的瞬間是很特別的，那一個瞬間，觸動了無數人心。」―卡洛·古茲(𝑪𝒂𝒓𝒐𝒍 𝑮𝒖𝒛𝒚)，1986、1995、2000、2011 年普立茲新聞攝影獎得獎得主</strong><br>
-                    <br>
-                    <strong>本次特別設立「疫情下的世界」專區，讓同受困境中的臺灣人可以透過紀實照片看到各國人們的疫情生活，也學習與之共處</strong><br>
-                    <strong>2022 SHOOTING-普立茲新聞攝影獎80週年展將於6月23日至9月25日在台北華山登場，本次將展出138幀普立茲新聞攝影獎得獎作品，其中2022年最新攝影獎得獎作品也將搶先全球、首次曝光。</strong><br />
-                    <strong>被譽為「新聞界的奧斯卡」的普立茲新聞獎（The Pulitzer Prize），日前也公布了最新得獎名單，而當中，帶領人們從一張張照片中，</strong><br>
-                    <strong>窺見每個時代重要議題的普立茲新聞攝影獎（Pulitzer Prize for Photography），2022得獎作品包含：記錄下2021年印度在Covid-19疫情虐下的日常（特寫新聞攝影獎）、</strong><br>
-                    <strong>2021年美國選舉國會大廈抗議衝突與2021年5月發生的阿富汗塔利班奪取政權事件（突發新聞攝影獎），而這些獲獎攝影作品也將在本次的普立茲新聞攝影獎80週年展上展出</strong><br>
+                    <strong>@Model.Item1.Description</strong>
+
 
                 </div>
             </div>
@@ -179,7 +195,7 @@
 
             <div id="address" class="pt-5">
                 <hr />
-                <h3 class="fw-bold text-primary"><u>活動地址</u></h3>
+                <h3 class="fw-bold text-primary"><u>影城地址</u></h3>
                 <div class="row">
                     <p style="font-size: 1.3em">台北市中正區八德路一段1號</p>
                 </div>
@@ -287,6 +303,8 @@
 </div>
 
 
+
+
 @*Bottom*@
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="row justify-content-center">
@@ -305,15 +323,119 @@
 </div>
 @*Bottom*@
 
+<!-- Modal -->
+<div class="modal fade" id="seatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    @*fade 淡入淡出*@
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @*內容會有 header body footer三塊*@
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">劃位</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                @{
+                    List<string> rowList = Model.Item4.Select(x => x.FSeatRow).Distinct().OrderBy(x => x).ToList();
+
+                    foreach (string row in rowList)
+                    {
+                        List<int> columnList = Model.Item4.Where(x => x.FSeatRow == row).Select(x => x.FSeatColumn).Distinct().OrderBy(x => x).ToList();
+
+                        foreach (int column in columnList)
+                        {
+                            <a>
+                                <span>@(row + column)</span>
+                                <img id="@("seat" + row + column)" src="/img/can-choose.png" />
+                            </a>
+                        }
+
+                        <br />
+                    }
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts
 {
 
     <script>
-        $('.mydatepicker, #datepicker').datepicker();
+        $('.mydatepicker').datepicker({
+            autoclose: true,
+        });
+
+        $("#seatModal").on('show.bs.modal', function () {
+            $.ajax({
+                url: '@Url.Content("~/Movie/SearchChosenSeat")',
+                method: 'POST',
+                data: {
+                    movieID:@Model.Item1.MovieId,
+                    movieDate: $('#movie-date').val(),
+                    suppilerID: $('#supplier').val(),
+                    showingID: $('input[name="showing"]:checked').val()
+                },
+                success: function (res) {
+                    //['A1','A2']
+                    res.forEach(function (item) {
+                        $("#seat" + item).attr("src","/img/cant-choose.png")
+                    });
+                },
+                error: function (err) { console.log(err) },
+            });
+        });
 
         function GetPrice() {
-            $('input[name="ticket"]:checked').data("hahaha")
+            let price = $('input[name="ticket"]:checked').data("price");
+            let ticket = +$('#count').val();
+            let total = price * ticket;
+            $('#money').val(total);
         }
+
+        function CancelCollection() {
+            $.ajax({
+                url: '@Url.Content("~/Movie/CancelCollection")',
+                method: 'POST',
+                data: {
+                    customerID:@Model.Item6,
+                    movieID:@Model.Item1.MovieId
+                },
+                success: function (res) {
+                    if (res) {
+                        location.reload();
+                    }
+                },
+                error: function (err) { console.log(err) },
+            });
+        }
+
+        function AddCollection() {
+            $.ajax({
+                url: '@Url.Content("~/Movie/AddCollection")',
+                method: 'POST',
+                data: {
+                    customerID:@Model.Item6,
+                    movieID:@Model.Item1.MovieId
+                },
+                success: function (res) {
+                    if (res) {
+                        location.reload();
+                    }
+                },
+                error: function (err) { console.log(err) },
+
+
+            });
+
+
+        }
+
     </script>
 
 }

@@ -101,6 +101,8 @@ namespace IGO.Models
 
                 entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
 
+                entity.Property(e => e.FMovieId).HasColumnName("fMovieID");
+
                 entity.Property(e => e.FProductId).HasColumnName("fProductID");
 
                 entity.HasOne(d => d.FCustomer)
@@ -619,13 +621,19 @@ namespace IGO.Models
 
                 entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
 
+                entity.Property(e => e.FMovieId).HasColumnName("fMovieID");
+
+                entity.Property(e => e.FMovieSeatId).HasColumnName("fMovieSeatID");
+
+                entity.Property(e => e.FMovieTicketTypeId).HasColumnName("fMovieTicketTypeID");
+
                 entity.Property(e => e.FProductId).HasColumnName("fProductID");
 
                 entity.Property(e => e.FQuantity).HasColumnName("fQuantity");
 
-                entity.Property(e => e.FSeats)
-                    .HasMaxLength(100)
-                    .HasColumnName("fSeats");
+                entity.Property(e => e.FShowingId).HasColumnName("fShowingID");
+
+                entity.Property(e => e.FSuppilerId).HasColumnName("fSuppilerID");
 
                 entity.Property(e => e.FTempOrder)
                     .HasMaxLength(10)
