@@ -93,9 +93,23 @@
                                     <div class="d-flex justify-content-between">
                                         @Html.ActionLink("細節", "Detail", "Coupon", new { id = coupon.FCouponId },
                                        new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                        @Html.ActionLink("訂購", "Order", "Coupon", null,
-                                       new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
+                                        @{
+                                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                                            {
+                                                Html.ActionLink("訂購", "Order", "Coupon", null,
+                                           new { Class = "btn btn-sm btn-dark rounded py-2 px-4" });
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-sm btn-dark rounded py-2 px-4" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                                    訂購
+                                                </button>
+                                            }
+
+                                        }
                                     </div>
+                                        
+                                        
                                 </div>
                             </div>
                         </div>
