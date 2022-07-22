@@ -1,0 +1,177 @@
+﻿@model IGO.Models.TCustomer
+
+@{
+    ViewData["Title"] = "UserData";
+}
+
+<div class="container-xxl bg-light p-0">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row ">
+                <div class="col-md-3">
+                    <div>
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <br>
+                            <h5 class="card-title text-primary text-center">IGO 帳號</h5>
+                            <hr />
+                            <div>
+                                <img class="card-img-top rounded-circle me-lg-2" src="/img/UID47.jpg" alt="UID47">
+                            </div>
+                            <hr />
+                            <div class="card-body">
+                                <h4 asp-for="FFirstName" class="control-label"></h4>
+                            </div>
+                        </div>
+
+                        <!--============================================這邊加入超連結======================================================================================-->
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("會員資料管理", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("修改密碼", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                </li>
+                            </ul>
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <form asp-action="UserData">
+                        <div class="border">
+                            <div class="card-header bg-dark">
+                                <h1 class="text-primary">帳號設定</h1>
+                            </div>
+                            <div class="border-top-0">
+                                <div class="bg-white shadow" style="padding: 35px;">
+                                    <div class="tab-content">
+                                        <div class="container px-4">
+                                            <div class="row gx-5">
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FLastName" class="control-label "></label>
+                                                        <input asp-for="FLastName" class="form-control" />
+                                                        <span asp-validation-for="FLastName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FFirstName" class="control-label"></label>
+                                                        <input asp-for="FFirstName" class="form-control" />
+                                                        <span asp-validation-for="FFirstName" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FGender" class="control-label"></label>
+                                                        <input asp-for="FGender" class="form-control" />
+                                                        <span asp-validation-for="FGender" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container px-4">
+                                            <div class="row gx-5">
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FCityId" class="control-label"></label>
+                                                        <input asp-for="FCityId" class="form-control" />
+                                                        <span asp-validation-for="FCityId" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FBirth" class="control-label"></label>
+                                                        <input asp-for="FBirth" class="form-control" />
+                                                        <span asp-validation-for="FBirth" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FPhone" class="control-label"></label>
+                                                        <input asp-for="FPhone" class="form-control" />
+                                                        <span asp-validation-for="FPhone" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container px-4">
+                                            <div class="row gx-5">
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FAddress" class="control-label"></label>
+                                                        <input asp-for="FAddress" class="form-control" />
+                                                        <span asp-validation-for="FAddress" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="container px-4">
+                                            <div class="row gx-5">
+                                                <div class="col">
+                                                    <div class="p-3 border bg-primary">
+                                                        <label asp-for="FEmail" class="control-label"></label>
+                                                        <input asp-for="FEmail" class="form-control" />
+                                                        <span asp-validation-for="FEmail" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <input type="submit" value="儲存並修改" class="btn btn-primary " />
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </form> 
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+
+

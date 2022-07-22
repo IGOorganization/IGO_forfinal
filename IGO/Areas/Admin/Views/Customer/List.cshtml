@@ -1,0 +1,84 @@
+﻿@model IEnumerable<IGO.Models.TCustomer>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FCustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FLastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FFirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FSignUpDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FCustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FSignUpDate)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

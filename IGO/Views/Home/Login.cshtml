@@ -3,9 +3,6 @@
     ViewData["Title"] = "Login";
 }
 
-
-
-
 <body style="background-color:black;">
     <div class="container-xxl bg-dark p-0">
         <!-- Sign In Start -->
@@ -15,7 +12,7 @@
             <div class="card text-center bg-dark">
                 <br />
                 <div class="card-header bg-dark">
-                    <h5 class="text-primary"><i class="fa fa-user-edit me-2"></i>IGO帳號</h5>
+                    <h5 class="text-primary"><i class="fa fa-user-edit me-2"></i>登入IGO帳號</h5>
                     <hr />
                 </div>
                 <div class="card-body">
@@ -67,6 +64,125 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="createproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg bg-secondary rounded h-100 p-0">
+            <div class="modal-content bg-secondary rounded h-100 p-0">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        產品新增作業
+                    </h5>
+                </div>
+                <div class="modal-body ">
+                    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <div class="col-sm-12 col-xl-6">
+                                <div class="bg-secondary rounded h-100 p-4">
+                                    <h6 class="mb-4">商品新增作業</h6>
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">組合名稱</label>
+                                            <input type="text" class="form-control" id="couponName"
+                                                   aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="mb-3" id="dropzone">
+                                            <label for="text" class="form-label">組合內容</label>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">折數</label>
+                                            <input type="number" class="form-control" id="discount">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">販售期限</label>
+                                            <input type="date" class="form-control" id="deadtime">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">新增</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xl-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>商品列表</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="1">
+                                                    <input type="hidden" value="1" />
+                                                    <label>世界宗教博物館門票</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="2">
+                                                    <input type="hidden" value="2" />
+                                                    <label>遠雄海洋公園門票</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="3">
+                                                    <input type="hidden" value="1" />
+                                                    <label>野柳海洋世界</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="4">
+                                                    <input type="hidden" value="1" />
+                                                    <label>六福村票券</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="5">
+                                                    <input type="hidden" value="1" />
+                                                    <label>麗寶票券</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="6">
+                                                    <input type="hidden" value="1" />
+                                                    <label>劍湖山票券</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="7">
+                                                    <input type="hidden" value="1" />
+                                                    <label>台北喜來登大飯店｜十二廚</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div name="dragitem" draggable="true" id="8">
+                                                    <input type="hidden" value="1" />
+                                                    <label>台北君悅酒店｜凱菲屋</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

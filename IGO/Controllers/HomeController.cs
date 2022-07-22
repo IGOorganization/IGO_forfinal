@@ -89,6 +89,10 @@ namespace IGO.Controllers
             }
             return View();
         }
+
+
+
+
         public IActionResult checkUser()
         {
             int userid = 0;
@@ -97,6 +101,7 @@ namespace IGO.Controllers
                 userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
                 return Json(userid);
             }
+            
             return Json("尚未登入");
         }
     }
