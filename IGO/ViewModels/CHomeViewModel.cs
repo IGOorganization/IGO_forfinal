@@ -49,11 +49,22 @@ namespace IGO.ViewModels
             get { return _sb.FSubCategoryName; }
             set { _sb.FSubCategoryName = value; }
         }
+        public string SubCategoryPath
+        {
+            get { return _sb.FSubCategoryPath; }
+            set { _sb.FSubCategoryPath = value; }
+        }
         public List<string> SubCategoryNameList
         {
             get;
             set;
         }
+        public List<SubcatergoryClass> SubCategoryList
+        {
+            get;
+            set;
+        }
+
         //TCategory
         public TCategory tCategory
         {

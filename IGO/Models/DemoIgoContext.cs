@@ -631,6 +631,10 @@ namespace IGO.Models
                     .HasMaxLength(20)
                     .HasColumnName("fSubCategoryName");
 
+                entity.Property(e => e.FSubCategoryPath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fSubCategoryPath");
+
                 entity.HasOne(d => d.FCategory)
                     .WithMany(p => p.TSubCategories)
                     .HasForeignKey(d => d.FCategoryId)

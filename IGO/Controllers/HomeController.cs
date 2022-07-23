@@ -170,7 +170,7 @@ namespace IGO.Controllers
                 {
                     CategoryName = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == i).FCategoryName,
                     CategoryId = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == i).FCategoryId
-
+                   
                 };
                 v.Add(vModel);
             }
@@ -178,17 +178,22 @@ namespace IGO.Controllers
         }
         public IActionResult layoutSubCategory(int idd)
         {
-            var q = (from c in _IgoContext.TSubCategories
-                     select c.FSubCategoryId).ToList();
+            var q = _IgoContext.TSubCategories.Where(m => m.FCategoryId == idd).ToList();
 
             CHomeViewModel vModel = null;
-
+            //List<SubcatergoryClass> SubCategoryList = new List<SubcatergoryClass>();
+            List<CHomeViewModel> v = new List<CHomeViewModel>();
+            foreach (var r in q) 
+            { 
             vModel = new CHomeViewModel()
             {
-                SubCategoryNameList = _IgoContext.TSubCategories.Where(m => m.FCategoryId == idd).Select(m => m.FSubCategoryName).ToList()
-            };
 
-            return Json(vModel);
+                SubCategoryName = _IgoContext.TSubCategories.FirstOrDefault(m=>m.FSubCategoryId==r.FSubCategoryId).FSubCategoryName,
+                SubCategoryPath = _IgoContext.TSubCategories.FirstOrDefault(m => m.FSubCategoryId == r.FSubCategoryId).FSubCategoryPath
+            };
+                v.Add(vModel);
+            }
+            return Json(v);
         }
 
         //鈞傑
