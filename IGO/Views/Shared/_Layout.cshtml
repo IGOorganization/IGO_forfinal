@@ -96,16 +96,12 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                     @*宜潔新增*@
                     <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-eye"></i>
-                            <span style="font-size:120%">瀏覽紀錄</span><span id="ShowViewRecord" style="color: #DEDEBE; font-size: 120%"></span>
+                            <span style="font-size:120%">瀏覽紀錄</span><span id="ShowRecord" style="color: #DEDEBE; font-size: 120%">0</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none">
                             <a href="/Products/Food" class="dropdown-item">
@@ -185,12 +181,9 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>02-66316588</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
                     <div class="d-flex pt-5">
-                        @*href="https://www.instagram.com/p/Cf8KY-cpDee/?utm_source=ig_web_copy_link"
-
                                     <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://www.instagram.com/igo_taiwan/" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
                                     <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
                                     <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
-
                                 </div>
                             </div>
                             <div class="col-lg-5 col-md-12 justify-content-xxl-center">
@@ -203,14 +196,6 @@
                                         <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
                                         <a href="/Admin/Home/Order" class="btn btn-link">管理後台</a>
                                     </div>
-                                    @*<div class="col-md-6">
-                                            <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
-                                            <a class="btn btn-link" href="">Food & Restaurant</a>
-                                            <a class="btn btn-link" href="">Spa & Fitness</a>
-                                            <a class="btn btn-link" href="">Sports & Gaming</a>
-                                            <a class="btn btn-link" href="">Event & Party</a>
-                                            <a class="btn btn-link" href="">GYM & Yoga</a>
-                                        </div>*@
                     </div>
                 </div>
             </div>
@@ -268,14 +253,14 @@
             {
                 let CategoryName = Datas[i].categoryName;
                 let CategoryId = Datas[i].categoryId;
-                
+
                 CategoryIDArray[i] = CategoryId;
                 //console.log(CategoryIDArray[i]);
                 //console.log(CategoryName);
                 //console.log(CategoryId);
 
                /* $(DivCategory).append(`<a class="btn-card" CategoryID=${CategoryId} style="margin-right:25px; color:white" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">${CategoryName}</a>`);*/
-                $(DivCategory).append(`<button class="btn btn-card" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" CategoryID=${CategoryId}>${CategoryName}</button>`);
+                $(DivCategory).append(`<button class="btn btn-card" type="button" style="color:white" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" CategoryID=${CategoryId}>${CategoryName}</button>`);
             }
 
             $(".btn-card").click(function () {
@@ -297,65 +282,37 @@
         };
 
         //顯示瀏覽過的次數(之後用id/session)
-        window.addEventListener("load", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
-        let eleDropdown = document.querySelector(".viewRecordDropdown");
+        window.addEventListener("DOMContentLoaded", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
         async function ViewRecord()
         {
-            if (window.location.href.indexOf("Products") > -1)
+            if (window.location.href.indexOf("City") > -1)
             /*if (window.location.href.indexOf("Products") > -1)*/ //連結中是否包含City 之後改為Product
             {
                 //顯示瀏覽過的次數
-                const response = await fetch('@Url.Content("~/HomeApi/showViewProductCountBySession")');
+                let response = await fetch('@Url.Content("~/HomeApi/showViewProductCountBySession")');
                 //console.log(response);
-                const datas = await response.text();
-                //console.log(datas);
+                let views = await response.text();
+                console.log(views);
 
-                $("#ShowViewRecord").text(`(${datas})`);
-
-                //顯示瀏覽過的內容
-                const response2 = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
-                //console.log(response2);
-                //const datas2 = await response2.json();
-                const datas2 = await response2.text();
-                //console.log(datas2);
-
-                /*$("#ShowViewRecord").text(`(${datas2})`);*/
-
-                //let eleA = document.createElement("a");
-                //let eleSmall = document.createElement("small");
-                //let txtSmall = document.createTextNode("普立");
-                //eleSmall.appendChild(txtSmall);
-                //eleA.appendChild(eleSmall);
-
-                /*eleDropdown.appendChild(eleA);*/
+                document.querySelector("#ShowRecord").innerHTML = views;
+                //$("#ShowRecord").text(views);
+            
             }
 
             else
             {
                 //顯示瀏覽過的次數
-                const response = await fetch('@Url.Content("~/HomeApi/showViewNoProductCountBySession")');
+                let response = await fetch('@Url.Content("~/HomeApi/showViewNoProductCountBySession")');
                 //console.log(response);
-                const datas = await response.text();
-                //console.log(datas);
-
-                $("#ShowViewRecord").text({datas});
-
-                  //顯示瀏覽過的內容
-                const response2 = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
-                //console.log(response2);
-                //const datas2 = await response2.json();
-                const datas2 = await response2.text();
-                //console.log(datas2);
-
-                /*$("#ShowViewRecord").text(`(${datas2})`);*/
-
-                let eleHr = document.createElement("hr");
-                eleDropdown.appendChild(eleHr);
+                let views = await response.text();
+                console.log(views);
+                document.querySelector("#ShowRecord").innerHTML = views;
+                //$("#ShowRecord").text({ views});          
             }
         }
 
         //顯示瀏覽過的內容
-        window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
+        @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
         async function ViewRecordContent()
         {
             if (window.location.href.indexOf("City") > -1) //連結中是否包含City 之後改為Product
@@ -363,14 +320,14 @@
                 //顯示瀏覽過的內容
                 const response = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
                 //console.log(response);
-                /*const datas = await response.json();*/
+                //const datas = await response.json();
                 const datas = await response.text();
                 //console.log(datas);
 
-                /*$("#ShowViewRecord").text(`(${datas})`);*/
+                $("#ShowViewRecord").text(`(${datas})`);
 
             };
-        }
+        }*@
     </script>
 
 

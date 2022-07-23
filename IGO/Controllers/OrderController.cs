@@ -41,7 +41,7 @@ namespace IGO.Controllers
             //        where o.FCustomerId == 47 && o.FStatusId==1 || o.FStatusId == 3
             //         select o).ToList();
             var q = (from o in _IgoContext.TOrders
-                     where o.FCustomerId == 47
+                     where o.FCustomerId == userid
                      select o).ToList();
             foreach (var r in q)
             {

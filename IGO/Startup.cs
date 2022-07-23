@@ -76,7 +76,7 @@ namespace IGO
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Home}/{id?}");
+                    pattern: "{controller=HomeApi}/{action=showViewNoProductCountBySession}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
