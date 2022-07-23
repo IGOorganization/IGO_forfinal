@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="~/css/site.css" />*@
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    @*<link href="img/favicon.ico" rel="icon">*@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,20 +66,9 @@
             <div class="col-lg-9">
                 <div class="row gx-0 bg-dark d-none d-lg-flex">
                     <div class="col-lg-7 px-5 text-start">
-                        @*<div class="h-100 d-inline-flex align-items-center py-2 me-4">
-                                <i class="fa fa-envelope text-primary me-2"></i>
-                                <p class="mb-0">info@example.com</p>
-                            </div>*@
-                        @*<div class="h-100 d-inline-flex align-items-center py-2">
-                                <i class="fa fa-phone-alt text-primary me-2"></i>
-                                <p class="mb-0">+012 345 6789</p>
-                            </div>*@
                     </div>
                     <div class="col-lg-5 px-5 text-end">
                         <div class="d-inline-flex align-items-center py-2">
-                            @*<a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="" href=""><i class="fa-brands fa-line"></i></a>*@
                         </div>
                     </div>
                 </div>
@@ -87,32 +76,16 @@
                     <a href="~/Home/Home" class="navbar-brand d-block d-lg-none">
                         <h1 class="m-0 text-primary text-uppercase">IGO</h1>
                     </a>
+                    @*主分類*@
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="~/Discount/ShowView" class="nav-item nav-link" style="font-size:120%">限時優惠</a>
-                            <a href="~/Coupon/List" class="nav-item nav-link" style="font-size:120%">特惠組合</a>
-                            <a href="~/Product/FoodView" class="nav-item nav-link" style="font-size:120%">美食</a>
-                            <a href="~/Live/List" class="nav-item nav-link" style="font-size:120%">飯店</a>
-                            <a href="~/Product/ExhibitionView" class="nav-item nav-link" style="font-size:120%">展覽</a>
-                            <a href="~/Product/ViewPointView" class="nav-item nav-link" style="font-size:120%">景點</a>
-                            <a href="../Movie/List" class="nav-item nav-link" style="font-size:120%">電影</a>
-                            <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
-                            @*<a href="#Investegate" class="nav-item nav-link" style="font-size:150%"><i class="fa-solid fa-file-lines"></i></a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="~/booking.html" class="dropdown-item">Booking</a>
-                                        <a href="~/team.html" class="dropdown-item">Our Team</a>
-                                        <a href="~/testimonial.html" class="dropdown-item">Testimonial</a>
-                                    </div>
-                                </div>
-                                <a href="~/contact.html" class="nav-item nav-link">Contact</a>*@
+                        <div class="navbar-nav mr-auto py-0" id="category">
                         </div>
 
                         @*宜潔新增*@
+                        <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-eye"></i>
@@ -128,7 +101,7 @@
                                     <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
                                     <small class="viewName">普立茲新聞攝影獎80週年展</small>
                                 </a>
-                                @*<a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
+                                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>
                             </div>
                         </div>
                         <div class="nav-item">
@@ -146,8 +119,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
                                 <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
-                                    <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
-                                    <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                    <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                     <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
                                     <li><a class="dropdown-item" href="/Customer/List"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
@@ -164,14 +136,18 @@
         </div>
     </div>
     <!-- Header End -->
-
+    <!--<div class="container-xxl py-5">-->
+    @*使下面部分不會被擋住*@
+    <!--</div>-->
     <div class="container-xxl py-5" id="startnow">
-        @*使下面部分不會被擋住*@
+        使下面部分不會被擋住
     </div>
-    <div class="container-xxl py-2" id="startnow">
-        @*使下面部分不會被擋住*@
+    @*次分類*@
+    <div id="subcategory" style="background-color: #E0E0E0" class="fixed-top">
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body"></div>
+        </div>
     </div>
-
 
     @RenderBody()
 
@@ -193,30 +169,32 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>02-66316588</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
                     <div class="d-flex pt-5">
-                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
-                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
-                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
+                        @*href="https://www.instagram.com/p/Cf8KY-cpDee/?utm_source=ig_web_copy_link"
 
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-12 justify-content-xxl-center">
-                    <div class="row gy-5 g-4">
-                        <div class="col-md-10">
-                            <h6 class="section-title text-start text-primary text-uppercase mb-4">IGO</h6>
-                            <a class="btn btn-link" href="/About/index">關於IGO</a>
-                            <a class="btn btn-link" href="/Helper/index">幫助中心</a>
-                            <a class="btn btn-link" href="/Privacy/index">隱私權</a>
-                            <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
-                            <a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>
-                        </div>
-                        @*<div class="col-md-6">
-                                <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
-                                <a class="btn btn-link" href="">Food & Restaurant</a>
-                                <a class="btn btn-link" href="">Spa & Fitness</a>
-                                <a class="btn btn-link" href="">Sports & Gaming</a>
-                                <a class="btn btn-link" href="">Event & Party</a>
-                                <a class="btn btn-link" href="">GYM & Yoga</a>
-                            </div>*@
+                                    <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://www.instagram.com/igo_taiwan/" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
+                                    <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
+                                    <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-12 justify-content-xxl-center">
+                                <div class="row gy-5 g-4">
+                                    <div class="col-md-10">
+                                        <h6 class="section-title text-start text-primary text-uppercase mb-4">IGO</h6>
+                                        <a class="btn btn-link" href="/About/index">關於IGO</a>
+                                        <a class="btn btn-link" href="/Helper/index">幫助中心</a>
+                                        <a class="btn btn-link" href="/Privacy/index">隱私權</a>
+                                        <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
+                                        <a href="/Admin/Home/Order" class="btn btn-link">管理後台</a>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
+                                            <a class="btn btn-link" href="">Food & Restaurant</a>
+                                            <a class="btn btn-link" href="">Spa & Fitness</a>
+                                            <a class="btn btn-link" href="">Sports & Gaming</a>
+                                            <a class="btn btn-link" href="">Event & Party</a>
+                                            <a class="btn btn-link" href="">GYM & Yoga</a>
+                                        </div>*@
                     </div>
                 </div>
             </div>
@@ -231,14 +209,6 @@
                         @*Designed By*@ <a class="border-bottom" href="https://htmlcodex.com">@*HTML Codex*@</a>
                         <br>@*Distributed By:*@ <a class="border-bottom" href="https://themewagon.com" target="_blank">@*ThemeWagon*@</a>
                     </div>
-                    @*<div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
-                            </div>
-                        </div>*@
                 </div>
             </div>
         </div>
@@ -265,8 +235,64 @@
     <script src="~/js/main.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
-        //顯示瀏覽過的次數(之後用id/session)
+        //顯示主分類
+        let CategoryIDArray = new Array();
+        window.addEventListener("DOMContentLoaded", ShowCategory);
+        //ShowCategory();
+        async function ShowCategory() {
 
+            let Response = await fetch('@Url.Content("~/Home/layoutCategory")');
+            //console.log(Response);
+            let Datas = await Response.json();
+            //console.log(Datas);
+
+            let docFrag = document.createDocumentFragment();
+            let DivCategory = document.querySelector("#category");
+
+            for (let i = 0; i < Datas.length; i++)
+            {
+                let CategoryName = Datas[i].categoryName;
+                let CategoryId = Datas[i].categoryId;
+                CategoryIDArray[i] = CategoryId;
+                console.log(CategoryIDArray[i]);
+                console.log(CategoryName);
+                console.log(CategoryId);
+                //$("#category").append(CategoryName);
+
+
+                $(DivCategory).append(`<a class="btn-card" CategoryID=${CategoryId} style="margin-right:25px; color:white" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">${CategoryName}</a>`);
+
+            }
+
+            $(".btn-card").click(function () {
+                //let btnId = $(this).attr("id");
+                //console.log($(this));
+                //console.log(btnId);
+                //stringObj = new String(btnId)
+                //let len = stringObj.length;
+                //console.log(len);
+                //let lastChar = len - 1;
+                //let CategoryId = stringObj.charAt(lastChar);
+                //console.log(CategoryId);
+
+
+                $.getJSON('@Url.Content("~/Home/layoutSubCategory")', { "idd": $(this).attr("CategoryID") },
+                    function (datas) {
+                        $(".card-body").empty();
+                        console.log(datas);
+                        console.log(datas.subCategoryNameList);
+                        $.each(datas.subCategoryNameList, function (idx, item) {
+                            console.log(item);
+                            console.log(idx);
+
+                            $(".card-body").append(item + "<hr/>");
+                        })
+
+                    })
+            })
+        };
+
+        //顯示瀏覽過的次數(之後用id/session)
         window.addEventListener("load", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
         let eleDropdown = document.querySelector(".viewRecordDropdown");
         async function ViewRecord()
@@ -284,10 +310,10 @@
 
                 //顯示瀏覽過的內容
                 const response2 = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
-                console.log(response2);
+                //console.log(response2);
                 //const datas2 = await response2.json();
                 const datas2 = await response2.text();
-                console.log(datas2);
+                //console.log(datas2);
 
                 /*$("#ShowViewRecord").text(`(${datas2})`);*/
 
@@ -312,10 +338,10 @@
 
                   //顯示瀏覽過的內容
                 const response2 = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
-                console.log(response2);
+                //console.log(response2);
                 //const datas2 = await response2.json();
                 const datas2 = await response2.text();
-                console.log(datas2);
+                //console.log(datas2);
 
                 /*$("#ShowViewRecord").text(`(${datas2})`);*/
 
@@ -325,22 +351,22 @@
         }
 
         //顯示瀏覽過的內容
-        @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
+        window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
         async function ViewRecordContent()
         {
             if (window.location.href.indexOf("City") > -1) //連結中是否包含City 之後改為Product
             {
                 //顯示瀏覽過的內容
                 const response = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
-                console.log(response);
+                //console.log(response);
                 /*const datas = await response.json();*/
                 const datas = await response.text();
-                console.log(datas);
+                //console.log(datas);
 
                 /*$("#ShowViewRecord").text(`(${datas})`);*/
 
             };
-        }*@
+        }
     </script>
 
 

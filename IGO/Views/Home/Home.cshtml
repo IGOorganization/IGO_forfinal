@@ -1,4 +1,4 @@
-﻿
+﻿@model List<IGO.ViewModels.CHomeViewModel>
 @section Styles
 {
     <style>
@@ -11,6 +11,9 @@
     int year = DateTime.Now.Year;
     int developedYears = year - 2020;  //2020/8/1為IGO成立日期
 }
+@{
+    DateTime today = DateTime.Now.Date;
+}
 <!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -22,7 +25,7 @@
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">最新消息</h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">普立茲新聞攝影獎80週年展</h1>
                         <a href="~/Products/Exhibit" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight">馬上訂票</a>
-                        <a class="btn btn-secondary py-md-3 px-md-5 me-3 animated slideInRight" href="#startnow">開始探索</a>
+                        @*<a class="btn btn-secondary py-md-3 px-md-5 me-3 animated slideInRight" href="#startnow">開始探索</a>*@
                     </div>
                 </div>
             </div>
@@ -32,9 +35,8 @@
                     <div class="p-3" style="max-width: 500px;">
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">最新優惠組合</h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">台北好行</h1>
-                        <a href="" class="animated slideInLeft">@*Our Rooms*@</a>
+                        <a href="" class="animated slideInLeft"></a>
                         <a href="~/Coupon/List" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight">馬上訂票</a>
-                        <a class="btn btn-secondary py-md-3 px-md-5 me-3 animated slideInRight" href="#startnow">開始探索</a>
                     </div>
                 </div>
             </div>
@@ -61,24 +63,15 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-6">
                 <h6 class="section-title text-start text-primary text-uppercase">About Us</h6>
-                <h1 class="mb-4">Book the most cheapest tickets on <span class="text-primary text-uppercase">IGO</span></h1>
+                <h1 class="mb-4">Book the cheapest tickets on <span class="text-primary text-uppercase">IGO</span></h1>
                 <p class="mb-4"></p>
                 <div class="row g-3 pb-4">
-                    @*<div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
-                            <div class="border rounded p-1">
-                                <div class="border rounded text-center p-4">
-                                    <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up">123</h2>
-                                    <p class="mb-0">Rooms</p>
-                                </div>
-                            </div>
-                        </div>*@
                     <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
                         <div class="border rounded p-1">
                             <div class="border rounded text-center p-4">
                                 @*<i class="fa fa-users-cog fa-2x text-primary mb-2"></i>*@
                                 <i class="fa-solid fa-calendar-days fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">2</h2>
+                                <h2 class="mb-1" data-toggle="counter-up">@developedYears</h2>
                                 <p class="mb-0">成立幾年</p>
                             </div>
                         </div>
@@ -87,13 +80,12 @@
                         <div class="border rounded p-1">
                             <div class="border rounded text-center p-4">
                                 <i class="fa fa-users fa-2x text-primary mb-2"></i>
-                                <h2 class="mb-1" data-toggle="counter-up">102</h2>
+                                <h2 class="mb-1" data-toggle="counter-up" id="customercount"></h2>
                                 <p class="mb-0">IGO用戶</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                @*<a class="btn btn-primary py-3 px-5 mt-2" href="#startnow">開始探索</a>*@
             </div>
             <div class="col-lg-6">
                 <div class="row g-3">
@@ -116,7 +108,6 @@
 </div>
 <!-- About End -->
 <!-- Booking Start -->
-@*<div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">*@
 <div class="container">
     <div class="bg-dark shadow" style="padding: 30px; border-radius:10px">
         <div class="row g-2">
@@ -131,14 +122,15 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <a href="~/Home/City" class="btn btn-primary w-100" style="border-radius: 25px"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a href="~/City/PopularCity" class="btn btn-primary w-100" style="border-radius: 25px"><i class="fa-solid fa-magnifying-glass"></i></a>
             </div>
+            <button type="button" class="btn btn-secondary col-md-2" id="DemoInputCity">Demo</button>
         </div>
     </div>
 </div>
 @*</div>*@
 <!-- Booking End -->
-<!-- Room Start -->
+<!-- hotProduct Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -146,91 +138,64 @@
             <h1 class="mb-5">IGO<span class="text-primary text-uppercase">熱銷商品</span></h1>
         </div>
         <div class="row g-4">
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="room-item shadow rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="~/img/Home_HotSales_01.jpg" alt="">
-                        <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$400/預售票</p>
-                    </div>
-                    <div class="p-4 mt-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h4 class="mb-0">台中異想新樂園-宙影幻鏡:傳奇</h4>
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="room-item shadow rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="~/img/@item.PhotoPath" alt="">
+                            <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">@String.Format("{0:C0}", item.Price) / @item.TicketName</p>
                         </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                        </div>
-                        @*<h4><i class="fa-solid fa-location-dot"></i>台中市</h4>*@
-
-                        <div class="d-flex justify-content-lg-start">
-                            <h4><i class="fa-solid fa-location-dot"></i>台中市</h4>
-                        </div>
-                        <div class="d-flex justify-content-lg-end">
-                            <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
-                            @*<a class="btn btn-sm btn-dark rounded py-2 px-4" href="">詳細資訊</a>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="room-item shadow rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="~/img/Home_HotSales_02.jpg" alt="">
-                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$300/預售票</small>
-                    </div>
-                    <div class="p-4 mt-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h4 class="mb-0">大昆蟲展-我要當昆蟲王</h4>
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                        </div>
-                        <div class="d-flex justify-content-lg-start">
-                            <h4><i class="fa-solid fa-location-dot"></i>台中市</h4>
-                        </div>
-                        <div class="d-flex justify-content-lg-end">
-                            <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
-                            @*<a class="btn btn-sm btn-dark rounded py-2 px-4" href="">詳細資訊</a>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="room-item shadow rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="~/img/Home_HotSales_03.jpg" alt="">
-                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$1211/下午茶</small>
-                    </div>
-                    <div class="p-4 mt-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h4 class="mb-0" id="name_City_Recommend_03">台北喜來登大飯店｜十二廚</h4>
-                            <!--</div>-->
-                        </div>
-                        <div class="d-flex mb-3">
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                            <i class="fa fa-star text-primary"></i>
-                        </div>
-                        <div class="d-flex justify-content-lg-start">
-                            <h4><i class="fa-solid fa-location-dot"></i>台北市</h4>
-                        </div>
-                        <div class="d-flex justify-content-lg-end">
-                            <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
-                            @*<a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>*@
-                            @*<a class="btn btn-sm btn-dark rounded py-2 px-4" href="">詳細資訊</a>*@
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h4 class="mb-0">@item.tProduct.FProductName</h4>
+                            </div>
+                            <div class="d-flex mb-3">
+                                @for (int s = 1; s <= @item.RankingCount; s++)
+                                {
+                                    <i class="fa fa-star text-primary"></i>
+                                }
+                            </div>
+                            <div class="d-flex justify-content-lg-start">
+                                <h4><i class="fa-solid fa-location-dot"></i>@item.tCity.FCityName</h4>
+                                @{ string alertMessage = "           ";
+                                    string imgSource = "";
+                                    TimeSpan time = (@Convert.ToDateTime(item.EndTime)).Date - @today;
+                                    if (time.Days <= 30)
+                                    {
+                                        alertMessage = "活動即將結束";
+                                        imgSource = "/img/alarm.png";
+                                    }
+                                    else
+                                    {
+                                        imgSource = "/img/noalarm.png";
+                                    }
+                                }
+                            </div>
+                            <div class="d-flex justify-content-lg-start">
+                                <br>
+                                <h5 class="align-items-center" style="color:cadetblue">離活動結束還剩 @time.Days 天</h5>
+                                <p class="align-items-end"></p>
+                                <p class="align-items-end"><img src=@imgSource width="30" height="30"></p>
+                                <h5 class="align-items-end" style="color:red">@alertMessage</h5>
+                            </div>
+                            @{
+                                int remaining = (int)item.StorageQuantity - (int)item.OrderQuantity;
+                            }
+                            <div class="d-flex justify-content-lg-start">
+                                <p>剩餘數量:@remaining 張  || 已售出:@item.OrderQuantity 張</p>
+                            </div>
+                            <div class="d-flex justify-content-lg-end">
+                                <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
+
 <!-- Room End -->
 <!-- Service Start -->
 <div class="container-xxl py-3">
@@ -242,49 +207,49 @@
         <div class="row g-1 justify-content-xxl-center">
             <div class="col-lg-1 col-md-3 wow fadeInUp card text-white img-hover" data-wow-delay="0.1s">
                 <a href="~/Food/FoodView">
-                    <img class="img-fluid card-img" src="~/img/Home_category_01.jpg" alt="美食" />
+                    <img class="img-fluid card-img" src="~/img/Home_category_01.jpg" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">美食</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="Subcategory0"></p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-1 col-md-3 wow fadeInUp card text-white img-hover" data-wow-delay="0.2s">
                 <a href="~/Live/List">
-                    <img class="img-fluid card-img" src="~/img/Home_category_03.jpg" alt="住宿" />
+                    <img class="img-fluid card-img" src="~/img/Home_category_03.jpg" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">住宿</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="Subcategory1"></p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-1 col-md-3 wow fadeInUp card text-white img-hover" data-wow-delay="0.3s">
                 <a href="~/Exhibition/List">
-                    <img class="img-fluid card-img" src="~/img/Home_category_04.jpg" alt="展覽" />
+                    <img class="img-fluid card-img" src="~/img/Home_category_04.jpg" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">展覽</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="Subcategory2"></p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-1 col-md-3 wow fadeInUp card text-white img-hover" data-wow-delay="0.3s">
                 <a href="~/View/ViewList">
-                    <img class="img-fluid card-img" src="~/img/Home_category_05.jpg" alt="景點" />
+                    <img class="img-fluid card-img" src="~/img/Home_category_05.jpg" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">景點</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="Subcategory3"></p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-1 col-md-3 wow fadeInUp card text-white img-hover" data-wow-delay="0.3s">
                 <a href="~/Movie/List">
-                    <img class="img-fluid card-img" src="~/img/Home_category_06.jpg" alt="電影" />
+                    <img class="img-fluid card-img" src="~/img/Home_category_06.jpg" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">電影</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="Subcategory4"></p>
                     </div>
                 </a>
             </div>
         </div>
     </div>
 </div>
-<!-- Service End -->
 <!-- 探索城市 Start -->
+<div class="container-xxl py-5" id="HotCity"></div>
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -293,26 +258,26 @@
         </div>
         <div class="row g-4">
             <div class="col-lg-4 col-md-6 wow fadeInUp card text-white img-hover" data-wow-delay="0.1s">
-                <a href="~/Home/City">
-                    <img class="img-fluid card-img" src="~/img/Home_Taipei.jpg" alt="台北市" />
+                <a href="~/City/PopularCity">
+                    <img class="img-fluid card-img" title="cityname0" id="path0" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">台北市</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="cityname0"></p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp card text-white img-hover" data-wow-delay="0.2s">
                 <a href="">
-                    <img class="img-fluid card-img" src="~/img/Home_Taichung.jpg" alt="台中市" />
+                    <img class="img-fluid card-img" title="cityname1" id="path1" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">台中市</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="cityname1"></p>
                     </div>
                 </a>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp card text-white img-hover" data-wow-delay="0.3s">
                 <a href="">
-                    <img class="img-fluid card-img" src="~/img/Home_Kaohsiung.jpg" alt="高雄市" />
+                    <img class="img-fluid card-img" title="cityname2" id="path2" />
                     <div class="card-img-overlay">
-                        <p style="color:white;font-weight:bold; font-size:50px;">高雄市</p>
+                        <p style="color:white;font-weight:bold; font-size:50px;" class="cityname2"></p>
                     </div>
                 </a>
             </div>
@@ -328,21 +293,11 @@
                 <h6 class="section-title text-start text-white text-uppercase mb-3">父親節限時優惠!</h6>
                 <h1 class="text-white mb-4">【限時優惠】台北喜來登大飯店｜十二廚</h1>
                 <p class="text-white mb-4"></p>
-                <a href="~/Coupon/List" class="btn btn-primary py-md-3 px-md-5 me-3">更多資訊</a>
-                @*<a href="" class="btn btn-light py-md-3 px-md-5">Book A Room</a>*@
+                <a href="~/Coupon/List" class="btn btn-primary py-md-3 px-md-5 me-3">更多資訊</a>               
             </div>
         </div>
 
     </div>
-    @*<div class="col-md-6" style="background-image: url(~/img/food1.jpg)">*@
-
-    @*<div class="video">*@
-    @*<img class="embed-responsive-item" src="~/img/food1.jpg" sizes="100%"/>*@
-    @*<button type="button" class="btn-play" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-            <span></span>
-        </button>*@
-    @*</div>*@
-    @*</div>*@
 </div>
 
 
@@ -350,62 +305,98 @@
     <div class="modal-dialog">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Youtube Video</h5>
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- 16:9 aspect ratio -->
                 <div class="ratio ratio-16x9">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    @*<iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
-                        allow="autoplay"></iframe>*@
+<div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn tag" data-wow-delay="0.1s">
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="room-item shadow rounded overflow-hidden bg-white">
+                        <div class="position-relative">
+                            <img class="img-fluid flex-shrink-0 rounded rounded-circle" src="~/img/testimonial-1.jpg" style="width: 70px; height: 70px;">
+                            @*<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/B6xptHtjXSL/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/B6xptHtjXSL/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">在 Instagram 查看這則貼文</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/B6xptHtjXSL/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Oliver（oliverfoodworld）分享的貼文</a></p></div></blockquote>
+                                <script async src="//www.instagram.com/embed.js"></script>*@
+                        </div>
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h4 class="mb-0 productname0"></h4>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span id="star0"></span>顆<i class="fa fa-star text-primary"></i>
+                            </div>
+                            <h6 class="feedbackcontent0"></h6>
+
+                            <div class="d-flex justify-content-lg-start">
+                                <h5 id="lastname0"></h5>**
+                            </div>
+                            <div class="d-flex justify-content-lg-end">
+                                <a href="https://www.instagram.com/oliverfoodworld/" class="btn btn-primary rounded py-2 px-4 align-items-end">追蹤我</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="room-item shadow rounded overflow-hidden bg-white">
+                        <div class="position-relative">
+                            <img class="img-fluid flex-shrink-0 rounded rounded-circle" src="~/img/testimonial-2.jpg" style="width: 70px; height: 70px;">
+                        </div>
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h4 class="mb-0 productname1"></h4>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span id="star1"></span>顆<i class="fa fa-star text-primary"></i>
+                            </div>
+                            <h6 class="feedbackcontent1"></h6>
+
+                            <div class="d-flex justify-content-lg-start bg-white">
+                                <h5 id="lastname1"></h5>**
+                            </div>
+                            <div class="d-flex justify-content-lg-end">
+                                <a href="https://www.instagram.com/bupaiworld/" class="btn btn-primary rounded py-2 px-4 align-items-end">追蹤我</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="room-item shadow rounded overflow-hidden bg-white">
+                        <div class="position-relative">
+                            <img class="img-fluid flex-shrink-0 rounded rounded-circle" src="~/img/testimonial-3.jpg" style="width: 70px; height: 70px;" />
+                        </div>
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h4 class="mb-0 productname2"></h4>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span id="star2"></span>顆<i class="fa fa-star text-primary"></i>
+                            </div>
+                            <h6 class="feedbackcontent2"></h6>
+
+                            <div class="d-flex justify-content-lg-start">
+                                <h5 id="lastname2"></h5>**
+                            </div>
+                            <div class="d-flex justify-content-lg-end">
+                                <a href="待放" class="btn btn-primary rounded py-2 px-4 align-items-end">追蹤我</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
-<!-- Video Start -->
-<!-- Testimonial Start -->
-<div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s">
-    <div class="container">
-        <div class="owl-carousel testimonial-carousel py-5">
-            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
-                <p>近距離看鹿，雖然園區不大，但有彩繪DIY、小鹿賽跑，讓小孩玩得很開心</p>
-                <div class="d-flex align-items-center">
-                    <img class="img-fluid flex-shrink-0 rounded" src="~/img/testimonial-1.jpg" style="width: 45px; height: 45px;">
-                    <div class="ps-3">
-                        <h6 class="fw-bold mb-1">劉**</h6>
-                        <small>@*Profession*@</small>
-                    </div>
-                </div>
-                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
-            </div>
-            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
-                <p>第一次評論就給這部電影了 認真覺得值得去電影院看～跳脫以往不同的拍攝手法，真心好看</p>
-                <div class="d-flex align-items-center">
-                    <img class="img-fluid flex-shrink-0 rounded" src="~/img/testimonial-2.jpg" style="width: 45px; height: 45px;">
-                    <div class="ps-3">
-                        <h6 class="fw-bold mb-1">段**</h6>
-                        @*<small>Profession</small>*@
-                    </div>
-                </div>
-                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
-            </div>
-            <div class="testimonial-item position-relative bg-white rounded overflow-hidden">
-                <p>十二廚真的好美味呀！最近還有海鮮、龍蝦、生魚片吃到飽的活動，每個時段都是高朋滿座，酥皮玉米濃湯、麒麟啤酒可以喝到飽，食材都很新鮮，還有一個胃要留著吃現做的甜點，黑糖珍珠舒芙蕾、吃完這餐已滿足！</p>
-                <div class="d-flex align-items-center">
-                    <img class="img-fluid flex-shrink-0 rounded" src="~/img/testimonial-3.jpg" style="width: 45px; height: 45px;">
-                    <div class="ps-3">
-                        <h6 class="fw-bold mb-1">戴**</h6>
-                        @*<small>Profession</small>*@
-                    </div>
-                </div>
-                <i class="fa fa-quote-right fa-3x text-primary position-absolute end-0 bottom-0 me-4 mb-n1"></i>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial End -->
+
 <!-- Newsletter Start -->
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="row justify-content-center">
@@ -415,15 +406,12 @@
                     <h4 class="mb-4">訂閱我們 <span class="text-primary text-uppercase">最新消息</span></h4>
                     <p>搶先獲得最新熱門景點旅遊資訊！</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="joychang97@gmail.com" id="bookingNewsletter">
-                        @*<button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2" id="">立即訂閱</button>*@
+                        <input class="form-control w-100 py-3 ps-4 pe-5" type="email" placeholder="請輸入電子信箱" id="bookingNewsletter">
                         <br>
                         <div id="liveAlertPlaceholder"></div>
-                        @*<button type="button" class="btn btn-primary btnSentNewsletter" id="liveAlertBtn">立即訂閱</button>*@
                         <button type="button" class="btn btn-primary btnSentNewsletter" id="liveToastBtn">立即訂閱</button>
+                        <button type="button" class="btn btn-secondary" id="DemoInputEmail">Demo</button>
                     </div>
-                    @* <button type="button" class="btn btn-primary btnSentNewsletter" id="liveToastBtn">立即訂閱</button>*@
-
                     <div class="toast-container position-fixed bottom-50 end-50 p-3">
                         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-body">
@@ -441,19 +429,137 @@
 @section Scripts
 {
     <script>
+            //顧客數量
+             window.addEventListener("DOMContentLoaded", ShowCustomerCount);
+            async function ShowCustomerCount()
+        {
+            const Response = await fetch('@Url.Content("~/Home/AboutIGO")');
+            //console.log(Response);
+            const Datas = await Response.json(); //讀取body內資料
+                //console.log(Datas);
+                //console.log(Datas.customerCount)
+                document.querySelector("#customercount").innerHTML = Datas.customerCount;
+        }
 
-        fetch('@Url.Content("~/Home/checkUser")')
-            .then((response) => {
-                console.log(response.ok);
-                return response.text();
-            }).then(data => {
-                alert(data);
+            //搜尋城市
+            $("#DemoInputCity").click(function ()
+            {
+                $("#SearchCity").val("台北市");
+            })
+
+            //顯示票卷類別
+            //ShowSubcategory();
+            window.addEventListener("DOMContentLoaded", ShowSubcategory);
+        async function ShowSubcategory()
+        {
+            const Response = await fetch('@Url.Content("~/Home/SubCategory")');
+            //console.log(Response);
+            const Datas = await Response.json(); //讀取body內資料
+            //console.log(Datas);  //Array(5)
+
+            for (let i = 0; i < 5; i++)
+            {
+                //console.log(Datas[i]);
+                let categoryName = Datas[i].fSubCategoryName;
+                document.querySelector(`.Subcategory${i}`).innerHTML = categoryName;
+            }
+        }
+
+         window.addEventListener("DOMContentLoaded", ShowHotCity);
+        async function ShowHotCity()
+        {
+            let Response = await fetch('@Url.Content("~/Home/top3City")');
+            //console.log(Response);
+            let Datas = await Response.json(); //讀取body內資料
+            //console.log(Datas);  //Array(5)
+
+            for (let i = 0; i < 3; i++) {
+                //console.log(Datas[i]);
+                let CityName = Datas[i].cityName;
+                //console.log(CityName);
+                let Path = Datas[i].cityPhotoPath;
+                //console.log(Path);
+                document.querySelector(`.cityname${i}`).innerHTML = CityName;
+                 document.querySelector(`#path${i}`).setAttribute("src", `/img/${Path}`);
+                /*console.log(`~/img/${Path}`);*/
+            }
+        }
+
+        //顯示評論
+
+        @*const feedback = document.querySelector(".tag");
+        feedback.addEventListener('loadstart', ShowTopFeedback);
+        ShowTopFeedback();
+        async function ShowTopFeedback()
+        {
+            const Response = await fetch('@Url.Content("~/Home/TopFeedback")');
+            console.log(Response);
+            const Datas = await Response.json(); //讀取body內資料
+            console.log(Datas);  //Array(3)
+
+            for (let i = 0; i < 3; i++)
+            {
+                console.log(Datas[i]);
+                let LastName = Datas[i].lastName;
+                let FeedbackContent = Datas[i].feedbackContent;
+                console.log(LastName);
+                console.log(FeedbackContent);
+               /* let ProductName = Datas[i].ProductName;*/
+                document.querySelector(`#feedbackcontent${i}`).innerHTML = FeedbackContent;
+                document.querySelector(`#lastname${i}`).innerHTML = LastName;
+               /* document.querySelector(`#productname${i}`).innerHTML = ProductName;*/
+            }
+        }*@
+            @*$(".tag").load(function () {
+                $.getJSON('@Url.Content("~/Home/TopFeedback")', "", function (Datas) {
+                    console.log(Datas);
+                    for (let i = 0; i < 3; i++) {
+                        console.log(Datas[i]);
+                        let LastName = Datas[2].lastName;
+                        let FeedbackContent = Datas[2].feedbackContent;
+                        console.log(LastName);
+                        console.log(FeedbackContent);
+                        /* let ProductName = Datas[i].ProductName;*/
+                        document.querySelector(`.feedbackcontent${i}`).innerHTML = FeedbackContent;
+                        document.querySelector(`#lastname${i}`).innerHTML = LastName;
+                        /* document.querySelector(`#productname${i}`).innerHTML = ProductName;*/
+                    }
+                })
+            });*@
+
+        $(window).ready(function ()
+        {
+            $.getJSON('@Url.Content("~/Home/TopFeedback")', "", function (Datas)
+            {
+                //console.log(Datas);
+                 for (let i = 0; i < 3; i++)
+            {
+                //console.log(Datas[i]);
+                let LastName = Datas[i].lastName;
+                     let FeedbackContent = Datas[i].feedbackContent;
+                     let Ranking = Datas[i].ranking;
+                //console.log(LastName);
+                     //console.log(FeedbackContent);
+                     //console.log(Ranking);
+                     let ProductName = Datas[i].productName;
+                document.querySelector(`.feedbackcontent${i}`).innerHTML = FeedbackContent;
+                     document.querySelector(`#lastname${i}`).innerHTML = LastName;
+                 document.querySelector(`#star${i}`).innerHTML = Ranking;
+                document.querySelector(`.productname${i}`).innerHTML = ProductName;
+            }
+            })
+
+        });
+
+
+            //寄送訂閱電子報
+            //寄送訂閱電子報 Demo鍵
+            $("#DemoInputEmail").click(function ()
+            {
+                $("#bookingNewsletter").val("igocompanysender@gmail.com");
             })
 
 
-
-
-        //寄送訂閱電子報
     $(".btnSentNewsletter").click(function () {   /*更新資料庫直接抓到email馬上出信?*/
         $.ajax({
             type: "POST",
@@ -494,4 +600,3 @@
         //});
     </script>
 }
-

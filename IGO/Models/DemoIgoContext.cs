@@ -39,14 +39,14 @@ namespace IGO.Models
         public virtual DbSet<TTicketAndProduct> TTicketAndProducts { get; set; }
         public virtual DbSet<TTicketType> TTicketTypes { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,10 @@ namespace IGO.Models
                 entity.Property(e => e.FCityName)
                     .HasMaxLength(20)
                     .HasColumnName("fCityName");
+
+                entity.Property(e => e.FCityPhotoPath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fCityPhotoPath");
             });
 
             modelBuilder.Entity<TCollection>(entity =>
@@ -299,6 +303,10 @@ namespace IGO.Models
                 entity.Property(e => e.FOrderDate)
                     .HasMaxLength(50)
                     .HasColumnName("fOrderDate");
+
+                entity.Property(e => e.FOrderNum)
+                    .HasMaxLength(50)
+                    .HasColumnName("fOrderNum");
 
                 entity.Property(e => e.FPayTypeId).HasColumnName("fPayTypeID");
 
