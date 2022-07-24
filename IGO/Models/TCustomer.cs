@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -27,8 +28,10 @@ namespace IGO.Models
         public string FBirth { get; set; }
         public string FSignUpDate { get; set; }
         public string FUserPhoto { get; set; }
+        
 
         public virtual TCity FCity { get; set; }
+
         public virtual ICollection<TCollection> TCollections { get; set; }
         public virtual ICollection<TFeedbackManagement> TFeedbackManagements { get; set; }
         public virtual ICollection<TOrder> TOrders { get; set; }

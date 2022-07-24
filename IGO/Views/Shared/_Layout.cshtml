@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using IGO.Controllers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -101,15 +102,15 @@
                             <a href="../Movie/List" class="nav-item nav-link" style="font-size:120%">電影</a>
                             <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
                             @*<a href="#Investegate" class="nav-item nav-link" style="font-size:150%"><i class="fa-solid fa-file-lines"></i></a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                <div class="dropdown-menu rounded-0 m-0">
-                    <a href="~/booking.html" class="dropdown-item">Booking</a>
-                    <a href="~/team.html" class="dropdown-item">Our Team</a>
-                    <a href="~/testimonial.html" class="dropdown-item">Testimonial</a>
-                </div>
-            </div>
-            <a href="~/contact.html" class="nav-item nav-link">Contact</a>*@
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                    <div class="dropdown-menu rounded-0 m-0">
+                                        <a href="~/booking.html" class="dropdown-item">Booking</a>
+                                        <a href="~/team.html" class="dropdown-item">Our Team</a>
+                                        <a href="~/testimonial.html" class="dropdown-item">Testimonial</a>
+                                    </div>
+                                </div>
+                                <a href="~/contact.html" class="nav-item nav-link">Contact</a>*@
                         </div>
 
                         @*宜潔新增*@
@@ -142,8 +143,15 @@
                             if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                             {
                                 <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
-                                    <a class="btn dropdown-toggle nav-item nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="~/img/UserPhoto.jpg" alt="mdo" width="50" height="50" class="rounded-circle">
+                                    <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @if (CustomerController.imgpath == null)
+                                        {
+                                            <img width="50" height="50" class="rounded-circle " src="/img/UID_0.jpg">
+                                        }
+                                        else
+                                        {
+                                            <img width="50" height="50" class="rounded-circle " src="/img/@CustomerController.imgpath">
+                                        }
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
                                         <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
@@ -151,9 +159,9 @@
                                             <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                             <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
-                                            <li><a class="dropdown-item" href="/Customer/UserData"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
+                                            <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="/Home/Login"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
+                                            <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -270,19 +278,19 @@
                 </div>
                 <div class="modal-body bg-dark">
                     <br />
-                    <form asp-controller="Home" asp-action="Login">
+                    <form asp-controller="Customer" asp-action="Login">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="Fphone" name="txtAccount" placeholder="手機號碼">
+                            <input type="text" class="form-control text-dark" id="Login_txtAccount" name="txtAccount" placeholder="手機號碼">
                             <label for="floatingInput">帳號 (手機號碼)</label>
                         </div>
                         <br />
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="FPassword" name="txtPassword" placeholder="Password">
+                            <input type="password" class="form-control text-dark" id="Login_txtPassword" name="txtPassword" placeholder="密碼">
                             <label for="floatingPassword">密碼</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="form-check text-white">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" id="reAccount">
                                 <label class="form-check-label" for="exampleCheck1 ">記住帳號</label>
                             </div>
                             <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgetPWD" data-bs-dismiss="modal">忘記密碼</button>
@@ -297,7 +305,20 @@
                         </div>
                         <br />
                         <div class="form-group">
-                            <br />
+                            <hr />
+                            <div>
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(123) </button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(祝厚) </button>
+                                    </div>
+                                </div>
+                            </div>
                             <hr />
                             <div class=" bg-dark">
                                 <br />
@@ -331,33 +352,33 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content bg-dark">
                     <div class="modal-header text-center">
-                        <h5 class="modal-title text-warning" id="staticBackdropLabel">歡迎加入 IGO 會員</h5>
+                        <h5 class="modal-title text-warning" id="rLblWelcome">歡迎加入 IGO 會員</h5>
                         <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body bg-dark">
                         <br />
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FLastName" name="FLastName" placeholder="姓氏(LastName)" />
+                            <input type="text" class="form-control text-dark" id="register_FLName" name="FLName" placeholder="姓氏(LastName)" />
                             <label for="floatingInput">姓氏(LastName)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FFirstName" name="FFirstName" placeholder="名字(FirstName)" />
+                            <input type="text" class="form-control text-dark" id="register_FFName" name="FFName" placeholder="名字(FirstName)" />
                             <label for="FFirstName" class="control-label">名字(FirstName)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FPhone" name="FPhone" placeholder="手機號碼(IGO 帳號)" />
+                            <input type="text" class="form-control text-dark" id="register_FPhone" name="FPhone" placeholder="手機號碼(IGO 帳號)" />
                             <label for="FPhone" class="control-label">手機號碼(IGO 帳號)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FPassword" name="FPassword" placeholder="密碼" />
-                            <label for="FPassword" class="control-label">密碼</label>
+                            <input type="password" class="form-control text-dark" id="register_FPassword" name="txtPassword" placeholder="密碼">
+                            <label for="floatingPassword">密碼</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FPassword" name="checkPwd" placeholder="確認密碼" />
-                            <label for="checkPwd" class="control-label">確認密碼</label>
+                            <input type="password" class="form-control text-dark" id="register_FCheckPwd" name="FCheckPwd" placeholder="確認密碼" />
+                            <label for="floatingPassword">確認密碼</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="FEmail" name="FEmail" placeholder="E-Mail" />
+                            <input type="text" class="form-control text-dark" id="register_FEmail" name="FEmail" placeholder="E-Mail" />
                             <label for="FEmail" class="control-label">E-Mail</label>
                         </div>
                     </div>
@@ -372,24 +393,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <br />
                         <hr />
-                        <div class=" bg-dark">
-                            <br />
-                            <h5 class="text-white text-center">使用其他社群帳號註冊</h5>
-                            <br />
+                        <div>
                             <div class="row bg-dark">
                                 <div class="col text-center">
-                                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
-                                </div>
-                                <div class="col text-center">
-                                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
-                                </div>
-                                <div class="col text-center">
-                                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                                    <button type="button" class="btn btn-danger" id="btnDemoRegister">  Demo (林炙影) </button>
                                 </div>
                             </div>
-                            <br />
+                            <hr />
+                            <div class=" bg-dark">
+                                <br />
+                                <h5 class="text-white text-center">使用其他社群帳號註冊</h5>
+                                <br />
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -404,26 +432,26 @@
         <div class="modal-dialog">
             <div class="modal-content bg-dark">
                 <div class="modal-header">
-                    <h5 class="modal-title text-warning" id="staticBackdropLabel">重新設定密碼</h5>
+                    <h5 class="modal-title text-warning" id="rePwd_lbl">重新設定密碼</h5>
                     <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body bg-dark">
                     <br />
                     <form asp-controller="" asp-action="">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="Fphone" name="txtAccount" placeholder="手機號碼">
+                            <input type="text" class="form-control text-dark" id="rePwd_FPhone" name="FPhone" placeholder="手機號碼">
                             <label for="floatingInput">帳號 (手機號碼)</label>
                         </div>
                         <br />
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="FEmail" name="txtEmail" placeholder="Email">
+                            <input type="password" class="form-control text-dark" id="rePwd_FEmail" name="FEmail" placeholder="Email">
                             <label for="floatingPassword">Email</label>
-                        </div>                      
+                        </div>
                         <div class="modal-footer">
                             <br />
                             <input type="submit" value="確認" class="btn btn-primary" />
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal"> 
-                            返回登入頁面 
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                返回登入頁面
                             </button>
                             <br />
                         </div>
@@ -440,15 +468,6 @@
 
 
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
-   
-    
-    
-    
-    
-    
-    
-    
-    
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     <a href="#" class="message-fix"><i class="fa-solid fa-message"></i><p style="font-size:18px">小幫手</p></a>
@@ -550,6 +569,56 @@
         }*@
     </script>
 
+
+    <!-- ========================= 登入系統用============================ script -->
+    <script>
+
+        //密碼顯示切換
+        $("#showPassword").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#inpLogInPassword").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#inpLogInPassword").attr("type", "password");
+            }
+        });
+
+        //登入Demo
+        $("#btnDemo1").click(function () {
+            $("#Login_txtAccount").val("123");
+            $("#Login_txtPassword").val("123");
+        });
+        $("#btnDemo2").click(function () {
+            $("#Login_txtAccount").val("0931000013");
+            $("#Login_txtPassword").val("123");
+        });
+        $("#btnDemo3").click(function () {
+            $("#Login_txtAccount").val("0911911990");
+            $("#Login_txtPassword").val("123");
+        });
+
+        //註冊Demo
+        $("#btnDemoRegister").click(function () {
+            $("#register_FLName").val("林");
+            $("#register_FFName").val("炙影");
+            $("#register_FPassword").val("123");
+            $("#register_FCheckPwd").val("123");
+            $("#register_FPhone").val("0911911990");
+            $("#register_FEmail").val("carBomb@gmail.com");
+        });
+
+        //忘記密碼Demo
+        $("#btnDemoForgotPassword").click(function () {
+            $("#rePwd_FPhone").val("");
+            $("#rePwd_FEmail").val("");
+        });
+
+
+
+    </script>
+    <!-- ========================= 登入系統用=====================END======= script -->
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
