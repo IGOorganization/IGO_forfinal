@@ -34,6 +34,7 @@ namespace IGO.Models
         public int? FSubCategoryId { get; set; }
         public string FIntroduction { get; set; }
         public bool? FDiscountOrNot { get; set; }
+        public int? FViewRecord { get; set; }
 
         public virtual TCity FCity { get; set; }
         public virtual TSubCategory FSubCategory { get; set; }

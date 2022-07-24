@@ -9,7 +9,10 @@ namespace IGO.Models
     {
         public TSupplier()
         {
+            TCustomers = new HashSet<TCustomer>();
+            TOrderDetails = new HashSet<TOrderDetail>();
             TProducts = new HashSet<TProduct>();
+            TShoppingCarts = new HashSet<TShoppingCart>();
         }
 
         public int FSupplierId { get; set; }
@@ -21,6 +24,9 @@ namespace IGO.Models
 
         public virtual TCity FCity { get; set; }
         public virtual TSubCategory FSubCategory { get; set; }
+        public virtual ICollection<TCustomer> TCustomers { get; set; }
+        public virtual ICollection<TOrderDetail> TOrderDetails { get; set; }
         public virtual ICollection<TProduct> TProducts { get; set; }
+        public virtual ICollection<TShoppingCart> TShoppingCarts { get; set; }
     }
 }

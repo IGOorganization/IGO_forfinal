@@ -20,6 +20,7 @@ namespace IGO.Models
         public string FShippedDate { get; set; }
         public int? FStatusId { get; set; }
         public decimal? FTotalPrice { get; set; }
+        public string FOrderNum { get; set; }
 
         public virtual TCustomer FCustomer { get; set; }
         public virtual TPayment FPayType { get; set; }
