@@ -27,6 +27,7 @@ namespace IGO.Models
         public string FBirth { get; set; }
         public string FSignUpDate { get; set; }
         public string FUserPhoto { get; set; }
+        public int? FSupplierId { get; set; }
 
         public virtual TCity FCity { get; set; }
         public virtual ICollection<TCollection> TCollections { get; set; }

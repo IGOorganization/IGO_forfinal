@@ -14,6 +14,7 @@ namespace IGO.Models
 
         public int FOrderId { get; set; }
         public int FCustomerId { get; set; }
+        public string FOrderNum { get; set; }
         public string FOrderDate { get; set; }
         public int? FPayTypeId { get; set; }
         public int? FShipperId { get; set; }

@@ -31,6 +31,7 @@ namespace IGO.Models
         public virtual DbSet<TProduct> TProducts { get; set; }
         public virtual DbSet<TProductsPhoto> TProductsPhotos { get; set; }
         public virtual DbSet<TSeat> TSeats { get; set; }
+        public virtual DbSet<TSession> TSessions { get; set; }
         public virtual DbSet<TShipper> TShippers { get; set; }
         public virtual DbSet<TShoppingCart> TShoppingCarts { get; set; }
         public virtual DbSet<TStatus> TStatuses { get; set; }
@@ -44,7 +45,7 @@ namespace IGO.Models
 //            if (!optionsBuilder.IsConfigured)
 //            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True");
+//                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True;");
 //            }
 //        }
 
@@ -118,6 +119,10 @@ namespace IGO.Models
 
                 entity.Property(e => e.FCouponId).HasColumnName("fCouponID");
 
+                entity.Property(e => e.FCouponImage)
+                    .HasMaxLength(50)
+                    .HasColumnName("fCouponImage");
+
                 entity.Property(e => e.FCouponName)
                     .HasMaxLength(50)
                     .HasColumnName("fCouponName");
@@ -139,6 +144,8 @@ namespace IGO.Models
                 entity.Property(e => e.FProductId4).HasColumnName("fProductID4");
 
                 entity.Property(e => e.FProductId5).HasColumnName("fProductID5");
+
+                entity.Property(e => e.FQuantity).HasColumnName("fQuantity");
 
                 entity.Property(e => e.FTimeOut).HasColumnName("fTimeOut");
 
@@ -216,6 +223,8 @@ namespace IGO.Models
                     .HasMaxLength(50)
                     .HasColumnName("fSignUpDate");
 
+                entity.Property(e => e.FSupplierId).HasColumnName("fSupplierID");
+
                 entity.Property(e => e.FUserPhoto)
                     .HasMaxLength(50)
                     .HasColumnName("fUserPhoto");
@@ -245,6 +254,10 @@ namespace IGO.Models
                 entity.Property(e => e.FDiscountName)
                     .HasMaxLength(50)
                     .HasColumnName("fDiscountName");
+
+                entity.Property(e => e.FImagePath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImagePath");
 
                 entity.Property(e => e.FTimeOut)
                     .HasMaxLength(50)
@@ -299,6 +312,10 @@ namespace IGO.Models
                 entity.Property(e => e.FOrderDate)
                     .HasMaxLength(50)
                     .HasColumnName("fOrderDate");
+
+                entity.Property(e => e.FOrderNum)
+                    .HasMaxLength(50)
+                    .HasColumnName("fOrderNum");
 
                 entity.Property(e => e.FPayTypeId).HasColumnName("fPayTypeID");
 
@@ -524,6 +541,19 @@ namespace IGO.Models
                     .HasConstraintName("FK_tSeat_tProducts");
             });
 
+            modelBuilder.Entity<TSession>(entity =>
+            {
+                entity.HasKey(e => e.FSessionId);
+
+                entity.ToTable("tSession");
+
+                entity.Property(e => e.FSessionId).HasColumnName("fSessionId");
+
+                entity.Property(e => e.FData)
+                    .HasMaxLength(1000)
+                    .HasColumnName("fData");
+            });
+
             modelBuilder.Entity<TShipper>(entity =>
             {
                 entity.HasKey(e => e.FShipperId)
@@ -642,6 +672,8 @@ namespace IGO.Models
                     .HasMaxLength(50)
                     .HasColumnName("fAddress");
 
+                entity.Property(e => e.FCityId).HasColumnName("fCityID");
+
                 entity.Property(e => e.FCompanyName)
                     .HasMaxLength(30)
                     .HasColumnName("fCompanyName");
@@ -649,6 +681,18 @@ namespace IGO.Models
                 entity.Property(e => e.FPhone)
                     .HasMaxLength(20)
                     .HasColumnName("fPhone");
+
+                entity.Property(e => e.FSubCategoryId).HasColumnName("fSubCategoryID");
+
+                entity.HasOne(d => d.FCity)
+                    .WithMany(p => p.TSuppliers)
+                    .HasForeignKey(d => d.FCityId)
+                    .HasConstraintName("FK_tSupplier_tCity");
+
+                entity.HasOne(d => d.FSubCategory)
+                    .WithMany(p => p.TSuppliers)
+                    .HasForeignKey(d => d.FSubCategoryId)
+                    .HasConstraintName("FK_tSupplier_tSubCategory");
             });
 
             modelBuilder.Entity<TTicketAndProduct>(entity =>

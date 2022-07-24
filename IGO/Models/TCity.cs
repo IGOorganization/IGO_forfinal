@@ -11,6 +11,7 @@ namespace IGO.Models
         {
             TCustomers = new HashSet<TCustomer>();
             TProducts = new HashSet<TProduct>();
+            TSuppliers = new HashSet<TSupplier>();
         }
 
         public int FCityId { get; set; }
@@ -18,5 +19,6 @@ namespace IGO.Models
 
         public virtual ICollection<TCustomer> TCustomers { get; set; }
         public virtual ICollection<TProduct> TProducts { get; set; }
+        public virtual ICollection<TSupplier> TSuppliers { get; set; }
     }
 }

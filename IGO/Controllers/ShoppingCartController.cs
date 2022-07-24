@@ -24,6 +24,8 @@ namespace IGO.Controllers
     {
         private readonly IWebHostEnvironment webHostEnvironment;
         private DemoIgoContext _dbIgo;
+		//public static List<int> BuyedLists;
+		//public static int UserID;
 		
 
 
@@ -35,17 +37,31 @@ namespace IGO.Controllers
         }
         public IActionResult List()
         {
-            List<CShoppingCartViewModel> lists = new List<CShoppingCartViewModel>();
 
-            foreach (TShoppingCart data in _dbIgo.TShoppingCarts.ToList())
+			List<CShoppingCartViewModel> lists = new List<CShoppingCartViewModel>();
+
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
-                CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
-                shoppingCartViewModel.shoppingCart = data;
-                lists.Add(shoppingCartViewModel);
-            };
+                int UserId = (int)(HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER));
+				//UserID = UserId;
+				
+				var datas = _dbIgo.TShoppingCarts.Where(c => c.FCustomerId == UserId).ToList();
+              
+				foreach (TShoppingCart data in datas)
+				{
+					CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
+					shoppingCartViewModel.shoppingCart = data;
+					lists.Add(shoppingCartViewModel);
+				};
 
 
-            return View(lists);
+				return View(lists);
+            }
+
+
+
+            return Redirect(Url.Content("~/Home/Login"));
+
         }
 
 
@@ -74,7 +90,7 @@ namespace IGO.Controllers
         {
             var json = HttpContext.Session.GetString(CDictionary.SK_Selected_Item);
             List<int> IDs = JsonSerializer.Deserialize<List<int>>(json);
-
+			//BuyedLists = IDs;
             List<CShoppingCartViewModel> lists = new List<CShoppingCartViewModel>();
 			
             
@@ -85,6 +101,17 @@ namespace IGO.Controllers
                 lists.Add(shoppingCartViewModel);
 				
             };
+			//=====================================將session存入資料庫====================================
+			TSession session = new TSession();
+			CSessionViewModel sessionData = new CSessionViewModel();
+			sessionData.UserId =(int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+			sessionData.ShoppingCartItems = IDs;
+			String JData = JsonSerializer.Serialize(sessionData);
+			session.FData = JData;
+			_dbIgo.TSessions.Add(session);
+			_dbIgo.SaveChanges();
+
+			int SessionId = _dbIgo.TSessions.OrderByDescending(c => c.FSessionId).FirstOrDefault().FSessionId;
 
             //=======================================預設金流變數=========================================
             IConfiguration Config = new ConfigurationBuilder().AddJsonFile("appSettings.json").Build();
@@ -92,11 +119,11 @@ namespace IGO.Controllers
             ViewData["MerchantID"] = Config.GetSection("MerchantID").Value;
             ViewData["MerchantOrderNo"] = DateTime.Now.ToString("yyyyMMddHHmmss");  //訂單編號
             ViewData["ExpireDate"] = DateTime.Now.AddDays(3).ToString("yyyyMMdd"); //繳費有效期限
-            ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}ShoppingCart/Finish"; //支付完成返回商店網址
+            ViewData["ReturnURL"] = $"{Request.Scheme}://{Request.Host}/ShoppingCart/Finish/{SessionId}"; //支付完成返回商店網址
             ViewData["CustomerURL"] = ""; //商店取號網址
             ViewData["NotifyURL"] = ""; //支付通知網址
                                         //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
-            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/ShoppingCart/Finish"; //返回商店網址
+            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/ShoppingCart/Finish/{SessionId}"; //返回商店網址
 
             //=======================================預設金流變數=========================================
 
@@ -246,74 +273,122 @@ namespace IGO.Controllers
 
 
 
-		public IActionResult Finish()
+		public IActionResult Finish(int? id)
         {
+			var SessionText = _dbIgo.TSessions.FirstOrDefault(c => c.FSessionId == id).FData;
+			CSessionViewModel sessionData = new CSessionViewModel();
+			sessionData = JsonSerializer.Deserialize<CSessionViewModel>(SessionText);
 			//===============================取結帳清單資料=================================================
-			var json = HttpContext.Session.GetString(CDictionary.SK_Selected_Item);
-			List<int> IDs = JsonSerializer.Deserialize<List<int>>(json);
-
+			HttpContext.Session.SetString(CDictionary.SK_Selected_Item,JsonSerializer.Serialize(sessionData.ShoppingCartItems)); //重新綁定購物車商品
+			HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, sessionData.UserId); // 重新綁定使用者
 			List<CShoppingCartViewModel> lists = new List<CShoppingCartViewModel>();
+            int Price = 0;  //計算總價
 
-
-			foreach (TShoppingCart data in _dbIgo.TShoppingCarts.Where(c => IDs.Contains(c.FShoppingCartId)).ToList())
-			{
-				CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
-				shoppingCartViewModel.shoppingCart = data;
-				lists.Add(shoppingCartViewModel);
-
-			};
-			//===============================產生QRCODE=================================================
-			QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(lists[0].product.FProductName, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            //Bitmap icon = new Bitmap(@"wwwroot\ShoppingCartImgs\IGO.jpg");
-            Bitmap icon = new Bitmap(webHostEnvironment.WebRootPath + "/ShoppingCartImgs/IGO.jpg");
-            Bitmap qrCodeImage = qrCode.GetGraphic(5, Color.Black, Color.White, icon, 15, 0);
-
-            string outputFileName = @"wwwroot\img\Code.jpg";
-            using (MemoryStream memory = new MemoryStream())
+            foreach (TShoppingCart data in _dbIgo.TShoppingCarts.Where(c => sessionData.ShoppingCartItems.Contains(c.FShoppingCartId)).ToList())
             {
-                using (FileStream fs = new FileStream(outputFileName, FileMode.Create/*, FileAccess.ReadWrite*/))
+                CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
+                shoppingCartViewModel.shoppingCart = data;
+                Price += (int)data.FTotalPrice;
+                lists.Add(shoppingCartViewModel);
+
+            };
+			//=================================將購買商品存入tOrders=====================================
+			int OrderNum =_dbIgo.TOrders.Where(c => c.FCustomerId == sessionData.UserId).Count();
+			var isDate = _dbIgo.TOrders.Where(c => c.FCustomerId == sessionData.UserId).OrderByDescending(c => c.FOrderId).FirstOrDefault().FOrderNum; //判斷訂單編號日期
+			if (isDate == null)
+			{
+				isDate = DateTime.Now.ToString("yyyyMMdd");
+			}
+			
+			
+			var dayAndUser = isDate.Substring(0, 8) + sessionData.UserId.ToString();
+			if (!((DateTime.Now.ToString("yyyyMMdd")+sessionData.UserId.ToString())== dayAndUser))
+				{
+				OrderNum = 0;
+				 }
+			TOrder order = new TOrder()
+			{
+				FCustomerId = sessionData.UserId,
+				FOrderDate = (DateTime.Now).ToString("yyyyMMddHHmmss"),
+				FStatusId = 1,
+				FTotalPrice = Price,
+				FOrderNum = DateTime.Now.ToString("yyyyMMdd") + (sessionData.UserId).ToString() +"IGO" +(OrderNum + 1).ToString()
+
+            };
+			ViewData["OrderNum"] = DateTime.Now.ToString("yyyyMMdd") + (sessionData.UserId).ToString() + "IGO" + (OrderNum + 1).ToString();
+
+			_dbIgo.TOrders.Add(order);
+            _dbIgo.SaveChanges();
+            //=================================將商品存入tOrderDetails==================================
+            int LatestOrderId = _dbIgo.TOrders.OrderByDescending(i => i.FOrderId).FirstOrDefault().FOrderId;
+            foreach (CShoppingCartViewModel item in lists)
+            {
+                TOrderDetail orderDetail = new TOrderDetail()
                 {
-                    qrCodeImage.Save(memory, ImageFormat.Jpeg);
-                    byte[] bytes = memory.ToArray();
-                    fs.Write(bytes, 0, bytes.Length);
-                }
+                    FOrderId = LatestOrderId,
+                    FProductId = item.FProductId,
+                    FBookingTime = item.FBookingTime,
+                    FTicketId = item.FTicketId,
+                    FQuantity = item.FQuantity,
+                    FPrice = item.FTotalPrice
+                };
+                _dbIgo.TOrderDetails.Add(orderDetail);
             }
+            _dbIgo.SaveChanges();
 
-
-
-
-
-
+			//===============================產生QRCODE=================================================
+			int TicketCount = _dbIgo.TOrderDetails.Where(c => c.FOrderId == LatestOrderId).Count();
+			List<int> PicNum = _dbIgo.TOrderDetails.Where(c => c.FOrderId == LatestOrderId).Select(c => c.FOrderDetailsId).ToList();
+			List<string> QrcodeContext = new List<string>();
+			for (int i = 0; i < TicketCount; i++)
+			{
+				string TicketValue = CEncryptAndDecrypt.Encrypt(PicNum[i].ToString());
+				QRCodeGenerator qrGenerator = new QRCodeGenerator();
+				 QrcodeContext.Add($"{Request.Scheme}://{Request.Host}/CheckTicket/ScanTicket/{TicketValue}");
+				QRCodeData qrCodeData = qrGenerator.CreateQrCode(QrcodeContext[i], QRCodeGenerator.ECCLevel.Q);
+				QRCode qrCode = new QRCode(qrCodeData);
+				Bitmap icon = new Bitmap(webHostEnvironment.WebRootPath + "/ShoppingCartImgs/IGO.jpg");
+				Bitmap qrCodeImage = qrCode.GetGraphic(5, Color.Black, Color.White, icon, 15, 0);
+				string outputFileName = webHostEnvironment.WebRootPath + $"/QRCodeTicketImgs/QRCode{PicNum[i]}.jpg";
+				using (MemoryStream memory = new MemoryStream())
+				{
+					using (FileStream fs = new FileStream(outputFileName, FileMode.Create/*, FileAccess.ReadWrite*/))
+					{
+						qrCodeImage.Save(memory, ImageFormat.Jpeg);
+						byte[] bytes = memory.ToArray();
+						fs.Write(bytes, 0, bytes.Length);
+					}
+				}
+			}
             //----------------------------------------------------------寄信------------------------------------------
-
-
-
             MailMessage em = new MailMessage();
             em.From = new System.Net.Mail.MailAddress("zeroqazggc0504@gmail.com");
             em.To.Add("zeroqazggc0504@gmail.com");
             em.SubjectEncoding = System.Text.Encoding.UTF8;
             em.BodyEncoding = System.Text.Encoding.UTF8;
             em.Subject = "IGO訂單已成立";
-            //em.Body = "<html><body><img src='~/ShoppingCartImgs/野柳海洋世界.jpg'></body></html>";
             em.IsBodyHtml = true;
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
             client.Credentials = new System.Net.NetworkCredential("zeroqazggc0504@gmail.com", "ccpapemvmokdjpjk");
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-
             //------------------------------------------------------夾帶檔案
-            //var res = new LinkedResource(@"wwwroot\img\Code.jpg", MediaTypeNames.Image.Jpeg);
             var res = new LinkedResource(webHostEnvironment.WebRootPath + "/img/Code.jpg", MediaTypeNames.Image.Jpeg);
             res.ContentId = "Pic1";  //每個檔案都需要有一個contentID
+			var htmlBody = $"<html><body><div style='width:350px'><h1 style='text-align:center'>入場票券</h1>";
+			for (int i = 0; i< lists.Count; i++) {
+				htmlBody += $"<div style='border:1px black solid;display:flex;margin-bottom:10px'><div><h2>{lists[i].product.FProductName}</h2>" +
+				   $"<img src='cid:Pic1'></div>" +
+				   $"<div style='margin-top:40px'><h3>使用時間:{lists[i].FBookingTime}</h3><h3>票種:{lists[i].ticket.FTicketName}</h3>" +
+				   $"<h3>張數:{lists[i].FQuantity}</h3><h3>價錢:{lists[i].FTotalPrice:C2}</h3>" +
+				   $"<h3>地址:{lists[i].product.FAddress}</h3></div></div>" +
+				   $"<p>{QrcodeContext[i]}</p>";
 
-            var htmlBody = "<html><body><h1>你好</h1><img src='cid:Pic1'></body></html>";
-
+			}
+			htmlBody +=	$"</div></body></html>";
             var altView = AlternateView.CreateAlternateViewFromString(
                 htmlBody, null, MediaTypeNames.Text.Html);
-
             altView.LinkedResources.Add(res);
             em.AlternateViews.Add(altView);
 
@@ -325,7 +400,7 @@ namespace IGO.Controllers
             {
 
             }
-            return View();
+            return View(lists);
         }
 
     }

@@ -80,13 +80,14 @@ namespace IGO.Controllers
             TCustomer cust = _IgoContext.TCustomers.FirstOrDefault(n => n.FPhone == vModel.txtAccount);
             if (cust != null)
             {
-                if (cust.FPassword.Equals(vModel.txtPassword))
-                {
+                //if (cust.FPassword.Equals(vModel.txtPassword))
+                //{
                     HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
 
                     return RedirectToAction("Home", "Home");
-                }
+                //}
             }
+            
             return View();
         }
         public IActionResult checkUser()

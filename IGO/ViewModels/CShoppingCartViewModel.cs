@@ -50,5 +50,36 @@ namespace IGO.ViewModels
                 return null;
             }
         }
+        public TCustomer customer
+        {
+            get
+            {
+                TCustomer cust = _dbIgo.TCustomers.Where(p => p.FCustomerId == FCustomerId).FirstOrDefault();
+                if (cust != null)
+                    return cust;
+                return null;
+            }
+        }
+
+        public TCity city
+        {
+            get
+            {
+                TCity city = _dbIgo.TCities.Where(p => p.FCityId == customer.FCityId).FirstOrDefault();
+                if (city != null)
+                    return city;
+                return null;
+            }
+        }
+        public TTicketType ticket
+        {
+            get
+            {
+                TTicketType ticket = _dbIgo.TTicketTypes.Where(p => p.FTicketId == FTicketId).FirstOrDefault();
+                if (ticket != null)
+                    return ticket;
+                return null;
+            }
+        }
     }
 }

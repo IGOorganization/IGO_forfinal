@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<IGO.ViewModels.CShoppingCartViewModel>
 @{
     ViewData["Title"] = "訂單完成";
 }
@@ -30,9 +30,16 @@
 
     <div class="card card p-5 text-center">
         <h3 style="color:darkgray">訂購成功</h3>
-        <p>感謝您的購買!<br>您的訂單編號為ASDFGH</p>
+        <p>感謝您的訂購!<br>您的訂單編號為:@ViewData["OrderNum"]</p>
+        <p>您的票卷及資料已傳送到您指定的Email:@Model.FirstOrDefault().customer.FEmail</p>
+
+
         <span>
             <a href="@Url.Content("~/ShoppingCart/Finish")"><input class="btn btn-light btn-lg" style="font-family:Arial;color:brown" type="button" name="btnPay" value="查詢訂單" /></a>
+        </span>
+
+        <span>
+            <a href="@Url.Content("~/CheckTicket/Capture")"><input class="btn btn-light btn-lg" style="font-family:Arial;color:brown" type="button" name="btnPay" value="人臉辨識驗證" /></a>
         </span>
 
 
