@@ -14,6 +14,7 @@ namespace IGO.ViewModels
         private TPayment _pay;
         private TProduct _prod;
         private TTicketType _t;
+        private TCustomer _c;
 
         public COrdersViewModel()
         {
@@ -24,7 +25,24 @@ namespace IGO.ViewModels
             _pay = new TPayment();
             _prod = new TProduct();
             _t = new TTicketType();
+            _c = new TCustomer();
 
+        }
+        //TCustomer
+        public TCustomer tCustomer
+        {
+            get { return _c; }
+            set { _c = value; }
+        }
+        public string LastName
+        {
+            get { return _c.FLastName; }
+            set { _c.FLastName = value; }
+        }
+        public string FirstName
+        {
+            get { return _c.FFirstName; }
+            set { _c.FFirstName = value; }
         }
         //TTicketType
         public TTicketType tTicketType
@@ -110,6 +128,11 @@ namespace IGO.ViewModels
         {
             get { return _o.FOrderNum; }
             set { _o.FOrderNum = value; }
+        }
+        public int CustomerId
+        {
+            get { return _o.FCustomerId; }
+            set { _o.FCustomerId = value; }
         }
 
         public string ShippedDate

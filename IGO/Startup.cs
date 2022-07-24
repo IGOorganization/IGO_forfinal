@@ -73,10 +73,10 @@ namespace IGO
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=HomeApi}/{action=showViewNoProductCountBySession}/{id?}");
+                    pattern: "{controller=Home}/{action=Home}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

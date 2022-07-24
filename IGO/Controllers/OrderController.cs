@@ -31,15 +31,11 @@ namespace IGO.Controllers
                 Debug.WriteLine(userid);
                 //return Json(userid);
             }
-            //return Content(userid.ToString());  //抓到登入者的FCustomerId=47
 
             COrdersViewModel vModel = null;
 
             List<COrdersViewModel> v = new List<COrdersViewModel>();
 
-            //var q = (from o in _context.TOrders
-            //        where o.FCustomerId == 47 && o.FStatusId==1 || o.FStatusId == 3
-            //         select o).ToList();
             var q = (from o in _IgoContext.TOrders
                      where o.FCustomerId == userid
                      select o).ToList();
