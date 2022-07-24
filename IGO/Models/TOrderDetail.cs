@@ -20,6 +20,11 @@ namespace IGO.Models
         public int? FCouponId { get; set; }
         public int? FQuantity { get; set; }
         public decimal? FPrice { get; set; }
+        public int? FMovieSeatId { get; set; }
+        public int? FSupplierId { get; set; }
+        public int? FShowingId { get; set; }
+        public int? FMovieId { get; set; }
+        public int? FMovieTicketTypeId { get; set; }
 
         public virtual TCoupon FCoupon { get; set; }
         public virtual TOrder FOrder { get; set; }

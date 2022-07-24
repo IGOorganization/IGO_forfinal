@@ -51,7 +51,7 @@
                     <div class="row">
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
-                            <select class="form-control" tabindex="1" id="supplier">
+                            <select class="form-control" tabindex="1" id="supplier" onchange="SearchChosenSeat()">
                                 @foreach (var a in Model.Item2)
                                 {
                                     <option value="@a.FSupplierId">@a.FCompanyName</option>
@@ -62,7 +62,7 @@
                         <div class="col-md-6 my-3">
                             <label class="control-label">日期</label>
                             <div class="input-group">
-                                <input type="text" class="form-control mydatepicker" placeholder="mm/dd/yyyy" id="movie-date"> <span class="input-group-addon"><i class="icon-calender"></i></span>
+                                <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="movie-date"> <span class="input-group-addon"><i class="icon-calender"></i></span>
                             </div>
                         </div>
                         @*場次========================================*@
@@ -72,7 +72,7 @@
                                 int idx = 0;
                                 foreach (var a in Model.Item3)
                                 {
-                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="showing" value="@a.FShowingId">
+                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="showing" value="@a.FShowingId" onchange="SearchChosenSeat()">
                                     <label class="btn btn-outline-primary" for="@("ticket" + idx)">@a.FShowingName</label>
                                     idx++;
                                 }
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-md-4 my-3">
                             <label class="control-label">張數</label>
-                            <select class="form-control" tabindex="1" id="count" onchange="GetPrice()">
+                            <select class="form-control" tabindex="1" id="count" onchange="GetPrice();CheckCount()">
                                 @for (int i = 1; i <= 10; i++)
                                 {
                                     <option value="@i">@i</option>
@@ -110,23 +110,27 @@
                             </button>
                         </div>
                         <div class="col-md-4 my-3">
-                            @if (Model.Item1.IsCollection)
-                            {
-                                <button type="button" class="btn btn-success" id="btn-collection" onclick="CancelCollection()">
-                                    <i class="bi bi-bookmark-check"></i>
-                                    已收藏
-                                </button>
-                            }
-                            else
-                            {
-                                <button type="button" class="btn btn-outline-secondary" id="btn-collection" onclick="AddCollection()">
-                                    <i class="bi bi-heart"></i>
-                                    加入收藏
-                                </button>
-                            }
+                            <label class="control-label">座位</label>
+                            <span id="seatText"></span>
+                            </div>
+                            <div class="col-md-4 my-3">
+                                @if (Model.Item1.IsCollection)
+                                {
+                                    <button type="button" class="btn btn-success" id="btn-collection" onclick="CancelCollection()">
+                                        <i class="bi bi-bookmark-check"></i>
+                                        已收藏
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-secondary" id="btn-collection" onclick="AddCollection()">
+                                        <i class="bi bi-heart"></i>
+                                        加入收藏
+                                    </button>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 @*<div class="m-3">
                         <span class="fw-bold">票種</span>
@@ -345,9 +349,9 @@
 
                         foreach (int column in columnList)
                         {
-                            <a>
+                            <a role="button" onclick="ChooseSeat('@("seat"+row+column)')">
                                 <span>@(row + column)</span>
-                                <img id="@("seat" + row + column)" src="/img/can-choose.png" />
+                                <img id="@("seat"+row+column)" src="/img/can-choose.png" class="seat"  data-seat-name="@(row+column)" />
                             </a>
                         }
 
@@ -357,7 +361,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="SaveSeat()">Save changes</button>
             </div>
         </div>
     </div>
@@ -367,34 +371,60 @@
 {
 
     <script>
-        $('.mydatepicker').datepicker({
+        let movieLenth = 0;
+        let total =@Model.Item4.Count;
+
+        $('#movie-date').datepicker({
             autoclose: true,
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function () {
+            SearchChosenSeat();
         });
 
-        $("#seatModal").on('show.bs.modal', function () {
-            $.ajax({
-                url: '@Url.Content("~/Movie/SearchChosenSeat")',
-                method: 'POST',
-                data: {
-                    movieID:@Model.Item1.MovieId,
-                    movieDate: $('#movie-date').val(),
-                    suppilerID: $('#supplier').val(),
-                    showingID: $('input[name="showing"]:checked').val()
-                },
-                success: function (res) {
-                    //['A1','A2']
-                    res.forEach(function (item) {
-                        $("#seat" + item).attr("src","/img/cant-choose.png")
-                    });
-                },
-                error: function (err) { console.log(err) },
-            });
-        });
+        $('#seatModal').on('hide.bs.modal', function () {
+            $.each($("img.seat"), function (index, item) {
+                $(item).attr("src", "/img/can-choose.png")
+            })
+            SearchChosenSeat();
+        })
+
+        function SaveSeat() {
+            let count = +$('#count').val();
+            let chosenCount = $('img.seat[src="/img/chosen.png"]').length;
+
+            if (chosenCount < count) {
+                alert("還有" + (count - chosenCount) + "個座位未劃位");
+                return;
+            }
+
+            let seats = [];
+
+            $.each($('img.seat[src="/img/chosen.png"]'), function (index, item) {
+                seats.push($(item).data("seat-name"));
+            })
+
+            $("#seatText").text(seats.join('、'));
+
+            $('#seatModal').modal('hide');
+        }
+
+        function CheckCount() {
+            let count = $('#count').val();
+            if (total - movieLenth < count) {
+                alert("座位數不足");
+                $('#btn-seat').attr('disabled', true);
+            }
+            else {
+                $('#btn-seat').removeAttr('disabled');
+            }
+        }
+
 
         function GetPrice() {
             let price = $('input[name="ticket"]:checked').data("price");
             let ticket = +$('#count').val();
             let total = price * ticket;
+            if (price == undefined) { return;}
             $('#money').val(total);
         }
 
@@ -432,10 +462,52 @@
 
 
             });
-
-
         }
 
+        function SearchChosenSeat() {
+            let data = {
+                movieID:@Model.Item1.MovieId,
+                movieDate: $('#movie-date').val(),
+                supplierID: $('#supplier').val(),
+                showingID: $('input[name="showing"]:checked').val()
+            };
+
+            if (data.movieDate == '' || data.showingID == undefined) { return;}
+
+            $.ajax({
+                url: '@Url.Content("~/Movie/SearchChosenSeat")',
+                method: 'POST',
+                data: data,
+                success: function (res) {
+                    movieLenth = res.length;
+                    //['A1','A2']
+                    res.forEach(function (item) {
+                        $("#seat" + item).attr("src","/img/cant-choose.png")
+                    });
+                },
+                error: function (err) { console.log(err) },
+            });
+        }
+
+
+        function ChooseSeat(seat) {
+            let imgPath = $("#" + seat).attr("src");
+
+            switch (imgPath) {
+                case '/img/can-choose.png':
+                    let chosenCount = $("img.seat[src='/img/chosen.png']").length;  //已選取的座位數
+                    let count = +$("#count").val();   /*取得這次選了要購買張數*/
+                    if (count == chosenCount) {
+                        alert('已超過購買張數');
+                        break;
+                    }
+                    $("#" + seat).attr("src", "/img/chosen.png");
+                    break;
+                case '/img/chosen.png':
+                    $("#" + seat).attr("src", "/img/can-choose.png");
+                    break;
+            }
+        }
     </script>
 
 }

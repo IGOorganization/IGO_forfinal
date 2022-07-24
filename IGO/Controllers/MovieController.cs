@@ -103,15 +103,21 @@ namespace IGO.Controllers
             return Json(true);
         }
 
-        public JsonResult SearchChosenSeat(int movieID, string movieDate, int suppilerID, int showingID)
+        public JsonResult SearchChosenSeat(int movieID, string movieDate, int supplierID, int showingID)
         {
             List<TShoppingCart> shoppingCarts = _dbIgo.TShoppingCarts.Where(t => t.FMovieId == movieID &&
                                                                                                                                                           t.FBookingTime == movieDate &&
-                                                                                                                                                          t.FSuppilerId == suppilerID &&
+                                                                                                                                                          t.FSupplierId == supplierID &&
                                                                                                                                                           t.FShowingId == showingID).ToList();
 
+            List<TOrderDetail> orderDetails = _dbIgo.TOrderDetails.Where(t => t.FMovieId == movieID &&
+               t.FBookingTime == movieDate && t.FSupplierId == supplierID && t.FShowingId == showingID).ToList();
 
             List<int> seatIDs = shoppingCarts.Select(t => t.FMovieSeatId ?? 0).ToList();
+
+            //List<int> orderSeatIDs = orderDetails.Select(x => x.FMovieSeatId ?? 0).ToList();
+            //seatIDs.AddRange(orderSeatIDs);
+            seatIDs.AddRange(orderDetails.Select(x => x.FMovieSeatId ?? 0).ToList());
 
             List<TMovieSeat> seats = _dbIgo.TMovieSeats.Where(t => seatIDs.Contains(t.FSeatId)).ToList();
 

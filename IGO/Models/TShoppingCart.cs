@@ -16,7 +16,7 @@ namespace IGO.Models
         public string FTempOrder { get; set; }
         public string FBookingTime { get; set; }
         public int? FCouponId { get; set; }
-        public int? FSuppilerId { get; set; }
+        public int? FSupplierId { get; set; }
         public int? FShowingId { get; set; }
         public int? FMovieId { get; set; }
         public int? FMovieSeatId { get; set; }
