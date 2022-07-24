@@ -11,152 +11,114 @@ namespace IGO.ViewModels
     public class CProductViewModel
     {
         private DemoIgoContext _dbIgo;
-        private TProduct _prod = new TProduct();
+        // private TProduct _prod = new TProduct();
         public CProductViewModel(DemoIgoContext db)
         {
             _dbIgo = db;
         }
-        public TProduct product
-        {
-            get
-            {
-                return _prod;
-            }
-            set
-            {
-                _prod = value;
-            }
-        }
+        public TProduct product;
         public int FProductId
         {
             get
-            {
-                return _prod.FProductId;
-            }
+            { return product.FProductId; }
             set
-            {
-                _prod.FProductId = value;
-            }
+            { product.FProductId = value; }
         }
         [DisplayName("商品名稱")]
         public string FProductName
         {
             get
-            {
-                return _prod.FProductName;
-            }
+            { return product.FProductName; }
             set
-            {
-                _prod.FProductName = value;
-            }
+            { product.FProductName = value; }
         }
         [DisplayName("縣市")]
         public int? FCityId
         {
             get
-            {
-                return _prod.FCityId;
-            }
+            { return product.FCityId; }
             set
-            {
-                _prod.FCityId = value;
-            }
+            { product.FCityId = value; }
         }
         [DisplayName("地址")]
         public string FAddress
         {
             get
-            {
-                return _prod.FAddress;
-            }
+            { return product.FAddress; }
             set
-            {
-                _prod.FAddress = value;
-            }
+            { product.FAddress = value; }
         }
         [DisplayName("供應商")]
         public int? FSupplierId
         {
             get
-            {
-                return _prod.FSupplierId;
-            }
+            { return product.FSupplierId; }
             set
-            {
-                _prod.FSupplierId = value;
-            }
+            { product.FSupplierId = value; }
         }
         [DisplayName("庫存量")]
         public int? FQuantity
         {
             get
-            {
-                return _prod.FQuantity;
-            }
+            { return product.FQuantity; }
             set
-            {
-                _prod.FQuantity = value;
-            }
+            { product.FQuantity = value; }
         }
         [DisplayName("上架時間")]
         public string FStartTime
         {
             get
-            {
-                return _prod.FStartTime;
-            }
+            { return product.FStartTime; }
             set
-            {
-                _prod.FStartTime = value;
-            }
+            { product.FStartTime = value; }
         }
         [DisplayName("下架時間")]
         public string FEndTime
         {
             get
-            {
-                return _prod.FEndTime;
-            }
+            { return product.FEndTime; }
             set
-            {
-                _prod.FEndTime = value;
-            }
+            { product.FEndTime = value; }
         }
         [DisplayName("供應商")]
         public int? FSubCategoryId
         {
             get
-            {
-                return _prod.FSubCategoryId;
-            }
+            { return product.FSubCategoryId; }
             set
-            {
-                _prod.FSubCategoryId = value;
-            }
+            { product.FSubCategoryId = value; }
         }
         [DisplayName("商品介紹")]
         public string FIntroduction
         {
             get
-            {
-                return _prod.FIntroduction;
-            }
+            { return product.FIntroduction; }
             set
-            {
-                _prod.FIntroduction = value;
-            }
+            { product.FIntroduction = value; }
         }
         [DisplayName("是否打折")]
         public bool? FDiscountOrNot
         {
             get
-            {
-                return _prod.FDiscountOrNot;
-            }
+            { return product.FDiscountOrNot; }
             set
+            { product.FDiscountOrNot = value; }
+        }
+        public string fPhotoPath { get; set; }
+        public string getPhotoPath
+        {
+            get
+            { return getPath(); }
+        }
+        private string getPath()
+        {
+            TProductsPhoto q = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 1 & n.FProductId == FProductId);
+            if (q != null)
             {
-                _prod.FDiscountOrNot = value;
+                string s = q.FPhotoPath;
+                return s;
             }
+            return null;
         }
         //public decimal? price
         //{
@@ -169,9 +131,7 @@ namespace IGO.ViewModels
         public string CityName
         {
             get
-            {
-                return  _dbIgo.TProducts.Include(n => n.FCity).FirstOrDefault(n => n.FProductId == FProductId).FCity.FCityName;
-            }
+            { return _dbIgo.TProducts.Include(n => n.FCity).FirstOrDefault(n => n.FProductId == FProductId).FCity.FCityName; }
         }
         public string SupplierName
         {
@@ -180,6 +140,58 @@ namespace IGO.ViewModels
                 string s = (_dbIgo.TProducts.Include(n => n.FSupplier).FirstOrDefault(n => n.FProductId == FProductId)).FSupplier.FCompanyName;
                 return s;
             }
+        }
+        public List<CTicketPrice> tickets
+        {
+            get
+            {
+                List<CTicketPrice> list = new List<CTicketPrice>();
+                IEnumerable<TTicketAndProduct> q = _dbIgo.TTicketAndProducts.Include(n => n.FTicket).Where(n => n.FProductId == FProductId);
+                foreach (TTicketAndProduct t in q)
+                {
+                    CTicketPrice tp = new CTicketPrice();
+                    tp.ticketid = t.FTicketId;
+                    tp.ticket = t.FTicket.FTicketName;
+                    tp.price = (decimal)t.FPrice;
+                    list.Add(tp);
+                }
+                return list;
+            }
+        }
+
+        public TimeSpan endtime
+        {
+            get
+            {
+                return Convert.ToDateTime(FEndTime).Date - DateTime.Now.Date;
+            }
+        }
+        public int ticketid { get; set; }
+        public List<CSoldOut> Solded
+        {
+            get
+            {
+                List<CSoldOut> list = new List<CSoldOut>();
+
+                for (int i = 0; i <= 365; i++)
+                {
+                    CSoldOut soldout = new CSoldOut();
+                    soldout.Date = DateTime.Now.AddDays(i).ToString("yyyy-MM-dd");
+                    soldout.day = DateTime.Now.AddDays(i).Day;
+
+                    int a = 0;
+                    IEnumerable<TOrderDetail> q = _dbIgo.TOrderDetails.Where(n => n.FProductId == FProductId && n.FBookingTime == soldout.Date&&n.FTicketId==ticketid);
+                    foreach (TOrderDetail od in q)
+                    {
+                        a += (int)od.FQuantity;
+                    }
+                    soldout.SoldedNum = (int)FQuantity - a;
+
+                    list.Add(soldout);
+                }
+                return list;
+            }
+
         }
     }
 }

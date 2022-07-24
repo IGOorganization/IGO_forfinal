@@ -1,0 +1,265 @@
+﻿@model TSubCategory
+
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<!-- Page Header Start -->
+<input type="hidden" id="subcategoryid" value="@Model.FSubCategoryId" />
+<div class="container-fluid page-header mb-5 p-5" style="background-image: url('/img/@Model.FImagePath');">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">@Model.FSubCategoryName 列表</h1>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Booking Start -->
+<div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row g-2">
+                <div class="col-md-10">
+                    <div class="row g-2">
+                        <div class="col-md-2">
+                            <select class="form-select" id="sel_citys">
+                                <option selected>請選擇縣市</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select">
+                                <option selected>評價高到低</option>
+                                <option value="1">評價低到高</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select">
+                                <option selected>人氣高到低</option>
+                                <option value="1">人氣低到高</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 row">
+                            <button class="page-link col-md-2" id="prev"><<</button>
+                            <input id="pages" type="text" name="page" class="col-md-2" min="1" max="10" value="1" placeholder="1"/>
+                             / <h6 id="maxPage" class="col-md-2"></h6>
+                            <button class="page-link col-md-2" id="next">>></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">搜尋</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Booking End -->
+<!-- Room Start -->
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-primary text-uppercase">商品列表</h6>
+            <h1 class="mb-5">@Model.FSubCategoryName <span class="text-primary text-uppercase">列表</span></h1>
+        </div>
+        <div class="row g-5 align-items-center">
+            <div class="row g-4" id="productList">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+@section Styles{
+    <style>
+        .ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+}
+
+@section Scripts{
+    <script>
+        //const hearts = document.querySelectorAll("#btn_heart");
+        //console.log(hearts);
+        //hearts.forEach(function (heart) {
+        //    heart.addEventListener("click", () => {
+        //        $(this).toggleClass("fa-regular")
+        //    })
+        //})
+
+        //取得商品資訊
+        const subcategoryid = document.querySelector("#subcategoryid").getAttribute("value");
+        let divproduct = document.querySelector("#productList");
+        let lbps = document.querySelector("#maxPage");
+
+        takeProduct(1);
+
+        async function takeProduct(page) {
+            let jproduct = await fetch('@Url.Content("~/Product/getProduct")' + `?subid=${subcategoryid}&page=${page}`);
+
+            let product = await jproduct.json();
+            //console.log(product);
+            showList(product);
+        }
+
+        //產生商品列表
+        async function showList(prod) {
+
+            let frag = document.createDocumentFragment();
+            divproduct.textContent = "";
+            prod = JSON.parse(prod);
+            console.log(prod);
+
+            //生成商品組
+            prod.forEach(item => {
+                //console.log(item);
+                let div1 = document.createElement("div");
+                let div2 = document.createElement("div");
+                let div3 = document.createElement("div");
+                let div4 = document.createElement("div");
+                let div4_1 = document.createElement("div");
+                let div4_2 = document.createElement("div");
+                let div4_3 = document.createElement("div");
+                let div4_4 = document.createElement("div");
+                let img1 = document.createElement("img");
+                let p1 = document.createElement("p");
+                let h4 = document.createElement("h4");
+                let a1 = document.createElement("a");
+                let i = document.createElement("i");
+
+                div1.className = "col-lg-4 col-md-6 wow fadeInUp";
+                div1.setAttribute("data-wow-delay", "0.1s");
+                div2.className = "room-item shadow rounded overflow-hidden";
+                div3.className = "position-relative";
+                img1.className = "img-fluid";
+                img1.src = `/img/${item.getPhotoPath}`;
+                p1.className = "position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4";
+                p1.innerText = `使用期限至 ${item.FEndTime}`;
+                div3.appendChild(img1);
+                div3.appendChild(p1);
+                div4.className = "p-4 mt-2";
+                div4_1.className = "d-flex mb-3";
+                for (var s = 1; s <= 4; s++)
+                {
+                    div4_1.innerHTML += '<i class="fa fa-star text-primary"></i>';
+                }
+                i.className = "fa-solid fa-heart fa-regular";
+                i.style = "padding:0px 0 0 10px ;font-size:150%";
+                i.setAttribute("data-id", item.FProductId);
+                div4_1.appendChild(i);
+                div4_2.className = "d-flex justify-content-lg-start";
+                h4.innerText = `${item.FProductName}`;
+                div4_2.appendChild(h4);
+                div4_3.className = "d-flex justify-content-lg-start";
+
+                item.tickets.forEach(q => {
+                    let p2 = document.createElement("p");
+                    p2.innerText = `| ${q.ticket} 價格:NT$ ${q.price} | `;
+                    div4_3.appendChild(p2);
+                })
+                div4_4.className = "d-flex justify-content-lg-end";
+                a1.href = `Detail?prodid=${item.FProductId}`;
+                a1.className = "btn btn-primary rounded py-2 px-4 align-items-end";
+                a1.textContent = "詳細資訊";
+                div4_4.appendChild(a1);
+
+                div4.appendChild(div4_1);
+                div4.appendChild(div4_2);
+                div4.appendChild(div4_3);
+                div4.appendChild(div4_4);
+
+                div2.appendChild(div3);
+                div2.appendChild(div4);
+                div1.appendChild(div2);
+                frag.appendChild(div1);
+            })
+            divproduct.appendChild(frag);
+        }
+
+        takecitys();
+        pagelimit();
+
+        async function pagelimit() {
+            let jps = await fetch('@Url.Content("~/Product/pages")' + `?subid=${subcategoryid}`)
+            let ps = await jps.json();
+            console.log(ps);
+            
+            lbps.textContent = `${ps}`;
+        }
+
+        let page = document.querySelector("#pages");
+        
+
+        $("#prev").on("click", function () {
+            console.log(page);
+            page.value--;
+            if (page.value < 1) {
+                page.value = lbps.textContent;
+            }
+            takeProduct(page.value);
+        })
+
+        $("#next").on("click", function () {
+            console.log(page);
+            page.value++;
+            if (page.value > parseInt(lbps.textContent)) {
+                page.value = 1;
+            }
+            takeProduct(page.value);
+        })
+
+        //載入城市列表
+        async function takecitys() {
+            let selcitys = document.querySelector("#sel_citys");
+            let frag = document.createDocumentFragment();
+
+            let jcitys = await fetch('@Url.Content("~/Api/getCity")');
+
+            let citys = await jcitys.json();
+            console.log(citys);
+            citys.forEach(item => {
+                let option = new Option;
+                option.value = item.fCityId;
+                option.textContent = item.fCityName;
+                frag.appendChild(option);
+            })
+            selcitys.appendChild(frag);
+        }
+
+        let selcity = document.querySelector("#sel_citys");
+
+        selcity.addEventListener("change", async function (e) {
+            console.log(selcity.options[e.target.selectedIndex].value);
+            let jproducts = await fetch('@Url.Content("~/Product/SearchAndRank")' + `?subid=${subcategoryid}&cityid=${selcity.options[e.target.selectedIndex].value}`);
+
+            let products = await jproducts.json();
+            console.log(products);
+            showList(products);
+        })
+
+    </script>
+}

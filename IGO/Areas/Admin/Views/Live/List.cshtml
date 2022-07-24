@@ -278,7 +278,7 @@
         edit.addEventListener("click", async (event) => {
 
             event.preventDefault();
-            console.log("AAA");
+            //console.log("AAA");
             let editData = new FormData(document.EditForm);
 
             let jproducts = await fetch("Edit", {
@@ -323,7 +323,7 @@
             let selHotel = document.querySelector("#sel_Hotel");
             let frag = document.createDocumentFragment();
             let hotels = await getHotelList();
-            //console.log(hotels);
+            console.log(hotels);
             hotels.forEach(hotel => {
                 let option = new Option;
                 option.value = hotel.fSupplierId;

@@ -14,12 +14,12 @@
                     <input class="btn btn-secondary m-2" type="submit" value="搜尋" />
                     <button class="btn btn-secondary m-2 float-lg-end" type="button" data-bs-toggle="modal" data-bs-target="#createproduct">新增</button>
                 </div>
-
             </form>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
+                            <th scope="col">封面圖片</th>
                             <th scope="col">優惠名稱</th>
                             <th scope="col">販售期限</th>
                             <th scope="col">折數</th>
@@ -28,7 +28,7 @@
                     </thead>
                     <tbody id="tb_discounts">
                         @*商品組*@
-                        <tr>
+                        <!--<tr>
                             <td>父親節優惠</td>
                             <td>2022/8/31</td>
                             <td>88</td>
@@ -42,13 +42,15 @@
                                 <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
                                 <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
                             </td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 @*商品新增*@
@@ -83,6 +85,10 @@
                                         <input type="checkbox" class="form-check-input" name="fTimeOut" />
                                         <label class="form-check-label">開/關</label>
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
                                     <button type="submit" class="btn btn-primary" id="btn_createDiscount" data-bs-dismiss="modal">新增</button>
                                     <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
@@ -113,22 +119,26 @@
                             <div class="bg-secondary rounded h-100 p-2">
                                 <h6 class="mb-4">基本資料</h6>
                                 <form asp-area="Admin" asp-controller="Discount" asp-action="Edit" name="EditForm">
-                                    <input type="hidden" name="fDiscountId" id="editId"/>
+                                    <input type="hidden" name="fDiscountId" id="editId" />
                                     <div class="mb-2">
                                         <label for="FDiscountName" class="form-label">商品名稱</label>
-                                        <input type="text"id="editName" class="form-control" name="FDiscountName">
+                                        <input type="text" id="editName" class="form-control" name="FDiscountName">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">販售期限</label>
-                                        <input type="date"id="editDeadTime" class="form-control col-xl-4" name="FDeadTime">
+                                        <input type="date" id="editDeadTime" class="form-control col-xl-4" name="FDeadTime">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">折數</label>
-                                        <input type="number"id="editDiscount" class="form-control" name="FDiscount">
+                                        <input type="number" id="editDiscount" class="form-control" name="FDiscount">
                                     </div>
                                     <div class="mb-2">
                                         <input type="checkbox" class="form-check-input" name="FTimeOut" />
                                         <label class="form-check-label">開/關</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btn_editDiscount" data-bs-dismiss="modal">送出</button>
                                     <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
@@ -171,11 +181,20 @@
 
                 items.forEach(item => {
                     let tr = document.createElement("tr");
+
+                    let tdp = document.createElement("td");
+                    let img = document.createElement("img");
+
                     let td1 = document.createElement("td");
                     let td2 = document.createElement("td");
                     let td3 = document.createElement("td");
                     let td4 = document.createElement("td");
                     let td5 = document.createElement("td");
+
+                    img.src = `/img/${item.fImagePath}`;
+                    img.style.width = "160px";
+                    img.style.height = "90px";
+                    tdp.appendChild(img);
 
                     td1.textContent = item.fDiscountName;
                     td2.textContent = item.fDeadTime;
@@ -183,6 +202,7 @@
                     td4.textContent = item.fTimeOut;
                     td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${item.fDiscountId} data-bs-toggle="modal" data-bs-target="#editdiscount">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${item.fDiscountId}>刪除</button>`;
 
+                    tr.appendChild(tdp);
                     tr.appendChild(td1);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
@@ -217,11 +237,11 @@
         $("#tb_discounts").on("click", $("delete"), async function (event) {
             //console.log(event.target.getAttribute("data-did"));
              if (event.target.hasAttribute("data-did")) {
-                    alert("確定要刪除該商品?")
-                    @*let jproducts = await fetch('@Url.Content("~/Admin/Product/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
+                 alert("確定要刪除該商品?");
+                 let jproducts = await fetch('@Url.Content("~/Admin/Discount/Delete")' + `?id=${event.target.getAttribute("data-did")}`);
 
-                    let products = await jproducts.json();
-                    createtable(products);*@
+                 let products = await jproducts.json();
+                 showdiscounts(products);
              }
         });
 
@@ -239,7 +259,7 @@
                  $("#editName").val(products.fDiscountName);
                  $("#editDeadTime").val(products.fDeadTime);
                  $("#editDiscount").val(products.fDiscount);
-                 
+
              }
         });
 

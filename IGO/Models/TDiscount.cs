@@ -12,5 +12,6 @@ namespace IGO.Models
         public string FDeadTime { get; set; }
         public string FDiscount { get; set; }
         public string FTimeOut { get; set; }
+        public string FImagePath { get; set; }
     }
 }

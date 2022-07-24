@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<IGO.ViewModels.CProductViewModel>
+
 @{
     ViewData["Title"] = "List";
 }
@@ -20,7 +21,7 @@
             <div class="row g-2">
                 <div class="col-md-10">
                     <div class="row g-2">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select">
                                 <option selected>請選擇縣市</option>
                                 <option value="1">台北</option>
@@ -32,17 +33,21 @@
 
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select">
                                 <option selected>評價高到低</option>
                                 <option value="1">評價低到高</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select">
                                 <option selected>人氣高到低</option>
                                 <option value="1">人氣低到高</option>
                             </select>
+                        </div>
+                        <div class="col-md-2 ">
+                            <input type="number" name="page" class="col-3" />
+                            <label id="maxPage">/10</label>
                         </div>
                     </div>
                 </div>
@@ -55,173 +60,61 @@
 </div>
 <!-- Booking End -->
 <!-- Room Start -->
+
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">商品列表</h6>
-            <h1 class="mb-5">美食<span class="text-primary text-uppercase">列表</span></h1>
+            <h1 class="mb-5">美食 <span class="text-primary text-uppercase">列表</span></h1>
         </div>
         <div class="row g-5 align-items-center">
             <div class="row g-4">
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/food1.jpg" alt="" />
-                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">台北喜來登大飯店｜十二廚</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="~/img/@item.getPhotoPath" alt="封面圖片">
+                                <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">票價 / 票種</p>
                             </div>
-                            <p class="text-body mb-3 ellipsis">
-                                鄰近捷運板南線【善導寺站】2 號出口，步行約 1 分鐘，12 區全開放式的美食料理區，各式生魚片、清燉越南河粉、爐烤嫩牛排、中東風味料理、精緻手工甜點
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Food", "Products", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Coupon", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h4 class="mb-0"></h4>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    @for (int s = 1; s <= 4; s++)
+                                    {
+                                        <i class="fa fa-star text-primary"></i>
+                                    }
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+                                    <h4>@item.FProductName</h4>
+
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+
+                                </div>
+                                @{
+                                    //int remaining = (int)item.StorageQuantity - (int)item.OrderQuantity;
+
+
+                                }
+                                <div class="d-flex justify-content-lg-start">
+                                    |
+                                    @foreach (var q in item.tickets)
+                                    {
+                                        <p>@q.ticket 價格:NT$ @q.price.ToString("0")  |  </p>
+                                    }
+                                    @*剩餘數量:XX 張  || 已售出:XX 張*@
+                                </div>
+                                <div class="d-flex justify-content-lg-end">
+                                    <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/food2.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">台中長榮桂冠自助餐</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                融匯各國美饌，明亮舒適的空間，充滿活力及歡樂的環境，是家庭客人最愛的餐廳首選，
-                                不論是歐式早餐、商務午餐、款待晚宴或宵夜，均滿足您多樣的飲食需求，
-                                每日的下午茶饗宴，濃醇咖啡搭配多樣精緻的異國甜點，讓您陶醉在穿透窗櫺的午后陽光中。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/food3.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">高雄翰品酒店 | 品日式料理</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                集握壽司、壽喜燒、涮涮鍋於一廳，呈現多樣的五星級日式料理。不論您是選擇每日由海港新鮮配送的漁貨做成現點現做的握壽司，或是絕美湯頭與獨家醬料交織美味的壽喜燒、涮涮鍋，都能享受主廚為您精烹的日式美食。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/food4.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">漢來海港城南紡夢時代店</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                餐廳內部以舒適、溫暖的大地色系為主，營造符合府城人文氣息的質感，複合式材質的大理石與磁磚做直條狀的拼接處理，希望吃自助餐也能更優雅、輕鬆。國際級日本設計團隊用心規劃出可以遠眺玻璃帷幕外景色的座位區、圓桌卡座區、以及如飯店酒吧般舒服的座位區，呈現不同風格的設計，使客人每次來店用餐可以感受到不同的氛圍。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/food5.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">桂田酒店｜阿力海百匯餐廳</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                提供百道以上無國界料理及下午餐。生猛海鮮吧供應每日現撈漁獲；開放式廚房為您現場烹調，頂級現切沙朗牛排、鵝肝醬、鐵板燒、時令鮮魚及螃蟹、港點燒臘、各式熱炒、...
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/food6.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">蘭城百匯自助餐廳</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                全宜蘭最大的自助餐廳，開放式創意廚房，由專業廚師團隊現場料理鮮美食材，時令極鮮食材、亞洲美食、日式料理、西式美饌、精緻手工甜點、頂級Häagen-Dazs冰淇淋、啤酒暢飲及各式飲品選擇，全家歡聚、師長同學齊聚、三五好友共享美食的絕佳選擇，坐擁青山綠意蘭陽景致，感受休閒愜意氛圍，讓您享受饒富多國美食的用餐樂趣。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

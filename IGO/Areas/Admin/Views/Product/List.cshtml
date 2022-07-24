@@ -20,6 +20,13 @@
                         <option value="5">美食</option>
                     </select>
                 </div>
+                <div class="col-sm-12 col-xl-6" style="margin-left:10px;">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div id="pagebar" class="btn-group me-2" role="group" aria-label="First group">
+                            @*<button type="button" class="btn btn-secondary">1</button>*@
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table" id="t_Product">
@@ -32,6 +39,7 @@
                             <th scope="col">庫存</th>
                             <th scope="col">販售期限</th>
                             <th scope="col" class="col-md-4">商品簡介</th>
+                            <th scope="col">封面圖片</th>
                         </tr>
                     </thead>
                     <tbody id="tb_products">
@@ -119,8 +127,12 @@
                                         <label class="form-label">商品介紹</label>
                                         <input type="text" class="form-control" name="fIntroduction">
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
                                     <button type="submit" class="btn btn-primary" id="btn_createProduct" data-bs-dismiss="modal">新增</button>
-                                    <button type="button" class="btn btn-primary "data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
                             </div>
                         </div>
@@ -164,7 +176,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品類別</label>
-                                        <select class="form-select" name="fSubcategoryID" >
+                                        <select class="form-select" name="fSubcategoryID">
                                             <option value="2">景點</option>
                                             <option value="4">展覽</option>
                                             <option value="5">美食</option>
@@ -181,11 +193,15 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">販售期限</label>
-                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" id="editStart"/> ~ <input type="date" class="form-control col-xl-4" name="fEndTime" id="editEnd">
+                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" id="editStart" /> ~ <input type="date" class="form-control col-xl-4" name="fEndTime" id="editEnd">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品介紹</label>
                                         <input type="text" class="form-control" name="fIntroduction" id="editIntroduction">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
                                     </div>
                                     <button type="submit" class="btn btn-primary" id="btn_editProduct" data-bs-dismiss="modal">完成</button>
                                     <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
@@ -202,6 +218,40 @@
 
 @section Scripts{
     <script>
+
+
+
+        //=========分頁================
+        let pagebar = document.querySelector("#pagebar");
+
+        $("#pagebar").on("click", "button", (event) => {
+            console.log(event.currentTarget);
+            changeSubCategory(event.currentTarget.getAttribute("data-index"))
+        })
+
+        async function page() {
+
+            let s = await selsubcategory.options[selsubcategory.selectedIndex].value;
+            let frag = document.createDocumentFragment();
+            let jpages = await fetch('@Url.Content("~/Admin/Product/Pages")' + `?number=${s}`);
+
+            let pages = await jpages.json();
+            console.log(pages);
+
+            pagebar.textContent = "";
+            for (var i = 0; i < pages; i++) {
+                let button = document.createElement("button");
+                button.setAttribute("data-index", i);
+                button.textContent = i + 1;
+                button.className = "btn btn-secondary";
+                frag.appendChild(button);
+            }
+            pagebar.appendChild(frag);
+
+        }
+
+       // $("#pagebar").on("click")
+
 
         //=========加入縣市============
         async function getcity(e) {
@@ -247,11 +297,14 @@
 
         selsubcategory.addEventListener("change", changeSubCategory);
 
-        changeSubCategory();
+        changeSubCategory(0);
         getcity(selcity);
         getcity(editcity);
         getSupplier(selsupplier);
         getSupplier(editsupplier);
+
+        
+        //page();
 
         //將回傳的json放進table
         function createtable(products) {
@@ -259,6 +312,8 @@
             if (products.length == 0)
                 tbody.textContent = "商品不存在";
             else {
+                //console.log(products);
+                products = JSON.parse(products);
                 products.forEach(product => {
                     let tr = document.createElement("tr");
                     let span = document.createElement("span");
@@ -270,26 +325,36 @@
                     let td6 = document.createElement("td");
                     let td7 = document.createElement("td");
                     let td8 = document.createElement("td");
-                    span.textContent = product.fProductId;
+                    let td9 = document.createElement("td");
+                    let img = document.createElement("img");
+                    span.textContent = product.FProductId;
                     span.setAttribute("hidden","");
-                    span.setAttribute("class", product.fProductId);
-                    tr.setAttribute("name", product.fProductId);
+                    span.setAttribute("class", product.FProductId);
+                    tr.setAttribute("name", product.FProductId);
                     tr.appendChild(span);
-                    td1.textContent = product.fProductName;
+                    td1.textContent = product.FProductName;
                     tr.appendChild(td1);
-                    td2.textContent = product.cityName;
+                    td2.textContent = product.CityName;
                     tr.appendChild(td2);
-                    td3.textContent = product.fAddress;
+                    td3.textContent = product.FAddress;
                     tr.appendChild(td3);
-                    td4.textContent = product.supplierName;
+                    td4.textContent = product.SupplierName;
                     tr.appendChild(td4);
-                    td5.textContent = product.fQuantity;
+                    td5.textContent = product.FQuantity;
                     tr.appendChild(td5);
-                    td6.textContent = product.fEndTime;
+                    td6.textContent = product.FEndTime;
                     tr.appendChild(td6);
-                    td7.textContent = product.fIntroduction;
+                    td7.textContent = product.FIntroduction;
                     tr.appendChild(td7);
-                    td8.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${product.fProductId} data-bs-toggle="modal" data-bs-target="#editproduct">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${product.fProductId}>刪除</button>`;
+
+                    img.src = `/img/${product.getPhotoPath}`;
+                    img.style.width = "160px";
+                    img.style.height = "90px";
+                    td9.appendChild(img);
+                    tr.appendChild(td9);
+
+                    td8.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${product.FProductId} data-bs-toggle="modal" data-bs-target="#editproduct">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${product.FProductId}>刪除</button>`;
+
                     tr.appendChild(td8);
                     frag.appendChild(tr);
                 })
@@ -298,14 +363,17 @@
         }
 
 
+
         //========以類別搜索商品==============
-        async function changeSubCategory() {
+        async function changeSubCategory(p) {
             let subcategoryid = await selsubcategory.options[selsubcategory.selectedIndex].value;
-            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}`)
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
 
             let products = await jproducts.json();
             //console.log(products);
             createtable(products);
+
+            page(subcategoryid);
         }
 
 
@@ -370,12 +438,12 @@
                  $("#editId").val(products.fProductId);
                  $("#editName").val(products.fProductName);
                  console.log($("#edit_city").children("option"));
-                 $("#edit_city").children("option").each(item => {
-                     if ($(item).attr("value") == products.fCityId) {
-                         $(item).attr("selected","true");
-                         $(item).siblings().removeAttr("selected");
-                     }
-                 })
+                 //$("#edit_city").children("option").each(item => {
+                 //    if ($(item).attr("value") == products.fCityId) {
+                 //        $(item).attr("selected","true");
+                 //        $(item).siblings().removeAttr("selected");
+                 //    }
+                 //})
                  $("#editAddress").val(products.fAddress);
                  $("#editQuantity").val(products.fQuantity);
                  $("#editStart").val(products.fStartTime);

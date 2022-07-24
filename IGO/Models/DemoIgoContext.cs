@@ -144,6 +144,8 @@ namespace IGO.Models
 
                 entity.Property(e => e.FProductId5).HasColumnName("fProductID5");
 
+                entity.Property(e => e.FQuantity).HasColumnName("fQuantity");
+
                 entity.Property(e => e.FTimeOut).HasColumnName("fTimeOut");
 
                 entity.HasOne(d => d.FProductId1Navigation)
@@ -249,6 +251,10 @@ namespace IGO.Models
                 entity.Property(e => e.FDiscountName)
                     .HasMaxLength(50)
                     .HasColumnName("fDiscountName");
+
+                entity.Property(e => e.FImagePath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImagePath");
 
                 entity.Property(e => e.FTimeOut)
                     .HasMaxLength(50)
@@ -622,6 +628,10 @@ namespace IGO.Models
                 entity.Property(e => e.FSubCategoryId).HasColumnName("fSubCategoryID");
 
                 entity.Property(e => e.FCategoryId).HasColumnName("fCategoryID");
+
+                entity.Property(e => e.FImagePath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImagePath");
 
                 entity.Property(e => e.FSubCategoryName)
                     .HasMaxLength(20)

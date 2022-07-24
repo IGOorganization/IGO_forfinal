@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<IGO.ViewModels.CProductViewModel>
+
 @{
     ViewData["Title"] = "List";
 }
@@ -20,7 +21,7 @@
             <div class="row g-2">
                 <div class="col-md-10">
                     <div class="row g-2">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select">
                                 <option selected>請選擇縣市</option>
                                 <option value="1">台北</option>
@@ -32,17 +33,21 @@
 
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select">
                                 <option selected>評價高到低</option>
                                 <option value="1">評價低到高</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select">
                                 <option selected>人氣高到低</option>
                                 <option value="1">人氣低到高</option>
                             </select>
+                        </div>
+                        <div class="col-md-2 ">
+                           <input type="number" name="page" class="col-3"/>
+                            <label id="maxPage">/10</label>
                         </div>
                     </div>
                 </div>
@@ -55,6 +60,7 @@
 </div>
 <!-- Booking End -->
 <!-- Room Start -->
+
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -63,162 +69,52 @@
         </div>
         <div class="row g-5 align-items-center">
             <div class="row g-4">
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/View1.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">世界宗教博物館門票</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="~/img/@item.getPhotoPath" alt="封面圖片">
+                                <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">票價 / 票種</p>
                             </div>
-                            <p class="text-body mb-3 ellipsis">
-                                日本伊勢神宮、台灣路思義教堂、印尼婆羅浮屠、以色列圓頂清真寺……等十座知名世界經典宗教建築，其建築格局、細部空間與對稱之美，皆具體而微地濃縮到 1/30 或 1/50
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h4 class="mb-0"></h4>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    @for (int s = 1; s <= 4; s++)
+                                    {
+                                        <i class="fa fa-star text-primary"></i>
+                                    }
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+                                    <h4>@item.FProductName</h4>
+
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+
+                                </div>
+                                @{
+                                    //int remaining = (int)item.StorageQuantity - (int)item.OrderQuantity;
+
+
+                                }
+                                <div class="d-flex justify-content-lg-start">
+                                    |
+                                    @foreach (var q in item.tickets)
+                                    {
+                                        <p>@q.ticket 價格:NT$ @q.price.ToString("0")  |  </p>
+                                    }
+                                    @*剩餘數量:XX 張  || 已售出:XX 張*@
+                                </div>
+                                <div class="d-flex justify-content-lg-end">
+                                    <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/View2.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">遠雄海洋公園門票</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                水中精靈「海豚傳說 - 跳浪奇緣」、活潑逗趣「海獅小學堂」、國際級表演「奇妙海洋慶典」、動畫實境劇場「美人魚的神秘傳說」、浩瀚海底世界「大洋池的生態奧秘」
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/View3.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">野柳海洋世界</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                野柳海洋世界為台灣第一座展示海洋哺乳類動物之展館，走過三十年，今日的海洋劇場成為以海洋哺乳類生態知識為主題的生態展演劇場，在維納斯海岸環抱、遙望基隆嶼的絕美海岸線風光中，為您揭開蔚藍海洋的神秘面紗。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/View4.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">六福村票券</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                六福村主題遊樂園，簡稱六福村，是一座位於臺灣新竹縣關西鎮的主題樂園。為六福開發旗下的企業之一。前身為1979年成立的六福村野生動物園，在1989年時開始規劃擴建成為主題樂園，於1994年開放第一個主題園區「美國大西部」。目前遊樂園內共分為五大主題區域，分別是「中央魔術噴泉」、「美國大西部」、「南太平洋」、「阿拉伯皇宮」和「非洲部落」（野生動物園）
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/View5.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">麗寶票券</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                麗寶樂園渡假區是位於臺灣台中市后里區的大型渡假區，是臺灣第一個民間興建營運後轉移模式（BOT）休閒產業開發案，2000年7月1日開園時為長億關係企業經營的「月眉育樂世界」，2006年改由麗寶建設接手經營，2012年更名「麗寶樂園」，2018年更為現名。園區目前共分為「馬拉灣」與「探索世界」水陸兩個部分，以及後續增建的「福容大飯店（麗寶樂園店）」、「密室逃脫旗艦館」、「麗寶OUTLET MALL（一期、二期）」、「麗寶樂園休息站」、「麗寶國際賽車場」與「摩天輪－天空之夢」。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @*商品組件*@
-                <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="~/img/View6.jpg" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">劍湖山票券</h5>
-                                <div class="ps-2">
-                                    <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                    <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3 ellipsis">
-                                劍湖山世界是臺灣知名主題遊樂園，通稱劍湖山，位於雲林縣古坑鄉永光村劍湖附近，綜合「休閒、遊樂、文化、科技」四大功能。全園佔地面積60多公頃，主要大型熱門活動常見為痛車[1]，為嘉義耐斯企業旗下之大型遊樂園。和義大世界、六福村、九族文化村並稱臺灣遊樂園的「一三六九」。
-                            </p>
-                            <div class="d-flex justify-content-between">
-                                @Html.ActionLink("細節", "Detail", "Live", null,
-                               new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                @Html.ActionLink("訂購", "Order", "Live", null,
-                               new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>

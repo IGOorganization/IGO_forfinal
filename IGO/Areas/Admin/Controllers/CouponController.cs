@@ -1,4 +1,5 @@
 ﻿using IGO.Models;
+using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,12 @@ namespace IGO.Areas.Admin.Controllers
         public IActionResult List()
         {
             List<CouponViewModel> list = new List<CouponViewModel>();
+            IEnumerable<TCoupon> datas = _dbIgo.TCoupons;
+            //for(int i = 0; i < 10; i++)
+            //{
+            //    CouponViewModel coupon = new CouponViewModel(_dbIgo);
+            //    coupon.coupon = datas.ToList()[i];
+            //}
             foreach (TCoupon c in _dbIgo.TCoupons)
             {
                 CouponViewModel coupon = new CouponViewModel(_dbIgo);
@@ -55,12 +62,13 @@ namespace IGO.Areas.Admin.Controllers
             }
             return Json(coupons);
         }
-        public IActionResult Edit(CouponViewModel cou,IFormFile Photo)
+        public IActionResult Edit(TCoupon cou,IFormFile Photo)
         {
             TCoupon c = _dbIgo.TCoupons.FirstOrDefault(n => n.FCouponId == cou.FCouponId);
             c.FCouponName = cou.FCouponName;
             c.FDeadTime = cou.FDeadTime;
             c.FDiscount = cou.FDiscount;
+            c.FQuantity = cou.FQuantity;
             c.FProductId1 = cou.FProductId1;
             c.FProductId2 = cou.FProductId2;
             if (cou.FProductId3 != null)
@@ -90,7 +98,8 @@ namespace IGO.Areas.Admin.Controllers
                 coup.coupon = coupon;
                 coupons.Add(coup);
             }
-            return Json(coupons);
+            string result = System.Text.Json.JsonSerializer.Serialize(coupons);
+            return Json(result);
         }
         public IActionResult searchCouponById(int id)
         {

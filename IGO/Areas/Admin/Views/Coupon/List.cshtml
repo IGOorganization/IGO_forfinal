@@ -22,6 +22,7 @@
                             <th scope="col">商品名稱</th>
                             <th scope="col">商品</th>
                             <th scope="col">封面圖片</th>
+                            <th scope="col">庫存量</th>
                             <th scope="col">折數</th>
                             <th scope="col">販售期限</th>
                         </tr>
@@ -31,24 +32,25 @@
                             foreach (var item in Model)
                             {
                                 @*商品組*@
-                        <tr id="@item.FCouponId">
-                            <td>@item.FCouponName</td>
-                            <td>
-                                <ul>
-                                    @foreach (var p in item.products)
-                                    {
-                                        <li>@p.FProductName</li>
-                                    }
-                                </ul>
-                            </td>
-                            <td><img src="~/img/@item.FCouponImage" style="width:160px;height:90px" /></td>
-                            <td>@item.FDiscount</td>
-                            <td>@item.FDeadTime</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em" name="edit" data-eid="@item.FCouponId" data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete" data-did="@item.FCouponId">刪除</button>
-                            </td>
-                        </tr>
+                                <tr id="@item.FCouponId">
+                                    <td>@item.FCouponName</td>
+                                    <td>
+                                        <ul>
+                                            @foreach (var p in item.VMproducts)
+                                            {
+                                                <li>@p.FProductName</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td><img src="~/img/@item.FCouponImage" style="width:160px;height:90px" /></td>
+                                    <td>@item.FQuantity</td>
+                                    <td>@item.FDiscount</td>
+                                    <td>@item.FDeadTime</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success m-2" style="font-size:0.8em" name="edit" data-eid="@item.FCouponId" data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button>
+                                        <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete" data-did="@item.FCouponId">刪除</button>
+                                    </td>
+                                </tr>
                             }
                         }
 
@@ -173,6 +175,10 @@
 
                                     </div>
                                     <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">庫存量</label>
+                                        <input type="number" class="form-control" name="fquantity">
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">折數</label>
                                         <input type="number" class="form-control" name="fdiscount">
                                     </div>
@@ -202,6 +208,13 @@
                                 <tbody id="createtb_products">
                                 </tbody>
                             </table>
+                            <div class="col-sm-12 col-xl-6" style="margin-left:10px;">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div id="createpagebar" class="btn-group me-2" role="group" aria-label="First group">
+                                        @*<button type="button" class="btn btn-secondary">1</button>*@
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -226,8 +239,8 @@
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4">基本資料</h6>
-                                <form asp-area="Admin" asp-controller="Coupon" asp-action="Edit" name="editForm" enctype="multipart/form-data">
-                                    <input type="hidden" name="FCouponId" id="editId"/>
+                                <form asp-area="Admin" asp-controller="Coupon" asp-action="Edit" name="editForm">
+                                    <input type="hidden" name="FCouponId" id="editId" />
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">組合名稱</label>
                                         <input type="text" class="form-control" name="FCouponName" id="editName"
@@ -236,6 +249,10 @@
                                     <div class="mb-3" id="editdropzone">
                                         <label class="form-label">組合內容(至少兩件,上限五件)</label>
 
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">庫存量</label>
+                                        <input type="number" class="form-control" name="FQuantity" id="editquantity">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">折數</label>
@@ -271,6 +288,13 @@
                                 <tbody id="edittb_products">
                                 </tbody>
                             </table>
+                            <div class="col-sm-12 col-xl-6" style="margin-left:10px;">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div id="editpagebar" class="btn-group me-2" role="group" aria-label="First group">
+                                        @*<button type="button" class="btn btn-secondary">1</button>*@
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -284,6 +308,31 @@
 
 @section Scripts{
     <script>
+
+        //=================商品分頁===============
+        let pagebar = document.querySelector("#createpagebar");
+
+        async function page(s,bar) {
+            console.log(bar);
+            let frag = document.createDocumentFragment();
+            let jpages = await fetch('@Url.Content("~/Admin/Product/Pages")' + `?number=${s}`);
+
+            let pages = await jpages.json();
+            console.log(pages);
+
+            bar.textContent = "";
+            for (var i = 0; i < pages; i++) {
+                let button = document.createElement("button");
+                button.setAttribute("data-index", i);
+                button.textContent = i + 1;
+                button.className = "btn btn-secondary";
+                frag.appendChild(button);
+            }
+            bar.appendChild(frag);
+
+        }
+
+
         //=============拖曳功能====================
         const zone = document.querySelector("#dropzone");
 
@@ -381,7 +430,9 @@
 
             let products = await jproducts.json();
             //console.log(products);
-            createtable(products,body);
+            createtable(products, body);
+
+            page(subcategoryid, pagebar)
         }
 
         async function createtable(products,body) {
@@ -390,20 +441,22 @@
                 body.textContent = "商品不存在";
             else {
                 let frag = document.createDocumentFragment();
+                products = JSON.parse(products);
                 products.forEach(product => {
+                    console.log(product)
                     let tr = document.createElement("tr");
                     let td = document.createElement("td");
                     let div = document.createElement("div");
                     let input = document.createElement("input");
                     let label = document.createElement("label");
 
-                    input.value = product.fProductId;
+                    input.value = product.FProductId;
                     input.type = "hidden";
-                    label.textContent = product.fProductName;
+                    label.textContent = product.FProductName;
                     div.setAttribute("name", "dragitem");
                     div.setAttribute("draggable", "true");
-                    div.setAttribute("id", `prod${product.fProductId}`);
-                    div.setAttribute("data-pid", `prod${product.fProductId}`);
+                    div.setAttribute("id", `prod${product.FProductId}`);
+                    div.setAttribute("data-pid", `prod${product.FProductId}`);
 
                     div.appendChild(input);
                     div.appendChild(label);
@@ -423,6 +476,7 @@
         create.addEventListener("click", async (event) => {
 
             event.preventDefault();
+            //console.log(event);
             let createData = new FormData(document.createForm);
 
             let jcoupons = await fetch("Create", {
@@ -444,42 +498,45 @@
                 tbcoupon.textContent = "商品不存在";
             }
             else {
+                coupons = JSON.parse(coupons);
                 console.log(coupons);
-                coupons.forEach(coupon => {
-                    let tr = document.createElement("tr");
-                    let td1 = document.createElement("td");
-                    let ul = document.createElement("ul");
-                    let td2 = document.createElement("td");
-                    let td3 = document.createElement("td");
-                    let td4 = document.createElement("td");
-                    let td5 = document.createElement("td");
-                    let td6 = document.createElement("td");
-                    let img = document.createElement("img");
 
-                    img.src = `/img/${coupon.fCouponImage}`;
-                    img.style.width = "160px";
-                    img.style.height = "90px";
-                    td6.appendChild(img);
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let ul = document.createElement("ul");
+                let td2 = document.createElement("td");
+                let td3 = document.createElement("td");
+                let td4 = document.createElement("td");
+                let td5 = document.createElement("td");
+                let td6 = document.createElement("td");
+                let img = document.createElement("img");
+                let td7 = document.createElement("td");
 
-                    tr.setAttribute("id", coupon.fCouponId);
-                    td1.textContent = coupon.fCouponName;
-                    coupon.products.forEach(product => {
-                        let li = document.createElement("li");
-                        li.textContent = product.fProductName;
-                        ul.appendChild(li);
-                    })
-                    td2.appendChild(ul);
-                    td3.textContent = coupon.fDiscount;
-                    td4.textContent = coupon.fDeadTime;
-                    td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${coupon.fCouponId} data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${coupon.fCouponId}>刪除</button>`;
-                    tr.appendChild(td1);
-                    tr.appendChild(td2);
-                    tr.appendChild(td6);
-                    tr.appendChild(td3);
-                    tr.appendChild(td4);
-                    tr.appendChild(td5);
-                    frag.appendChild(tr);
-                })
+                img.src = `/img/${coupons.fCouponImage}`;
+                img.style.width = "160px";
+                img.style.height = "90px";
+                td6.appendChild(img);
+
+                tr.setAttribute("id", coupons.fCouponId);
+                td1.textContent = coupons.fCouponName;
+                coupons.products.forEach(product => {
+                    let li = document.createElement("li");
+                    li.textContent = product.fProductName;
+                    ul.appendChild(li);
+                });
+                td2.appendChild(ul);
+                td7.textContent = coupons.fQuantity;
+                td3.textContent = coupons.fDiscount;
+                td4.textContent = coupons.fDeadTime;
+                td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${coupons.fCouponId} data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${coupons.fCouponId}>刪除</button>`;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td6);
+                tr.appendChild(td7);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+                tr.appendChild(td5);
+                frag.appendChild(tr);
                 tbcoupon.append(frag);
             }
         }
@@ -502,8 +559,11 @@
         let edittbody = document.querySelector("#edittb_products");
         let editSelsubcategory = document.querySelector("#editsel_subcategory");
 
+        let editbar = document.querySelector("#editpagebar");
+
         editSelsubcategory.addEventListener("change", function () { editSubCategory(edittbody) });
         editSubCategory(edittbody);
+
 
         async function editSubCategory(body) {
             let subcategoryid = await editSelsubcategory.options[editSelsubcategory.selectedIndex].value;
@@ -511,7 +571,9 @@
 
             let products = await jproducts.json();
             //console.log(products);
-            createtable(products,body);
+            createtable(products, body);
+
+            page(subcategoryid, editbar);
         }
 
 
@@ -613,11 +675,12 @@
                  console.log(coupon);
                  $("#editId").val(coupon.fCouponId);
                  $("#editName").val(coupon.fCouponName);
+                 $("#editquantity").val(coupon.fQuantity);
                  $("#editdiscount").val(coupon.fDiscount);
                  $("#editEnd").val(coupon.fDeadtime);
 
                  num = 0;
-                 coupon.products.forEach(product => {
+                 coupon.vMproducts.forEach(product => {
                      num++;
                      let div1 = document.createElement("div");
                      let div2 = document.createElement("div");
@@ -642,9 +705,9 @@
                      div2.appendChild(div3);
                      div1.appendChild(div2);
                      editzone.appendChild(div1);
-                     
+
                  })
-                 
+
              }
         });
 
@@ -652,16 +715,18 @@
         let edit = document.querySelector("#btn_editCoupon");
         edit.addEventListener("click", async (event) => {
 
-            //event.preventDefault();
+            event.preventDefault();
             let editData = new FormData(document.editForm);
 
             let jcoupons = await fetch("Edit", {
                 body: editData,
                 method: "POST",
             })
-            
+
             let coupons = await jcoupons.json();
+            //console.log(coupons);
             refrechCoupon(coupons);
+
         })
 
         //===========上傳圖片===========

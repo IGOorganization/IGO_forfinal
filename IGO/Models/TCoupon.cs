@@ -20,6 +20,7 @@ namespace IGO.Models
         public int? FProductId3 { get; set; }
         public int? FProductId4 { get; set; }
         public int? FProductId5 { get; set; }
+        public int? FQuantity { get; set; }
         public string FDiscount { get; set; }
         public string FDeadTime { get; set; }
         public bool? FTimeOut { get; set; }
