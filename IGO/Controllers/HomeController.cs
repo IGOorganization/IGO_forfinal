@@ -43,7 +43,7 @@ namespace IGO.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        //首頁:熱門商品排行
         public IActionResult Home(CHomeViewModel vModel)
         {
             var q = (from o in _IgoContext.TOrderDetails
@@ -52,11 +52,7 @@ namespace IGO.Controllers
                      select g.Key.Value  // key=o.FProductId
                     ).Take(3).ToList();
 
-            //CHomeViewModel vModel = null;
-
             List<CHomeViewModel> v = new List<CHomeViewModel>();
-            //_context.TCities.ToList();
-            //_context.TProductsPhotos.ToList();
 
             foreach (int r in q)
             {
@@ -89,6 +85,41 @@ namespace IGO.Controllers
             return View(v);
 
         }
+        //首頁:點閱次數排行
+        public IActionResult topViewRecord() //票卷種類
+        {
+            var q = (from p in _IgoContext.TProducts
+                     orderby p.FViewRecord descending
+                     select p).Take(3).ToList();
+
+            CHomeViewModel vModel = null;
+
+            List<CHomeViewModel> v = new List<CHomeViewModel>();
+            foreach (var r in q)
+            {
+                vModel = new CHomeViewModel()
+                {
+                    tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId),
+                    tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r.FProductId).FCity,
+                    ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
+                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r.FProductId).FPhotoPath,
+                    RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
+                                         where f.FProductId == r.FProductId
+                                         select f).Average(m => m.FRanking),
+                    Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FPrice,
+                    TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r.FProductId).FTicket.FTicketName,
+                    //EndTime = _context.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
+                    StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FQuantity,
+                    OrderQuantity = (from o in _IgoContext.TOrderDetails
+                                     group o by o.FProductId into g
+                                     where g.Key == r.FProductId
+                                     select new { key = g.Key, count = g.Sum(od => od.FQuantity) }).FirstOrDefault().count
+                };
+                v.Add(vModel);
+            }
+
+            return Json(v);
+        }
         public IActionResult SubCategory() //票卷種類
         {
             var q = from c in _IgoContext.TSubCategories
@@ -96,6 +127,7 @@ namespace IGO.Controllers
 
             return Json(q);
         }
+        //首頁:熱門城市排行
         public IActionResult top3City()
         {
             var top3HotCity = (from od in _IgoContext.TOrderDetails.Include(od => od.FProduct).ThenInclude(p => p.FCity)
@@ -119,7 +151,7 @@ namespace IGO.Controllers
 
             return Json(v);
         }
-
+        //首頁:評論
         public IActionResult TopFeedback()
         {
             var topFeedbackId = (from f in _IgoContext.TFeedbackManagements
@@ -147,6 +179,7 @@ namespace IGO.Controllers
             return Json(v);
 
         }
+        //首頁:關於IGO
         public IActionResult AboutIGO()
         {
             CHomeViewModel vModel = null;
@@ -157,6 +190,7 @@ namespace IGO.Controllers
             };
             return Json(vModel);
         }
+        //Layout的商品主分類
         public IActionResult layoutCategory()
         {
             var id = (from c in _IgoContext.TCategories
@@ -176,6 +210,7 @@ namespace IGO.Controllers
             }
             return Json(v);
         }
+        //Layout的商品次分類
         public IActionResult layoutSubCategory(int idd)
         {
             var q = _IgoContext.TSubCategories.Where(m => m.FCategoryId == idd).ToList();

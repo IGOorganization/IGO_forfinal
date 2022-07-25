@@ -247,8 +247,8 @@
 
             for (let i = 0; i < Datas.length; i++)
             {
-                let CategoryName = Datas[i].CategoryName;
-                let CategoryId = Datas[i].CategoryId;
+                let CategoryName = Datas[i].categoryName;
+                let CategoryId = Datas[i].categoryId;
 
                 CategoryIDArray[i] = CategoryId;
                 //console.log(CategoryIDArray[i]);
@@ -271,7 +271,7 @@
                             //console.log(idx);
 
                             //$(".card-body").append(item + "<hr/>"); //寫法1
-                            $(".card-body").append(`<a class="btn btn-secondary justify-item-center" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr/>`); //寫法2
+                            $(".card-body").append(`<a class="btn btn-secondary justify-item-center" href="${item.subCategoryPath}" type="button">${item.subCategoryName}<a><hr/>`); //寫法2
                         })
 
                     })

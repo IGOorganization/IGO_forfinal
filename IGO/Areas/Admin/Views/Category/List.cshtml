@@ -45,6 +45,19 @@
         </tr>
     </thead>
     <tbody>
+        @*@foreach (var item in Model)
+        {
+            <tr align="right" id="cateTable">
+                <td>
+                    @item.CategoryName
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
+                        檢視/編輯次類別
+                    </button>
+                </td>
+            </tr>
+        }*@
         @foreach (var item in Model)
         {
             <tr align="right">
@@ -52,7 +65,7 @@
                     @item.CategoryName
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
+                    <button type="button" class="btn btn-warning btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
                         檢視/編輯次類別
                     </button>
                 </td>
@@ -77,7 +90,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary " id="Add">更新</button>
+                <button type="button" class="btn btn-primary Add">更新</button>
             </div>
         </div>
     </div>
@@ -115,36 +128,39 @@
             })
        })
 
+        let cateID = "";  //商品主分類ID
         //編輯商品次分類
        $(document).on("click", ".btnEdit", function ()
        {
            $('.showSub').empty();
 
            let CategoryId = $(this).attr("id");
-           //console.log(CategoryId);
-
+           /*console.log(CategoryId);*/
+           cateID = CategoryId;
            $.get('@Url.Content("~/Admin/Category/ShowSubcategory")', { "categoryID": CategoryId }, function (datas) {
                //console.log(datas);
                $.each(datas, function (idx, item)
                {
                    //console.log(item.FSubCategoryName);
-                   $('.showSub').append(`${item.FSubCategoryName}<br>`);
-                   $('#Add').attr("class", `${item.FCategoryId}`)
+                   $('.showSub').append(`${item.fSubCategoryName}<br>`);
+                   
                })
            })
        })
         //新增商品次分類
-        $('#Add').on('click', function ()
+        $('.Add').on('click', function ()
         {
             let subcategoryname = $('.txtSubCategory').val();
-            console.log(subcategoryname);
-            let categoryID = $('#Add').attr("class");
-            console.log(categoryID);
+            $('.showSub').append(`${subcategoryname}<br>`);
+            //console.log(subcategoryname);
+            let id = Number(cateID.split("-")[1]);
+           
+            //console.log(id);
 
-            $.post('@Url.Content("~/Admin/Category/CreateSubcategory")', { "Subcategoryname": subcategoryname, "Subcategoryname": subcategoryname, "CategoryID": categoryID}, function (datas)
+            $.post('@Url.Content("~/Admin/Category/CreateSubcategory")', { "Subcategoryname": subcategoryname, "Subcategoryname": subcategoryname, "CategoryID": id}, function (datas)
             {
                 console.log(datas);
-                //window.location.href = 'List';  //refresh此頁
+                window.location.href = 'List';  //refresh此頁
             })
         })
 
