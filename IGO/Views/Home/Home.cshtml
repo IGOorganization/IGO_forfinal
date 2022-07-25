@@ -202,41 +202,7 @@
             <h6 class="section-title text-center text-primary text-uppercase">CTR Ranking</h6>
             <h1 class="mb-5">IGO<span class="text-primary text-uppercase">點閱排行</span></h1>
         </div>
-        <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="" alt="">
-                            <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">Price/TicketName</p>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h4 class="mb-0">產品名稱</h4>
-                            </div>
-                            <div class="d-flex mb-3">
-                                星星
-                            </div>
-                            <div class="d-flex justify-content-lg-start">
-                                <h4><i class="fa-solid fa-location-dot">城市</i></h4>
-                            </div>
-                            <div class="d-flex justify-content-lg-end">
-                                <h5>瀏覽次數:</h5>
-                            </div>
-                            <div class="d-flex justify-content-lg-start">
-                                <h5 class="align-items-center" style="color:cadetblue">離活動結束還剩  天</h5>
-                                <p class="align-items-end"></p>
-                                <p class="align-items-end"><img src="" width="30" height="30"></p>
-                                <h5 class="align-items-end" style="color:red">alertMessage</h5>
-                            </div>
-                            <div class="d-flex justify-content-lg-start">
-                                <p>剩餘數量: 張  || 已售出: 張</p>
-                            </div>
-                            <div class="d-flex justify-content-lg-end">
-                                <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row g-4" id="Topview">
         </div>
     </div>
 </div>
@@ -499,21 +465,57 @@
             $.getJSON('@Url.Content("~/Home/topViewRecord")', "", function (Datas)
             {
                 console.log(Datas);
-            //     for (let i = 0; i < 3; i++)
-            //{
-            //    //console.log(Datas[i]);
-            //    let LastName = Datas[i].LastName;
-            //         let FeedbackContent = Datas[i].FeedbackContent;
-            //         let Ranking = Datas[i].Ranking;
-            //    //console.log(LastName);
-            //         //console.log(FeedbackContent);
-            //         //console.log(Ranking);
-            //         let ProductName = Datas[i].ProductName;
-            //    document.querySelector(`.feedbackcontent${i}`).innerHTML = FeedbackContent;
-            //         document.querySelector(`#lastname${i}`).innerHTML = LastName;
-            //     document.querySelector(`#star${i}`).innerHTML = Ranking;
-            //    document.querySelector(`.productname${i}`).innerHTML = ProductName;
-            //}
+                for (let i = 0; i < 3; i++)
+                {
+                //console.log(Datas[i]);
+                     let CityName = Datas[i].cityName;
+                     let ProductName = Datas[i].productName;
+                     let EndTime = Datas[i].endTime;
+                     let RankingCount = Datas[i].rankingCount;
+                     let Price = Datas[i].price;
+                     let PhotoPath = Datas[i].photoPath;
+                    let TicketName = Datas[i].ticketName;
+                    let ViewRecord = Datas[i].viewRecord;
+                    let ProductId = Datas[i].tProduct.fProductId;
+                     //console.log(CityName)
+
+                    $('#Topview').append(`<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="room-item shadow rounded overflow-hidden">
+                        <div class="position-relative">
+                            <img class="img-fluid" src="/img/${PhotoPath}" alt="">
+                            <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">NT$${Price}/${TicketName}</p>
+                        </div>
+                        <div class="p-4 mt-2">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h4 class="mb-0">${ProductName}</h4>
+                            </div>
+                            <div class="d-flex mb-3">
+                                ${RankingCount}<i class="fa fa-star text-primary"></i>
+                            </div>
+                            <div class="d-flex justify-content-lg-start">
+                                <h4><i class="fa-solid fa-location-dot">${CityName}</i></h4>
+                            </div>
+                            <div class="d-flex justify-content-lg-end">
+                                <h5>瀏覽次數:${ViewRecord}</h5>
+                            </div>
+                            <div class="d-flex justify-content-lg-start">
+                                <h5 class="align-items-center" style="color:cadetblue">離活動結束還剩  天</h5>
+                                <p class="align-items-end"></p>
+                                <p class="align-items-end"><img src="" width="30" height="30"></p>
+                                <h5 class="align-items-end" style="color:red">alertMessage</h5>
+                            </div>
+                            <div class="d-flex justify-content-lg-start">
+                                <p>剩餘數量: 張  || 已售出: 張</p>
+                            </div>
+                            <div class="d-flex justify-content-lg-end">
+                                <a href="/Home/Home" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`)
+
+
+                }
             })
 
         });
@@ -538,6 +540,35 @@
                 /*console.log(`~/img/${Path}`);*/
             }
         }
+        $(document).on("click", ".viewProduct", function ()
+        {
+            let info = $(this).attr("id");
+            let prodid = Number(info.split('-')[1]);
+            let viewcount = Number(info.split('-')[2]);
+
+            console.log(prodid);
+            console.log(viewcount);
+            $.get('@Url.Content("~/Home/UpdateViewRecord")', {"Productid":prodid,"Viewcount":viewcount}, function (Datas)
+            {
+                console.log(Datas);
+                //for (let i = 0; i < 3; i++)
+                //{
+                ////console.log(Datas[i]);
+                //let LastName = Datas[i].lastName;
+                //     let FeedbackContent = Datas[i].feedbackContent;
+                //     let Ranking = Datas[i].ranking;
+                ////console.log(LastName);
+                //     //console.log(FeedbackContent);
+                //     //console.log(Ranking);
+                //     let ProductName = Datas[i].productName;
+                //     $(`.feedbackcontent${i}`).text(FeedbackContent);
+                //     $(`#lastname${i}`).text(LastName);
+                //     $(`#star${i}`).text(Ranking);
+                //    $(`.productname${i}`).text(ProductName);
+                //}
+
+            });
+        })
 
         //顯示評論
         $(window).ready(function ()
@@ -545,8 +576,8 @@
             $.getJSON('@Url.Content("~/Home/TopFeedback")', "", function (Datas)
             {
                 //console.log(Datas);
-                 for (let i = 0; i < 3; i++)
-            {
+                for (let i = 0; i < 3; i++)
+                {
                 //console.log(Datas[i]);
                 let LastName = Datas[i].lastName;
                      let FeedbackContent = Datas[i].feedbackContent;
@@ -555,13 +586,13 @@
                      //console.log(FeedbackContent);
                      //console.log(Ranking);
                      let ProductName = Datas[i].productName;
-                document.querySelector(`.feedbackcontent${i}`).innerHTML = FeedbackContent;
-                     document.querySelector(`#lastname${i}`).innerHTML = LastName;
-                 document.querySelector(`#star${i}`).innerHTML = Ranking;
-                document.querySelector(`.productname${i}`).innerHTML = ProductName;
-            }
-            })
+                     $(`.feedbackcontent${i}`).text(FeedbackContent);
+                     $(`#lastname${i}`).text(LastName);
+                     $(`#star${i}`).text(Ranking);
+                    $(`.productname${i}`).text(ProductName);
+                }
 
+            });
         });
 
 

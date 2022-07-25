@@ -86,7 +86,7 @@ namespace IGO.Controllers
 
         }
         //首頁:點閱次數排行
-        public IActionResult topViewRecord() //票卷種類
+        public IActionResult topViewRecord()
         {
             var q = (from p in _IgoContext.TProducts
                      orderby p.FViewRecord descending
@@ -103,6 +103,7 @@ namespace IGO.Controllers
                     tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r.FProductId).FCity,
                     ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
                     PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r.FProductId).FPhotoPath,
+                    ViewRecord = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FViewRecord,
                     RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
                                          where f.FProductId == r.FProductId
                                          select f).Average(m => m.FRanking),
@@ -120,13 +121,31 @@ namespace IGO.Controllers
 
             return Json(v);
         }
-        public IActionResult SubCategory() //票卷種類
+        //點閱後增加瀏覽紀錄
+        public IActionResult UpdateViewRecord(int Productid, int Viewcount)
+        {
+            int counts = Viewcount + 1;
+
+            var product = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == Productid);
+
+            if (product != null) 
+            {
+                product.FViewRecord = counts;
+
+            }
+            _IgoContext.SaveChanges();
+
+            return View();
+        }
+            //票卷種類
+            public IActionResult SubCategory() 
         {
             var q = from c in _IgoContext.TSubCategories
                     select c;
 
             return Json(q);
         }
+
         //首頁:熱門城市排行
         public IActionResult top3City()
         {

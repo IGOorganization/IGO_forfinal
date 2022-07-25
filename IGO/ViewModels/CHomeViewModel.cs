@@ -185,6 +185,11 @@ namespace IGO.ViewModels
             get { return _prod.FQuantity; }
             set { _prod.FQuantity = value; }
         }
+        public int? ViewRecord
+        {
+            get { return _prod.FViewRecord; }
+            set { _prod.FViewRecord = value; }
+        }
         // TProductsPhoto
         public TProductsPhoto tProductsPhoto
         {

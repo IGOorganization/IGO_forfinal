@@ -60,7 +60,7 @@ namespace IGO.Areas.Admin.Controllers
 
             return Json(subcategory);
         }
-        public IActionResult CreateSubcategory(TSubCategory Subcategory, string Subcategoryname, int CategoryID) //新增次類別
+        public IActionResult EditByProductID(TSubCategory Subcategory, string Subcategoryname, int CategoryID) //新增次類別
         {
 
             Subcategory.FSubCategoryName = Subcategoryname;
