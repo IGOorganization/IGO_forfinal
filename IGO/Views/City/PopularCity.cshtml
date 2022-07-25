@@ -24,8 +24,8 @@
         <div class="col-md-3">
             <select class="form-select" id="seleOption">
                 <option selected value="1">最熱銷</option>
-                <option value="2">依價格排序(從低到高)</option>
-                <option value="3">依價格排序(從高到低)</option>
+                <option value="2">依價格排序(從高到低)</option>
+                <option value="3">依價格排序(從低到高)</option>
             </select>
         </div>
         <br />
@@ -82,125 +82,53 @@
 @section Scripts
 {
     <script>
-    //$("#seleOption").change(function ()
-    //{
-    //    ////console.log($(":selected").val());
-    //    let price = $(".smallProd").text().split("NT$").map(Number);
-    //    price = price.slice(1, price.length - 0);
-    //    //console.log(price);
-    //    //let stringObj = new String(price);
-    //    //arr = stringObj.split("NT$");
-    //    //console.log(arrPrice);
-    //    //arrPrice = price.slice(1, arr.length - 0)
-    //    //console.log(arrPrice);
-
-
-
-    //    function bubbleSort(items) {
-    //        var length = items.length;
-    //        for (var i = 0; i < length; i++) {
-    //            for (var j = 0; j < (length - i - 1); j++) {
-    //                if (items[j] < items[j + 1]) {
-    //                    //console.log($(this).parents(".divProd").attr("id"));
-    //                    console.log($(".smallProd").text());
-
-    //                    var tmp = items[j];
-    //                    items[j] = items[j + 1];
-    //                    items[j + 1] = tmp;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    bubbleSort(price);
-
-    //    console.log(price);
-
-
-
-
-
-        //if ($(":selected").val() == 2)
-        //{
-
-        //}
-  /*  });*/
-
-
-    /*let seleoption = document.querySelector("#seleOption");*/
-
+        //依價格高低排列
     $("#seleOption").change(function ()
-    {
-        if ($(":selected").val() == 1)
+    {       
+        if ($(":selected").val() == 1)   //最熱銷
         {
             $.getJSON('@Url.Content("~/City/HotSaleCity")', "",
             function (datas) {
                 console.log(datas);
                 $.each(datas, function (idx, item)
                 {
-                    console.log(idx);
-                    console.log(item);
-                    console.log(item.companyName);
-                    console.log(item.productName);
-                    console.log(item.ticketName);
-                    console.log(item.price);
-                    console.log(item.photoPath);
-                    $(`#prodSmall-${idx}`).text(`NT$${item.price}/${item.ticketName}`);
-                    $(`#prodPath-${idx}`).attr("src", `/img/${item.photoPath}`);
-                    $(`#prodh5-${idx}`).text(`${item.companyName}-${item.productName}`);
+                    $(`#prodSmall-${idx}`).text(`NT$${item.Price}/${item.TicketName}`);
+                    $(`#prodPath-${idx}`).attr("src", `/img/${item.PhotoPath}`);
+                    $(`#prodh5-${idx}`).text(`${item.CompanyName}-${item.ProductName}`);
                })
                 })
 
         }
-        if ($(":selected").val() == 2)
-        {
+        if ($(":selected").val() == 2)  //依價格高到低排列
+        { 
             $.getJSON('@Url.Content("~/City/PriceHighToLow")', "",
             function (datas) {
                 //console.log(datas);
                 $.each(datas, function (idx, item)
                 {
-                    //console.log(idx);
-                    //console.log(item);
-                    //console.log(item.companyName);
-                    //console.log(item.productName);
-                    //console.log(item.ticketName);
-                    //console.log(item.price);
-                    //console.log(item.photoPath);
-                    $(`#prodSmall-${idx}`).text(`NT$${item.price}/${item.ticketName}`);
-                    $(`#prodPath-${idx}`).attr("src", `/img/${item.photoPath}`);
-                    $(`#prodh5-${idx}`).text(`${item.companyName}-${item.productName}`);
+                    $(`#prodSmall-${idx}`).text(`NT$${item.Price}/${item.TicketName}`);
+                    $(`#prodPath-${idx}`).attr("src", `/img/${item.PhotoPath}`);
+                    $(`#prodh5-${idx}`).text(`${item.CompanyName}-${item.ProductName}`);
                     @*@String.Format("{0:C0}", item.Price) / @item.TicketName*@
-
 
                 })
                 })
 
         }
-        if ($(":selected").val() == 3)
+        if ($(":selected").val() == 3)  //依價格低到高排列
         {
             $.getJSON('@Url.Content("~/City/PriceLowToHigh")', "",
             function (datas) {
                 console.log(datas);
                 $.each(datas, function (idx, item)
                 {
-                    console.log(idx);
-                    console.log(item);
-                    console.log(item.companyName);
-                    console.log(item.productName);
-                    console.log(item.ticketName);
-                    console.log(item.price);
-                    console.log(item.photoPath);
-                    $(`#prodSmall-${idx}`).text(`NT$${item.price}/${item.ticketName}`);
-                    $(`#prodPath-${idx}`).attr("src", `/img/${item.photoPath}`);
-                    $(`#prodh5-${idx}`).text(`${item.companyName}-${item.productName}`);
-
-
+                    $(`#prodSmall-${idx}`).text(`NT$${item.Price}/${item.TicketName}`);
+                    $(`#prodPath-${idx}`).attr("src", `/img/${item.PhotoPath}`);
+                    $(`#prodh5-${idx}`).text(`${item.CompanyName}-${item.ProductName}`);
 
                })
                 })
-
         }
-
-
 
     })
     </script>

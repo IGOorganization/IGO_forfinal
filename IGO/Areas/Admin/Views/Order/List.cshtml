@@ -5,27 +5,21 @@
     ViewData["Title"] = "List";
 }
 
-<h3>訂單狀態查詢</h3>
+<h4>訂單狀態查詢</h4>
 <br>
-<select class="form-select text-white" aria-label="Default select example" style="border:1px solid white" id="selStatus">
+<select class="form-select text-white" aria-label="Default select example" style="border:3px solid yellow" id="selStatus">
     <option class="text-white" value="1">已下訂</option>
     <option class="text-white" value="2">取消訂單</option>
     <option class="text-white" value="3">已出貨</option>
     <option class="text-white" value="4">完成訂單</option>
     <option class="text-white" value="5">取消程序中</option>
 </select>
-@*<p>
-        <a asp-action="Create">Create New</a>
-    </p>*@
 <table class="table-dark table">
     <thead>
         <tr align="right">
             <th>
                    訂單編號
                 </th>
-                @*<th>
-                   顧客編號
-                </th>*@
             <th>
                 顧客姓氏
             </th>
@@ -53,9 +47,6 @@
                 <td>
                         @item.OrderId
                     </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.CustomerId)
-                    </td>*@
                 <td>
                     @item.LastName
                 </td>
@@ -105,6 +96,7 @@
 @section Scripts
 {
     <script>
+        //訂單狀態查詢
         $('#selStatus').change(function ()
         {
         $('tbody').empty();
@@ -117,31 +109,39 @@
                 $.each(datas, function (idx, item)
                 {
                     //console.log(item);
+                    let year = item.OrderDate.substr(6, 4);
+                    //console.log(year);
+                    let month = item.OrderDate.substr(0, 2);
+                    //console.log(month);
+                    let day = item.OrderDate.substr(3, 2);
+                    //console.log(day);
+                    var date = `${year}-${month}-${day}`;
 
-                    $('tbody').append(`<tr align="right"><td>${item.lastName}</td><td>${item.firstName}</td><td>${item.orderDate}</td><td>${item.totalPrice}元</td><td>${item.statusName}</td><td>
-                    <button class="btn btn-danger btnEdit" id=orderID-${item.orderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
+
+                    $('tbody').append(`<tr align="right"><td>${item.OrderId}</td><td>${item.LastName}</td><td>${item.FirstName}</td><td>${date}</td><td>${item.TotalPrice}元</td><td>${item.StatusName}</td><td>
+                    <button class="btn btn-danger btnEdit" id=orderID-${item.OrderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
                 })
                 }
             )
-
-
         })
 
+         //訂單狀態編輯
         $(document).on("click", ".btnEdit", function ()   /* 動態產生的元素需用on繫結事件*/
         {
             let orderid = $(this).attr("id");
             //console.log(orderid);
             $.get('@Url.Content("~/Admin/Order/EditByOrderID")', { "Orderid": orderid }, function (datas) {
                 //console.log(datas);
-                //console.log(datas.statusName);
-                //console.log(datas.orderId);
-                $('#txtStatus').val(datas.statusName);
-                $('#txtOrderID').val(datas.orderId);
+                //console.log(datas.StatusName);
+                //console.log(datas.OrderId);
+                $('#txtStatus').val(datas.StatusName);
+                $('#txtOrderID').val(datas.OrderId);
 
             })
 
         })
 
+        //顯示編輯用的modal
         $('#EditStatus').on("change", function ()
         {
 
@@ -149,6 +149,8 @@
 
 
         })
+
+        //更新編輯後的訂單狀態
         $('#update').on("click", function ()   /*更新訂單取消申請為取消訂單的狀態*/
         {
             let changeStatueID = $('#EditStatus>option:selected').val();
@@ -159,8 +161,8 @@
 
             $.get('@Url.Content("~/Admin/Order/UpdateByOrderID")', { "Orderid": changeOrderId, "Statusid": changeStatueID }, function (datas)
             {
-                
                 //console.log(datas);
+                window.location.href = 'List';  //refresh此頁
             })
         })
 

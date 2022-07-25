@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 
 namespace IGO
@@ -38,6 +39,13 @@ namespace IGO
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
+
+
+            });
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

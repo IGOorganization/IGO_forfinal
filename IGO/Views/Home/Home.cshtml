@@ -14,7 +14,7 @@
 @{
     DateTime today = DateTime.Now.Date;
 }
-<!-- Carousel Start -->
+<!-- 廣槓輪播 Start -->
 <div class="container-fluid p-0 mb-5">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -52,8 +52,8 @@
         </button>
     </div>
 </div>
-<!-- Carousel End -->
-<!-- About Start -->
+<!-- 廣槓輪播 End -->
+<!-- IGO介紹 Start -->
 <div class="container-xxl py-5" id="startnow">
     @*使下面部分不會被擋住*@
 </div>
@@ -105,8 +105,8 @@
         </div>
     </div>
 </div>
-<!-- About End -->
-<!-- Booking Start -->
+<!-- IGO介紹 End -->
+<!-- 搜尋目的地 Start -->
 <div class="container">
     <div class="bg-dark shadow" style="padding: 30px; border-radius:10px">
         <div class="row g-2">
@@ -127,9 +127,9 @@
         </div>
     </div>
 </div>
-@*</div>*@
+<!-- 搜尋目的地 End -->
 <!-- Booking End -->
-<!-- hotProduct Start -->
+<!-- 熱門商品排行 Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -194,10 +194,9 @@
         </div>
     </div>
 </div>
-
-<!-- Room End -->
-<!-- Service Start -->
-<div class="container-xxl py-3">
+<!-- 熱門商品排行 Start -->
+<!-- 票種分類 Start -->
+<!--<div class="container-xxl py-3">
     <div class="container align-items-center">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Hot tourist destination </h6>
@@ -246,7 +245,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- 探索城市 Start -->
 <div class="container-xxl py-5" id="HotCity"></div>
 <div class="container-xxl py-5">
@@ -284,7 +283,7 @@
     </div>
 </div>
 <!--探索城市 End-->
-<!-- Video Start -->
+<!-- 父親節限時優惠 -start-->
 <div class="container-xxl py-5 px-0 wow zoomIn" data-wow-delay="0.1s">
     <div class="row g-0">
         <div class="col-md-12 bg-dark d-flex align-items-center">
@@ -292,29 +291,14 @@
                 <h6 class="section-title text-start text-white text-uppercase mb-3">父親節限時優惠!</h6>
                 <h1 class="text-white mb-4">【限時優惠】台北喜來登大飯店｜十二廚</h1>
                 <p class="text-white mb-4"></p>
-                <a href="~/Coupon/List" class="btn btn-primary py-md-3 px-md-5 me-3">更多資訊</a>               
+                <a href="~/Coupon/List" class="btn btn-primary py-md-3 px-md-5 me-3">更多資訊</a>
             </div>
         </div>
 
     </div>
 </div>
-
-
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-0">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="ratio ratio-16x9">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- 父親節限時優惠-end -->
+@*評論-start*@
 <div class="container-xxl testimonial my-5 py-5 bg-dark wow zoomIn tag" data-wow-delay="0.1s">
     <div class="container-xxl py-5">
         <div class="container">
@@ -395,7 +379,7 @@
         </div>
     </div>
 </div>
-
+@*評論-end*@
 <!-- Newsletter Start -->
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="row justify-content-center">
@@ -447,7 +431,7 @@
             })
 
             //顯示票卷類別
-            //ShowSubcategory();
+            @*//ShowSubcategory();
             window.addEventListener("DOMContentLoaded", ShowSubcategory);
         async function ShowSubcategory()
         {
@@ -458,12 +442,13 @@
 
             for (let i = 0; i < 5; i++)
             {
-                //console.log(Datas[i]);
-                let categoryName = Datas[i].fSubCategoryName;
+                console.log(Datas[i]);
+                let categoryName = Datas[i].FSubCategoryName;
                 document.querySelector(`.Subcategory${i}`).innerHTML = categoryName;
             }
-        }
+        }*@
 
+        //顯示熱門城市
          window.addEventListener("DOMContentLoaded", ShowHotCity);
         async function ShowHotCity()
         {
@@ -474,9 +459,9 @@
 
             for (let i = 0; i < 3; i++) {
                 //console.log(Datas[i]);
-                let CityName = Datas[i].cityName;
+                let CityName = Datas[i].CityName;
                 //console.log(CityName);
-                let Path = Datas[i].cityPhotoPath;
+                let Path = Datas[i].CityPhotoPath;
                 //console.log(Path);
                 document.querySelector(`.cityname${i}`).innerHTML = CityName;
                  document.querySelector(`#path${i}`).setAttribute("src", `/img/${Path}`);
@@ -485,47 +470,6 @@
         }
 
         //顯示評論
-
-        @*const feedback = document.querySelector(".tag");
-        feedback.addEventListener('loadstart', ShowTopFeedback);
-        ShowTopFeedback();
-        async function ShowTopFeedback()
-        {
-            const Response = await fetch('@Url.Content("~/Home/TopFeedback")');
-            console.log(Response);
-            const Datas = await Response.json(); //讀取body內資料
-            console.log(Datas);  //Array(3)
-
-            for (let i = 0; i < 3; i++)
-            {
-                console.log(Datas[i]);
-                let LastName = Datas[i].lastName;
-                let FeedbackContent = Datas[i].feedbackContent;
-                console.log(LastName);
-                console.log(FeedbackContent);
-               /* let ProductName = Datas[i].ProductName;*/
-                document.querySelector(`#feedbackcontent${i}`).innerHTML = FeedbackContent;
-                document.querySelector(`#lastname${i}`).innerHTML = LastName;
-               /* document.querySelector(`#productname${i}`).innerHTML = ProductName;*/
-            }
-        }*@
-            @*$(".tag").load(function () {
-                $.getJSON('@Url.Content("~/Home/TopFeedback")', "", function (Datas) {
-                    console.log(Datas);
-                    for (let i = 0; i < 3; i++) {
-                        console.log(Datas[i]);
-                        let LastName = Datas[2].lastName;
-                        let FeedbackContent = Datas[2].feedbackContent;
-                        console.log(LastName);
-                        console.log(FeedbackContent);
-                        /* let ProductName = Datas[i].ProductName;*/
-                        document.querySelector(`.feedbackcontent${i}`).innerHTML = FeedbackContent;
-                        document.querySelector(`#lastname${i}`).innerHTML = LastName;
-                        /* document.querySelector(`#productname${i}`).innerHTML = ProductName;*/
-                    }
-                })
-            });*@
-
         $(window).ready(function ()
         {
             $.getJSON('@Url.Content("~/Home/TopFeedback")', "", function (Datas)
@@ -534,13 +478,13 @@
                  for (let i = 0; i < 3; i++)
             {
                 //console.log(Datas[i]);
-                let LastName = Datas[i].lastName;
-                     let FeedbackContent = Datas[i].feedbackContent;
-                     let Ranking = Datas[i].ranking;
+                let LastName = Datas[i].LastName;
+                     let FeedbackContent = Datas[i].FeedbackContent;
+                     let Ranking = Datas[i].Ranking;
                 //console.log(LastName);
                      //console.log(FeedbackContent);
                      //console.log(Ranking);
-                     let ProductName = Datas[i].productName;
+                     let ProductName = Datas[i].ProductName;
                 document.querySelector(`.feedbackcontent${i}`).innerHTML = FeedbackContent;
                      document.querySelector(`#lastname${i}`).innerHTML = LastName;
                  document.querySelector(`#star${i}`).innerHTML = Ranking;
@@ -587,15 +531,5 @@
                 toast.show()
             })
         }
-        //待做
-        //var avalibleTags = ["台北市", "台中市", "台南市", "台東縣"];
-        //$("#SearchCity").autocomplete({
-        //    source: avalibleTags,
-        //    autoFocus: true,
-        //    classes: {
-        //        "ui-autocomplete": "highlight",
-        //        "ui-autocomplete-input": "focus"
-        //    }
-        //});
     </script>
 }

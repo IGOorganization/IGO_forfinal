@@ -43,9 +43,8 @@ namespace IGO.Areas.Admin.Controllers
                 v.Add(vModel);
             }
             return View(v);
-        }
-
-        public IActionResult QueryByCancelOrder(int id)
+        }        
+        public IActionResult QueryByCancelOrder(int id) //訂單狀態查詢
         {
             int statusID = id;
 
@@ -72,7 +71,7 @@ namespace IGO.Areas.Admin.Controllers
             }
             return Json(v);
         }
-        public IActionResult EditByOrderID(string Orderid)
+        public IActionResult EditByOrderID(string Orderid)  //編輯訂單狀態
         {
             string id = Orderid.Split("-")[1];
             int orderID = Convert.ToInt32(id);
@@ -94,7 +93,7 @@ namespace IGO.Areas.Admin.Controllers
 
         }
 
-        public IActionResult UpdateByOrderID(int Orderid, int Statusid)
+        public IActionResult UpdateByOrderID(int Orderid, int Statusid)  //更新訂單狀態
         {
 
             var order = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == Orderid);

@@ -128,13 +128,7 @@
                         console.log(datas);
                         $.each(datas, function (idx, item)
                         {
-                            console.log(item);
-                            console.log(item.ticketName);
-                            console.log(item.productName);
-                            console.log(item.quantity);
-                            console.log(item.price);
-
-                            $(`#orderdetailTable-${idx}`).append(`<tr><td>${item.productName}</td><td>${item.ticketName}</td><td>${item.quantity}</td><td>${item.price}元</td></tr>`);
+                            $(`#orderdetailTable-${idx}`).append(`<tr><td>${item.ProductName}</td><td>${item.TicketName}</td><td>${item.Quantity}</td><td>${item.Price}元</td></tr>`);
                         })
                     })
             })
