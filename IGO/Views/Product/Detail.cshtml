@@ -105,23 +105,7 @@
                     <u>商品說明</u>
                 </h3>
                 <div class="textEditor">
-                    @*@Html.Raw(Model.Introduction)*@
-                    <strong>平日 早 / 晚餐-全自助式&nbsp;</strong><br>
-                    早餐 NT$550+10%&nbsp;<br>
-                    晚餐 NT$980+10%&nbsp;<br>
-                    <br>
-                    <strong>假日&nbsp;早 / 晚餐-全自助式&nbsp;</strong><br>
-                    早餐 NT$550+10%&nbsp;<br>
-                    晚餐 NT$1,080+10%&nbsp;<br>
-                    <br>
-                    <u>餐費標準</u><br>
-                    0-2歲 / 不收費&nbsp;<br>
-                    3-6歲 / 清潔費NT100元，服務費不計&nbsp;<br>
-                    7-12歲 / 餐期收費半價，服務費另計&nbsp;<br>
-                    13歲以上依餐期全價收費，服務費另計<br>
-                    <br>
-                    <u>自帶酒水本餐廳酌收酒水服務費&nbsp;</u><br>
-                    葡萄酒類NT$300&nbsp;烈酒類NT$500&nbsp;<br>
+                    @Html.Raw(@Model.FIntroduction)
                     <br>
                     <br>
                     平日定義: 週一~週五&nbsp;<br>
@@ -139,16 +123,8 @@
                     <p style="font-size: 1.3em">@Model.FAddress</p>
                 </div>
                 <div class="row">
-                    <div id="map">
-
-                    </div>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.6890887995205!2d121.51981641400289!3d25.04462324402163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a971b0535025%3A0x9a800c32c8ff2768!2z5Y2B5LqM5bua5Y-w5YyX5Zac5L6G55m75aSn6aOv5bqX!5e0!3m2!1szh-TW!2stw!4v1657432513056!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    @*<GMap :center="{lat: restaurant.lat, lng: restaurant.lng}"
-                        :restaurants="[restaurant]"
-                        :streetViewControl="false"
-                        :mapTypeControl="false"
-                        :fullscreenControl="true"
-                        :zoomControl="true"></GMap>*@
+              
                 </div>
 
             </div>
@@ -257,7 +233,20 @@
         $("#TicketArea").on("click", "input", function (event) {
             //console.log(event.currentTarget);
             price.textContent = `NT$ ${event.currentTarget.getAttribute("data-price")} 元`
+            price.setAttribute("data-price", event.currentTarget.getAttribute("data-price"));
             $("#tickettype").val(event.currentTarget.getAttribute("value"))
+        })
+
+        let quantity = document.querySelector("#input-quantity");
+
+
+        quantity.addEventListener("change", function () {
+            if (this.value >= 0) {
+                price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+            } else {
+                this.value = 0;
+                lbprice.textContent = `NT$ ${this.value * price.getAttribute("data-price")} 元`;
+            }
         })
 
         let addtocart = document.querySelector("#btn-add");
@@ -280,109 +269,11 @@
 
         
 
-        @*var add = '@Model.FAddress';
-
-        initialize();
-
-        function initialize() {
-            geocoder = new google.maps.Geocoder();
-            var latlng = new google.maps.LatLng(53.3496, -6.3263);
-            var mapOptions =
-            {
-                zoom: 8,
-                center: latlng
-            }
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
-            codeAddress(add);//call the function
-        }
-
-        function codeAddress(address) {
-            geocoder.geocode({ address: address }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    map.setCenter(results[0].geometry.location);//center the map over the result
-                    //place a marker at the location
-                    var marker = new google.maps.Marker(
-                        {
-                            map: map,
-                            position: results[0].geometry.location
-                        });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
-                }
-            });
-        }*@
-
 
 
     </script>
-    @*<script type="text/javascript">
-            var map ,geocoder;
-
-            function initMap() {
-                geocoder = new google.maps.Geocoder();
-                map = new google.maps.Map(document.querySelector("#map"), {
-                    zoom: 17
-                });
-
-                let address = @Model.FAddress;
-
-                geocoder.geocode({
-                    'address': address, componentRestrictions: {
-                        country: "TW"
-                    }
-                }, function (results, status) {
-                    if (status === "OK") {
-                        // 當轉換成功時，將第一筆結果的經緯度存取起來
-                        this.restaurant.lat = results[0].geometry.location.lat();
-                        this.restaurant.lng = results[0].geometry.location.lng();
-                        // 更新狀態為已經獲得經緯度
-                        this.hasGeo = true;
-                    } else {
-                        // 更新狀態為未經獲得經緯度
-                        this.hasGeo = false;
-                        // 當轉換失敗時，顯示錯誤原因
-                        this.errormsg = status;
-                    }
-
-                });
-
-            }
-
-            import GMap from "../components/GMap";
-            export default {
-                components: {
-                    GMap
-                },
-                data() {
-                    return {
-                        restaurant: {
-                            address: "",
-                            name: "",
-                            lat: 25.0325917,
-                            lng: 121.562499
-                        },
-                        hasGeo: false,
-                        errormsg: null,
-                        geocoder: null
-                    };
-                },
-                mounted() {
-                    this.initGeocoder();
-                },
-                methods: {
-                    initGeocoder() {
-                        this.geocoder = new google.maps.Geocoder();
-                    },
-                    geocode() {
-                        // 轉換地址為最標...
-                    }
-                }
-            };
-
-        </script>*@
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaLWLgpzbDMkQXzEcjYDWEAbPeSwfsx7U&callback=initMap">
-    </script>
-
+  
+  
 }
 @*Bottom*@
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">

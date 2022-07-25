@@ -26,7 +26,7 @@ namespace IGO.ViewModels
         }
         public string ProductName
         {
-            get { return _dbIgo.TProducts.FirstOrDefault(n=>n.FProductId==ProductId).FProductName; }
+            get { return _dbIgo.TProducts.FirstOrDefault(n => n.FProductId == ProductId).FProductName; }
         }
         public int? ticketId
         {
@@ -39,7 +39,7 @@ namespace IGO.ViewModels
         }
         public int? Quantity
         {
-            get { return _dbIgo.TProducts.FirstOrDefault(n=>n.FProductId==ProductId).FQuantity; }
+            get { return _dbIgo.TProducts.FirstOrDefault(n => n.FProductId == ProductId).FQuantity; }
         }
         public string Introduction
         {
@@ -48,6 +48,17 @@ namespace IGO.ViewModels
         public string roomtype
         {
             get { return _dbIgo.TTicketTypes.FirstOrDefault(n => n.FTicketId == ticketId).FTicketName; }
+        }
+        public string ImagePath
+        {
+            get
+            {
+                TProductsPhoto t = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FProductId == ProductId && n.FPhotoSiteId == 1);
+                if (t != null)
+                    return t.FPhotoPath;
+                else
+                    return null;
+            }
         }
     }
 }

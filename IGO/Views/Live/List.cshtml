@@ -38,10 +38,10 @@
                                 <option value="1">人氣低到高</option>
                             </select>
                         </div>
-                        <div class="col-md-4 row">
+                        <div class="col-md-4 row"style="padding-top:7px">
                             <button class="page-link col-md-2" id="prev"><<</button>
                             <input id="pages" type="text" name="page" class="col-md-2" min="1" max="10" value="1" placeholder="1" />
-                            / <h6 id="maxPage" class="col-md-2"></h6>
+                            <h6 id="maxPage" class="col-md-2"style="padding-top:12px"></h6>
                             <button class="page-link col-md-2" id="next">>></button>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                 div2.className = "room-item shadow rounded overflow-hidden";
                 div3.className = "position-relative";
                 img1.className = "img-fluid";
-                img1.src = `/img/${item.getPhotoPath}`;
+                img1.src = `/img/${item.FImage}`;
                 p1.className = "position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4";
                 p1.innerText = `電話 ${item.FPhone}`;
                 div3.appendChild(img1);
@@ -195,7 +195,7 @@
             let ps = await jps.json();
             console.log(ps);
 
-            lbps.textContent = `${ps}`;
+            lbps.textContent = `/ ${ps}`;
         }
 
         let page = document.querySelector("#pages");

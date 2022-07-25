@@ -32,11 +32,11 @@ namespace IGO.Areas.Admin.Controllers
             decimal page = Math.Ceiling((decimal)num / 10);
             return Json(Convert.ToInt32(page));
         }
-        public IActionResult SelectBySubCategory(int id,int num)
+        public IActionResult SelectBySubCategory(int id, int num)
         {
             List<CProductViewModel> products = new List<CProductViewModel>();
             IEnumerable<TProduct> datas = _dbIgo.TProducts.Where(n => n.FSubCategoryId == id);
-            for (int i = num*10; i < ((num+1)*10); i++)
+            for (int i = num * 10; i < ((num + 1) * 10); i++)
             {
                 if (i < datas.ToList().Count())
                 {
@@ -45,12 +45,6 @@ namespace IGO.Areas.Admin.Controllers
                     products.Add(product);
                 }
             }
-            //foreach (TProduct p in _dbIgo.TProducts.Where(n => n.FSubCategoryId == id).ToList())
-            //{
-            //    CProductViewModel product = new CProductViewModel(_dbIgo);
-            //    product.product = p;
-            //    products.Add(product);
-            //}
             string result = System.Text.Json.JsonSerializer.Serialize(products);
 
             return Json(result);
@@ -58,17 +52,24 @@ namespace IGO.Areas.Admin.Controllers
         public IActionResult searchProduct(int SubcategoryID, string keyword)
         {
             List<CProductViewModel> products = new List<CProductViewModel>();
-            IEnumerable<TProduct> datas = _dbIgo.TProducts.Where(n => n.FSubCategoryId == SubcategoryID && n.FProductName.Contains(keyword));
-            if (datas != null)
+            if (keyword != null)
             {
-                foreach (TProduct p in datas.ToList())
+                IEnumerable<TProduct> datas = _dbIgo.TProducts.Where(n => n.FSubCategoryId == SubcategoryID && n.FProductName.Contains(keyword));
+                if (datas != null)
                 {
-                    CProductViewModel product = new CProductViewModel(_dbIgo);
-                    product.product = p;
-                    products.Add(product);
+                    foreach (TProduct p in datas.ToList())
+                    {
+                        CProductViewModel product = new CProductViewModel(_dbIgo);
+                        product.product = p;
+                        products.Add(product);
+                    }
+                    string result = System.Text.Json.JsonSerializer.Serialize(products);
+                    return Json(result);
                 }
-                string result = System.Text.Json.JsonSerializer.Serialize(products);
-                return Json(result);
+            }
+            else
+            {
+                return RedirectToAction("SelectBySubCategory", new { id = SubcategoryID, num = 0 });
             }
             return Json(null);
         }
@@ -83,7 +84,7 @@ namespace IGO.Areas.Admin.Controllers
             }
             return Json(null);
         }
-        public IActionResult Create(TProduct prod, IFormFile Photo)  //增加 新增圖片功能中
+        public IActionResult Create(TProduct prod, IFormFile Photo)
         {
             List<CProductViewModel> products = new List<CProductViewModel>();
             _dbIgo.TProducts.Add(prod);

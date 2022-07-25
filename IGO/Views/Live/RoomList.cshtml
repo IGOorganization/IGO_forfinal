@@ -5,7 +5,7 @@
 }
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header mb-5 p-5" style="background-image: url('/img/');">
+<div class="container-fluid page-header mb-5 p-5" style="background-image: url('/img/@Model.FImage');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center pb-5">
             <h1 id="Supplier" class="display-3 text-white mb-3 animated slideInDown" data-supplier="@Model.FSupplierId">@Model.FCompanyName</h1>
@@ -394,8 +394,14 @@
             }
 
             quantity.addEventListener("change", function () {
-                console.log(this.value);
-                lbprice.textContent = `NT$ ${this.value * ticket.options[ticket.selectedIndex].getAttribute("data-price")} 元`;
+                if (this.value >= 0) {
+                    lbprice.textContent = `NT$ ${this.value * ticket.options[ticket.selectedIndex].getAttribute("data-price")} 元`;
+                } else {
+                    this.value = 0;
+                    lbprice.textContent = `NT$ ${this.value * ticket.options[ticket.selectedIndex].getAttribute("data-price")} 元`;
+                }
+                //console.log(this.value);
+                
             })
 
         </script>

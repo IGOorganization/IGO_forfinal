@@ -39,10 +39,10 @@
                                 <option value="1">人氣低到高</option>
                             </select>
                         </div>
-                        <div class="col-md-4 row">
+                        <div class="col-md-4 row"style="padding-top:7px">
                             <button class="page-link col-md-2" id="prev"><<</button>
                             <input id="pages" type="text" name="page" class="col-md-2" min="1" max="10" value="1" placeholder="1"/>
-                             / <h6 id="maxPage" class="col-md-2"></h6>
+                            <h6 id="maxPage" class="col-md-2" style="padding-top:10px"></h6>
                             <button class="page-link col-md-2" id="next">>></button>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
             let ps = await jps.json();
             console.log(ps);
             
-            lbps.textContent = `${ps}`;
+            lbps.textContent = `/ ${ps}`;
         }
 
         let page = document.querySelector("#pages");

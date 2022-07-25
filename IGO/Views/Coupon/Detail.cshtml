@@ -58,7 +58,7 @@
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
                                 <img class="img-fluid" src="~/img/@item.getPhotoPath" alt="封面圖片">
-                                <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">票價 / 票種</p>
+                                @*<p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">票價 / 票種</p>*@
                             </div>
                             <div class="p-4 mt-2">
                                 <div class="d-flex justify-content-between mb-3">
@@ -198,11 +198,23 @@
         //顯示價格
         let price = document.querySelector("#lbl-price");
 
-
         $("#TicketArea").on("click", "input", function (event) {
             //console.log(event.currentTarget);
             price.textContent = `NT$ ${event.currentTarget.getAttribute("data-price")} 元`
+            price.setAttribute("data-price", event.currentTarget.getAttribute("data-price"));
             $("#tickettype").val(event.currentTarget.getAttribute("value"))
+        })
+
+        let quantity = document.querySelector("#input-quantity");
+        
+
+        quantity.addEventListener("change", function () {
+            if (this.value >= 0) {
+                price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+            } else {
+                this.value = 0;
+                price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+            }
         })
 
         //月曆
@@ -333,7 +345,7 @@
         addtocart.addEventListener("click", async (event) => {
             this.preventDefault();
             //event.preventDefault();
-            console.log(event);
+            //console.log(event);
 
             let cartform = new FormData(document.cartForm)
 

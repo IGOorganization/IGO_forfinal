@@ -46,7 +46,8 @@ namespace IGO.Areas.Admin.Controllers
             CouponViewModel coupon = new CouponViewModel(_dbIgo);
             coupon.coupon = _dbIgo.TCoupons.OrderBy(n => n.FCouponId).Last();
             coupons.Add(coupon);
-            return Json(coupons);
+            string result = System.Text.Json.JsonSerializer.Serialize(coupons);
+            return Json(result);
         }
         public IActionResult Delete(int id)
         {
@@ -60,7 +61,8 @@ namespace IGO.Areas.Admin.Controllers
                 coup.coupon = cou;
                 coupons.Add(coup);
             }
-            return Json(coupons);
+            string result = System.Text.Json.JsonSerializer.Serialize(coupons);
+            return Json(result);
         }
         public IActionResult Edit(TCoupon cou,IFormFile Photo)
         {
@@ -92,12 +94,9 @@ namespace IGO.Areas.Admin.Controllers
             
             //回傳商品列表===============
             List<CouponViewModel> coupons = new List<CouponViewModel>();
-            foreach (TCoupon coupon in _dbIgo.TCoupons)
-            {
-                CouponViewModel coup = new CouponViewModel(_dbIgo);
-                coup.coupon = coupon;
-                coupons.Add(coup);
-            }
+            CouponViewModel coupon = new CouponViewModel(_dbIgo);
+            coupon.coupon = _dbIgo.TCoupons.FirstOrDefault(n => n.FCouponId==c.FCouponId);
+            coupons.Add(coupon);
             string result = System.Text.Json.JsonSerializer.Serialize(coupons);
             return Json(result);
         }

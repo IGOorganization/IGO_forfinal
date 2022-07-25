@@ -906,6 +906,10 @@ namespace IGO.Models
                     .HasMaxLength(30)
                     .HasColumnName("fCompanyName");
 
+                entity.Property(e => e.FImage)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImage");
+
                 entity.Property(e => e.FPhone)
                     .HasMaxLength(20)
                     .HasColumnName("fPhone");

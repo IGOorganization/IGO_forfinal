@@ -21,6 +21,7 @@ namespace IGO.Models
         public int? FCityId { get; set; }
         public string FAddress { get; set; }
         public int? FSubCategoryId { get; set; }
+        public string FImage { get; set; }
 
         public virtual TCity FCity { get; set; }
         public virtual TSubCategory FSubCategory { get; set; }

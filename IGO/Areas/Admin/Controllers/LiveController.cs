@@ -1,9 +1,12 @@
 ﻿using IGO.Models;
 using IGO.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,9 +16,11 @@ namespace IGO.Areas.Admin.Controllers
     public class LiveController : Controller
     {
         DemoIgoContext _dbIgo;
-        public LiveController(DemoIgoContext db)
+        IWebHostEnvironment _enviroment;
+        public LiveController(DemoIgoContext db, IWebHostEnvironment e)
         {
             _dbIgo = db;
+            _enviroment = e;
         }
         public IActionResult List()
         {
@@ -43,7 +48,7 @@ namespace IGO.Areas.Admin.Controllers
             }
             return Json(null);
         }
-        public IActionResult CreateRoom(CAdminLiveViewModel c)
+        public IActionResult CreateRoom(CAdminLiveViewModel c,IFormFile Photo)
         {
             TSupplier supplier = _dbIgo.TSuppliers.FirstOrDefault(n => n.FSupplierId == c.supplier);
             TProduct t = new TProduct()
@@ -59,6 +64,21 @@ namespace IGO.Areas.Admin.Controllers
                 FIntroduction = c.fIntroduction
             };
             _dbIgo.TProducts.Add(t);
+
+            TProductsPhoto tp = new TProductsPhoto()
+            {
+                FProductId = c.fProductId,
+                FPhotoSiteId = 1,
+            };
+
+            if (Photo != null)
+            {
+                string pName = Guid.NewGuid().ToString() + ".jpg";
+                Photo.CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + pName, FileMode.Create));
+                tp.FPhotoPath = pName;
+            }
+            _dbIgo.TProductsPhotos.Add(tp);
+
             _dbIgo.SaveChanges();
 
             TTicketAndProduct ticket = new TTicketAndProduct()
@@ -97,7 +117,7 @@ namespace IGO.Areas.Admin.Controllers
 
             return Json(list);
         }
-        public IActionResult Edit(CAdminLiveViewModel c)
+        public IActionResult Edit(CAdminLiveViewModel c,IFormFile Photo)
         {
             TTicketAndProduct tapbase = _dbIgo.TTicketAndProducts.FirstOrDefault(n => n.FProductId == c.fProductId && n.FTicketId == c.tickettype);
             TTicketAndProduct tap = _dbIgo.TTicketAndProducts.FirstOrDefault(n => n.FTicketAndProductId == c.fTicketAndProductId);
@@ -115,6 +135,27 @@ namespace IGO.Areas.Admin.Controllers
 
                 tap.FTicketId = c.tickettype;
                 tap.FPrice = c.price;
+
+                TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 1 && n.FProductId == c.fProductId);
+
+                if (Photo != null)
+                {
+                    string pName = Guid.NewGuid().ToString() + ".jpg";
+                    Photo.CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + pName, FileMode.Create));
+                    if (tp == null)
+                    {
+                        tp = new TProductsPhoto()
+                        {
+                            FProductId = c.fProductId,
+                            FPhotoSiteId = 1,
+                            FPhotoPath = pName
+                        };
+                        _dbIgo.TProductsPhotos.Add(tp);
+                    }
+                    else
+                        tp.FPhotoPath = pName;
+                }
+
                 _dbIgo.SaveChanges();
 
                 return RedirectToAction("getRoomByID", new { id = c.fTicketAndProductId });

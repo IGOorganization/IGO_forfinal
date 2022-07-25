@@ -16,7 +16,7 @@
 
             </form>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-dark">
                     <thead>
                         <tr>
                             <th scope="col">商品名稱</th>
@@ -53,94 +53,6 @@
                                 </tr>
                             }
                         }
-
-                        @*商品組*@
-                        <!--<tr>
-                            <th scope="row">2</th>
-                            <td>高雄好行</td>
-                            <td>
-                                <ul>
-                                    <li>高雄翰品酒店 | 品日式料理</li>
-                                    <li>會動的文藝復興</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>-->
-                        @*商品組*@
-                        <!--<tr>
-                            <th scope="row">3</th>
-                            <td>台中之旅</td>
-                            <td>
-                                <ul>
-                                    <li>侏羅紀Ｘ恐龍3.0 台中站</li>
-                                    <li>台中長榮桂冠自助餐</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>-->
-                        @*商品組*@
-                        <!--<tr>
-                            <th scope="row">4</th>
-                            <td>台南一日遊</td>
-                            <td>
-                                <ul>
-                                    <li>頑皮世界野生動物園</li>
-                                    <li>漢來海港城南紡夢時代店</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>-->
-                        @*商品組*@
-                        <!--<tr>
-                            <th scope="row">5</th>
-                            <td>台東溫泉之旅</td>
-                            <td>
-                                <ul>
-                                    <li>台東桂田喜來登酒店</li>
-                                    <li>桂田酒店｜阿力海百匯餐廳</li>
-                                    <li>知本國家森林遊樂園</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>-->
-                        @*商品組*@
-                        <!--<tr class="a" name="6">
-                            <th scope="row">6</th>
-                            <td>宜蘭田野之旅</td>
-                            <td>
-                                <ul>
-                                    <li>宜蘭二結穀倉稻農文化館</li>
-                                    <li>蘭城百匯自助餐廳</li>
-                                    <li>煙波大飯店 宜蘭館</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -199,7 +111,7 @@
                                     <option value="5">美食</option>
                                 </select>
                             </div>
-                            <table class="table">
+                            <table class="table table-dark">
                                 <thead>
                                     <tr>
                                         <th>商品列表</th>
@@ -279,7 +191,7 @@
                                     <option value="5">美食</option>
                                 </select>
                             </div>
-                            <table class="table">
+                            <table class="table table-dark">
                                 <thead>
                                     <tr>
                                         <th>商品列表</th>
@@ -329,8 +241,12 @@
                 frag.appendChild(button);
             }
             bar.appendChild(frag);
-
         }
+
+        $("#createpagebar").on("click", "button", function (event) {
+            console.log(event.currentTarget.getAttribute("data-index"));
+            changeSubCategory(tbody, event.currentTarget.getAttribute("data-index"));
+        })
 
 
         //=============拖曳功能====================
@@ -419,14 +335,14 @@
         let tbody = document.querySelector("#createtb_products");
 
         const createSelsubcategory = document.querySelector("#createsel_subcategory");
-        createSelsubcategory.addEventListener("change", function () { changeSubCategory(tbody) });
+        createSelsubcategory.addEventListener("change", function () { changeSubCategory(tbody,0) });
 
-        changeSubCategory(tbody);
+        changeSubCategory(tbody,0);
 
         //==========類別篩選==============
-        async function changeSubCategory(body) {
+        async function changeSubCategory(body,p) {
             let subcategoryid = await createSelsubcategory.options[createSelsubcategory.selectedIndex].value;
-            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}`)
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
 
             let products = await jproducts.json();
             //console.log(products);
@@ -484,6 +400,7 @@
                 method: "POST",
             })
             let coupons = await jcoupons.json();
+            console.log(coupons);
             refrechCoupon(coupons);
         })
 
@@ -500,43 +417,45 @@
             else {
                 coupons = JSON.parse(coupons);
                 console.log(coupons);
+                coupons.forEach(item => {
+                    let tr = document.createElement("tr");
+                    let td1 = document.createElement("td");
+                    let ul = document.createElement("ul");
+                    let td2 = document.createElement("td");
+                    let td3 = document.createElement("td");
+                    let td4 = document.createElement("td");
+                    let td5 = document.createElement("td");
+                    let td6 = document.createElement("td");
+                    let img = document.createElement("img");
+                    let td7 = document.createElement("td");
 
-                let tr = document.createElement("tr");
-                let td1 = document.createElement("td");
-                let ul = document.createElement("ul");
-                let td2 = document.createElement("td");
-                let td3 = document.createElement("td");
-                let td4 = document.createElement("td");
-                let td5 = document.createElement("td");
-                let td6 = document.createElement("td");
-                let img = document.createElement("img");
-                let td7 = document.createElement("td");
+                    img.src = `/img/${item.FCouponImage}`;
+                    img.style.width = "160px";
+                    img.style.height = "90px";
+                    td6.appendChild(img);
 
-                img.src = `/img/${coupons.fCouponImage}`;
-                img.style.width = "160px";
-                img.style.height = "90px";
-                td6.appendChild(img);
+                    tr.setAttribute("id", item.FCouponId);
+                    td1.textContent = item.FCouponName;
+                    item.VMproducts.forEach(product => {
+                        let li = document.createElement("li");
+                        li.textContent = product.FProductName;
+                        ul.appendChild(li);
+                    });
+                    td2.appendChild(ul);
+                    td7.textContent = item.FQuantity;
+                    td3.textContent = item.FDiscount;
+                    td4.textContent = item.FDeadTime;
+                    td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${item.FCouponId} data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${item.FCouponId}>刪除</button>`;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td6);
+                    tr.appendChild(td7);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    tr.appendChild(td5);
+                    frag.appendChild(tr);
+                })
 
-                tr.setAttribute("id", coupons.fCouponId);
-                td1.textContent = coupons.fCouponName;
-                coupons.products.forEach(product => {
-                    let li = document.createElement("li");
-                    li.textContent = product.fProductName;
-                    ul.appendChild(li);
-                });
-                td2.appendChild(ul);
-                td7.textContent = coupons.fQuantity;
-                td3.textContent = coupons.fDiscount;
-                td4.textContent = coupons.fDeadTime;
-                td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${coupons.fCouponId} data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${coupons.fCouponId}>刪除</button>`;
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td6);
-                tr.appendChild(td7);
-                tr.appendChild(td3);
-                tr.appendChild(td4);
-                tr.appendChild(td5);
-                frag.appendChild(tr);
                 tbcoupon.append(frag);
             }
         }
@@ -551,7 +470,9 @@
                 let jcoupons = await fetch('@Url.Content("~/Admin/Coupon/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
 
                 let coupons = await jcoupons.json();
+                //console.log(coupons);
                 refrechCoupon(coupons);
+                alert("刪除成功!");
              }
         });
 
@@ -561,13 +482,13 @@
 
         let editbar = document.querySelector("#editpagebar");
 
-        editSelsubcategory.addEventListener("change", function () { editSubCategory(edittbody) });
-        editSubCategory(edittbody);
+        editSelsubcategory.addEventListener("change", function () { editSubCategory(edittbody,0) });
+        editSubCategory(edittbody,0);
 
 
-        async function editSubCategory(body) {
+        async function editSubCategory(body,p) {
             let subcategoryid = await editSelsubcategory.options[editSelsubcategory.selectedIndex].value;
-            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}`)
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
 
             let products = await jproducts.json();
             //console.log(products);
@@ -575,6 +496,11 @@
 
             page(subcategoryid, editbar);
         }
+
+        $("#editpagebar").on("click", "button", function (event) {
+            console.log(event.currentTarget.getAttribute("data-index"));
+            editSubCategory(edittbody, event.currentTarget.getAttribute("data-index"));
+        })
 
 
         //=============拖曳功能====================
@@ -724,7 +650,7 @@
             })
 
             let coupons = await jcoupons.json();
-            //console.log(coupons);
+            console.log(coupons);
             refrechCoupon(coupons);
 
         })
