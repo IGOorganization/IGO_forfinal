@@ -74,10 +74,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label>訂單編號</label><span>: </span><input class="form-control text-white" id="txtOrderID" type="text" value="">
+                <label>訂單編號</label><span>: </span><input class="form text-black-50" id="txtOrderID" type="text" value="">
                 <hr>
-                <label>訂單狀態</label><span>: </span><input class="form-control text-white" id="txtStatus" type="text" value="">
+                <label>訂單狀態</label><span>: </span><input class="form text-black-50" id="txtStatus" type="text" value="">
                 <br><br>
+                <label>變更訂單狀態:</label>
                 <select class="form-select text-white" aria-label="Default select example" style="border:1px solid white" id="EditStatus">
                     <option class="text-white" value="0"></option>
                     <option class="text-white" value="1">已下訂</option>
@@ -87,7 +88,7 @@
                     <option class="text-white" value="5">取消程序中</option>
                 </select>
                 <br><br>
-                <button type="button" data-bs-dismiss="modal" aria-label="Update" id="update" class="btn-danger">更新</button>
+                <button type="button" data-bs-dismiss="modal" aria-label="Update" id="update" class="btn-danger liveToastBtn">更新</button>            
             </div>
         </div>
     </div>
@@ -136,7 +137,6 @@
                 //console.log(datas.OrderId);
                 $('#txtStatus').val(datas.StatusName);
                 $('#txtOrderID').val(datas.OrderId);
-
             })
 
         })
@@ -149,7 +149,14 @@
 
 
         })
-
+        let orid = "";
+        let lastname = "";
+        let firstname = "";
+        let prodName = "";
+        let ticketype = "";
+        let totalprice = "";
+        let number = "";
+        arr = new Array();
         //更新編輯後的訂單狀態
         $('#update').on("click", function ()   /*更新訂單取消申請為取消訂單的狀態*/
         {
@@ -157,15 +164,62 @@
             //console.log(changeStatueID);
             let changeOrderId = $('#txtOrderID').val();
             //console.log(changeOrderId);
-            alert('確定更新訂單狀態?');
+            //alert('確定更新訂單狀態?');
+            $.get('@Url.Content("~/Admin/Order/CancelEmailInfo")', { "Orderid": changeOrderId }, function (datas) {
+                //console.log(datas);
+                arr = datas;
 
+                    lastname = datas[0].LastName;
+                    firstname = datas[0].FirstName;
+                totalprice = datas[0].TotalPrice;
+                orid = datas[0].OrderId;
+
+            });
+
+            //更新訂單狀態
             $.get('@Url.Content("~/Admin/Order/UpdateByOrderID")', { "Orderid": changeOrderId, "Statusid": changeStatueID }, function (datas)
             {
                 //console.log(datas);
-                window.location.href = 'List';  //refresh此頁
+
+                if (changeStatueID == 2)  //寄送取消訂單信函
+                {
+                    @*$.ajax(
+                        {
+                            type: "POST",
+                            dataType: "json",
+                            url: '@Url.Content("~/Admin/Order/SentCancelOrderEmail")',
+                            data: { "lastname": lastname, "firstname": firstname, "totalprice": totalprice, "orderid": orid},
+                            success: function (result) {
+                                if (!result) {
+                                    console.log("寄送失敗");
+                                }
+                                else {
+                                    console.log("寄送成功");
+
+                                }
+                            }
+                        });*@
+
+                    alert('送出取消訂單信件?')
+                    $.post('@Url.Content("~/Admin/Order/SentCancelOrderEmail")', { "lastname": lastname, "firstname": firstname, "totalprice": totalprice},
+                        function (result)
+                        {
+                            if (!result) {
+                                console.log("寄送失敗");
+                            }
+                            else {
+                                console.log("寄送成功");
+
+                            }
+                        })
+                    console.log('send');
+                    
+                    //window.location.href = 'List';  //refresh此頁
+                }
             })
         })
 
+       
 
 
     </script>

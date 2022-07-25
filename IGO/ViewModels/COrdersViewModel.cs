@@ -81,6 +81,11 @@ namespace IGO.ViewModels
             get { return _od; }
             set { _od = value; }
         }
+        public List<TOrderDetail> OrderDetailList
+        {
+            get;
+            set;
+        }
         public int OrderDetailsId
         {
             get { return _od.FOrderDetailsId; }
