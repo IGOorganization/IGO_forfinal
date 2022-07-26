@@ -214,6 +214,7 @@
         async function createroomtable(e) {
             let tbRoom = document.querySelector("#tb_room");
             tbRoom.textContent = "";
+            console.log(e);
             let frag = document.createDocumentFragment();
             e.forEach(room => {
                 let tr = document.createElement("tr");
@@ -226,7 +227,7 @@
                 let td5 = document.createElement("td");
                 let td6 = document.createElement("td");
 
-                img.src = `/img/${room.imagePath}`;
+                img.src = `/img/${room.ImagePath}`;
                 img.style.width = "160px";
                 img.style.height = "90px";
                 tdp.appendChild(img);

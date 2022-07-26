@@ -105,6 +105,7 @@
                         </div>
                     </div>
                     @*宜潔新增*@
+                    <a href="~/Coupon/List" class="nav-item nav-link" style="font-size:120%">特惠組合</a>
                     <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -114,16 +115,16 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none" id="viewContent">
                             @* <p  class="dropdown-item"><small>目前無資料</small></p>*@
                             @*<a href="/Products/Food" class="dropdown-item"><img src="~/img/City_HotSales_02.jpg" width="50" height="50" /><small>台北喜來登大飯店｜十二廚</small></a>
-                                @*<a href="/Products/Food" class="dropdown-item">
-                                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
-                                    <small>台北喜來登大飯店｜十二廚</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="/Products/Exhibit" class="dropdown-item">
-                                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
-                                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
-                                </a>
-                                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
+                @*<a href="/Products/Food" class="dropdown-item">
+                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
+                    <small>台北喜來登大飯店｜十二廚</small>
+                </a>
+                <hr class="dropdown-divider">
+                <a href="/Products/Exhibit" class="dropdown-item">
+                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
+                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
+                </a>
+                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
                         </div>
                     </div>
                     <div class="nav-item">
@@ -131,47 +132,47 @@
                             <i class="fa-solid fa-cart-plus"></i>
                             <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
                         </a>
-                    </div>                
-                        @{
-                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-                            {
-                                <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
-                                    <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                        @if (CustomerController.imgpath == null)
-                                        {
-                                            <img width="50" height="50" class="rounded-circle " src="/img/UID_0.jpg">
-                                        }
-                                        else
-                                        {
-                                            <img width="50" height="50" class="rounded-circle " src="/img/@CustomerController.imgpath">
-                                        }
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
-                                            <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
-                                            <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
-                                            <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
-                                            <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
-                                        </ul>
-                                    </div>
+                    </div>
+                    @{
+                        if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                        {
+                            <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
+                                <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @if (CustomerController.imgpath == null)
+                                    {
+                                        <img width="50" height="50" class="rounded-circle " src="/img/UID_0.jpg">
+                                    }
+                                    else
+                                    {
+                                        <img width="50" height="50" class="rounded-circle " src="/img/@CustomerController.imgpath">
+                                    }
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
+                                    <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
+                                        <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
+                                        <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
+                                        <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
+                                        <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
+                                    </ul>
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="navbar-nav navbar-right mr-auto py-0 ">
-                                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                        <i class="fa fa-user"> 登入/ 註冊 </i>
-                                    </button>
-                                </div>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                            }
+                            </div>
                         }
+                        else
+                        {
+                            <div class="navbar-nav navbar-right mr-auto py-0 ">
+                                <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    <i class="fa fa-user"> 登入/ 註冊 </i>
+                                </button>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        }
+                    }
 
                     <a href=""></a>
 
