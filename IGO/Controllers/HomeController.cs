@@ -102,7 +102,7 @@ namespace IGO.Controllers
                     tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId),
                     tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r.FProductId).FCity,
                     ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
-                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r.FProductId).FPhotoPath,
+                    PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
                     ViewRecord = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FViewRecord,
                     RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
                                          where f.FProductId == r.FProductId

@@ -131,23 +131,7 @@
                             <i class="fa-solid fa-cart-plus"></i>
                             <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
                         </a>
-                    </div>
-                    <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
-                        <a class="btn dropdown-toggle nav-item nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/img/UserPhoto.jpg" alt="mdo" width="50" height="50" class="rounded-circle">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
-                                <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
-                                <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
-                                <li><a class="dropdown-item" href="/Customer/List"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/Home/Login"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
-                            </ul>
-                        </div>
-
-
+                    </div>                
                         @{
                             if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                             {
@@ -165,7 +149,7 @@
                                     <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
                                         <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
                                             <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
-                                            <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                            <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                             <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
                                             <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
@@ -189,9 +173,6 @@
                             }
                         }
 
-                        <a href=""></a>
-
-                    </div>
                     <a href=""></a>
 
                 </nav>
