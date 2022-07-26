@@ -230,7 +230,8 @@
                             <a class="btn btn-link" href="/Helper/index">幫助中心</a>
                             <a class="btn btn-link" href="/Privacy/index">隱私權</a>
                             <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
-                            <a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>
+                            @*<a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>*@
+                            <a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#BackendModal">管理後台</a>
                         </div>
                         @*<div class="col-md-6">
                                 <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
@@ -309,13 +310,13 @@
                             <div>
                                 <div class="row bg-dark">
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(123) </button>
+                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(伊佴叁) </button>
                                     </div>
                                     <div class="col text-center">
                                         <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
                                     </div>
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(祝厚) </button>
+                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(祝策厚) </button>
                                     </div>
                                 </div>
                             </div>
@@ -358,11 +359,11 @@
                     <div class="modal-body bg-dark">
                         <br />
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="register_FLName" name="FLName" placeholder="姓氏(LastName)" />
-                            <label for="floatingInput">姓氏(LastName)</label>
+                            <input type="text" class="form-control text-dark" id="register_FLName" name="FLastName" placeholder="姓氏(LastName)" />
+                            <label for="FLastName">姓氏(LastName)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="register_FFName" name="FFName" placeholder="名字(FirstName)" />
+                            <input type="text" class="form-control text-dark" id="register_FFName" name="FFirstName" placeholder="名字(FirstName)" />
                             <label for="FFirstName" class="control-label">名字(FirstName)</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -370,8 +371,8 @@
                             <label for="FPhone" class="control-label">手機號碼(IGO 帳號)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control text-dark" id="register_FPassword" name="txtPassword" placeholder="密碼">
-                            <label for="floatingPassword">密碼</label>
+                            <input type="password" class="form-control text-dark" id="register_FPassword" name="FPassword" placeholder="密碼">
+                            <label for="FPassword">密碼</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control text-dark" id="register_FCheckPwd" name="FCheckPwd" placeholder="確認密碼" />
@@ -425,6 +426,53 @@
         </form>
     </div>
     <!-- Register Modal End -->
+    <!-- Backend Modal 彈出登入視窗 -->
+    <div class="modal fade " id="BackendModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="staticBackdropLabel">後臺管理員登入系統</h5>
+                    <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark">
+                    <br />
+                    <form asp-controller="" asp-action="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="Backend_txtAccount" name="txtAccount" placeholder="手機號碼">
+                            <label for="floatingInput">帳號 (手機號碼)</label>
+                        </div>
+                        <br />
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control text-dark" id="Backend_txtPassword" name="txtPassword" placeholder="密碼">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <div class="modal-footer">
+                            <br />
+                            <a href="/Admin/Coupon/List" class="btn btn-primary">後台登入</a>
+                            @*<input type="submit" value="登入" class="btn btn-primary" />*@
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 返回首頁 </button>
+                            <br />
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <hr />
+                            <div>
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="Backend_Demo">  Demo </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Backend Modal End -->
+
+
     <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
     <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
 
@@ -460,13 +508,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

@@ -11,7 +11,6 @@
             <div class="row ">
                 <div class="col-md-3">
                     <div>
-                        
                         <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
                             <hr />
                             <div class=" card-title text-center">
@@ -30,9 +29,9 @@
                                 <h4 class="text-primary text-center ">@CustomerController.userName</h4>
 
                             </div>
-                            <!--============================================這邊加入超連結======================================================================================-->
                             <hr />
                         </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
                         <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
                             <ul class="list-group">
                                 <li class="list-group-item bg-dark">
@@ -57,106 +56,22 @@
                             <div class="card-body text-end ">
                                 <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
                             </div>
-                        </div>   
-                            <!--============================================這邊加入超連結======================================================================================-->
-                        
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
                     </div>
                 </div>
+                <!--============================================這邊加入頁面======================================================================================-->
                 <div class="col-md-9">
-                    <form asp-controller="Customer" asp-action="UserData">
+                    <form asp-controller="" asp-action="">
                         <div class="border">
                             <div class="card-header bg-dark">
-                                <h1 class="text-primary">帳號設定</h1>
+                                <h1 class="text-primary">Title</h1>
                             </div>
-                            <div class="border-top-0">
-                                <div class="bg-white shadow" style="padding: 35px;">
-                                    <div class="tab-content">
-                                        <div class="container px-4">
-                                            <div class="row gx-5">
-                                                <div class="col">
-                                                    <div class="p-3 border list-group-item-primary">
-                                                        <label asp-for="FLastName" class="control-label "></label>
-                                                        <input asp-for="FLastName" class="form-control" />
-                                                        <span asp-validation-for="FLastName" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="p-3 border list-group-item-primary">
-                                                        <label asp-for="FFirstName" class="control-label"></label>
-                                                        <input asp-for="FFirstName" class="form-control" />
-                                                        <span asp-validation-for="FFirstName" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="p-3 border list-group-item-primary">
-                                                        <label asp-for="FGender" class="control-label"></label>
-                                                        <input asp-for="FGender" class="form-control" />
-                                                        <span asp-validation-for="FGender" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="container px-4">
-                                            <div class="row gx-5">
-                                                <div class="col">
-                                                    <div class="p-3 border bg-primary">
-                                                        <label asp-for="FCityId" class="control-label"></label>
-                                                        <input asp-for="FCityId" class="form-control" />
-                                                        <span asp-validation-for="FCityId" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="p-3 border bg-primary">
-                                                        <label asp-for="FBirth" class="control-label"></label>
-                                                        <input asp-for="FBirth" class="form-control" />
-                                                        <span asp-validation-for="FBirth" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="p-3 border bg-primary">
-                                                        <label asp-for="FPhone" class="control-label"></label>
-                                                        <input asp-for="FPhone" class="form-control" />
-                                                        <span asp-validation-for="FPhone" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="container px-4">
-                                            <div class="row gx-5">
-                                                <div class="col">
-                                                    <div class="p-3 border bg-primary">
-                                                        <label asp-for="FAddress" class="control-label"></label>
-                                                        <input asp-for="FAddress" class="form-control" />
-                                                        <span asp-validation-for="FAddress" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="container px-4">
-                                            <div class="row gx-5">
-                                                <div class="col">
-                                                    <div class="p-3 border bg-primary">
-                                                        <label asp-for="FEmail" class="control-label"></label>
-                                                        <input asp-for="FEmail" class="form-control" />
-                                                        <span asp-validation-for="FEmail" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <input type="submit" value="儲存並修改" class="btn btn-primary " />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </form>
-
                 </div>
+                <!--============================================這邊加入頁面======================================================================================-->
             </div>
         </div>
     </div>

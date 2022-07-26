@@ -12,10 +12,8 @@
                 <div class="col-md-3">
                     <div>
                         <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
-                            <br>
-                            <h5 class="card-title text-primary text-center">IGO 帳號</h5>
                             <hr />
-                            <div class="text-center">
+                            <div class=" card-title text-center">
                                 @{
                                     if (CustomerController.imgpath == null)
                                     {
@@ -28,18 +26,22 @@
                                 }
                             </div>
                             <div class="card-body">
-                                <h5 class="text-primary text-center " >@CustomerController.userName</h5>
-                            </div>
-                        </div>
+                                <h4 class="text-primary text-center ">@CustomerController.userName</h4>
 
+                            </div>
+                            <hr />
+                        </div>
                         <!--============================================這邊加入超連結======================================================================================-->
                         <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
                             <ul class="list-group">
-                                <li class="list-group-item list-group-item-primary">
-                                    @Html.ActionLink("會員資料管理", "", new { /* id=item.PrimaryKey */ })
+                                <li class="list-group-item bg-dark">
+                                    <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen">個人資訊</i></a>
                                 </li>
                                 <li class="list-group-item">
                                     @Html.ActionLink("修改密碼", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
                                 </li>
                                 <li class="list-group-item list-group-item-primary">
                                     @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
@@ -50,10 +52,10 @@
                                 <li class="list-group-item list-group-item-primary">
                                     @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
                                 </li>
-                                <li class="list-group-item">
-                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
-                                </li>
                             </ul>
+                            <div class="card-body text-end ">
+                                <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                            </div>
                         </div>
                         <!--============================================這邊加入超連結======================================================================================-->
                     </div>

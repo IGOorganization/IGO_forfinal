@@ -3,6 +3,7 @@ using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -131,7 +132,6 @@ namespace IGO.Controllers
         }
 
 
-        //===================================================> 會員資料管理 <===========================================
-
+        //===================================================> 會員資料管理 <=========================================== 
     }
 }
