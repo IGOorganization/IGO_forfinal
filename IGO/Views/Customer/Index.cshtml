@@ -38,7 +38,8 @@
                                     <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen">個人資訊</i></a>
                                 </li>
                                 <li class="list-group-item">
-                                    @Html.ActionLink("修改密碼", "", new { /* id=item.PrimaryKey */ })
+                                    @*@Html.ActionLink("修改密碼", "", new { id = item.PrimaryKey })*@
+                                    <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-user-pen">修改密碼</i></a>
                                 </li>
                                 <li class="list-group-item">
                                     @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })

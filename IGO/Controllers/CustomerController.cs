@@ -130,7 +130,34 @@ namespace IGO.Controllers
             _dbIgo.SaveChanges();
             return RedirectToAction("Index");
         }
+            public IActionResult EditPWD ()
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult EditPWD(TCustomer tc)
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
+            if (data != null) 
+            {
+                data.FPassword = tc.FPassword;
+            }
+            _dbIgo.SaveChanges();
+            return View(data);
+        }
 
+        public IActionResult Delete( )
+        {
+
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
+            if (data != null)
+            {
+                _dbIgo.TCustomers.Remove(data);
+                _dbIgo.SaveChanges();
+            }
+            return RedirectToAction("List");
+        }
 
         //===================================================> 會員資料管理 <=========================================== 
     }
