@@ -1,4 +1,5 @@
-﻿@model IEnumerable<IGO.CouponViewModel>
+﻿@using IGO.ViewModels
+@model IEnumerable<IGO.CouponViewModel>
 
 @{
     ViewData["Title"] = "List";
@@ -68,48 +69,57 @@
                 @{
                     foreach (CouponViewModel coupon in Model)
                     {
-                        @*商品組件*@
-                        <div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+
+                        //修改版商品組件
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="room-item shadow rounded overflow-hidden">
                                 <div class="position-relative">
-                                    <img class="img-fluid" src="/img/Coupon1.jpg" alt="">
-                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
+                                    <img class="img-fluid" src="~/img/@coupon.FCouponImage" alt="封面圖片">
+                                    <p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 @coupon.FDiscount 折</p>
                                 </div>
                                 <div class="p-4 mt-2">
                                     <div class="d-flex justify-content-between mb-3">
-                                        <h5 class="mb-0">@coupon.product1.FSubCategory.FSubCategoryName</h5>
-                                        <div class="ps-2">
-                                            <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                            <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                        </div>
+                                        <h4 class="mb-0"></h4>
                                     </div>
-                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#Coupon1" aria-expanded="false" aria-controls="#Coupon1">產品介紹</p>
-                                    <div class="list-group list-group-flush collapse" id="Coupon1">
-                                        @foreach (TProduct product in coupon.products)
+                                    <div class="d-flex mb-3">
+                                        @for (int s = 1; s <= 4; s++)
+                                        {
+                                            <i class="fa fa-star text-primary"></i>
+                                        }
+                                    </div>
+                                    <div class="d-flex justify-content-lg-start">
+                                        <h4>@*<i class="fa-solid fa-location-dot"></i>*@ @coupon.FCouponName</h4>
+                                        @{ string alertMessage = "           ";
+                                            string imgSource = "";
+                                            TimeSpan time = Convert.ToDateTime(coupon.FDeadTime).Date - DateTime.Today;
+                                            if (time.Days <= 100)
+                                            {
+                                                alertMessage = "活動即將結束";
+                                                imgSource = "/img/alarm.png";
+                                            }
+                                            else
+                                            {
+                                                imgSource = "/img/noalarm.png";
+                                            }
+                                        }
+                                    </div>
+                                    <div class="d-flex justify-content-lg-start">
+                                        <br>
+                                        <h5 class="align-items-center" style="color:cadetblue">離活動結束還剩 @time.Days 天</h5>
+                                        <p class="align-items-end"></p>
+                                        <p class="align-items-end"><img src=@imgSource width="30" height="30"></p>
+                                        <h5 class="align-items-end" style="color:red">@alertMessage</h5>
+                                    </div>
+                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#@('p'+coupon.FCouponId.ToString())" aria-expanded="false" aria-controls="#@('p'+coupon.FCouponId.ToString())">產品介紹</p>
+                                    <div class="list-group list-group-flush collapse" id="@('p'+coupon.FCouponId.ToString())">
+                                        @foreach (CProductViewModel product in coupon.VMproducts)
                                         {
                                             <p>@product.FProductName</p>
                                         }
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        @Html.ActionLink("細節", "Detail", "Coupon", new { id = coupon.FCouponId },
-                                       new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                        @{
-                                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-                                            {
-                                                Html.ActionLink("訂購", "Order", "Coupon", null,
-                                           new { Class = "btn btn-sm btn-dark rounded py-2 px-4" });
-                                            }
-                                            else
-                                            {
-                                                <button type="button" class="btn btn-sm btn-dark rounded py-2 px-4" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                                    訂購
-                                                </button>
-                                            }
-
-                                        }
+                                    <div class="d-flex justify-content-lg-end">
+                                        <a href=" @Url.Content($"~/Coupon/detail/{coupon.FCouponId}")" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
                                     </div>
-                                        
-                                        
                                 </div>
                             </div>
                         </div>

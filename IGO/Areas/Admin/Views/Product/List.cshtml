@@ -1,0 +1,471 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">產品列表</h6>
+            <div class="d-none d-md-flex ms-4">
+                <div class="col-md-3">
+                    <input class="form-control bg-dark border-0 " type="search" placeholder="輸入商品名稱" id="txt_keyword">
+                    <input class="btn btn-secondary m-2" type="button" value="搜尋" id="btn_search" />
+                    <button class="btn btn-secondary m-2 float-lg-end" type="button" data-bs-toggle="modal" data-bs-target="#createproduct">新增</button>
+                </div>
+                <div class="float-lg-start" style="margin-left:10px;">
+                    <select id="sel_subcategory" class="form-select" name="fSubcategoryID">
+                        <option value="2">景點</option>
+                        <option value="4">展覽</option>
+                        <option value="5">美食</option>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-xl-6" style="margin-left:10px;">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div id="pagebar" class="btn-group me-2" role="group" aria-label="First group">
+                            @*<button type="button" class="btn btn-secondary">1</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-dark" id="t_Product">
+                    <thead>
+                        <tr>
+                            <th scope="col">商品名稱</th>
+                            <th scope="col" class="col-md-1">縣市</th>
+                            <th scope="col">地址</th>
+                            <th scope="col">供應商</th>
+                            <th scope="col">庫存</th>
+                            <th scope="col">販售期限</th>
+                            <th scope="col" class="col-md-4">商品簡介</th>
+                            <th scope="col">封面圖片</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb_products">
+                        @*商品組*@
+                        <!--<tr>
+                            <td>世界宗教博物館門票</td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option value="1">台中市</option>
+                                    <option value="2">雲林縣</option>
+                                    <option value="3">桃園市</option>
+                                    <option value="4">台南市</option>
+                                    <option value="5" selected>新北市</option>
+                                    <option value="6">新竹縣</option>
+                                </select>
+                            </td>
+                            <td>新北市永和區中山路一段236號7樓</td>
+                            <td>世界宗教博物館</td>
+                            <td>500</td>
+                            <td>2022/10/11</td>
+                            <td>日本伊勢神宮、台灣路思義教堂、印尼婆羅浮屠、以色列圓頂清真寺……等十座知名世界經典宗教建築，其建築格局、細部空間與對稱之美，皆具體而微地濃縮到 1/30 或 1/50 </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em">刪除</button>
+                            </td>
+                        </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*商品新增*@
+<div class="modal fade" id="createproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    商品新增作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-8">
+                            <div class="bg-secondary rounded h-100 p-2">
+                                <h6 class="mb-4">基本資料</h6>
+                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="createForm">
+                                    <div class="mb-2">
+                                        <label for="ProductName" class="form-label">商品名稱</label>
+                                        <input type="text" class="form-control" name="fProductName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">縣市</label>
+                                        <select id="sel_city" class="form-select" name="fCityId">
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">地址</label>
+                                        <input type="text" class="form-control" name="fAddress">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">商品類別</label>
+                                        <select class="form-select" name="fSubcategoryID">
+                                            <option value="2">景點</option>
+                                            <option value="4">展覽</option>
+                                            <option value="5">美食</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">供應商</label>
+                                        <select id="sel_supplier" class="form-select" name="fSupplierId">
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">庫存量</label>
+                                        <input type="number" class="form-control" name="fQuantity">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">販售期限</label>
+                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" /> ~ <input type="date" class="form-control col-xl-4" name="fEndTime">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">商品介紹</label>
+                                        <input type="text" class="form-control" name="fIntroduction">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btn_createProduct" data-bs-dismiss="modal">新增</button>
+                                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*商品修改*@
+<div class="modal fade" id="editproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    商品編輯作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-8">
+                            <div class="bg-secondary rounded h-100 p-2">
+                                <h6 class="mb-4">基本資料</h6>
+                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="editForm">
+                                    <input type="hidden" id="editId" name="fProductId" />
+                                    <div class="mb-2">
+                                        <label for="ProductName" class="form-label">商品名稱</label>
+                                        <input type="text" class="form-control" name="fProductName" id="editName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">縣市</label>
+                                        <select id="edit_city" class="form-select" name="fCityId">
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">地址</label>
+                                        <input type="text" class="form-control" name="fAddress" id="editAddress">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">商品類別</label>
+                                        <select class="form-select" name="fSubcategoryID">
+                                            <option value="2">景點</option>
+                                            <option value="4">展覽</option>
+                                            <option value="5">美食</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">供應商</label>
+                                        <select id="edit_supplier" class="form-select" name="fSupplierId">
+                                        </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">庫存量</label>
+                                        <input type="number" class="form-control" name="fQuantity" id="editQuantity">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">販售期限</label>
+                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" id="editStart" /> ~ <input type="date" class="form-control col-xl-4" name="fEndTime" id="editEnd">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">商品介紹</label>
+                                        <input type="text" class="form-control" name="fIntroduction" id="editIntroduction">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btn_editProduct" data-bs-dismiss="modal">完成</button>
+                                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+
+
+        //=========分頁================
+        let pagebar = document.querySelector("#pagebar");
+
+        $("#pagebar").on("click", "button", (event) => {
+            console.log(event.currentTarget);
+            changeSubCategory(event.currentTarget.getAttribute("data-index"))
+        })
+
+        async function page() {
+
+            let s = await selsubcategory.options[selsubcategory.selectedIndex].value;
+            let frag = document.createDocumentFragment();
+            let jpages = await fetch('@Url.Content("~/Admin/Product/Pages")' + `?number=${s}`);
+
+            let pages = await jpages.json();
+            console.log(pages);
+
+            pagebar.textContent = "";
+            for (var i = 0; i < pages; i++) {
+                let button = document.createElement("button");
+                button.setAttribute("data-index", i);
+                button.textContent = i + 1;
+                button.className = "btn btn-secondary";
+                frag.appendChild(button);
+            }
+            pagebar.appendChild(frag);
+
+        }
+
+       // $("#pagebar").on("click")
+
+
+        //=========加入縣市============
+        async function getcity(e) {
+            let fcitys = document.createDocumentFragment();
+            let jcities = await fetch('@Url.Content("~/Api/getCity")')
+
+            let cities = await jcities.json();
+            //console.log(cities);
+            cities.forEach(city => {
+                let option = new Option;
+                option.text = city.FCityName
+                option.value = city.FCityId
+                fcitys.appendChild(option);
+            });
+            e.appendChild(fcitys);
+        }
+        //==========加入供應商==========
+        async function getSupplier(e) {
+            let fSupplier = document.createDocumentFragment();
+            let jsuppliers = await fetch('@Url.Content("~/Api/getSupplier")')
+
+            let suppliers = await jsuppliers.json();
+            //console.log(suppliers);
+            suppliers.forEach(supplier => {
+                let option = new Option;
+                option.text = supplier.FCompanyName
+                option.value = supplier.FSupplierId
+                fSupplier.appendChild(option);
+            });
+            e.appendChild(fSupplier);
+        }
+
+
+        const selsubcategory = document.querySelector("#sel_subcategory");
+        const tbody = document.querySelector("#tb_products");
+        let frag = document.createDocumentFragment();
+        let selcity = document.querySelector("#sel_city");
+        let selsupplier = document.querySelector("#sel_supplier");
+
+
+        let editcity = document.querySelector("#edit_city");
+        let editsupplier = document.querySelector("#edit_supplier");
+
+        selsubcategory.addEventListener("change", changeSubCategory);
+
+        changeSubCategory(0);
+        getcity(selcity);
+        getcity(editcity);
+        getSupplier(selsupplier);
+        getSupplier(editsupplier);
+
+        
+        //page();
+
+        //將回傳的json放進table
+        function createtable(products) {
+            tbody.textContent = "";
+            if (products.length == 0)
+                tbody.textContent = "商品不存在";
+            else {
+                //console.log(products);
+                products = JSON.parse(products);
+                products.forEach(product => {
+                    let tr = document.createElement("tr");
+                    let span = document.createElement("span");
+                    let td1 = document.createElement("td");
+                    let td2 = document.createElement("td");
+                    let td3 = document.createElement("td");
+                    let td4 = document.createElement("td");
+                    let td5 = document.createElement("td");
+                    let td6 = document.createElement("td");
+                    let td7 = document.createElement("td");
+                    let td8 = document.createElement("td");
+                    let td9 = document.createElement("td");
+                    let img = document.createElement("img");
+                    span.textContent = product.FProductId;
+                    span.setAttribute("hidden","");
+                    span.setAttribute("class", product.FProductId);
+                    tr.setAttribute("name", product.FProductId);
+                    tr.appendChild(span);
+                    td1.textContent = product.FProductName;
+                    tr.appendChild(td1);
+                    td2.textContent = product.CityName;
+                    tr.appendChild(td2);
+                    td3.textContent = product.FAddress;
+                    tr.appendChild(td3);
+                    td4.textContent = product.SupplierName;
+                    tr.appendChild(td4);
+                    td5.textContent = product.FQuantity;
+                    tr.appendChild(td5);
+                    td6.textContent = product.FEndTime;
+                    tr.appendChild(td6);
+                    td7.textContent = product.FIntroduction;
+                    tr.appendChild(td7);
+
+                    img.src = `/img/${product.getPhotoPath}`;
+                    img.style.width = "160px";
+                    img.style.height = "90px";
+                    td9.appendChild(img);
+                    tr.appendChild(td9);
+
+                    td8.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${product.FProductId} data-bs-toggle="modal" data-bs-target="#editproduct">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${product.FProductId}>刪除</button>`;
+
+                    tr.appendChild(td8);
+                    frag.appendChild(tr);
+                })
+                tbody.appendChild(frag);
+            }
+        }
+
+
+
+        //========以類別搜索商品==============
+        async function changeSubCategory(p) {
+            let subcategoryid = await selsubcategory.options[selsubcategory.selectedIndex].value;
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
+
+            let products = await jproducts.json();
+            //console.log(products);
+            createtable(products);
+
+            page(subcategoryid);
+        }
+
+
+        //========搜尋商品===========
+        let btnsearch = document.querySelector("#btn_search");
+        let keyword = document.querySelector("#txt_keyword");
+
+        btnsearch.addEventListener("click", search);
+
+        async function search() {
+            let subcategoryid = await selsubcategory.options[selsubcategory.selectedIndex].value;
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/searchProduct")' + `?SubcategoryID=${subcategoryid}&keyword=${keyword.value}`)
+
+            let products = await jproducts.json();
+            //console.log(products);
+            createtable(products);
+        }
+
+
+        //=========新增商品=============
+
+        let create = document.querySelector("#btn_createProduct");
+        create.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+
+            let createData = new FormData(document.createForm);
+
+            let jproducts = await fetch("Create", {
+                body: createData,
+                method:"POST",
+            })
+            let products = await jproducts.json();
+            createtable(products);
+        })
+
+        //==========刪除商品=============
+
+
+        $("#t_Product").on("click", $("delete"), async function (event) {
+            //console.log(event.target.getAttribute("data-did"));
+             if (event.target.hasAttribute("data-did")) {
+                    alert("確定要刪除該商品?")
+                    @*let jproducts = await fetch('@Url.Content("~/Admin/Product/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
+
+                    let products = await jproducts.json();
+                    createtable(products);*@
+             }
+        });
+
+         //==========編輯商品=============
+
+
+        $("#t_Product").on("click", $("edit"), async function (event) {
+            //console.log(event.target.getAttribute("data-eid"));
+             if (event.target.hasAttribute("data-eid")) {
+                 alert("edit");
+                 let jproducts = await fetch('@Url.Content("~/Admin/Product/searchProductById")' + `?id=${event.target.getAttribute("data-eid")}`)
+
+                 let products = await jproducts.json();
+                 //console.log(products);
+                 $("#editId").val(products.FProductId);
+                 $("#editName").val(products.FProductName);
+                 console.log($("#edit_city").children("option"));
+                 //$("#edit_city").children("option").each(item => {
+                 //    if ($(item).attr("value") == products.fCityId) {
+                 //        $(item).attr("selected","true");
+                 //        $(item).siblings().removeAttr("selected");
+                 //    }
+                 //})
+                 $("#editAddress").val(products.FAddress);
+                 $("#editQuantity").val(products.FQuantity);
+                 $("#editStart").val(products.FStartTime);
+                 $("#editEnd").val(products.FEndTime);
+                 $("#editIntroduction").val(products.FIntroduction);
+             }
+        });
+
+        let edit = document.querySelector("#btn_editProduct");
+        edit.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+            let editData = new FormData(document.editForm);
+
+            let jproducts = await fetch("Edit", {
+                body: editData,
+                method: "POST",
+            })
+            let products = await jproducts.json();
+            createtable(products);
+        })
+
+
+    </script>
+}

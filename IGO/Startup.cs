@@ -39,6 +39,20 @@ namespace IGO
             services.AddDbContext<DemoIgoContext>(option =>
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
 
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
+            services.AddRazorPages().AddNewtonsoftJson(options =>
+            {
+                options.UseMemberCasing();
+            });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddRazorPages().AddJsonOptions(options =>
             {
@@ -60,6 +74,7 @@ namespace IGO
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddSession();  //加入session服務
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
