@@ -438,11 +438,13 @@
 </div>
 <!-- Newsletter End -->
 
+
+
 @section Scripts
 {
     <script>
 
-        fetch('@Url.Content("~/Home/checkUser")')
+        fetch('@Url.Content("~/Customer/checkUser")')
             .then((response) => {
                 console.log(response.ok);
                 return response.text();
