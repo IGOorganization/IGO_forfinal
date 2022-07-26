@@ -17,6 +17,8 @@ namespace IGO.Models
         public int FSubCategoryId { get; set; }
         public int? FCategoryId { get; set; }
         public string FSubCategoryName { get; set; }
+        public string FImagePath { get; set; }
+        public string FSubCategoryPath { get; set; }
 
         public virtual TCategory FCategory { get; set; }
         public virtual ICollection<TProduct> TProducts { get; set; }
