@@ -14,5 +14,6 @@ namespace IGO.Areas.Admin.Controllers
         {
             return View();
         }
+
     }
 }
