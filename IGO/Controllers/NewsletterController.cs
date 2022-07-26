@@ -70,7 +70,7 @@ namespace IGO.Controllers
             ////mail.Attachments.Add(attachment);
 
             //附帶檔案方法2:
-            var attachment = new LinkedResource(@"wwwroot\txtfile\newsletter.jpg", MediaTypeNames.Image.Jpeg);//<-這是附件部分~先用附件的物件把路徑指定進去~
+            var attachment = new LinkedResource(_environment.WebRootPath+"/img/newsletter.jpg", MediaTypeNames.Image.Jpeg);//<-這是附件部分~先用附件的物件把路徑指定進去~
 
             attachment.ContentId = "Pic1";
             //attachment.ContentDisposition.Inline = True;

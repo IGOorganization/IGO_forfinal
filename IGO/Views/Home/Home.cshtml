@@ -202,7 +202,7 @@
             <h6 class="section-title text-center text-primary text-uppercase">CTR Ranking</h6>
             <h1 class="mb-5">IGO<span class="text-primary text-uppercase">點閱排行</span></h1>
         </div>
-        <div class="row g-4" id="Topview">
+        <div class="row g-4" id="top3view">
         </div>
     </div>
 </div>
@@ -467,19 +467,23 @@
                 console.log(Datas);
                 for (let i = 0; i < 3; i++)
                 {
+                    console.log(Datas[i].CityName)
                 //console.log(Datas[i]);
-                     let CityName = Datas[i].cityName;
-                     let ProductName = Datas[i].productName;
-                     let EndTime = Datas[i].endTime;
-                     let RankingCount = Datas[i].rankingCount;
+                     let CityName = Datas[i].CityName;
+                     let ProductName = Datas[i].ProductName;
+                     let EndTime = Datas[i].EndTime;
+                     let RankingCount = Datas[i].RankingCount;
                      let Price = Datas[i].price;
-                     let PhotoPath = Datas[i].photoPath;
-                    let TicketName = Datas[i].ticketName;
-                    let ViewRecord = Datas[i].viewRecord;
-                    let ProductId = Datas[i].tProduct.fProductId;
-                     //console.log(CityName)
+                     let PhotoPath = Datas[i].PhotoPath;
+                    let TicketName = Datas[i].TicketName;
+                    let ViewRecord = Datas[i].ViewRecord;
+                    let ProductId = Datas[i].tProduct.FProductId;
+                    //console.log(CityName)
+                  
 
-                    $('#Topview').append(`<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+
+
+                    $('#top3view').append(`<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="room-item shadow rounded overflow-hidden">
                         <div class="position-relative">
                             <img class="img-fluid" src="/img/${PhotoPath}" alt="">
@@ -508,13 +512,11 @@
                                 <p>剩餘數量: 張  || 已售出: 張</p>
                             </div>
                             <div class="d-flex justify-content-lg-end">
-                                <a href="/Home/Home" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
+                                <a href="/City/PopularCity" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
                             </div>
                         </div>
                     </div>
                 </div>`)
-
-
                 }
             })
 
@@ -531,41 +533,30 @@
 
             for (let i = 0; i < 3; i++) {
                 //console.log(Datas[i]);
-                let CityName = Datas[i].cityName;
+                let CityName = Datas[i].CityName;
                 //console.log(CityName);
-                let Path = Datas[i].cityPhotoPath;
+                let Path = Datas[i].CityPhotoPath;
                 //console.log(Path);
                 document.querySelector(`.cityname${i}`).innerHTML = CityName;
                  document.querySelector(`#path${i}`).setAttribute("src", `/img/${Path}`);
                 /*console.log(`~/img/${Path}`);*/
             }
         }
+
+        //點閱後瀏覽次數增加
         $(document).on("click", ".viewProduct", function ()
         {
             let info = $(this).attr("id");
             let prodid = Number(info.split('-')[1]);
             let viewcount = Number(info.split('-')[2]);
 
+
+
             console.log(prodid);
             console.log(viewcount);
             $.get('@Url.Content("~/Home/UpdateViewRecord")', {"Productid":prodid,"Viewcount":viewcount}, function (Datas)
             {
-                console.log(Datas);
-                //for (let i = 0; i < 3; i++)
-                //{
-                ////console.log(Datas[i]);
-                //let LastName = Datas[i].lastName;
-                //     let FeedbackContent = Datas[i].feedbackContent;
-                //     let Ranking = Datas[i].ranking;
-                ////console.log(LastName);
-                //     //console.log(FeedbackContent);
-                //     //console.log(Ranking);
-                //     let ProductName = Datas[i].productName;
-                //     $(`.feedbackcontent${i}`).text(FeedbackContent);
-                //     $(`#lastname${i}`).text(LastName);
-                //     $(`#star${i}`).text(Ranking);
-                //    $(`.productname${i}`).text(ProductName);
-                //}
+               
 
             });
         })
@@ -579,13 +570,13 @@
                 for (let i = 0; i < 3; i++)
                 {
                 //console.log(Datas[i]);
-                let LastName = Datas[i].lastName;
-                     let FeedbackContent = Datas[i].feedbackContent;
-                     let Ranking = Datas[i].ranking;
+                let LastName = Datas[i].LastName;
+                     let FeedbackContent = Datas[i].FeedbackContent;
+                     let Ranking = Datas[i].Ranking;
                 //console.log(LastName);
                      //console.log(FeedbackContent);
                      //console.log(Ranking);
-                     let ProductName = Datas[i].productName;
+                     let ProductName = Datas[i].ProductName;
                      $(`.feedbackcontent${i}`).text(FeedbackContent);
                      $(`#lastname${i}`).text(LastName);
                      $(`#star${i}`).text(Ranking);

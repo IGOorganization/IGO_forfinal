@@ -43,11 +43,20 @@
         .message-fix {
             position: fixed;
             right: 20px;
-            bottom: 300px;
+            bottom: 400px;
             /* left: 50px;*/
             z-index: $zindex-fixed;
-            font-size: 200%;
-            color: cornflowerblue;
+            font-size: 150%;
+            color: orange;
+        }
+        .parking-fix {
+            position: fixed;
+            right: 20px;
+            bottom: 200px;
+            /* left: 50px;*/
+            z-index: $zindex-fixed;
+            font-size: 150%;
+            color: orange;
         }
     </style>
 
@@ -78,14 +87,14 @@
                     </a>
                     @*主分類*@
                     @*<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-            <div class="navbar-nav mr-auto py-0" id="category">
-            </div>*@
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav mr-auto py-0" id="category">
+                            </div>*@
                     @*主分類寫法2*@
-                <div class="navbar-nav mr-auto py-0" id="category">
-                </div>
+                    <div class="navbar-nav mr-auto py-0" id="category">
+                    </div>
                     <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
@@ -103,17 +112,19 @@
                             <i class="fa-solid fa-eye"></i>
                             <span style="font-size:120%">瀏覽紀錄</span><span id="ShowRecord" style="color: #DEDEBE; font-size: 120%">0</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none">
-                            <a href="/Products/Food" class="dropdown-item">
-                                <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
-                                <small>台北喜來登大飯店｜十二廚</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="/Products/Exhibit" class="dropdown-item">
-                                <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
-                                <small class="viewName">普立茲新聞攝影獎80週年展</small>
-                            </a>
-                            <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none" id="viewContent">
+                            @* <p  class="dropdown-item"><small>目前無資料</small></p>*@
+                            @*<a href="/Products/Food" class="dropdown-item"><img src="~/img/City_HotSales_02.jpg" width="50" height="50" /><small>台北喜來登大飯店｜十二廚</small></a>
+                                @*<a href="/Products/Food" class="dropdown-item">
+                                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
+                                    <small>台北喜來登大飯店｜十二廚</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="/Products/Exhibit" class="dropdown-item">
+                                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
+                                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
+                                </a>
+                                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
                         </div>
                     </div>
                     <div class="nav-item">
@@ -153,10 +164,10 @@
     </div>
     @*次分類*@
     @*<div id="subcategory" style="background-color: #E0E0E0" class="fixed-top">
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body"></div>
-        </div>
-    </div>*@
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body"></div>
+            </div>
+        </div>*@
 
     @RenderBody()
 
@@ -178,21 +189,21 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>02-66316588</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
                     <div class="d-flex pt-5">
-                                    <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://www.instagram.com/igo_taiwan/" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
-                                    <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
-                                    <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-12 justify-content-xxl-center">
-                                <div class="row gy-5 g-4">
-                                    <div class="col-md-10">
-                                        <h6 class="section-title text-start text-primary text-uppercase mb-4">IGO</h6>
-                                        <a class="btn btn-link" href="/About/index">關於IGO</a>
-                                        <a class="btn btn-link" href="/Helper/index">幫助中心</a>
-                                        <a class="btn btn-link" href="/Privacy/index">隱私權</a>
-                                        <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
-                                        <a href="/Admin/Home/Order" class="btn btn-link">管理後台</a>
-                                    </div>
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://www.instagram.com/igo_taiwan/" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-12 justify-content-xxl-center">
+                    <div class="row gy-5 g-4">
+                        <div class="col-md-10">
+                            <h6 class="section-title text-start text-primary text-uppercase mb-4">IGO</h6>
+                            <a class="btn btn-link" href="/About/index">關於IGO</a>
+                            <a class="btn btn-link" href="/Helper/index">幫助中心</a>
+                            <a class="btn btn-link" href="/Privacy/index">隱私權</a>
+                            <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
+                            <a href="/Admin/Home/Order" class="btn btn-link">管理後台</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,8 +225,10 @@
     <!-- Footer End -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <a href="#" class="message-fix"><i class="fa-solid fa-message"></i><p style="font-size:18px">小幫手</p></a>
+    <a href="#" class="message-fix"><img src="~/img/robot.png" title="客服小幫手"/><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
+    <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位"/><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
 
+    
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -247,8 +260,8 @@
 
             for (let i = 0; i < Datas.length; i++)
             {
-                let CategoryName = Datas[i].categoryName;
-                let CategoryId = Datas[i].categoryId;
+                let CategoryName = Datas[i].CategoryName;
+                let CategoryId = Datas[i].CategoryId;
 
                 CategoryIDArray[i] = CategoryId;
                 //console.log(CategoryIDArray[i]);
@@ -271,7 +284,7 @@
                             //console.log(idx);
 
                             //$(".card-body").append(item + "<hr/>"); //寫法1
-                            $(".card-body").append(`<a class="btn btn-secondary justify-item-center" href="${item.subCategoryPath}" type="button">${item.subCategoryName}<a><hr/>`); //寫法2
+                            $(".card-body").append(`<a class="btn btn-secondary justify-item-center" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr/>`); //寫法2
                         })
 
                     })
@@ -292,8 +305,14 @@
                 //console.log(views);
 
                 document.querySelector("#ShowRecord").innerHTML = views;
-                //$("#ShowRecord").text(views);
-            
+
+                //顯示瀏覽過的產品
+                @*console.log(window.location.href);
+                //console.log(window.location.search);
+                $.post('@Url.Content("~/Home/layoutViewContent")'), {
+                    "prodId": 放productID, "path": window.location.href
+                }, function (datas) { console.log(datas) };*@
+
             }
 
             else
@@ -304,7 +323,7 @@
                 let views = await response.text();
                 //console.log(views);
                 document.querySelector("#ShowRecord").innerHTML = views;
-                //$("#ShowRecord").text({ views});          
+                //$("#ShowRecord").text({ views});
             }
         }
 

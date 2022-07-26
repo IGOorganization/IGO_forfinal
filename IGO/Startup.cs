@@ -52,7 +52,10 @@ namespace IGO
                {
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                });
-
+            services.AddRazorPages().AddNewtonsoftJson(options =>
+            {
+                options.UseMemberCasing();
+            });
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
@@ -90,7 +93,7 @@ namespace IGO
                     pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=topViewRecord}/{id?}");
+                    pattern: "{controller=Home}/{action=Home}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

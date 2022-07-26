@@ -110,17 +110,17 @@
                 $.each(datas, function (idx, item)
                 {
                     //console.log(item);
-                    let year = item.orderDate.substr(6, 4);
+                    let year = item.OrderDate.substr(6, 4);
                     //console.log(year);
-                    let month = item.orderDate.substr(0, 2);
+                    let month = item.OrderDate.substr(0, 2);
                     //console.log(month);
-                    let day = item.orderDate.substr(3, 2);
+                    let day = item.OrderDate.substr(3, 2);
                     //console.log(day);
                     var date = `${year}-${month}-${day}`;
 
 
-                    $('tbody').append(`<tr align="right"><td>${item.orderId}</td><td>${item.lastName}</td><td>${item.firstName}</td><td>${date}</td><td>${item.totalPrice}元</td><td>${item.statusName}</td><td>
-                    <button class="btn btn-danger btnEdit" id=orderID-${item.orderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
+                    $('tbody').append(`<tr align="right"><td>${item.OrderId}</td><td>${item.LastName}</td><td>${item.FirstName}</td><td>${date}</td><td>${item.TotalPrice}元</td><td>${item.StatusName}</td><td>
+                    <button class="btn btn-danger btnEdit" id=orderID-${item.OrderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
                 })
                 }
             )
@@ -135,8 +135,8 @@
                 //console.log(datas);
                 //console.log(datas.StatusName);
                 //console.log(datas.OrderId);
-                $('#txtStatus').val(datas.statusName);
-                $('#txtOrderID').val(datas.orderId);
+                $('#txtStatus').val(datas.StatusName);
+                $('#txtOrderID').val(datas.OrderId);
             })
 
         })
@@ -158,6 +158,24 @@
         let number = "";
         arr = new Array();
         //更新編輯後的訂單狀態
+        $('#bell').on("click", function ()
+        {
+             $.get('@Url.Content("~/Admin/Order/QueryByCancelOrder")', { "id": 5 },
+                    function (datas)
+                    {
+                        //console.log(datas);
+                        console.log(datas.length);  /*顯示幾筆訂單取消申請通知*/
+                        $.each(datas, function (idx, item)
+                        {                     
+                           
+                            $('#cancelBellcount').text(datas.length);
+                            $('#cancelBellcontent').text(`${datas.length}筆訂單申請取消通知`);
+
+                        })
+                    })
+        })
+
+
         $('#update').on("click", function ()   /*更新訂單取消申請為取消訂單的狀態*/
         {
             let changeStatueID = $('#EditStatus>option:selected').val();
@@ -169,10 +187,10 @@
                 //console.log(datas);
                 arr = datas;
 
-                    lastname = datas[0].lastName;
-                    firstname = datas[0].firstName;
-                totalprice = datas[0].totalPrice;
-                orid = datas[0].orderId;
+                    lastname = datas[0].LastName;
+                    firstname = datas[0].FirstName;
+                totalprice = datas[0].TotalPrice;
+                orid = datas[0].OrderId;
 
             });
 
@@ -213,13 +231,13 @@
                             }
                         })
                     console.log('send');
-                    
+
                     //window.location.href = 'List';  //refresh此頁
                 }
             })
         })
 
-       
+
 
 
     </script>

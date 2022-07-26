@@ -142,7 +142,7 @@
                $.each(datas, function (idx, item)
                {
                    //console.log(item.FSubCategoryName);
-                   $('.showSub').append(`${item.fSubCategoryName}<br>`);
+                   $('.showSub').append(`${item.FSubCategoryName}<br>`);
                    
                })
            })
@@ -152,7 +152,7 @@
         {
             let subcategoryname = $('.txtSubCategory').val();
             $('.showSub').append(`${subcategoryname}<br>`);
-            //console.log(subcategoryname);
+            console.log(subcategoryname);
             let id = Number(cateID.split("-")[1]);
            
             //console.log(id);

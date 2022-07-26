@@ -235,7 +235,6 @@ namespace IGO.Controllers
             var q = _IgoContext.TSubCategories.Where(m => m.FCategoryId == idd).ToList();
 
             CHomeViewModel vModel = null;
-            //List<SubcatergoryClass> SubCategoryList = new List<SubcatergoryClass>();
             List<CHomeViewModel> v = new List<CHomeViewModel>();
             foreach (var r in q) 
             { 
@@ -248,6 +247,19 @@ namespace IGO.Controllers
                 v.Add(vModel);
             }
             return Json(v);
+        }
+        //Layout的瀏覽紀錄:待做
+        public IActionResult layoutViewContent(int prodId, string path)
+        {           
+            CHomeViewModel vModel = null;
+
+            vModel = new CHomeViewModel()
+             {
+
+                ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == prodId).FProductName
+                    
+            };            
+            return Json(vModel);
         }
 
         //鈞傑
