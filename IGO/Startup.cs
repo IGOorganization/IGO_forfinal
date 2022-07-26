@@ -93,7 +93,7 @@ namespace IGO
                     pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Home}/{id?}");
+                    pattern: "{controller=City}/{action=PopularCity}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

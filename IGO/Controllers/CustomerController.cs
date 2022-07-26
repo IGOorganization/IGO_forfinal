@@ -42,13 +42,13 @@ namespace IGO.Controllers
             {
                 if (cust.FPassword.Equals(vModel.txtPassword))
                 {
-                    string userSession = JsonSerializer.Serialize(cust);
+                   
 
-                    HttpContext.Session.SetString(CDictionary.SK_LOGINED_USER, userSession);
-                    igoUser = JsonSerializer.Deserialize<TCustomer>(userSession);
-                    userName = $"{igoUser.FLastName}" + $"{igoUser.FFirstName}";
-                    userid = igoUser.FCustomerId;
-                    imgpath = igoUser.FUserPhoto;
+                    HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
+                    
+                    userName = $"{cust.FLastName}" + $"{cust.FFirstName}";
+                    userid = cust.FCustomerId;
+                    imgpath = cust.FUserPhoto;
 
                     return RedirectToAction("Home", "Home");
                 }

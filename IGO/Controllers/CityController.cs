@@ -48,7 +48,7 @@ namespace IGO.Controllers
         {
             var q = (from p in _IgoContext.TProducts.Include(m => m.TTicketAndProducts)
                      where p.FCityId == 1
-                     select p).ToList().OrderByDescending(p => p.TTicketAndProducts.FirstOrDefault().FPrice).Take(8);
+                     select p).OrderByDescending(p => p.TTicketAndProducts.FirstOrDefault().FPrice).Take(8).ToList();
 
             CCityViewModel vModel = null;
             List<CCityViewModel> v = new List<CCityViewModel>();
@@ -78,13 +78,13 @@ namespace IGO.Controllers
         {
             var q = (from p in _IgoContext.TProducts.Include(m => m.TTicketAndProducts)
                      where p.FCityId == 1
-                     select p).ToList().OrderBy(p => p.TTicketAndProducts.FirstOrDefault().FPrice).Take(8);
+                     select p).OrderBy(p => p.TTicketAndProducts.FirstOrDefault().FPrice).Take(8).ToList();
 
             CCityViewModel vModel = null;
             List<CCityViewModel> v = new List<CCityViewModel>();
             foreach (var r in q)
             {
-                Debug.WriteLine(r.TTicketAndProducts.FirstOrDefault().FPrice);
+                //Debug.WriteLine(r.TTicketAndProducts.FirstOrDefault().FPrice);
                 int productID = r.FProductId;
 
                 vModel = new CCityViewModel()
@@ -117,6 +117,7 @@ namespace IGO.Controllers
                 vModel = new CCityViewModel()
                 {
                     ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
+                    CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == r).FSupplier.FCompanyName,
                     PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r && m.FPhotoSiteId == 2).FPhotoPath,
                     Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
                     TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,

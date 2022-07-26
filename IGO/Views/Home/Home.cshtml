@@ -444,7 +444,7 @@
                 $("#SearchCity").val("台北市");
             })
 
-<<<<<<< main
+
         //顯示瀏覽次數排行
          $(window).ready(function ()
         {
@@ -454,12 +454,12 @@
                 for (let i = 0; i < 3; i++)
                 {
                     console.log(Datas[i].CityName)
-                //console.log(Datas[i]);
+                console.log(Datas[i]);
                      let CityName = Datas[i].CityName;
                      let ProductName = Datas[i].ProductName;
                      let EndTime = Datas[i].EndTime;
                      let RankingCount = Datas[i].RankingCount;
-                     let Price = Datas[i].price;
+                     let Price = Datas[i].Price;
                      let PhotoPath = Datas[i].PhotoPath;
                     let TicketName = Datas[i].TicketName;
                     let ViewRecord = Datas[i].ViewRecord;
@@ -480,7 +480,7 @@
                                 <h4 class="mb-0">${ProductName}</h4>
                             </div>
                             <div class="d-flex mb-3">
-                                ${RankingCount}<i class="fa fa-star text-primary"></i>
+                                ${RankingCount}顆<i class="fa fa-star text-primary"></i>
                             </div>
                             <div class="d-flex justify-content-lg-start">
                                 <h4><i class="fa-solid fa-location-dot">${CityName}</i></h4>
@@ -489,13 +489,13 @@
                                 <h5>瀏覽次數:${ViewRecord}</h5>
                             </div>
                             <div class="d-flex justify-content-lg-start">
-                                <h5 class="align-items-center" style="color:cadetblue">離活動結束還剩  天</h5>
+                                <h5 class="align-items-center" style="color:cadetblue"></h5>
                                 <p class="align-items-end"></p>
-                                <p class="align-items-end"><img src="" width="30" height="30"></p>
-                                <h5 class="align-items-end" style="color:red">alertMessage</h5>
+                                <p class="align-items-end"></p>
+                                <h5 class="align-items-end" style="color:red"></h5>
                             </div>
                             <div class="d-flex justify-content-lg-start">
-                                <p>剩餘數量: 張  || 已售出: 張</p>
+                                <p></p>
                             </div>
                             <div class="d-flex justify-content-lg-end">
                                 <a href="/City/PopularCity" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
