@@ -53,7 +53,7 @@ namespace IGO.ViewModels
         {
             get
             {
-                TProductsPhoto t = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FProductId == ProductId && n.FPhotoSiteId == 1);
+                TProductsPhoto t = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FProductId == ProductId && n.FPhotoSiteId == 3);
                 if (t != null)
                     return t.FPhotoPath;
                 else

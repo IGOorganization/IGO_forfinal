@@ -25,11 +25,6 @@ namespace IGO.Areas.Admin.Controllers
         {
             List<CouponViewModel> list = new List<CouponViewModel>();
             IEnumerable<TCoupon> datas = _dbIgo.TCoupons;
-            //for(int i = 0; i < 10; i++)
-            //{
-            //    CouponViewModel coupon = new CouponViewModel(_dbIgo);
-            //    coupon.coupon = datas.ToList()[i];
-            //}
             foreach (TCoupon c in _dbIgo.TCoupons)
             {
                 CouponViewModel coupon = new CouponViewModel(_dbIgo);

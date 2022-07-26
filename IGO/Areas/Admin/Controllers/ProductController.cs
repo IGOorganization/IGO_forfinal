@@ -91,7 +91,7 @@ namespace IGO.Areas.Admin.Controllers
             TProductsPhoto tp = new TProductsPhoto()
             {
                 FProductId = prod.FProductId,
-                FPhotoSiteId = 1,
+                FPhotoSiteId = 3,
             };
 
             if (Photo != null)
@@ -143,7 +143,7 @@ namespace IGO.Areas.Admin.Controllers
                     tp = new TProductsPhoto()
                     {
                         FProductId = prod.FProductId,
-                        FPhotoSiteId = 1,
+                        FPhotoSiteId = 3,
                         FPhotoPath = pName
                     };
                     _dbIgo.TProductsPhotos.Add(tp);

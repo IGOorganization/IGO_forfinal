@@ -112,7 +112,7 @@ namespace IGO.ViewModels
         }
         private string getPath()
         {
-            TProductsPhoto q = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 1 & n.FProductId == FProductId);
+            TProductsPhoto q = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 3 & n.FProductId == FProductId);
             if (q != null)
             {
                 string s = q.FPhotoPath;

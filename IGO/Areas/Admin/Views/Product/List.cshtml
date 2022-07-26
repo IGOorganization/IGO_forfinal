@@ -262,8 +262,8 @@
             //console.log(cities);
             cities.forEach(city => {
                 let option = new Option;
-                option.text = city.fCityName
-                option.value = city.fCityId
+                option.text = city.FCityName
+                option.value = city.FCityId
                 fcitys.appendChild(option);
             });
             e.appendChild(fcitys);
@@ -277,8 +277,8 @@
             //console.log(suppliers);
             suppliers.forEach(supplier => {
                 let option = new Option;
-                option.text = supplier.fCompanyName
-                option.value = supplier.fSupplierId
+                option.text = supplier.FCompanyName
+                option.value = supplier.FSupplierId
                 fSupplier.appendChild(option);
             });
             e.appendChild(fSupplier);
@@ -435,8 +435,8 @@
 
                  let products = await jproducts.json();
                  //console.log(products);
-                 $("#editId").val(products.fProductId);
-                 $("#editName").val(products.fProductName);
+                 $("#editId").val(products.FProductId);
+                 $("#editName").val(products.FProductName);
                  console.log($("#edit_city").children("option"));
                  //$("#edit_city").children("option").each(item => {
                  //    if ($(item).attr("value") == products.fCityId) {
@@ -444,11 +444,11 @@
                  //        $(item).siblings().removeAttr("selected");
                  //    }
                  //})
-                 $("#editAddress").val(products.fAddress);
-                 $("#editQuantity").val(products.fQuantity);
-                 $("#editStart").val(products.fStartTime);
-                 $("#editEnd").val(products.fEndTime);
-                 $("#editIntroduction").val(products.fIntroduction);
+                 $("#editAddress").val(products.FAddress);
+                 $("#editQuantity").val(products.FQuantity);
+                 $("#editStart").val(products.FStartTime);
+                 $("#editEnd").val(products.FEndTime);
+                 $("#editIntroduction").val(products.FIntroduction);
              }
         });
 

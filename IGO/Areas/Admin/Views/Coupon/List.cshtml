@@ -599,14 +599,14 @@
 
                  let coupon = await jcoupon.json();
                  console.log(coupon);
-                 $("#editId").val(coupon.fCouponId);
-                 $("#editName").val(coupon.fCouponName);
-                 $("#editquantity").val(coupon.fQuantity);
-                 $("#editdiscount").val(coupon.fDiscount);
-                 $("#editEnd").val(coupon.fDeadtime);
+                 $("#editId").val(coupon.FCouponId);
+                 $("#editName").val(coupon.FCouponName);
+                 $("#editquantity").val(coupon.FQuantity);
+                 $("#editdiscount").val(coupon.FDiscount);
+                 $("#editEnd").val(coupon.FDeadtime);
 
                  num = 0;
-                 coupon.vMproducts.forEach(product => {
+                 coupon.VMproducts.forEach(product => {
                      num++;
                      let div1 = document.createElement("div");
                      let div2 = document.createElement("div");
@@ -617,10 +617,10 @@
                      div1.className = "d-flex align-items-center border-bottom py-2";
                      div2.className = "w-100 ms-3";
                      div3.className = "d-flex w-100 align-items-center justify-content-between";
-                     input.value = product.fProductId;
+                     input.value = product.FProductId;
                      input.type = "hidden";
                      input.name = `fProductId${num}`;
-                     span.textContent = product.fProductName;
+                     span.textContent = product.FProductName;
                      button.className = "btn btn-sm";
                      button.name = "removeProduct";
                      button.innerHTML = '<i class="fa fa-times"></i>';

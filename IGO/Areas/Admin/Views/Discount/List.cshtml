@@ -191,15 +191,15 @@
                     let td4 = document.createElement("td");
                     let td5 = document.createElement("td");
 
-                    img.src = `/img/${item.fImagePath}`;
+                    img.src = `/img/${item.FImagePath}`;
                     img.style.width = "160px";
                     img.style.height = "90px";
                     tdp.appendChild(img);
 
-                    td1.textContent = item.fDiscountName;
-                    td2.textContent = item.fDeadTime;
-                    td3.textContent = item.fDiscount;
-                    td4.textContent = item.fTimeOut;
+                    td1.textContent = item.FDiscountName;
+                    td2.textContent = item.FDeadTime;
+                    td3.textContent = item.FDiscount;
+                    td4.textContent = item.FTimeOut;
                     td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${item.fDiscountId} data-bs-toggle="modal" data-bs-target="#editdiscount">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${item.fDiscountId}>刪除</button>`;
 
                     tr.appendChild(tdp);
@@ -254,7 +254,7 @@
                  let jproducts = await fetch('@Url.Content("~/Admin/Discount/getDiscountById")' + `?id=${event.target.getAttribute("data-eid")}`)
 
                  let products = await jproducts.json();
-                 //console.log(products);
+                 console.log(products);
                  $("#editId").val(products.fDiscountId);
                  $("#editName").val(products.fDiscountName);
                  $("#editDeadTime").val(products.fDeadTime);

@@ -231,12 +231,12 @@
                 img.style.height = "90px";
                 tdp.appendChild(img);
 
-                td1.textContent = room.productName;
+                td1.textContent = room.ProductName;
                 td2.textContent = room.roomtype;
                 td3.textContent = room.dataPrice;
-                td4.textContent = room.quantity;
-                td5.textContent = room.introduction;
-                td6.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${room.ticketAndProductId} data-bs-toggle="modal" data-bs-target="#editproduct">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${room.ticketAndProductId}>刪除</button>`;
+                td4.textContent = room.Quantity;
+                td5.textContent = room.Introduction;
+                td6.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${room.TicketAndProductId} data-bs-toggle="modal" data-bs-target="#editproduct">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${room.TicketAndProductId}>刪除</button>`;
                 tr.appendChild(tdp);
                 tr.appendChild(td1);
                 tr.appendChild(td2);
@@ -273,12 +273,12 @@
 
                 let Hotels = await jHotels.json();
                 console.log(Hotels);
-                $("#editproductid").val(Hotels[0].productId);
-                $("#editTAndPid").val(Hotels[0].ticketAndProductId);
-                $("#editName").val(Hotels[0].productName)
-                $("#editPrice").val(Hotels[0].dataPrice)
-                $("#editQuantity").val(Hotels[0].quantity)
-                $("#editIntroduction").val(Hotels[0].introduction)
+                $("#editproductid").val(Hotels[0].ProductId);
+                $("#editTAndPid").val(Hotels[0].TicketAndProductId);
+                $("#editName").val(Hotels[0].ProductName)
+                $("#editPrice").val(Hotels[0].DataPrice)
+                $("#editQuantity").val(Hotels[0].Quantity)
+                $("#editIntroduction").val(Hotels[0].Introduction)
             }
         });
 

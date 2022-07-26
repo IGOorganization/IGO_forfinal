@@ -47,6 +47,10 @@ namespace IGO
                 {
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
+            services.AddRazorPages().AddNewtonsoftJson(options =>
+            {
+                options.UseMemberCasing();
+            });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

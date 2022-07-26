@@ -57,7 +57,6 @@
     </div>
 </div>
 <!-- Booking End -->
-
 <!-- Room Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -70,37 +69,6 @@
                 @{
                     foreach (CouponViewModel coupon in Model)
                     {
-                        @*商品組件*@
-                        @*<div class="col-lg-4 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="room-item shadow rounded overflow-hidden">
-                                <div class="position-relative">
-                                    <img class="img-fluid" src="/img/@coupon.FCouponImage" alt="">
-                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
-                                </div>
-                                <div class="p-4 mt-2">
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <h5 class="mb-0">@coupon.FCouponName</h5>
-                                        <div class="ps-2">
-                                            <i id="btn_heart" class="fa-solid fa-heart " style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                            <small class="fa fa-star text-primary"><span> 5.0</span></small>
-                                        </div>
-                                    </div>
-                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#@('p'+coupon.FCouponId.ToString())" aria-expanded="false" aria-controls="#@('p'+coupon.FCouponId.ToString())">產品介紹</p>
-                                    <div class="list-group list-group-flush collapse" id="@('p'+coupon.FCouponId.ToString())">
-                                        @foreach (TProduct product in coupon.products)
-                                        {
-                                            <p>@product.FSubCategory.FSubCategoryName</p>
-                                        }
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        @Html.ActionLink("細節", "Detail", "Coupon", new { id = coupon.FCouponId },
-                                       new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                                        @Html.ActionLink("訂購", "Order", "Coupon", null,
-                                       new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
 
                         //修改版商品組件
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -150,13 +118,12 @@
                                         }
                                     </div>
                                     <div class="d-flex justify-content-lg-end">
-                                        @*<a href="~/Coupon/detail/@coupon.FCouponId" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>*@
                                         <a href=" @Url.Content($"~/Coupon/detail/{coupon.FCouponId}")" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                                            }
+                    }
                 }
             </div>
         </div>
