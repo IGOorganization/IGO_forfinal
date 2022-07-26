@@ -13,6 +13,8 @@ namespace IGO.Models
             TFeedbackManagements = new HashSet<TFeedbackManagement>();
             TOrders = new HashSet<TOrder>();
             TShoppingCarts = new HashSet<TShoppingCart>();
+            TTestResults = new HashSet<TTestResult>();
+            TVouchers = new HashSet<TVoucher>();
         }
 
         public int FCustomerId { get; set; }
@@ -27,11 +29,15 @@ namespace IGO.Models
         public string FBirth { get; set; }
         public string FSignUpDate { get; set; }
         public string FUserPhoto { get; set; }
+        public int? FSupplierId { get; set; }
 
         public virtual TCity FCity { get; set; }
+        public virtual TSupplier FSupplier { get; set; }
         public virtual ICollection<TCollection> TCollections { get; set; }
         public virtual ICollection<TFeedbackManagement> TFeedbackManagements { get; set; }
         public virtual ICollection<TOrder> TOrders { get; set; }
         public virtual ICollection<TShoppingCart> TShoppingCarts { get; set; }
+        public virtual ICollection<TTestResult> TTestResults { get; set; }
+        public virtual ICollection<TVoucher> TVouchers { get; set; }
     }
 }

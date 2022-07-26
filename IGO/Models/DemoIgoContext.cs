@@ -20,10 +20,13 @@ namespace IGO.Models
         public virtual DbSet<TCategory> TCategories { get; set; }
         public virtual DbSet<TCity> TCities { get; set; }
         public virtual DbSet<TCollection> TCollections { get; set; }
+        public virtual DbSet<TCollectionGroup> TCollectionGroups { get; set; }
+        public virtual DbSet<TCollectionGroupDetail> TCollectionGroupDetails { get; set; }
         public virtual DbSet<TCoupon> TCoupons { get; set; }
         public virtual DbSet<TCustomer> TCustomers { get; set; }
         public virtual DbSet<TDiscount> TDiscounts { get; set; }
         public virtual DbSet<TFeedbackManagement> TFeedbackManagements { get; set; }
+        public virtual DbSet<THelper> THelpers { get; set; }
         public virtual DbSet<TMovie> TMovies { get; set; }
         public virtual DbSet<TMovieSeat> TMovieSeats { get; set; }
         public virtual DbSet<TMovieTicketType> TMovieTicketTypes { get; set; }
@@ -34,14 +37,19 @@ namespace IGO.Models
         public virtual DbSet<TProduct> TProducts { get; set; }
         public virtual DbSet<TProductsPhoto> TProductsPhotos { get; set; }
         public virtual DbSet<TSeat> TSeats { get; set; }
+        public virtual DbSet<TSession> TSessions { get; set; }
         public virtual DbSet<TShipper> TShippers { get; set; }
         public virtual DbSet<TShoppingCart> TShoppingCarts { get; set; }
         public virtual DbSet<TShowing> TShowings { get; set; }
         public virtual DbSet<TStatus> TStatuses { get; set; }
         public virtual DbSet<TSubCategory> TSubCategories { get; set; }
         public virtual DbSet<TSupplier> TSuppliers { get; set; }
+        public virtual DbSet<TTestAnswer> TTestAnswers { get; set; }
+        public virtual DbSet<TTestQuestion> TTestQuestions { get; set; }
+        public virtual DbSet<TTestResult> TTestResults { get; set; }
         public virtual DbSet<TTicketAndProduct> TTicketAndProducts { get; set; }
         public virtual DbSet<TTicketType> TTicketTypes { get; set; }
+        public virtual DbSet<TVoucher> TVouchers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -82,6 +90,10 @@ namespace IGO.Models
                 entity.Property(e => e.FCityName)
                     .HasMaxLength(20)
                     .HasColumnName("fCityName");
+
+                entity.Property(e => e.FCityPhotoPath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fCityPhotoPath");
             });
 
             modelBuilder.Entity<TCollection>(entity =>
@@ -110,10 +122,46 @@ namespace IGO.Models
                     .HasForeignKey(d => d.FCustomerId)
                     .HasConstraintName("FK_tCollection_tCustomers");
 
+                entity.HasOne(d => d.FMovie)
+                    .WithMany(p => p.TCollections)
+                    .HasForeignKey(d => d.FMovieId)
+                    .HasConstraintName("FK_tCollection_tMovie");
+
                 entity.HasOne(d => d.FProduct)
                     .WithMany(p => p.TCollections)
                     .HasForeignKey(d => d.FProductId)
                     .HasConstraintName("FK_tCollection_tProducts");
+            });
+
+            modelBuilder.Entity<TCollectionGroup>(entity =>
+            {
+                entity.HasKey(e => e.FCollectionGroupId);
+
+                entity.ToTable("tCollectionGroup");
+
+                entity.Property(e => e.FCollectionGroupId).HasColumnName("fCollectionGroupID");
+
+                entity.Property(e => e.FCollectionGroupName)
+                    .HasMaxLength(50)
+                    .HasColumnName("fCollectionGroupName");
+            });
+
+            modelBuilder.Entity<TCollectionGroupDetail>(entity =>
+            {
+                entity.HasKey(e => e.FCollectionGroupDetail);
+
+                entity.ToTable("tCollectionGroupDetail");
+
+                entity.Property(e => e.FCollectionGroupDetail).HasColumnName("fCollectionGroupDetail");
+
+                entity.Property(e => e.FCollection).HasColumnName("fCollection");
+
+                entity.Property(e => e.FCollectionGroupId).HasColumnName("fCollectionGroupID");
+
+                entity.HasOne(d => d.FCollectionGroup)
+                    .WithMany(p => p.TCollectionGroupDetails)
+                    .HasForeignKey(d => d.FCollectionGroupId)
+                    .HasConstraintName("FK_tCollectionGroupDetail_tCollectionGroup");
             });
 
             modelBuilder.Entity<TCoupon>(entity =>
@@ -123,6 +171,10 @@ namespace IGO.Models
                 entity.ToTable("tCoupon");
 
                 entity.Property(e => e.FCouponId).HasColumnName("fCouponID");
+
+                entity.Property(e => e.FCouponImage)
+                    .HasMaxLength(50)
+                    .HasColumnName("fCouponImage");
 
                 entity.Property(e => e.FCouponName)
                     .HasMaxLength(50)
@@ -145,6 +197,8 @@ namespace IGO.Models
                 entity.Property(e => e.FProductId4).HasColumnName("fProductID4");
 
                 entity.Property(e => e.FProductId5).HasColumnName("fProductID5");
+
+                entity.Property(e => e.FQuantity).HasColumnName("fQuantity");
 
                 entity.Property(e => e.FTimeOut).HasColumnName("fTimeOut");
 
@@ -222,6 +276,8 @@ namespace IGO.Models
                     .HasMaxLength(50)
                     .HasColumnName("fSignUpDate");
 
+                entity.Property(e => e.FSupplierId).HasColumnName("fSupplierID");
+
                 entity.Property(e => e.FUserPhoto)
                     .HasMaxLength(50)
                     .HasColumnName("fUserPhoto");
@@ -230,6 +286,11 @@ namespace IGO.Models
                     .WithMany(p => p.TCustomers)
                     .HasForeignKey(d => d.FCityId)
                     .HasConstraintName("FK_tCustomers_tCity");
+
+                entity.HasOne(d => d.FSupplier)
+                    .WithMany(p => p.TCustomers)
+                    .HasForeignKey(d => d.FSupplierId)
+                    .HasConstraintName("FK_tCustomers_tSupplier");
             });
 
             modelBuilder.Entity<TDiscount>(entity =>
@@ -251,6 +312,10 @@ namespace IGO.Models
                 entity.Property(e => e.FDiscountName)
                     .HasMaxLength(50)
                     .HasColumnName("fDiscountName");
+
+                entity.Property(e => e.FImagePath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImagePath");
 
                 entity.Property(e => e.FTimeOut)
                     .HasMaxLength(50)
@@ -291,6 +356,25 @@ namespace IGO.Models
                     .HasConstraintName("FK_tFeedbackManagement_tProducts");
             });
 
+            modelBuilder.Entity<THelper>(entity =>
+            {
+                entity.HasKey(e => e.FHelperId);
+
+                entity.ToTable("tHelper");
+
+                entity.Property(e => e.FHelperId).HasColumnName("fHelperID");
+
+                entity.Property(e => e.FHelperCategory)
+                    .HasMaxLength(50)
+                    .HasColumnName("fHelperCategory");
+
+                entity.Property(e => e.FHelperCategoryId).HasColumnName("fHelperCategoryID");
+
+                entity.Property(e => e.FHelperTitle)
+                    .HasMaxLength(50)
+                    .HasColumnName("fHelperTitle");
+            });
+
             modelBuilder.Entity<TMovie>(entity =>
             {
                 entity.HasKey(e => e.MovieId);
@@ -323,8 +407,7 @@ namespace IGO.Models
                 entity.Property(e => e.FSeatColumn).HasColumnName("fSeatColumn");
 
                 entity.Property(e => e.FSeatRow)
-                    .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .HasColumnName("fSeatRow");
             });
 
@@ -357,6 +440,10 @@ namespace IGO.Models
                 entity.Property(e => e.FOrderDate)
                     .HasMaxLength(50)
                     .HasColumnName("fOrderDate");
+
+                entity.Property(e => e.FOrderNum)
+                    .HasMaxLength(50)
+                    .HasColumnName("fOrderNum");
 
                 entity.Property(e => e.FPayTypeId).HasColumnName("fPayTypeID");
 
@@ -413,7 +500,7 @@ namespace IGO.Models
 
                 entity.Property(e => e.FMovieSeatId).HasColumnName("fMovieSeatID");
 
-                entity.Property(e => e.FMovieTicketTypeId).HasColumnName("fMovieTicketTypeID");
+                entity.Property(e => e.FMovieTicketType).HasColumnName("fMovieTicketType");
 
                 entity.Property(e => e.FOrderId).HasColumnName("fOrderID");
 
@@ -436,6 +523,21 @@ namespace IGO.Models
                     .HasForeignKey(d => d.FCouponId)
                     .HasConstraintName("FK_tOrderDetail_tCoupon");
 
+                entity.HasOne(d => d.FMovie)
+                    .WithMany(p => p.TOrderDetails)
+                    .HasForeignKey(d => d.FMovieId)
+                    .HasConstraintName("FK_tOrderDetail_tMovie");
+
+                entity.HasOne(d => d.FMovieSeat)
+                    .WithMany(p => p.TOrderDetails)
+                    .HasForeignKey(d => d.FMovieSeatId)
+                    .HasConstraintName("FK_tOrderDetail_tMovieSeat");
+
+                entity.HasOne(d => d.FMovieTicketTypeNavigation)
+                    .WithMany(p => p.TOrderDetails)
+                    .HasForeignKey(d => d.FMovieTicketType)
+                    .HasConstraintName("FK_tOrderDetail_tMovieTicketType");
+
                 entity.HasOne(d => d.FOrder)
                     .WithMany(p => p.TOrderDetails)
                     .HasForeignKey(d => d.FOrderId)
@@ -446,6 +548,16 @@ namespace IGO.Models
                     .WithMany(p => p.TOrderDetails)
                     .HasForeignKey(d => d.FProductId)
                     .HasConstraintName("FK_tOrderDetail_tProducts");
+
+                entity.HasOne(d => d.FShowing)
+                    .WithMany(p => p.TOrderDetails)
+                    .HasForeignKey(d => d.FShowingId)
+                    .HasConstraintName("FK_tOrderDetail_tShowing");
+
+                entity.HasOne(d => d.FSupplier)
+                    .WithMany(p => p.TOrderDetails)
+                    .HasForeignKey(d => d.FSupplierId)
+                    .HasConstraintName("FK_tOrderDetail_tSupplier");
 
                 entity.HasOne(d => d.FTicket)
                     .WithMany(p => p.TOrderDetails)
@@ -519,6 +631,8 @@ namespace IGO.Models
 
                 entity.Property(e => e.FSupplierId).HasColumnName("fSupplierID");
 
+                entity.Property(e => e.FViewRecord).HasColumnName("fViewRecord");
+
                 entity.HasOne(d => d.FCity)
                     .WithMany(p => p.TProducts)
                     .HasForeignKey(d => d.FCityId)
@@ -553,6 +667,11 @@ namespace IGO.Models
                 entity.Property(e => e.FPhotoSiteId).HasColumnName("fPhotoSiteID");
 
                 entity.Property(e => e.FProductId).HasColumnName("fProductID");
+
+                entity.HasOne(d => d.FMovie)
+                    .WithMany(p => p.TProductsPhotos)
+                    .HasForeignKey(d => d.FMovieId)
+                    .HasConstraintName("FK_tProductsPhoto_tMovie");
 
                 entity.HasOne(d => d.FPhotoSite)
                     .WithMany(p => p.TProductsPhotos)
@@ -594,6 +713,19 @@ namespace IGO.Models
                     .HasConstraintName("FK_tSeat_tProducts");
             });
 
+            modelBuilder.Entity<TSession>(entity =>
+            {
+                entity.HasKey(e => e.FSessionId);
+
+                entity.ToTable("tSession");
+
+                entity.Property(e => e.FSessionId).HasColumnName("fSessionId");
+
+                entity.Property(e => e.FData)
+                    .HasMaxLength(1000)
+                    .HasColumnName("fData");
+            });
+
             modelBuilder.Entity<TShipper>(entity =>
             {
                 entity.HasKey(e => e.FShipperId)
@@ -602,8 +734,6 @@ namespace IGO.Models
                 entity.ToTable("tShipper");
 
                 entity.Property(e => e.FShipperId).HasColumnName("fShipperID");
-
-                entity.Property(e => e.FCategoryId).HasColumnName("fCategoryID");
 
                 entity.Property(e => e.FPhone)
                     .HasMaxLength(20)
@@ -641,6 +771,10 @@ namespace IGO.Models
 
                 entity.Property(e => e.FQuantity).HasColumnName("fQuantity");
 
+                entity.Property(e => e.FSeats)
+                    .HasMaxLength(100)
+                    .HasColumnName("fSeats");
+
                 entity.Property(e => e.FShowingId).HasColumnName("fShowingID");
 
                 entity.Property(e => e.FSupplierId).HasColumnName("fSupplierID");
@@ -665,11 +799,36 @@ namespace IGO.Models
                     .HasForeignKey(d => d.FCustomerId)
                     .HasConstraintName("FK_tShoppingCart_tCustomers");
 
+                entity.HasOne(d => d.FMovie)
+                    .WithMany(p => p.TShoppingCarts)
+                    .HasForeignKey(d => d.FMovieId)
+                    .HasConstraintName("FK_tShoppingCart_tMovie");
+
+                entity.HasOne(d => d.FMovieSeat)
+                    .WithMany(p => p.TShoppingCarts)
+                    .HasForeignKey(d => d.FMovieSeatId)
+                    .HasConstraintName("FK_tShoppingCart_tMovieSeat");
+
+                entity.HasOne(d => d.FMovieTicketType)
+                    .WithMany(p => p.TShoppingCarts)
+                    .HasForeignKey(d => d.FMovieTicketTypeId)
+                    .HasConstraintName("FK_tShoppingCart_tMovieTicketType");
+
                 entity.HasOne(d => d.FProduct)
                     .WithMany(p => p.TShoppingCarts)
                     .HasForeignKey(d => d.FProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tShoppingCart_tProducts");
+
+                entity.HasOne(d => d.FShowing)
+                    .WithMany(p => p.TShoppingCarts)
+                    .HasForeignKey(d => d.FShowingId)
+                    .HasConstraintName("FK_tShoppingCart_tShowing");
+
+                entity.HasOne(d => d.FSupplier)
+                    .WithMany(p => p.TShoppingCarts)
+                    .HasForeignKey(d => d.FSupplierId)
+                    .HasConstraintName("FK_tShoppingCart_tSupplier");
             });
 
             modelBuilder.Entity<TShowing>(entity =>
@@ -710,9 +869,17 @@ namespace IGO.Models
 
                 entity.Property(e => e.FCategoryId).HasColumnName("fCategoryID");
 
+                entity.Property(e => e.FImagePath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImagePath");
+
                 entity.Property(e => e.FSubCategoryName)
                     .HasMaxLength(20)
                     .HasColumnName("fSubCategoryName");
+
+                entity.Property(e => e.FSubCategoryPath)
+                    .HasMaxLength(50)
+                    .HasColumnName("fSubCategoryPath");
 
                 entity.HasOne(d => d.FCategory)
                     .WithMany(p => p.TSubCategories)
@@ -733,13 +900,88 @@ namespace IGO.Models
                     .HasMaxLength(50)
                     .HasColumnName("fAddress");
 
+                entity.Property(e => e.FCityId).HasColumnName("fCityID");
+
                 entity.Property(e => e.FCompanyName)
                     .HasMaxLength(30)
                     .HasColumnName("fCompanyName");
 
+                entity.Property(e => e.FImage)
+                    .HasMaxLength(50)
+                    .HasColumnName("fImage");
+
                 entity.Property(e => e.FPhone)
                     .HasMaxLength(20)
                     .HasColumnName("fPhone");
+
+                entity.Property(e => e.FSubCategoryId).HasColumnName("fSubCategoryID");
+
+                entity.HasOne(d => d.FCity)
+                    .WithMany(p => p.TSuppliers)
+                    .HasForeignKey(d => d.FCityId)
+                    .HasConstraintName("FK_tSupplier_tCity");
+
+                entity.HasOne(d => d.FSubCategory)
+                    .WithMany(p => p.TSuppliers)
+                    .HasForeignKey(d => d.FSubCategoryId)
+                    .HasConstraintName("FK_tSupplier_tSubCategory");
+            });
+
+            modelBuilder.Entity<TTestAnswer>(entity =>
+            {
+                entity.HasKey(e => e.FAnswerId);
+
+                entity.ToTable("tTestAnswer");
+
+                entity.Property(e => e.FAnswerId).HasColumnName("fAnswerID");
+
+                entity.Property(e => e.FAnswer)
+                    .HasMaxLength(80)
+                    .HasColumnName("fAnswer");
+
+                entity.Property(e => e.FQuestionId).HasColumnName("fQuestionID");
+
+                entity.Property(e => e.FScore).HasColumnName("fScore");
+
+                entity.HasOne(d => d.FQuestion)
+                    .WithMany(p => p.TTestAnswers)
+                    .HasForeignKey(d => d.FQuestionId)
+                    .HasConstraintName("FK_tTestAnswer_tTestQuestion");
+            });
+
+            modelBuilder.Entity<TTestQuestion>(entity =>
+            {
+                entity.HasKey(e => e.FQuestionId);
+
+                entity.ToTable("tTestQuestion");
+
+                entity.Property(e => e.FQuestionId).HasColumnName("fQuestionID");
+
+                entity.Property(e => e.FQuestion)
+                    .HasMaxLength(80)
+                    .HasColumnName("fQuestion");
+            });
+
+            modelBuilder.Entity<TTestResult>(entity =>
+            {
+                entity.HasKey(e => e.FTestResultId);
+
+                entity.ToTable("tTestResult");
+
+                entity.Property(e => e.FTestResultId).HasColumnName("fTestResultID");
+
+                entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
+
+                entity.Property(e => e.FPoint).HasColumnName("fPoint");
+
+                entity.Property(e => e.FTestResult)
+                    .HasMaxLength(50)
+                    .HasColumnName("fTestResult");
+
+                entity.HasOne(d => d.FCustomer)
+                    .WithMany(p => p.TTestResults)
+                    .HasForeignKey(d => d.FCustomerId)
+                    .HasConstraintName("FK_tTestResult_tCustomers");
             });
 
             modelBuilder.Entity<TTicketAndProduct>(entity =>
@@ -789,6 +1031,44 @@ namespace IGO.Models
                     .WithMany(p => p.TTicketTypes)
                     .HasForeignKey(d => d.FSubCategoryId)
                     .HasConstraintName("FK_tTicketTypes_tSubCategory");
+            });
+
+            modelBuilder.Entity<TVoucher>(entity =>
+            {
+                entity.HasKey(e => e.FVoucherId);
+
+                entity.ToTable("tVoucher");
+
+                entity.Property(e => e.FVoucherId).HasColumnName("fVoucherID");
+
+                entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
+
+                entity.Property(e => e.FVoucherEndDate)
+                    .HasMaxLength(50)
+                    .HasColumnName("fVoucherEndDate");
+
+                entity.Property(e => e.FVoucherName)
+                    .HasMaxLength(50)
+                    .HasColumnName("fVoucherName");
+
+                entity.Property(e => e.FVoucherNumber)
+                    .HasMaxLength(50)
+                    .HasColumnName("fVoucherNumber");
+
+                entity.Property(e => e.FVoucherPrice)
+                    .HasColumnType("money")
+                    .HasColumnName("fVoucherPrice");
+
+                entity.Property(e => e.FVoucherStartDate)
+                    .HasMaxLength(50)
+                    .HasColumnName("fVoucherStartDate");
+
+                entity.Property(e => e.FVoucherStatus).HasColumnName("fVoucherStatus");
+
+                entity.HasOne(d => d.FCustomer)
+                    .WithMany(p => p.TVouchers)
+                    .HasForeignKey(d => d.FCustomerId)
+                    .HasConstraintName("FK_tVoucher_tCustomers");
             });
 
             OnModelCreatingPartial(modelBuilder);

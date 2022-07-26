@@ -15,6 +15,7 @@ namespace IGO.Models
         public int? FMovieId { get; set; }
 
         public virtual TCustomer FCustomer { get; set; }
+        public virtual TMovie FMovie { get; set; }
         public virtual TProduct FProduct { get; set; }
     }
 }

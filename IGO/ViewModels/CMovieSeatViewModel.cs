@@ -31,7 +31,7 @@ namespace IGO.ViewModels
         }
         public int FSeatColumn
         {
-            get { return _seat.FSeatColumn; }
+            get { return (int)_seat.FSeatColumn; }
             set { _seat.FSeatColumn = value; }
         }
 

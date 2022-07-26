@@ -13,6 +13,7 @@ namespace IGO.Models
         public int? FTicketId { get; set; }
         public int? FQuantity { get; set; }
         public decimal? FTotalPrice { get; set; }
+        public string FSeats { get; set; }
         public string FTempOrder { get; set; }
         public string FBookingTime { get; set; }
         public int? FCouponId { get; set; }
@@ -24,6 +25,11 @@ namespace IGO.Models
 
         public virtual TCoupon FCoupon { get; set; }
         public virtual TCustomer FCustomer { get; set; }
+        public virtual TMovie FMovie { get; set; }
+        public virtual TMovieSeat FMovieSeat { get; set; }
+        public virtual TMovieTicketType FMovieTicketType { get; set; }
         public virtual TProduct FProduct { get; set; }
+        public virtual TShowing FShowing { get; set; }
+        public virtual TSupplier FSupplier { get; set; }
     }
 }

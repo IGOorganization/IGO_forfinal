@@ -15,7 +15,6 @@ namespace IGO.Models
         public int FShipperId { get; set; }
         public string FShipperName { get; set; }
         public string FPhone { get; set; }
-        public int? FCategoryId { get; set; }
 
         public virtual ICollection<TOrder> TOrders { get; set; }
     }

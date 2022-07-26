@@ -13,6 +13,7 @@ namespace IGO.Models
         public int? FPhotoSiteId { get; set; }
         public int? FMovieId { get; set; }
 
+        public virtual TMovie FMovie { get; set; }
         public virtual TPhotoSite FPhotoSite { get; set; }
         public virtual TProduct FProduct { get; set; }
     }
