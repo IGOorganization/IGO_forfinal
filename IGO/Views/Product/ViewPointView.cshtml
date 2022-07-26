@@ -21,7 +21,7 @@
                 <div class="col-md-10">
                     <div class="row g-2">
                         <div class="col-md-3">
-                            <select class="form-select">
+                            <select class="form-select" id="city-select">
                                 <option selected>請選擇縣市</option>
                                 <option value="1">台北</option>
                                 <option value="2">台南</option>
@@ -256,13 +256,16 @@
 
 @section Scripts{
     <script>
-        const hearts = document.querySelectorAll("#btn_heart");
-        console.log(hearts);
-        hearts.forEach(function (heart) {
-            heart.addEventListener("click", () => {
-                $(this).toggleClass("fa-regular")
-            })
-        })
+
+        //查詢資料
+        function searchData() {
+            $('#city-select').empty();
+            $('#city-select').append('查詢中');
+            $.get('@Url.')
+
+
+        }
+        
 
     </script>
 }

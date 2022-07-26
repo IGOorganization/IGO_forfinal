@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using IGO.Controllers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,6 +19,9 @@
     <!-- Site CSS -->
     <link href="/css/site.css?v=@(DateTime.Now.ToString("yyyyMMddHHmmss"))" rel="stylesheet" />
     @*育緯新增*@
+
+    <!-- Date picker plugins css -->
+    <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 
 
     <!-- Icon Font Stylesheet -->
@@ -85,20 +89,15 @@
                     <a href="~/Home/Home" class="navbar-brand d-block d-lg-none">
                         <h1 class="m-0 text-primary text-uppercase">IGO</h1>
                     </a>
-                    @*主分類*@
-                    @*<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0" id="category">
-                            </div>*@
-                    @*主分類寫法2*@
+
+
                     <div class="navbar-nav mr-auto py-0" id="category">
                     </div>
                     <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
                         </div>
                         <div class="offcanvas-body bg-dark">
                             <div class="card-body">
@@ -147,6 +146,50 @@
                                 <li><a class="dropdown-item" href="/Home/Login"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
                             </ul>
                         </div>
+
+
+                        @{
+                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                            {
+                                <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
+                                    <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @if (CustomerController.imgpath == null)
+                                        {
+                                            <img width="50" height="50" class="rounded-circle " src="/img/UID_0.jpg">
+                                        }
+                                        else
+                                        {
+                                            <img width="50" height="50" class="rounded-circle " src="/img/@CustomerController.imgpath">
+                                        }
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
+                                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
+                                            <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
+                                            <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
+                                            <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
+                                            <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="navbar-nav navbar-right mr-auto py-0 ">
+                                    <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        <i class="fa fa-user"> 登入/ 註冊 </i>
+                                    </button>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            }
+                        }
+
+                        <a href=""></a>
 
                     </div>
                     <a href=""></a>
@@ -202,7 +245,10 @@
                             <a class="btn btn-link" href="/Helper/index">幫助中心</a>
                             <a class="btn btn-link" href="/Privacy/index">隱私權</a>
                             <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
-                            <a href="/Admin/Home/Order" class="btn btn-link">管理後台</a>
+
+                            @*<a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>*@
+                            <a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#BackendModal">管理後台</a>
+
                         </div>
                     </div>
                 </div>
@@ -223,6 +269,247 @@
         </div>
     </div>
     <!-- Footer End -->
+    <!--=============== 鈞傑新增 Login & Register =========================== -->
+    <!-- Login Modal 彈出登入視窗 -->
+    <div class="modal fade " id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="staticBackdropLabel">登入 IGO</h5>
+                    <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark">
+                    <br />
+                    <form asp-controller="Customer" asp-action="Login">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="Login_txtAccount" name="txtAccount" placeholder="手機號碼">
+                            <label for="floatingInput">帳號 (手機號碼)</label>
+                        </div>
+                        <br />
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control text-dark" id="Login_txtPassword" name="txtPassword" placeholder="密碼">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check text-white">
+                                <input type="checkbox" class="form-check-input" id="reAccount">
+                                <label class="form-check-label" for="exampleCheck1 ">記住帳號</label>
+                            </div>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgetPWD" data-bs-dismiss="modal">忘記密碼</button>
+                        </div>
+                        <h5 class="text-sm-center mb-0 text-white"> 新朋友 ? <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">立即註冊 IGO !</button></h5>
+                        <br />
+                        <div class="modal-footer">
+                            <br />
+                            <input type="submit" value="登入" class="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 返回首頁 </button>
+                            <br />
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <hr />
+                            <div>
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(伊佴叁) </button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(祝策厚) </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class=" bg-dark">
+                                <br />
+                                <h5 class="text-white text-center">使用其他帳號登入</h5>
+                                <br />
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Modal End -->
+    <!--使用 Login Modal 執行時檢核並顯示錯誤訊息-->
+    <!--使用 Login Modal 執行時檢核並顯示錯誤訊息-->
+    <!-- Register Modal 彈出註冊視窗 -->
+    <div class="modal fade " id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form asp-action="Register" asp-controller="Customer">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header text-center">
+                        <h5 class="modal-title text-warning" id="rLblWelcome">歡迎加入 IGO 會員</h5>
+                        <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body bg-dark">
+                        <br />
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="register_FLName" name="FLastName" placeholder="姓氏(LastName)" />
+                            <label for="FLastName">姓氏(LastName)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="register_FFName" name="FFirstName" placeholder="名字(FirstName)" />
+                            <label for="FFirstName" class="control-label">名字(FirstName)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="register_FPhone" name="FPhone" placeholder="手機號碼(IGO 帳號)" />
+                            <label for="FPhone" class="control-label">手機號碼(IGO 帳號)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control text-dark" id="register_FPassword" name="FPassword" placeholder="密碼">
+                            <label for="FPassword">密碼</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control text-dark" id="register_FCheckPwd" name="FCheckPwd" placeholder="確認密碼" />
+                            <label for="floatingPassword">確認密碼</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="register_FEmail" name="FEmail" placeholder="E-Mail" />
+                            <label for="FEmail" class="control-label">E-Mail</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-dark">
+                        <div class="form-group">
+                            <input type="submit" value="註冊 IGO" class="btn btn-primary" />
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                <i class="fa fa-user"> 返回登入頁面 </i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <hr />
+                        <div>
+                            <div class="row bg-dark">
+                                <div class="col text-center">
+                                    <button type="button" class="btn btn-danger" id="btnDemoRegister">  Demo (林炙影) </button>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class=" bg-dark">
+                                <br />
+                                <h5 class="text-white text-center">使用其他社群帳號註冊</h5>
+                                <br />
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                    <div class="col text-center">
+                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Register Modal End -->
+    <!-- Backend Modal 彈出登入視窗 -->
+    <div class="modal fade " id="BackendModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="staticBackdropLabel">後臺管理員登入系統</h5>
+                    <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark">
+                    <br />
+                    <form asp-controller="" asp-action="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="Backend_txtAccount" name="txtAccount" placeholder="手機號碼">
+                            <label for="floatingInput">帳號 (手機號碼)</label>
+                        </div>
+                        <br />
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control text-dark" id="Backend_txtPassword" name="txtPassword" placeholder="密碼">
+                            <label for="floatingPassword">密碼</label>
+                        </div>
+                        <div class="modal-footer">
+                            <br />
+                            <a href="/Admin/Coupon/List" class="btn btn-primary">後台登入</a>
+                            @*<input type="submit" value="登入" class="btn btn-primary" />*@
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 返回首頁 </button>
+                            <br />
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <hr />
+                            <div>
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="Backend_Demo">  Demo </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Backend Modal End -->
+
+
+    <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
+    <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
+
+    <div class="modal fade " id="forgetPWD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="rePwd_lbl">重新設定密碼</h5>
+                    <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark">
+                    <br />
+                    <form asp-controller="" asp-action="">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="rePwd_FPhone" name="FPhone" placeholder="手機號碼">
+                            <label for="floatingInput">帳號 (手機號碼)</label>
+                        </div>
+                        <br />
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control text-dark" id="rePwd_FEmail" name="FEmail" placeholder="Email">
+                            <label for="floatingPassword">Email</label>
+                        </div>
+                        <div class="modal-footer">
+                            <br />
+                            <input type="submit" value="確認" class="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                返回登入頁面
+                            </button>
+                            <br />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     <a href="#" class="message-fix"><img src="~/img/robot.png" title="客服小幫手"/><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
@@ -230,9 +517,11 @@
 
     
 
+
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="~/lib/wow/wow.min.js"></script>
     <script src="~/lib/easing/easing.min.js"></script>
     <script src="~/lib/waypoints/waypoints.min.js"></script>
@@ -241,6 +530,8 @@
     <script src="~/lib/tempusdominus/js/moment.min.js"></script>
     <script src="~/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
 
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
@@ -347,6 +638,58 @@
     </script>
 
 
+    <!-- ========================= 登入系統用============================ script -->
+    <script>
+
+        //密碼顯示切換
+        $("#showPassword").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#inpLogInPassword").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#inpLogInPassword").attr("type", "password");
+            }
+        });
+
+        //登入Demo
+        $("#btnDemo1").click(function () {
+            $("#Login_txtAccount").val("123");
+            $("#Login_txtPassword").val("123");
+        });
+        $("#btnDemo2").click(function () {
+            $("#Login_txtAccount").val("0931000013");
+            $("#Login_txtPassword").val("123");
+        });
+        $("#btnDemo3").click(function () {
+            $("#Login_txtAccount").val("0911911990");
+            $("#Login_txtPassword").val("123");
+        });
+
+        //註冊Demo
+        $("#btnDemoRegister").click(function () {
+            $("#register_FLName").val("林");
+            $("#register_FFName").val("炙影");
+            $("#register_FPassword").val("123");
+            $("#register_FCheckPwd").val("123");
+            $("#register_FPhone").val("0911911990");
+            $("#register_FEmail").val("carBomb@gmail.com");
+        });
+
+        //忘記密碼Demo
+        $("#btnDemoForgotPassword").click(function () {
+            $("#rePwd_FPhone").val("");
+            $("#rePwd_FEmail").val("");
+        });
+
+
+
+    </script>
+    <!-- ========================= 登入系統用=====================END======= script -->
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+

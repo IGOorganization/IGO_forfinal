@@ -421,6 +421,8 @@
 </div>
 <!-- Newsletter End -->
 
+
+
 @section Scripts
 {
     <script>
@@ -442,23 +444,7 @@
                 $("#SearchCity").val("台北市");
             })
 
-            //顯示票卷類別
-            @*//ShowSubcategory();
-            window.addEventListener("DOMContentLoaded", ShowSubcategory);
-        async function ShowSubcategory()
-        {
-            const Response = await fetch('@Url.Content("~/Home/SubCategory")');
-            //console.log(Response);
-            const Datas = await Response.json(); //讀取body內資料
-            //console.log(Datas);  //Array(5)
-
-            for (let i = 0; i < 5; i++)
-            {
-                console.log(Datas[i]);
-                let categoryName = Datas[i].FSubCategoryName;
-                document.querySelector(`.Subcategory${i}`).innerHTML = categoryName;
-            }
-        }*@
+<<<<<<< main
         //顯示瀏覽次數排行
          $(window).ready(function ()
         {
@@ -518,6 +504,7 @@
                     </div>
                 </div>`)
                 }
+
             })
 
         });

@@ -1,0 +1,925 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+<Node Id="IModel" Label="DemoIgoContext" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" PropertyAccessMode="PropertyAccessMode.Default" ProductVersion="5.0.17" Annotations="Relational:Collation: Chinese_Taiwan_Stroke_CI_AS
+Relational:MaxIdentifierLength: 128
+Relational:RelationalModel: Microsoft.EntityFrameworkCore.Metadata.Internal.RelationalModel
+SqlServer:ValueGenerationStrategy: IdentityColumn" Category="Model" Group="Expanded" />
+<Node Id = "TCategory" Label="TCategory" Name="TCategory" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tCategory
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TCity" Label="TCity" Name="TCity" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tCity
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TCategory.FCategoryId" Label="FCategoryId" Name="FCategoryId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCategoryID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TCategory.TSubCategories" Label="TSubCategories (*)" Name="TSubCategories" Category="Navigation Collection" Type="ICollection&lt;TSubCategory&gt;"  Field="" Dependent="TSubCategory" Principal="" Inverse="FCategory" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCategory.FCategoryName" Label="FCategoryName" Name="FCategoryName" Category="Property Optional" Type="string" MaxLength="(20)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 20
+Relational:ColumnName: fCategoryName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCollection" Label="TCollection" Name="TCollection" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tCollection
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TCity.FCityId" Label="FCityId" Name="FCityId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCityID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TCity.TCustomers" Label="TCustomers (*)" Name="TCustomers" Category="Navigation Collection" Type="ICollection&lt;TCustomer&gt;"  Field="" Dependent="TCustomer" Principal="" Inverse="FCity" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCity.TProducts" Label="TProducts (*)" Name="TProducts" Category="Navigation Collection" Type="ICollection&lt;TProduct&gt;"  Field="" Dependent="TProduct" Principal="" Inverse="FCity" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCity.FCityName" Label="FCityName" Name="FCityName" Category="Property Optional" Type="string" MaxLength="(20)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 20
+Relational:ColumnName: fCityName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon" Label="TCoupon" Name="TCoupon" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tCoupon
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TCollection.FCollectionId" Label="FCollectionId" Name="FCollectionId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCollectionID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TCollection.FCustomer" Label="FCustomer (1)" Name="FCustomer" Category="Navigation Property" Type="TCustomer"  Field="" Dependent="" Principal="TCustomer" Inverse="TCollections" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCollection.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TCollections" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCollection.FCollectionDate" Label="FCollectionDate" Name="FCollectionDate" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fCollectionDate
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCollection.FCollectionState" Label="FCollectionState" Name="FCollectionState" Category="Property Optional" Type="Nullable&lt;bool&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCollectionState
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCollection.FCustomerId" Label="FCustomerId" Name="FCustomerId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCustomerID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCollection.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer" Label="TCustomer" Name="TCustomer" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tCustomers
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TCoupon.FCouponId" Label="FCouponId" Name="FCouponId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCouponID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TCoupon.FProductId1Navigation" Label="FProductId1Navigation (1)" Name="FProductId1Navigation" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TCouponFProductId1Navigations" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.FProductId2Navigation" Label="FProductId2Navigation (1)" Name="FProductId2Navigation" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TCouponFProductId2Navigations" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.FProductId3Navigation" Label="FProductId3Navigation (1)" Name="FProductId3Navigation" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TCouponFProductId3Navigations" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.FProductId4Navigation" Label="FProductId4Navigation (1)" Name="FProductId4Navigation" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TCouponFProductId4Navigations" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.FProductId5Navigation" Label="FProductId5Navigation (1)" Name="FProductId5Navigation" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TCouponFProductId5Navigations" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.TOrderDetails" Label="TOrderDetails (*)" Name="TOrderDetails" Category="Navigation Collection" Type="ICollection&lt;TOrderDetail&gt;"  Field="" Dependent="TOrderDetail" Principal="" Inverse="FCoupon" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.TShoppingCarts" Label="TShoppingCarts (*)" Name="TShoppingCarts" Category="Navigation Collection" Type="ICollection&lt;TShoppingCart&gt;"  Field="" Dependent="TShoppingCart" Principal="" Inverse="FCoupon" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCoupon.FCouponName" Label="FCouponName" Name="FCouponName" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fCouponName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FDeadTime" Label="FDeadTime" Name="FDeadTime" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fDeadTime
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FDiscount" Label="FDiscount" Name="FDiscount" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fDiscount
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FProductId1" Label="FProductId1" Name="FProductId1" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID1
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FProductId2" Label="FProductId2" Name="FProductId2" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID2
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FProductId3" Label="FProductId3" Name="FProductId3" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID3
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FProductId4" Label="FProductId4" Name="FProductId4" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID4
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FProductId5" Label="FProductId5" Name="FProductId5" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID5
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCoupon.FTimeOut" Label="FTimeOut" Name="FTimeOut" Category="Property Optional" Type="Nullable&lt;bool&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTimeOut
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TDiscount" Label="TDiscount" Name="TDiscount" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tDiscount
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TCustomer.FCustomerId" Label="FCustomerId" Name="FCustomerId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCustomerID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TCustomer.FCity" Label="FCity (1)" Name="FCity" Category="Navigation Property" Type="TCity"  Field="" Dependent="" Principal="TCity" Inverse="TCustomers" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCustomer.TCollections" Label="TCollections (*)" Name="TCollections" Category="Navigation Collection" Type="ICollection&lt;TCollection&gt;"  Field="" Dependent="TCollection" Principal="" Inverse="FCustomer" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCustomer.TFeedbackManagements" Label="TFeedbackManagements (*)" Name="TFeedbackManagements" Category="Navigation Collection" Type="ICollection&lt;TFeedbackManagement&gt;"  Field="" Dependent="TFeedbackManagement" Principal="" Inverse="FCustomer" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCustomer.TOrders" Label="TOrders (*)" Name="TOrders" Category="Navigation Collection" Type="ICollection&lt;TOrder&gt;"  Field="" Dependent="TOrder" Principal="" Inverse="FCustomer" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCustomer.TShoppingCarts" Label="TShoppingCarts (*)" Name="TShoppingCarts" Category="Navigation Collection" Type="ICollection&lt;TShoppingCart&gt;"  Field="" Dependent="TShoppingCart" Principal="" Inverse="FCustomer" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TCustomer.FAddress" Label="FAddress" Name="FAddress" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fAddress
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FBirth" Label="FBirth" Name="FBirth" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fBirth
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FCityId" Label="FCityId" Name="FCityId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCityID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FEmail" Label="FEmail" Name="FEmail" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fEmail
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FFirstName" Label="FFirstName" Name="FFirstName" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fFirstName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FGender" Label="FGender" Name="FGender" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fGender
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FLastName" Label="FLastName" Name="FLastName" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fLastName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FPassword" Label="FPassword" Name="FPassword" Category="Property Required" Type="string" MaxLength="(250)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 250
+Relational:ColumnName: fPassword
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FPhone" Label="FPhone" Name="FPhone" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fPhone
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FSignUpDate" Label="FSignUpDate" Name="FSignUpDate" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fSignUpDate
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TCustomer.FUserPhoto" Label="FUserPhoto" Name="FUserPhoto" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fUserPhoto
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TFeedbackManagement" Label="TFeedbackManagement" Name="TFeedbackManagement" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tFeedbackManagement
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TDiscount.FDiscountId" Label="FDiscountId" Name="FDiscountId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fDiscountID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TDiscount.FDeadTime" Label="FDeadTime" Name="FDeadTime" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fDeadTime
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TDiscount.FDiscount" Label="FDiscount" Name="FDiscount" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fDiscount
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TDiscount.FDiscountName" Label="FDiscountName" Name="FDiscountName" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fDiscountName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TDiscount.FTimeOut" Label="FTimeOut" Name="FTimeOut" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fTimeOut
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder" Label="TOrder" Name="TOrder" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tOrders
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TFeedbackManagement.FFeedbackId" Label="FFeedbackId" Name="FFeedbackId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fFeedbackID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TFeedbackManagement.FCustomer" Label="FCustomer (1)" Name="FCustomer" Category="Navigation Property" Type="TCustomer"  Field="" Dependent="" Principal="TCustomer" Inverse="TFeedbackManagements" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TFeedbackManagement.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TFeedbackManagements" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TFeedbackManagement.FCustomerId" Label="FCustomerId" Name="FCustomerId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCustomerID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TFeedbackManagement.FFeedbackContent" Label="FFeedbackContent" Name="FFeedbackContent" Category="Property Optional" Type="string" MaxLength="(250)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 250
+Relational:ColumnName: fFeedbackContent
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TFeedbackManagement.FFeedbackDate" Label="FFeedbackDate" Name="FFeedbackDate" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fFeedbackDate
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TFeedbackManagement.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TFeedbackManagement.FRanking" Label="FRanking" Name="FRanking" Category="Property Optional" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fRanking
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail" Label="TOrderDetail" Name="TOrderDetail" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tOrderDetail
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TOrder.FOrderId" Label="FOrderId" Name="FOrderId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fOrderID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TOrder.FCustomer" Label="FCustomer (1)" Name="FCustomer" Category="Navigation Property" Type="TCustomer"  Field="" Dependent="" Principal="TCustomer" Inverse="TOrders" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrder.FPayType" Label="FPayType (1)" Name="FPayType" Category="Navigation Property" Type="TPayment"  Field="" Dependent="" Principal="TPayment" Inverse="TOrders" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrder.FShipper" Label="FShipper (1)" Name="FShipper" Category="Navigation Property" Type="TShipper"  Field="" Dependent="" Principal="TShipper" Inverse="TOrders" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrder.FStatus" Label="FStatus (1)" Name="FStatus" Category="Navigation Property" Type="TStatus"  Field="" Dependent="" Principal="TStatus" Inverse="TOrders" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrder.TOrderDetails" Label="TOrderDetails (*)" Name="TOrderDetails" Category="Navigation Collection" Type="ICollection&lt;TOrderDetail&gt;"  Field="" Dependent="TOrderDetail" Principal="" Inverse="FOrder" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrder.FCustomerId" Label="FCustomerId" Name="FCustomerId" Category="Property Foreign" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCustomerID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder.FOrderDate" Label="FOrderDate" Name="FOrderDate" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fOrderDate
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder.FPayTypeId" Label="FPayTypeId" Name="FPayTypeId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fPayTypeID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder.FShippedDate" Label="FShippedDate" Name="FShippedDate" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fShippedDate
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder.FShipperId" Label="FShipperId" Name="FShipperId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fShipperID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder.FStatusId" Label="FStatusId" Name="FStatusId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fStatusID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrder.FTotalPrice" Label="FTotalPrice" Name="FTotalPrice" Category="Property Optional" Type="Nullable&lt;decimal&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTotalPrice
+Relational:ColumnType: money
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TPayment" Label="TPayment" Name="TPayment" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tPayment
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TOrderDetail.FOrderDetailsId" Label="FOrderDetailsId" Name="FOrderDetailsId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fOrderDetailsID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TOrderDetail.FCoupon" Label="FCoupon (1)" Name="FCoupon" Category="Navigation Property" Type="TCoupon"  Field="" Dependent="" Principal="TCoupon" Inverse="TOrderDetails" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrderDetail.FOrder" Label="FOrder (1)" Name="FOrder" Category="Navigation Property" Type="TOrder"  Field="" Dependent="" Principal="TOrder" Inverse="TOrderDetails" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrderDetail.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TOrderDetails" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrderDetail.FTicket" Label="FTicket (1)" Name="FTicket" Category="Navigation Property" Type="TTicketType"  Field="" Dependent="" Principal="TTicketType" Inverse="TOrderDetails" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrderDetail.TSeats" Label="TSeats (*)" Name="TSeats" Category="Navigation Collection" Type="ICollection&lt;TSeat&gt;"  Field="" Dependent="TSeat" Principal="" Inverse="FOrderDetail" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TOrderDetail.FBookingTime" Label="FBookingTime" Name="FBookingTime" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fBookingTime
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail.FCouponId" Label="FCouponId" Name="FCouponId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCouponID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail.FOrderId" Label="FOrderId" Name="FOrderId" Category="Property Foreign" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fOrderID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail.FPrice" Label="FPrice" Name="FPrice" Category="Property Optional" Type="Nullable&lt;decimal&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fPrice
+Relational:ColumnType: money
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail.FQuantity" Label="FQuantity" Name="FQuantity" Category="Property Optional" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fQuantity
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TOrderDetail.FTicketId" Label="FTicketId" Name="FTicketId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTicketID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TPhotoSite" Label="TPhotoSite" Name="TPhotoSite" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tPhotoSite
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TPayment.FPayTypeId" Label="FPayTypeId" Name="FPayTypeId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fPayTypeID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TPayment.TOrders" Label="TOrders (*)" Name="TOrders" Category="Navigation Collection" Type="ICollection&lt;TOrder&gt;"  Field="" Dependent="TOrder" Principal="" Inverse="FPayType" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TPayment.FPayType" Label="FPayType" Name="FPayType" Category="Property Optional" Type="string" MaxLength="(20)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 20
+Relational:ColumnName: fPayType
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct" Label="TProduct" Name="TProduct" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tProducts
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TPhotoSite.FPhotoSiteId" Label="FPhotoSiteId" Name="FPhotoSiteId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fPhotoSiteID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TPhotoSite.TProductsPhotos" Label="TProductsPhotos (*)" Name="TProductsPhotos" Category="Navigation Collection" Type="ICollection&lt;TProductsPhoto&gt;"  Field="" Dependent="TProductsPhoto" Principal="" Inverse="FPhotoSite" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TPhotoSite.FPhotoplace" Label="FPhotoplace" Name="FPhotoplace" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fPhotoplace
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProductsPhoto" Label="TProductsPhoto" Name="TProductsPhoto" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tProductsPhoto
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TProduct.FProductId" Label="FProductId" Name="FProductId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TProduct.FCity" Label="FCity (1)" Name="FCity" Category="Navigation Property" Type="TCity"  Field="" Dependent="" Principal="TCity" Inverse="TProducts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.FSubCategory" Label="FSubCategory (1)" Name="FSubCategory" Category="Navigation Property" Type="TSubCategory"  Field="" Dependent="" Principal="TSubCategory" Inverse="TProducts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.FSupplier" Label="FSupplier (1)" Name="FSupplier" Category="Navigation Property" Type="TSupplier"  Field="" Dependent="" Principal="TSupplier" Inverse="TProducts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TCollections" Label="TCollections (*)" Name="TCollections" Category="Navigation Collection" Type="ICollection&lt;TCollection&gt;"  Field="" Dependent="TCollection" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TCouponFProductId1Navigations" Label="TCouponFProductId1Navigations (*)" Name="TCouponFProductId1Navigations" Category="Navigation Collection" Type="ICollection&lt;TCoupon&gt;"  Field="" Dependent="TCoupon" Principal="" Inverse="FProductId1Navigation" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TCouponFProductId2Navigations" Label="TCouponFProductId2Navigations (*)" Name="TCouponFProductId2Navigations" Category="Navigation Collection" Type="ICollection&lt;TCoupon&gt;"  Field="" Dependent="TCoupon" Principal="" Inverse="FProductId2Navigation" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TCouponFProductId3Navigations" Label="TCouponFProductId3Navigations (*)" Name="TCouponFProductId3Navigations" Category="Navigation Collection" Type="ICollection&lt;TCoupon&gt;"  Field="" Dependent="TCoupon" Principal="" Inverse="FProductId3Navigation" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TCouponFProductId4Navigations" Label="TCouponFProductId4Navigations (*)" Name="TCouponFProductId4Navigations" Category="Navigation Collection" Type="ICollection&lt;TCoupon&gt;"  Field="" Dependent="TCoupon" Principal="" Inverse="FProductId4Navigation" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TCouponFProductId5Navigations" Label="TCouponFProductId5Navigations (*)" Name="TCouponFProductId5Navigations" Category="Navigation Collection" Type="ICollection&lt;TCoupon&gt;"  Field="" Dependent="TCoupon" Principal="" Inverse="FProductId5Navigation" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TFeedbackManagements" Label="TFeedbackManagements (*)" Name="TFeedbackManagements" Category="Navigation Collection" Type="ICollection&lt;TFeedbackManagement&gt;"  Field="" Dependent="TFeedbackManagement" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TOrderDetails" Label="TOrderDetails (*)" Name="TOrderDetails" Category="Navigation Collection" Type="ICollection&lt;TOrderDetail&gt;"  Field="" Dependent="TOrderDetail" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TProductsPhotos" Label="TProductsPhotos (*)" Name="TProductsPhotos" Category="Navigation Collection" Type="ICollection&lt;TProductsPhoto&gt;"  Field="" Dependent="TProductsPhoto" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TSeats" Label="TSeats (*)" Name="TSeats" Category="Navigation Collection" Type="ICollection&lt;TSeat&gt;"  Field="" Dependent="TSeat" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TShoppingCarts" Label="TShoppingCarts (*)" Name="TShoppingCarts" Category="Navigation Collection" Type="ICollection&lt;TShoppingCart&gt;"  Field="" Dependent="TShoppingCart" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.TTicketAndProducts" Label="TTicketAndProducts (*)" Name="TTicketAndProducts" Category="Navigation Collection" Type="ICollection&lt;TTicketAndProduct&gt;"  Field="" Dependent="TTicketAndProduct" Principal="" Inverse="FProduct" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProduct.FAddress" Label="FAddress" Name="FAddress" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fAddress
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FCityId" Label="FCityId" Name="FCityId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCityID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FDiscountOrNot" Label="FDiscountOrNot" Name="FDiscountOrNot" Category="Property Optional" Type="Nullable&lt;bool&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fDiscountOrNot
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FEndTime" Label="FEndTime" Name="FEndTime" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fEndTime
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FIntroduction" Label="FIntroduction" Name="FIntroduction" Category="Property Optional" Type="string" MaxLength="(250)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 250
+Relational:ColumnName: fIntroduction
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FProductName" Label="FProductName" Name="FProductName" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fProductName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FQuantity" Label="FQuantity" Name="FQuantity" Category="Property Optional" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fQuantity
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FStartTime" Label="FStartTime" Name="FStartTime" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fStartTime
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FSubCategoryId" Label="FSubCategoryId" Name="FSubCategoryId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fSubCategoryID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProduct.FSupplierId" Label="FSupplierId" Name="FSupplierId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fSupplierID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSeat" Label="TSeat" Name="TSeat" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tSeat
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TProductsPhoto.FProductPhotoId" Label="FProductPhotoId" Name="FProductPhotoId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductPhotoID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TProductsPhoto.FPhotoSite" Label="FPhotoSite (1)" Name="FPhotoSite" Category="Navigation Property" Type="TPhotoSite"  Field="" Dependent="" Principal="TPhotoSite" Inverse="TProductsPhotos" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProductsPhoto.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TProductsPhotos" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TProductsPhoto.FPhotoPath" Label="FPhotoPath" Name="FPhotoPath" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fPhotoPath
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProductsPhoto.FPhotoSiteId" Label="FPhotoSiteId" Name="FPhotoSiteId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fPhotoSiteID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TProductsPhoto.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShipper" Label="TShipper" Name="TShipper" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tShipper
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TSeat.FSeatId" Label="FSeatId" Name="FSeatId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fSeatID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TSeat.FOrderDetail" Label="FOrderDetail (1)" Name="FOrderDetail" Category="Navigation Property" Type="TOrderDetail"  Field="" Dependent="" Principal="TOrderDetail" Inverse="TSeats" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TSeat.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TSeats" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TSeat.FOrderDetailId" Label="FOrderDetailId" Name="FOrderDetailId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fOrderDetailID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSeat.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSeat.FSeatName" Label="FSeatName" Name="FSeatName" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fSeatName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart" Label="TShoppingCart" Name="TShoppingCart" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tShoppingCart
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TShipper.FShipperId" Label="FShipperId" Name="FShipperId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fShipperID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TShipper.TOrders" Label="TOrders (*)" Name="TOrders" Category="Navigation Collection" Type="ICollection&lt;TOrder&gt;"  Field="" Dependent="TOrder" Principal="" Inverse="FShipper" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TShipper.FPhone" Label="FPhone" Name="FPhone" Category="Property Optional" Type="string" MaxLength="(20)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 20
+Relational:ColumnName: fPhone
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShipper.FShipperName" Label="FShipperName" Name="FShipperName" Category="Property Optional" Type="string" MaxLength="(30)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 30
+Relational:ColumnName: fShipperName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TStatus" Label="TStatus" Name="TStatus" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tStatus
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TShoppingCart.FShoppingCartId" Label="FShoppingCartId" Name="FShoppingCartId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fShoppingCartID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TShoppingCart.FCoupon" Label="FCoupon (1)" Name="FCoupon" Category="Navigation Property" Type="TCoupon"  Field="" Dependent="" Principal="TCoupon" Inverse="TShoppingCarts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TShoppingCart.FCustomer" Label="FCustomer (1)" Name="FCustomer" Category="Navigation Property" Type="TCustomer"  Field="" Dependent="" Principal="TCustomer" Inverse="TShoppingCarts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TShoppingCart.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TShoppingCarts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TShoppingCart.FBookingTime" Label="FBookingTime" Name="FBookingTime" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fBookingTime
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FCouponId" Label="FCouponId" Name="FCouponId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCouponID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FCustomerId" Label="FCustomerId" Name="FCustomerId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCustomerID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FQuantity" Label="FQuantity" Name="FQuantity" Category="Property Optional" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fQuantity
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FSeats" Label="FSeats" Name="FSeats" Category="Property Optional" Type="string" MaxLength="(100)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 100
+Relational:ColumnName: fSeats
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FTempOrder" Label="FTempOrder" Name="FTempOrder" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fTempOrder
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FTicketId" Label="FTicketId" Name="FTicketId" Category="Property Optional" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTicketID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TShoppingCart.FTotalPrice" Label="FTotalPrice" Name="FTotalPrice" Category="Property Optional" Type="Nullable&lt;decimal&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTotalPrice
+Relational:ColumnType: money
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSubCategory" Label="TSubCategory" Name="TSubCategory" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tSubCategory
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TStatus.FStatusId" Label="FStatusId" Name="FStatusId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fStatusID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TStatus.TOrders" Label="TOrders (*)" Name="TOrders" Category="Navigation Collection" Type="ICollection&lt;TOrder&gt;"  Field="" Dependent="TOrder" Principal="" Inverse="FStatus" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TStatus.FStatusName" Label="FStatusName" Name="FStatusName" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fStatusName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSupplier" Label="TSupplier" Name="TSupplier" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tSupplier
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TSubCategory.FSubCategoryId" Label="FSubCategoryId" Name="FSubCategoryId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fSubCategoryID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TSubCategory.FCategory" Label="FCategory (1)" Name="FCategory" Category="Navigation Property" Type="TCategory"  Field="" Dependent="" Principal="TCategory" Inverse="TSubCategories" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TSubCategory.TProducts" Label="TProducts (*)" Name="TProducts" Category="Navigation Collection" Type="ICollection&lt;TProduct&gt;"  Field="" Dependent="TProduct" Principal="" Inverse="FSubCategory" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TSubCategory.TTicketTypes" Label="TTicketTypes (*)" Name="TTicketTypes" Category="Navigation Collection" Type="ICollection&lt;TTicketType&gt;"  Field="" Dependent="TTicketType" Principal="" Inverse="FSubCategory" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TSubCategory.FCategoryId" Label="FCategoryId" Name="FCategoryId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fCategoryID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSubCategory.FSubCategoryName" Label="FSubCategoryName" Name="FSubCategoryName" Category="Property Optional" Type="string" MaxLength="(20)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 20
+Relational:ColumnName: fSubCategoryName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TTicketAndProduct" Label="TTicketAndProduct" Name="TTicketAndProduct" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tTicketAndProduct
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TSupplier.FSupplierId" Label="FSupplierId" Name="FSupplierId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fSupplierID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TSupplier.TProducts" Label="TProducts (*)" Name="TProducts" Category="Navigation Collection" Type="ICollection&lt;TProduct&gt;"  Field="" Dependent="TProduct" Principal="" Inverse="FSupplier" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TSupplier.FAddress" Label="FAddress" Name="FAddress" Category="Property Optional" Type="string" MaxLength="(50)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 50
+Relational:ColumnName: fAddress
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSupplier.FCompanyName" Label="FCompanyName" Name="FCompanyName" Category="Property Optional" Type="string" MaxLength="(30)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 30
+Relational:ColumnName: fCompanyName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TSupplier.FPhone" Label="FPhone" Name="FPhone" Category="Property Optional" Type="string" MaxLength="(20)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 20
+Relational:ColumnName: fPhone
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TTicketType" Label="TTicketType" Name="TTicketType" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="ConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding
+Relational:DefaultMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMappingBase]
+Relational:Schema:
+Relational:TableMappings: System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.Internal.TableMapping]
+Relational:TableName: tTicketTypes
+ServiceOnlyConstructorBinding: Microsoft.EntityFrameworkCore.Metadata.ConstructorBinding" Category="EntityType" Group="Expanded" />
+<Node Id = "TTicketAndProduct.FTicketAndProductId" Label="FTicketAndProductId" Name="FTicketAndProductId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTicketAndProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TTicketAndProduct.FProduct" Label="FProduct (1)" Name="FProduct" Category="Navigation Property" Type="TProduct"  Field="" Dependent="" Principal="TProduct" Inverse="TTicketAndProducts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TTicketAndProduct.FTicket" Label="FTicket (1)" Name="FTicket" Category="Navigation Property" Type="TTicketType"  Field="" Dependent="" Principal="TTicketType" Inverse="TTicketAndProducts" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TTicketAndProduct.FPrice" Label="FPrice" Name="FPrice" Category="Property Optional" Type="Nullable&lt;decimal&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fPrice
+Relational:ColumnType: money
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TTicketAndProduct.FProductId" Label="FProductId" Name="FProductId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fProductID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TTicketAndProduct.FTicketId" Label="FTicketId" Name="FTicketId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTicketID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TTicketType" Label="TTicketType" Name="TTicketType" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="" Category="EntityType" Group="Expanded" />
+<Node Id = "TTicketType.FTicketId" Label="FTicketId" Name="FTicketId" Category="Property Primary" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fTicketID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]
+SqlServer:ValueGenerationStrategy: IdentityColumn" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "TTicketType.FSubCategory" Label="FSubCategory (1)" Name="FSubCategory" Category="Navigation Property" Type="TSubCategory"  Field="" Dependent="" Principal="TSubCategory" Inverse="TTicketTypes" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TTicketType.TOrderDetails" Label="TOrderDetails (*)" Name="TOrderDetails" Category="Navigation Collection" Type="ICollection&lt;TOrderDetail&gt;"  Field="" Dependent="TOrderDetail" Principal="" Inverse="FTicket" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TTicketType.TTicketAndProducts" Label="TTicketAndProducts (*)" Name="TTicketAndProducts" Category="Navigation Collection" Type="ICollection&lt;TTicketAndProduct&gt;"  Field="" Dependent="TTicketAndProduct" Principal="" Inverse="FTicket" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "TTicketType.FSubCategoryId" Label="FSubCategoryId" Name="FSubCategoryId" Category="Property Foreign" Type="Nullable&lt;int&gt;" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="Relational:ColumnName: fSubCategoryID
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "TTicketType.FTicketName" Label="FTicketName" Name="FTicketName" Category="Property Optional" Type="string" MaxLength="(10)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 10
+Relational:ColumnName: fTicketName
+Relational:DefaultColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMappingBase]
+Relational:TableColumnMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ColumnMapping]" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+  </Nodes>
+  <Links>
+<Link Source = "IModel" Target="TCategory" Category="Contains" />
+<Link Source = "IModel" Target="TCity" Category="Contains" />
+<Link Source = "TCategory" Target="TCategory.TSubCategories" Category="Contains" />
+<Link Source = "TCategory" Target="TCategory.FCategoryId" Category="Contains" />
+<Link Source = "TCategory" Target="TCategory.FCategoryName" Category="Contains" />
+<Link Source = "IModel" Target="TCollection" Category="Contains" />
+<Link Source = "TCity" Target="TCity.TCustomers" Category="Contains" />
+<Link Source = "TCity" Target="TCity.TProducts" Category="Contains" />
+<Link Source = "TCity" Target="TCity.FCityId" Category="Contains" />
+<Link Source = "TCity" Target="TCity.FCityName" Category="Contains" />
+<Link Source = "IModel" Target="TCoupon" Category="Contains" />
+<Link Source = "TCollection" Target="TCollection.FCustomer" Category="Contains" />
+<Link Source = "TCollection" Target="TCollection.FProduct" Category="Contains" />
+<Link Source = "TCollection" Target="TCollection.FCollectionId" Category="Contains" />
+<Link Source="TCollection" Target="TCustomer" From="TCollection.FCustomerId" To="TCustomer.FCustomerId" Name="TCollection -> TCustomer" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCollection_tCustomers" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TCollection" Target="TProduct" From="TCollection.FProductId" To="TProduct.FProductId" Name="TCollection -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCollection_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TCollection" Target="TCollection.FCollectionDate" Category="Contains" />
+<Link Source = "TCollection" Target="TCollection.FCollectionState" Category="Contains" />
+<Link Source = "TCollection" Target="TCollection.FCustomerId" Category="Contains" />
+<Link Source = "TCollection" Target="TCollection.FProductId" Category="Contains" />
+<Link Source = "IModel" Target="TCustomer" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId1Navigation" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId2Navigation" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId3Navigation" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId4Navigation" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId5Navigation" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.TOrderDetails" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.TShoppingCarts" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FCouponId" Category="Contains" />
+<Link Source="TCoupon" Target="TProduct" From="TCoupon.FProductId1" To="TProduct.FProductId" Name="TCoupon -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCoupon_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TCoupon" Target="TProduct" From="TCoupon.FProductId2" To="TProduct.FProductId" Name="TCoupon -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCoupon_tProducts1" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TCoupon" Target="TProduct" From="TCoupon.FProductId3" To="TProduct.FProductId" Name="TCoupon -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCoupon_tProducts2" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TCoupon" Target="TProduct" From="TCoupon.FProductId4" To="TProduct.FProductId" Name="TCoupon -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCoupon_tProducts3" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TCoupon" Target="TProduct" From="TCoupon.FProductId5" To="TProduct.FProductId" Name="TCoupon -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCoupon_tProducts4" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TCoupon" Target="TCoupon.FCouponName" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FDeadTime" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FDiscount" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId1" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId2" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId3" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId4" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FProductId5" Category="Contains" />
+<Link Source = "TCoupon" Target="TCoupon.FTimeOut" Category="Contains" />
+<Link Source = "IModel" Target="TDiscount" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FCity" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.TCollections" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.TFeedbackManagements" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.TOrders" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.TShoppingCarts" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FCustomerId" Category="Contains" />
+<Link Source="TCustomer" Target="TCity" From="TCustomer.FCityId" To="TCity.FCityId" Name="TCustomer -> TCity" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tCustomers_tCity" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TCustomer" Target="TCustomer.FAddress" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FBirth" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FCityId" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FEmail" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FFirstName" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FGender" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FLastName" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FPassword" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FPhone" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FSignUpDate" Category="Contains" />
+<Link Source = "TCustomer" Target="TCustomer.FUserPhoto" Category="Contains" />
+<Link Source = "IModel" Target="TFeedbackManagement" Category="Contains" />
+<Link Source = "TDiscount" Target="TDiscount.FDiscountId" Category="Contains" />
+<Link Source = "TDiscount" Target="TDiscount.FDeadTime" Category="Contains" />
+<Link Source = "TDiscount" Target="TDiscount.FDiscount" Category="Contains" />
+<Link Source = "TDiscount" Target="TDiscount.FDiscountName" Category="Contains" />
+<Link Source = "TDiscount" Target="TDiscount.FTimeOut" Category="Contains" />
+<Link Source = "IModel" Target="TOrder" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FCustomer" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FProduct" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FFeedbackId" Category="Contains" />
+<Link Source="TFeedbackManagement" Target="TCustomer" From="TFeedbackManagement.FCustomerId" To="TCustomer.FCustomerId" Name="TFeedbackManagement -> TCustomer" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tFeedbackManagement_tCustomers" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TFeedbackManagement" Target="TProduct" From="TFeedbackManagement.FProductId" To="TProduct.FProductId" Name="TFeedbackManagement -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tFeedbackManagement_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FCustomerId" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FFeedbackContent" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FFeedbackDate" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FProductId" Category="Contains" />
+<Link Source = "TFeedbackManagement" Target="TFeedbackManagement.FRanking" Category="Contains" />
+<Link Source = "IModel" Target="TOrderDetail" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FCustomer" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FPayType" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FShipper" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FStatus" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.TOrderDetails" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FOrderId" Category="Contains" />
+<Link Source="TOrder" Target="TCustomer" From="TOrder.FCustomerId" To="TCustomer.FCustomerId" Name="TOrder -> TCustomer" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrders_tCustomers" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TOrder" Target="TPayment" From="TOrder.FPayTypeId" To="TPayment.FPayTypeId" Name="TOrder -> TPayment" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrders_tPayment" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TOrder" Target="TShipper" From="TOrder.FShipperId" To="TShipper.FShipperId" Name="TOrder -> TShipper" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrders_tShipper" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TOrder" Target="TStatus" From="TOrder.FStatusId" To="TStatus.FStatusId" Name="TOrder -> TStatus" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrders_tStatus" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TOrder" Target="TOrder.FCustomerId" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FOrderDate" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FPayTypeId" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FShippedDate" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FShipperId" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FStatusId" Category="Contains" />
+<Link Source = "TOrder" Target="TOrder.FTotalPrice" Category="Contains" />
+<Link Source = "IModel" Target="TPayment" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FCoupon" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FOrder" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FProduct" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FTicket" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.TSeats" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FOrderDetailsId" Category="Contains" />
+<Link Source="TOrderDetail" Target="TCoupon" From="TOrderDetail.FCouponId" To="TCoupon.FCouponId" Name="TOrderDetail -> TCoupon" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrderDetail_tCoupon" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TOrderDetail" Target="TOrder" From="TOrderDetail.FOrderId" To="TOrder.FOrderId" Name="TOrderDetail -> TOrder" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrderDetail_tOrders" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TOrderDetail" Target="TProduct" From="TOrderDetail.FProductId" To="TProduct.FProductId" Name="TOrderDetail -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrderDetail_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TOrderDetail" Target="TTicketType" From="TOrderDetail.FTicketId" To="TTicketType.FTicketId" Name="TOrderDetail -> TTicketType" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tOrderDetail_tTicketTypes" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FBookingTime" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FCouponId" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FOrderId" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FPrice" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FProductId" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FQuantity" Category="Contains" />
+<Link Source = "TOrderDetail" Target="TOrderDetail.FTicketId" Category="Contains" />
+<Link Source = "IModel" Target="TPhotoSite" Category="Contains" />
+<Link Source = "TPayment" Target="TPayment.TOrders" Category="Contains" />
+<Link Source = "TPayment" Target="TPayment.FPayTypeId" Category="Contains" />
+<Link Source = "TPayment" Target="TPayment.FPayType" Category="Contains" />
+<Link Source = "IModel" Target="TProduct" Category="Contains" />
+<Link Source = "TPhotoSite" Target="TPhotoSite.TProductsPhotos" Category="Contains" />
+<Link Source = "TPhotoSite" Target="TPhotoSite.FPhotoSiteId" Category="Contains" />
+<Link Source = "TPhotoSite" Target="TPhotoSite.FPhotoplace" Category="Contains" />
+<Link Source = "IModel" Target="TProductsPhoto" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FCity" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FSubCategory" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FSupplier" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TCollections" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TCouponFProductId1Navigations" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TCouponFProductId2Navigations" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TCouponFProductId3Navigations" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TCouponFProductId4Navigations" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TCouponFProductId5Navigations" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TFeedbackManagements" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TOrderDetails" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TProductsPhotos" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TSeats" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TShoppingCarts" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.TTicketAndProducts" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FProductId" Category="Contains" />
+<Link Source="TProduct" Target="TCity" From="TProduct.FCityId" To="TCity.FCityId" Name="TProduct -> TCity" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tProducts_tCity" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TProduct" Target="TSubCategory" From="TProduct.FSubCategoryId" To="TSubCategory.FSubCategoryId" Name="TProduct -> TSubCategory" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tProducts_tSubCategory" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TProduct" Target="TSupplier" From="TProduct.FSupplierId" To="TSupplier.FSupplierId" Name="TProduct -> TSupplier" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tProducts_tSupplier" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TProduct" Target="TProduct.FAddress" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FCityId" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FDiscountOrNot" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FEndTime" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FIntroduction" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FProductName" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FQuantity" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FStartTime" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FSubCategoryId" Category="Contains" />
+<Link Source = "TProduct" Target="TProduct.FSupplierId" Category="Contains" />
+<Link Source = "IModel" Target="TSeat" Category="Contains" />
+<Link Source = "TProductsPhoto" Target="TProductsPhoto.FPhotoSite" Category="Contains" />
+<Link Source = "TProductsPhoto" Target="TProductsPhoto.FProduct" Category="Contains" />
+<Link Source = "TProductsPhoto" Target="TProductsPhoto.FProductPhotoId" Category="Contains" />
+<Link Source="TProductsPhoto" Target="TPhotoSite" From="TProductsPhoto.FPhotoSiteId" To="TPhotoSite.FPhotoSiteId" Name="TProductsPhoto -> TPhotoSite" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tProductsPhoto_tPhotoSite" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TProductsPhoto" Target="TProduct" From="TProductsPhoto.FProductId" To="TProduct.FProductId" Name="TProductsPhoto -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tProductsPhoto_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TProductsPhoto" Target="TProductsPhoto.FPhotoPath" Category="Contains" />
+<Link Source = "TProductsPhoto" Target="TProductsPhoto.FPhotoSiteId" Category="Contains" />
+<Link Source = "TProductsPhoto" Target="TProductsPhoto.FProductId" Category="Contains" />
+<Link Source = "IModel" Target="TShipper" Category="Contains" />
+<Link Source = "TSeat" Target="TSeat.FOrderDetail" Category="Contains" />
+<Link Source = "TSeat" Target="TSeat.FProduct" Category="Contains" />
+<Link Source = "TSeat" Target="TSeat.FSeatId" Category="Contains" />
+<Link Source="TSeat" Target="TOrderDetail" From="TSeat.FOrderDetailId" To="TOrderDetail.FOrderDetailsId" Name="TSeat -> TOrderDetail" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tSeat_tOrderDetail" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TSeat" Target="TProduct" From="TSeat.FProductId" To="TProduct.FProductId" Name="TSeat -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tSeat_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TSeat" Target="TSeat.FOrderDetailId" Category="Contains" />
+<Link Source = "TSeat" Target="TSeat.FProductId" Category="Contains" />
+<Link Source = "TSeat" Target="TSeat.FSeatName" Category="Contains" />
+<Link Source = "IModel" Target="TShoppingCart" Category="Contains" />
+<Link Source = "TShipper" Target="TShipper.TOrders" Category="Contains" />
+<Link Source = "TShipper" Target="TShipper.FShipperId" Category="Contains" />
+<Link Source = "TShipper" Target="TShipper.FPhone" Category="Contains" />
+<Link Source = "TShipper" Target="TShipper.FShipperName" Category="Contains" />
+<Link Source = "IModel" Target="TStatus" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FCoupon" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FCustomer" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FProduct" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FShoppingCartId" Category="Contains" />
+<Link Source="TShoppingCart" Target="TCoupon" From="TShoppingCart.FCouponId" To="TCoupon.FCouponId" Name="TShoppingCart -> TCoupon" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tShoppingCart_tCoupon" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TShoppingCart" Target="TCustomer" From="TShoppingCart.FCustomerId" To="TCustomer.FCustomerId" Name="TShoppingCart -> TCustomer" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tShoppingCart_tCustomers" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TShoppingCart" Target="TProduct" From="TShoppingCart.FProductId" To="TProduct.FProductId" Name="TShoppingCart -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tShoppingCart_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FBookingTime" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FCouponId" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FCustomerId" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FProductId" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FQuantity" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FSeats" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FTempOrder" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FTicketId" Category="Contains" />
+<Link Source = "TShoppingCart" Target="TShoppingCart.FTotalPrice" Category="Contains" />
+<Link Source = "IModel" Target="TSubCategory" Category="Contains" />
+<Link Source = "TStatus" Target="TStatus.TOrders" Category="Contains" />
+<Link Source = "TStatus" Target="TStatus.FStatusId" Category="Contains" />
+<Link Source = "TStatus" Target="TStatus.FStatusName" Category="Contains" />
+<Link Source = "IModel" Target="TSupplier" Category="Contains" />
+<Link Source = "TSubCategory" Target="TSubCategory.FCategory" Category="Contains" />
+<Link Source = "TSubCategory" Target="TSubCategory.TProducts" Category="Contains" />
+<Link Source = "TSubCategory" Target="TSubCategory.TTicketTypes" Category="Contains" />
+<Link Source = "TSubCategory" Target="TSubCategory.FSubCategoryId" Category="Contains" />
+<Link Source="TSubCategory" Target="TCategory" From="TSubCategory.FCategoryId" To="TCategory.FCategoryId" Name="TSubCategory -> TCategory" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tSubCategory_tCategory" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TSubCategory" Target="TSubCategory.FCategoryId" Category="Contains" />
+<Link Source = "TSubCategory" Target="TSubCategory.FSubCategoryName" Category="Contains" />
+<Link Source = "IModel" Target="TTicketAndProduct" Category="Contains" />
+<Link Source = "TSupplier" Target="TSupplier.TProducts" Category="Contains" />
+<Link Source = "TSupplier" Target="TSupplier.FSupplierId" Category="Contains" />
+<Link Source = "TSupplier" Target="TSupplier.FAddress" Category="Contains" />
+<Link Source = "TSupplier" Target="TSupplier.FCompanyName" Category="Contains" />
+<Link Source = "TSupplier" Target="TSupplier.FPhone" Category="Contains" />
+<Link Source = "IModel" Target="TTicketType" Category="Contains" />
+<Link Source = "TTicketAndProduct" Target="TTicketAndProduct.FProduct" Category="Contains" />
+<Link Source = "TTicketAndProduct" Target="TTicketAndProduct.FTicket" Category="Contains" />
+<Link Source = "TTicketAndProduct" Target="TTicketAndProduct.FTicketAndProductId" Category="Contains" />
+<Link Source="TTicketAndProduct" Target="TProduct" From="TTicketAndProduct.FProductId" To="TProduct.FProductId" Name="TTicketAndProduct -> TProduct" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tTicketAndProduct_tProducts" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source="TTicketAndProduct" Target="TTicketType" From="TTicketAndProduct.FTicketId" To="TTicketType.FTicketId" Name="TTicketAndProduct -> TTicketType" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tTicketAndProduct_tTicketTypes" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TTicketAndProduct" Target="TTicketAndProduct.FPrice" Category="Contains" />
+<Link Source = "TTicketAndProduct" Target="TTicketAndProduct.FProductId" Category="Contains" />
+<Link Source = "TTicketAndProduct" Target="TTicketAndProduct.FTicketId" Category="Contains" />
+<Link Source = "IModel" Target="TTicketType" Category="Contains" />
+<Link Source = "TTicketType" Target="TTicketType.FSubCategory" Category="Contains" />
+<Link Source = "TTicketType" Target="TTicketType.TOrderDetails" Category="Contains" />
+<Link Source = "TTicketType" Target="TTicketType.TTicketAndProducts" Category="Contains" />
+<Link Source = "TTicketType" Target="TTicketType.FTicketId" Category="Contains" />
+<Link Source="TTicketType" Target="TSubCategory" From="TTicketType.FSubCategoryId" To="TSubCategory.FSubCategoryId" Name="TTicketType -> TSubCategory" Annotations="Relational:ForeignKeyMappings: System.Collections.Generic.SortedSet`1[Microsoft.EntityFrameworkCore.Metadata.Internal.ForeignKeyConstraint]
+Relational:Name: FK_tTicketTypes_tSubCategory" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "TTicketType" Target="TTicketType.FSubCategoryId" Category="Contains" />
+<Link Source = "TTicketType" Target="TTicketType.FTicketName" Category="Contains" />
+  </Links>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="EntityType" ValueLabel="True">
+      <Condition Expression="HasCategory('EntityType')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Required" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Required')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Property" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Property')" />
+      <Setter Property="Background" Value="#FF990000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Collection" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Collection')" />
+      <Setter Property="Background" Value="#FFFF3232" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Model" ValueLabel="True">
+      <Condition Expression="HasCategory('Model')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+  <Properties>
+    <Property Id="Name" Group="Model Properties" DataType="System.String" />
+    <Property Id="Field"  Description="Backing field" Group="Model Properties" DataType="System.String" />
+    <Property Id="Type"  Description="CLR data type" Group="Model Properties" DataType="System.String" />
+    <Property Id="To" Description="Source property" Group="Model Properties" DataType="System.String" />
+    <Property Id="From" Description="Target property" Group="Model Properties" DataType="System.String" />
+    <Property Id="Dependent" Description="Dependent entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="Inverse" Description="Inverse entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="Principal" Description="Principal entity" Group="Model Properties" DataType="System.String" />    
+    <Property Id="Annotations" Description="Annotations" Group="Model Properties" DataType="System.String" />
+    <Property Id="BaseClass"  Description="Base class" Group="Model Properties" DataType="System.String" />
+    <Property Id="ChangeTrackingStrategy" Description="Change tracking strategy" Group="Model Properties" DataType="System.String" />
+    <Property Id="IsUnique" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="IsAbstract" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="ProductVersion" Label="Product Version" Description="EF Core product version" Group="Model Properties" DataType="System.String" />
+    <Property Id="IsIndexed" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsRequired" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsPrimaryKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsForeignKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsShadow" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsAlternateKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsConcurrencyToken" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsIndexed" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsUnicode" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="ValueGenerated" Group="Property Flags" DataType="System.String" />
+    <Property Id="BeforeSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="AfterSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="PropertyAccessMode" Group="Property Flags" DataType="System.String" />
+  </Properties>
+</DirectedGraph>

@@ -12,8 +12,10 @@ namespace IGO.Models
         public int? FProductId { get; set; }
         public bool? FCollectionState { get; set; }
         public string FCollectionDate { get; set; }
+        public int? FMovieId { get; set; }
 
         public virtual TCustomer FCustomer { get; set; }
+        public virtual TMovie FMovie { get; set; }
         public virtual TProduct FProduct { get; set; }
     }
 }

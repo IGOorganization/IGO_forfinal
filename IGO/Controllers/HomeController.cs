@@ -262,36 +262,5 @@ namespace IGO.Controllers
             return Json(vModel);
         }
 
-        //鈞傑
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(CLoginViewModel vModel)
-        {
-            TCustomer cust = _IgoContext.TCustomers.FirstOrDefault(n => n.FPhone == vModel.txtAccount);
-            if (cust != null)
-            {
-                if (cust.FPassword.Equals(vModel.txtPassword))
-                {
-                    HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
-
-                    return RedirectToAction("Home", "Home");
-                }
-            }
-            return View();
-        }
-        public IActionResult checkUser()
-        {
-            int userid = 0;
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-            {
-                userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
-                return Json(userid);
-            }
-            return Json("尚未登入");
-        }
     }
 }
