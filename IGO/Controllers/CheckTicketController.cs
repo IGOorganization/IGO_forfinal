@@ -31,10 +31,32 @@ namespace IGO.Controllers
         {
 
             int OdId = int.Parse(CEncryptAndDecrypt.Decrypt(id));
-            if (_dbIgo.TOrderDetails.FirstOrDefault(c=>c.FOrderDetailsId == OdId) !=null)
-                return View();
-            else
-                return RedirectToAction("CheckFail");
+
+            
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))  //判斷使用者是否登入
+            {
+                int UserId = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+                if ((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId).FSupplierId) > 0)  //判斷是否為驗票人員
+                {
+
+                    if (_dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId) != null) //判斷是否有此筆訂單
+                    {
+                        COrderDetailViewModel orderDetail = new COrderDetailViewModel(_dbIgo);
+                        orderDetail.orderDetail = _dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId);
+                        List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
+                        lists.Add(orderDetail);
+                        return View(lists);
+                    }
+                    else
+                        return RedirectToAction("CheckFail");
+                }
+                else {
+                    return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List");
+                }
+            }
+            else { 
+                 return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List"); 
+            }
         }
 
         public IActionResult CheckFail()

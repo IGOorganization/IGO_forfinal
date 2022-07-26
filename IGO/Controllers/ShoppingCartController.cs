@@ -344,7 +344,7 @@ namespace IGO.Controllers
 			{
 				string TicketValue = CEncryptAndDecrypt.Encrypt(PicNum[i].ToString());
 				QRCodeGenerator qrGenerator = new QRCodeGenerator();
-				 QrcodeContext.Add($"{Request.Scheme}://{Request.Host}/CheckTicket/ScanTicket/{TicketValue}");
+				QrcodeContext.Add($"{Request.Scheme}://{Request.Host}/CheckTicket/ScanTicket/{TicketValue}");
 				QRCodeData qrCodeData = qrGenerator.CreateQrCode(QrcodeContext[i], QRCodeGenerator.ECCLevel.Q);
 				QRCode qrCode = new QRCode(qrCodeData);
 				Bitmap icon = new Bitmap(webHostEnvironment.WebRootPath + "/ShoppingCartImgs/IGO.jpg");
@@ -373,27 +373,36 @@ namespace IGO.Controllers
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            //------------------------------------------------------夾帶檔案
-            var res = new LinkedResource(webHostEnvironment.WebRootPath + "/img/Code.jpg", MediaTypeNames.Image.Jpeg);
-            res.ContentId = "Pic1";  //每個檔案都需要有一個contentID
-			var htmlBody = $"<html><body><div style='width:350px'><h1 style='text-align:center'>入場票券</h1>";
-			for (int i = 0; i< lists.Count; i++) {
-				htmlBody += $"<div style='border:1px black solid;display:flex;margin-bottom:10px'><div><h2>{lists[i].product.FProductName}</h2>" +
-				   $"<img src='cid:Pic1'></div>" +
-				   $"<div style='margin-top:40px'><h3>使用時間:{lists[i].FBookingTime}</h3><h3>票種:{lists[i].ticket.FTicketName}</h3>" +
+			//------------------------------------------------------夾帶檔案
+			List<LinkedResource> resLists = new List<LinkedResource>();
+			//var res = new LinkedResource(webHostEnvironment.WebRootPath + "/img/Code.jpg", MediaTypeNames.Image.Jpeg);
+			//res.ContentId = "Pic1";  //每個檔案都需要有一個contentID
+			var htmlBody = $"<html><body><div style='width:450px'><h1 style='text-align:center'>入場票券</h1>";
+			for (int i = 0; i < lists.Count; i++)
+			{
+				var res = new LinkedResource(webHostEnvironment.WebRootPath + $"/QRCodeTicketImgs/QRCode{PicNum[i]}.jpg", MediaTypeNames.Image.Jpeg);
+				res.ContentId =PicNum[i].ToString();  //每個檔案都需要有一個contentID
+				htmlBody += $"<div style='border:1px black solid;display:flex;margin-bottom:10px'><div><h2 style='text-align:center'>{lists[i].product.FProductName}</h2>" +
+				   $"<img src='cid:" + $"{PicNum[i]}'>"+
+				   $"</div>" +
+				   $"<div style='margin-top:60px'><h3>使用時間:{lists[i].FBookingTime}</h3><h3>票種:{lists[i].ticket.FTicketName}</h3>" +
 				   $"<h3>張數:{lists[i].FQuantity}</h3><h3>價錢:{lists[i].FTotalPrice:C2}</h3>" +
 				   $"<h3>地址:{lists[i].product.FAddress}</h3></div></div>" +
 				   $"<p>{QrcodeContext[i]}</p>";
-
+				resLists.Add(res);
 			}
-			htmlBody +=	$"</div></body></html>";
-            var altView = AlternateView.CreateAlternateViewFromString(
-                htmlBody, null, MediaTypeNames.Text.Html);
-            altView.LinkedResources.Add(res);
-            em.AlternateViews.Add(altView);
+			htmlBody += $"</div></body></html>";
+			var altView = AlternateView.CreateAlternateViewFromString(
+				htmlBody, null, MediaTypeNames.Text.Html);
+			for (int i = 0; i < lists.Count; i++)
+			{
+				altView.LinkedResources.Add(resLists[i]);
+			}
+			em.AlternateViews.Add(altView);
 
-            try
-            {
+
+			try
+			{
                 client.Send(em);
             }
             catch
