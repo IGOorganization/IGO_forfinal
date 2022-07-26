@@ -136,7 +136,7 @@ namespace IGO.Areas.Admin.Controllers
                 tap.FTicketId = c.tickettype;
                 tap.FPrice = c.price;
 
-                TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 1 && n.FProductId == c.fProductId);
+                TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 3 && n.FProductId == c.fProductId);
 
                 if (Photo != null)
                 {

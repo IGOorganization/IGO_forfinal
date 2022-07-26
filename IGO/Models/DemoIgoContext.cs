@@ -51,16 +51,14 @@ namespace IGO.Models
         public virtual DbSet<TTicketType> TTicketTypes { get; set; }
         public virtual DbSet<TVoucher> TVouchers { get; set; }
 
-
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
 //            if (!optionsBuilder.IsConfigured)
 //            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-////                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True;");
+//                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True");
 //            }
 //        }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -976,9 +974,11 @@ namespace IGO.Models
 
                 entity.Property(e => e.FPoint).HasColumnName("fPoint");
 
-                entity.Property(e => e.FTestResult)
+                entity.Property(e => e.FTestResultType)
                     .HasMaxLength(50)
-                    .HasColumnName("fTestResult");
+                    .HasColumnName("fTestResultType");
+
+                entity.Property(e => e.FTestResultTypeId).HasColumnName("fTestResultTypeID");
 
                 entity.HasOne(d => d.FCustomer)
                     .WithMany(p => p.TTestResults)
