@@ -60,7 +60,7 @@ namespace IGO.Controllers
 
 
 
-            return Redirect(Url.Content("~/Home/Login"));
+            return Redirect($"{Request.Scheme}://{Request.Host}/Home/Home");
 
         }
 

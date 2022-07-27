@@ -49,18 +49,18 @@ namespace IGO
             });
             services.AddControllersWithViews().AddNewtonsoftJson
                (options =>
-               {  
-                 
+               {
+
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                });
             services.AddRazorPages().AddNewtonsoftJson(options =>
            {
-             options.UseMemberCasing();
-              
-              });
+               options.UseMemberCasing();
+
+           });
 
 
-            });
+        
 
 
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -121,7 +121,7 @@ namespace IGO
                 endpoints.MapControllerRoute(
                     name: "default",
 
-                    pattern: "{controller=CheckTicket}/{action=CheckCustomerOrderDetails}/{id?}");
+                    pattern: "{controller=ShoppingCart}/{action=List}/{id?}");
 
                 endpoints.MapRazorPages();
             });
