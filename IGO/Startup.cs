@@ -1,4 +1,5 @@
 using IGO.Data;
+using IGO.Hubs;
 using IGO.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +14,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IGO.Hubs;
+
+
+
 namespace IGO
 {
     public class Startup
@@ -74,10 +77,10 @@ namespace IGO
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Home}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Hubs}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Home}/{id?}");
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chatHub");
             });

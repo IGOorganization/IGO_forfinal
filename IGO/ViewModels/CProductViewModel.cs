@@ -1,162 +1,66 @@
-﻿using IGO.Models;
+﻿using Microsoft.AspNetCore.Http;
+using IGO.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IGO.ViewModels
+namespace prjMvcCoreDemo.ViewModels
 {
     public class CProductViewModel
     {
-        private DemoIgoContext _dbIgo;
-        private TProduct _prod = new TProduct();
-        public CProductViewModel(DemoIgoContext db)
+        public CProductViewModel()
         {
-            _dbIgo = db;
+            _prod = new TFeedbackManagement();
         }
-        public TProduct product
+        private TFeedbackManagement _prod;
+        public TFeedbackManagement product
         {
-            get
-            {
-                return _prod;
-            }
-            set
-            {
-                _prod = value;
-            }
+            get { return _prod; }
+            set { _prod = value; }
         }
-        public int FProductId
+        public int FeedbackId
         {
-            get
-            {
-                return _prod.FProductId;
-            }
-            set
-            {
-                _prod.FProductId = value;
-            }
+            get { return _prod.FFeedbackId; }
+            set { _prod.FFeedbackId = value; }
         }
-        [DisplayName("商品名稱")]
-        public string FProductName
+        [DisplayName("客戶id")]
+        public int? CustomerId
         {
-            get
-            {
-                return _prod.FProductName;
-            }
-            set
-            {
-                _prod.FProductName = value;
-            }
+            get { return _prod.FCustomerId; }
+            set { _prod.FCustomerId = value; }
         }
-        [DisplayName("商品名稱")]
-        public int? FCityId
+        [DisplayName("評論")]
+        public string FeedbackContent
         {
-            get
-            {
-                return _prod.FCityId;
-            }
-            set
-            {
-                _prod.FCityId = value;
-            }
+            get { return _prod.FFeedbackContent; }
+            set { _prod.FFeedbackContent = value; }
         }
-        [DisplayName("商品名稱")]
-        public string FAddress
+        [DisplayName("分數")]
+        public int? Ranking
         {
-            get
-            {
-                return _prod.FAddress;
-            }
-            set
-            {
-                _prod.FAddress = value;
-            }
+            get { return _prod.FRanking; }
+            set { _prod.FRanking = value; }
         }
-        [DisplayName("商品名稱")]
-        public int? FSupplierId
+        [DisplayName("產品id")]
+        public int? ProductsId
         {
-            get
-            {
-                return _prod.FSupplierId;
-            }
-            set
-            {
-                _prod.FSupplierId = value;
-            }
+            get { return _prod.FProductId; }
+            set { _prod.FProductId = value; }
         }
-        [DisplayName("商品名稱")]
-        public int? FQuantity
+        [DisplayName("日期")]
+        public string FeedbackDate
         {
-            get
-            {
-                return _prod.FQuantity;
-            }
-            set
-            {
-                _prod.FQuantity = value;
-            }
-        }
-        [DisplayName("商品名稱")]
-        public string FStartTime
-        {
-            get
-            {
-                return _prod.FStartTime;
-            }
-            set
-            {
-                _prod.FStartTime = value;
-            }
-        }
-        [DisplayName("下架時間")]
-        public string FEndTime
-        {
-            get
-            {
-                return _prod.FEndTime;
-            }
-            set
-            {
-                _prod.FEndTime = value;
-            }
-        }
-        [DisplayName("供應商")]
-        public int? FSubCategoryId
-        {
-            get
-            {
-                return _prod.FSubCategoryId;
-            }
-            set
-            {
-                _prod.FSubCategoryId = value;
-            }
-        }
-        [DisplayName("商品介紹")]
-        public string FIntroduction
-        {
-            get
-            {
-                return _prod.FIntroduction;
-            }
-            set
-            {
-                _prod.FIntroduction = value;
-            }
-        }
-        [DisplayName("是否打折")]
-        public bool? FDiscountOrNot
-        {
-            get
-            {
-                return _prod.FDiscountOrNot;
-            }
-            set
-            {
-                _prod.FDiscountOrNot = value;
-            }
-        }
+            get { return _prod.FFeedbackDate; }
+            set { _prod.FFeedbackDate = value; }
 
+        }
+        //public string ImagePath
+        //{
+        //    get { return _prod.ImagePath; }
+        //    set { _prod.ImagePath = value; }
+        //}
+        public IFormFile photo { get; set; }
     }
 }

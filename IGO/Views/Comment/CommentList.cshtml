@@ -1,0 +1,145 @@
+﻿@model IEnumerable<IGO.ViewModels.CFeedbackManagementViewModel>
+
+@using IGO.Controllers
+
+@{
+    ViewData["Title"] = "CommentList";
+}
+
+
+<div class="container-xxl bg-light p-0">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row ">
+                <div class="col-md-3">
+                    <div>
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <hr />
+                            <div class=" card-title text-center">
+                                @*@{ if (CustomerController.imgpath == null)
+                                        {
+                                             <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg"> }
+                                        else
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
+                                        }
+                                    }*@
+                            </div>
+                            <div class="card-body">
+                                <h4 class="text-primary text-center ">@*@CustomerController.userName*@</h4>
+
+                            </div>
+                            <hr />
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <ul class="list-group">
+                                <li class="list-group-item bg-dark">
+                                    <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen">個人資訊</i></a>
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("修改密碼", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                            </ul>
+                            <div class="card-body text-end ">
+                                <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                            </div>
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card ">
+
+                        <h1>我的評論</h1>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-lg-2">
+                                        產品圖片
+                                    </th>
+                                    <th class="col-lg-2">
+                                        產品名稱
+                                    </th>
+                                    <th class="col-lg-4">
+                                        內容
+                                    </th>
+                                    <th>
+                                        分數
+                                    </th>
+                                    <th>
+                                        日期
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int count = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>
+                                                <img width="160"height="90" src="~/img/@item.ProductImage"/>
+                                            </td>
+                                            <td>
+                                                @*@Html.DisplayFor(modelItem => item.FProductId)*@
+                                                @Html.DisplayFor(modelItem => item.product.FProductName)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FFeedbackContent)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FRanking)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.FFeedbackDate)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Comment", "Create", new { /* id=item.PrimaryKey */ }) |
+                                                @Html.ActionLink("刪除", "Delete", "Comment", new { id = item.FFeedbackId },
+                                                 new { onclick = "return confirm('確定要刪除嗎?')" })
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@

@@ -1,0 +1,222 @@
+﻿@model IGO.Models.TFeedbackManagement
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Create";
+    int UserID = (int)Context.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+    
+}
+
+
+
+<hr />
+<style>
+    .x2 {
+    }
+
+    #img1 {
+        max-width: 15%;
+        max-height: 15%;
+    }
+</style>
+
+<div class="container-xxl bg-light p-0">
+    <div class="container">
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row ">
+                <div class="col-md-3">
+                    <div>
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <hr />
+                            <div class=" card-title text-center">
+                                @*@{ if (CustomerController.imgpath == null)
+                                        {
+                                             <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg"> }
+                                        else
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
+                                        }
+                                    }*@
+                            </div>
+                            <div class="card-body">
+                                <h4 class="text-primary text-center ">@*@CustomerController.userName*@</h4>
+
+                            </div>
+                            <hr />
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <ul class="list-group">
+                                <li class="list-group-item bg-dark">
+                                    <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen">個人資訊</i></a>
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("修改密碼", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item list-group-item-primary">
+                                    @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                            </ul>
+                            <div class="card-body text-end ">
+                                <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                            </div>
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card ">
+                        <form asp-controller="Comment" asp-action="Create" enctype="multipart/form-data">
+                            <div class="border">
+                                <div class="card-header ">
+                                    <h1 class="text-primary">Title</h1>
+                                    <div @*class="card p-5 col-md-8"*@ style="margin:auto">
+                                        <div class="row">
+                                            <div class="col-md-4" style="margin:auto">
+                                                <h1>台北喜來登大飯店｜十二廚</h1>
+                                                
+                                                <img src="~/img/yy.jpg "  width="500" height="333">
+                                                <h4>評論填寫</h4>
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                                <div class="form-group">
+                                                    @*<label asp-for=""="CustomerId" class="control-label"></labeltype>*@
+                                                    <input type="hidden" asp-for="FCustomerId" class="form-control" id="x" />
+                                                    <span asp-validation-for="FCustomerId" class="text-danger"></span>
+                                                </div>
+                                                <div class="x2">
+                                                    <img id="img1"class="imgs" src="~/img/xx.jpg" />
+                                                    <img id="img1"class="imgs" src="~/img/xx.jpg" />
+                                                    <img id="img1"class="imgs" src="~/img/xx.jpg" />
+                                                    <img id="img1"class="imgs" src="~/img/xx.jpg" />
+                                                    <img id="img1"class="imgs" src="~/img/xx.jpg" />
+
+                                                    <p id="a1"></p>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label asp-for="FFeedbackContent" class="control-label">評論內容</label>
+                                                    <input asp-for="FFeedbackContent" class="form-control" />
+                                                    <span asp-validation-for="FFeedbackContent" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    @*<label  asp-for="Ranking" class="control-label"></label>*@
+                                                    <input type="hidden" asp-for="FRanking" class="form-control" id="inputRanking" />
+                                                    <span asp-validation-for="FRanking" class="text-danger"></span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    @*<label asp-for="ProductsId" class="control-label"></label>*@
+                                                    <input type="hidden" asp-for="FProductId" class="form-control" id="y" />
+                                                    <span asp-validation-for="FProductId" class="text-danger"></span>
+                                                </div>
+
+
+
+                                                <div class="form-group">
+                                                    @*<label asp-for="FeedbackDate" class="control-label"></label>*@
+                                                    <input @*asp-for="FeedbackDate"*@ name="FFeedbackDate" type="hidden" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                                    <span asp-validation-for="FFeedbackDate" class="text-danger"></span>
+                                                </div>
+                                                @*<div class="form-group">
+            <label class="control-label">產品照片</label>
+            <input type="file" name="photo" class="form-control" />
+        </div>*@
+                                                <div class="form-group">
+                                                    <input type="submit" value="留言" class="btn btn-primary" />
+                                                </div>
+                                                <div>
+                                                    <a asp-action="CommentList">返回我的評論</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script>
+    let flag = true;
+
+    let count = 0;
+        $(".imgs").mouseenter(function () {
+        if (flag) {
+            $(this).attr("src", "@Url.Content("~/img/xxx.jpg")").prevAll().attr("src", "@Url.Content("~/img/xxx.jpg")");
+
+            count = $(this).index();
+            $("#a1").text(`評分中.....${count + 1}分`);
+        }
+    })
+        $(".imgs").mouseleave(function () {
+        if (flag) {
+            $(this).attr("src", "@Url.Content("~/img/xx.jpg")").siblings().attr("src", "@Url.Content("~/img/xx.jpg")");
+            $("#a1").text(` `);
+        }
+    })
+
+        $(".imgs").click(function () {
+
+
+        count = $(this).index();
+        if (flag) {
+            $("#a1").text(`你給${count + 1}分`);
+            $("#inputRanking").val(count + 1);
+            flag = false;
+        }
+
+
+    })
+        $(".imgs").dblclick(function () {
+        flag = true;
+        mouseleave();
+    })
+        $("#x").val(@UserID);
+    $("#y").val(436);
+
+
+
+
+    </script>
+}
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@

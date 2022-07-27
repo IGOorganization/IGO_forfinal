@@ -84,9 +84,10 @@ namespace IGO.Controllers
                 if (cust.FPassword.Equals(vModel.txtPassword))
                 {
                     HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
-                
+
                     return RedirectToAction("Home", "Home");
                 }
+                return RedirectToAction("Home", "Home");
             }
             return View();
         }

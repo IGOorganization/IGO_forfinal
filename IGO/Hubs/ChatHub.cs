@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using IGO.Models;
-using IGO.ViewModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.VisualBasic;
-using Microsoft.AspNetCore.Mvc;
 
 namespace IGO.Hubs
 {
     public class ChatHub : Hub
     {
-        
         public static List<string> ConnIDList = new List<string>();
-  
+
 
         /// <summary>
         /// 連線事件
@@ -28,7 +23,7 @@ namespace IGO.Hubs
         public override async Task OnConnectedAsync()
         {
             DemoIgoContext db = new DemoIgoContext();
-           
+
             if (ConnIDList.Where(p => p == Context.ConnectionId).FirstOrDefault() == null)
             {
                 ConnIDList.Add(Context.ConnectionId);
@@ -36,27 +31,14 @@ namespace IGO.Hubs
             // 更新連線 ID 列表
             string jsonString = JsonConvert.SerializeObject(ConnIDList);
             await Clients.All.SendAsync("UpdList", jsonString);
-            
-           int i = 1;
 
-          
-            
-            // 更新個人 ID
-            if (i==0)
-            {
-                
-                await Clients.Client(Context.ConnectionId).SendAsync("UpdSelfID", "客服");
-                i = 1;
-            }
-            else if (i == 1)
-                await Clients.Client(Context.ConnectionId).SendAsync("UpdSelfID", "客人");
+      
+                await Clients.Client(Context.ConnectionId).SendAsync("UpdSelfID","客人");
 
             // 更新聊天內容
-            await Clients.All.SendAsync("UpdContent", "新連線 ID: " + Context.ConnectionId);
+            //await Clients.All.SendAsync("UpdContent", "新連線 ID: " + Context.ConnectionId);
 
             await base.OnConnectedAsync();
-
-           
 
         }
 

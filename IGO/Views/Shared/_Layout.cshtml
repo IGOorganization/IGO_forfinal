@@ -49,6 +49,15 @@
             font-size: 200%;
             color: cornflowerblue;
         }
+        #chat {
+            border: 1px solid black;
+            width:300px;
+            position: fixed;
+            bottom: 0px;
+            right: 100px;
+            background-color: aqua;
+            z-index:2;
+        }
     </style>
 
     @await RenderSectionAsync("Styles", required: false)
@@ -102,15 +111,15 @@
                             <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
                             <a href="~/Hubs/Index" class="nav-item nav-link" style="font-size:120%">客服</a>
                             @*<a href="#Investegate" class="nav-item nav-link" style="font-size:150%"><i class="fa-solid fa-file-lines"></i></a>
-        <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-            <div class="dropdown-menu rounded-0 m-0">
-                <a href="~/booking.html" class="dropdown-item">Booking</a>
-                <a href="~/team.html" class="dropdown-item">Our Team</a>
-                <a href="~/testimonial.html" class="dropdown-item">Testimonial</a>
-            </div>
-        </div>
-        <a href="~/contact.html" class="nav-item nav-link">Contact</a>*@
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                    <div class="dropdown-menu rounded-0 m-0">
+                                        <a href="~/booking.html" class="dropdown-item">Booking</a>
+                                        <a href="~/team.html" class="dropdown-item">Our Team</a>
+                                        <a href="~/testimonial.html" class="dropdown-item">Testimonial</a>
+                                    </div>
+                                </div>
+                                <a href="~/contact.html" class="nav-item nav-link">Contact</a>*@
                         </div>
 
                         @*宜潔新增*@
@@ -151,6 +160,7 @@
                                     <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                     <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
+                                    <li><a class="dropdown-item" href="/Comment/CommentList"><i class="fa-solid fa-heart"></i> 我的評論</a></li>
                                     <li><a class="dropdown-item" href="/Customer/List"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="/Home/Login"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
@@ -173,6 +183,24 @@
         @*使下面部分不會被擋住*@
     </div>
 
+    @*聊天室*@
+
+    <div id="chat">
+        <div>
+            <div class="collapse" id="collapseExample" style="position:absolute;bottom:0;right:100px; width:100%">
+                <div class="card card-body" style="width:100%;height:500px">
+                    <div id="context" style="width:100% ;height:90%;border:2px solid black;overflow:auto">
+                        <ul class="list-group" id="Content"style="bottom:auto">
+                        </ul>
+                    </div>
+                    <div id="inputspace">
+                        <input type="text" class="form-control float-lg-left" id="message1" style="width:85%"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%"id="sendButton"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     @RenderBody()
 
@@ -247,7 +275,7 @@
     <!-- Footer End -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <a href="#" class="message-fix"><i class="fa-solid fa-message"></i><p style="font-size:18px">小幫手</p></a>
+    <a href="#" class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-message"></i><p style="font-size:18px">小幫手</p></a>
 
 
     <!-- JavaScript Libraries -->
@@ -261,6 +289,7 @@
     <script src="~/lib/tempusdominus/js/moment.min.js"></script>
     <script src="~/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
 
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
@@ -324,6 +353,49 @@
                 eleDropdown.appendChild(eleHr);
             }
         }
+
+        //==============宜璟聊天室===============
+         var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        //與Server建立連線
+        connection.start().then(function () {
+            console.log("Hub 連線完成");
+        }).catch(function (err) {
+            alert('連線錯誤: ' + err.toString());
+        });
+
+        // 更新連線 ID 列表事件
+        connection.on("UpdList", function (jsonList) {
+            var list = JSON.parse(jsonList);
+            $("#IDList li").remove();
+            for (i = 0; i < list.length; i++) {
+                $("#IDList").append($("<li></li>").attr("class", "list-group-item").text(list[i]));
+            }
+        });
+
+        // 更新用戶個人連線 ID 事件
+        connection.on("UpdSelfID", function (id) {
+            var userName = @ViewBag.UserName
+                console.log(userName);
+                $('#SelfID').html(id);
+
+       });
+
+        // 更新聊天內容事件
+        connection.on("UpdContent", function (msg) {
+            $("#Content").append($("<li></li>").attr("class", "list-group-item").text(msg));
+        });
+
+        //傳送訊息
+        $('#sendButton').on('click', function () {
+            let selfID = $('#SelfID').html();
+            let message = $('#message1').val();
+            let sendToID = $('#sendToID').val();
+            connection.invoke("SendMessage", selfID, message, sendToID).catch(function (err) {
+                alert('傳送錯誤: ' + err.toString());
+            });
+        });
+
 
         //顯示瀏覽過的內容
         @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
