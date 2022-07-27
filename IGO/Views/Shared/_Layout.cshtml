@@ -532,11 +532,6 @@
         let CategoryIDArray = new Array();
         window.addEventListener("DOMContentLoaded", ShowCategory);
         async function ShowCategory() {
-
-
-        @*window.addEventListener("load", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
-        let eleDropdown = document.querySelector(".viewRecordDropdown");
-
             let Response = await fetch('@Url.Content("~/Home/layoutCategory")');
             /*console.log(Response);*/
             let Datas = await Response.json();
@@ -612,12 +607,11 @@
                 document.querySelector("#ShowRecord").innerHTML = views;
                 //$("#ShowRecord").text({ views});
             }
-        }*@
+        }
 
         //顯示瀏覽過的內容
-        @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
-        async function ViewRecordContent()
-        {
+        @* window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
+        async function ViewRecordContent() {
             if (window.location.href.indexOf("City") > -1) //連結中是否包含City 之後改為Product
             {
                 //顯示瀏覽過的內容

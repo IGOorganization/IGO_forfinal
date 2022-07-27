@@ -159,7 +159,7 @@
                                         <span class="fw-bold">價格</span>
                                         <span id="lbl-price">NT$ - 元</span>
                                         @*<input type="submit" class="btn btn-primary float-lg-end" id="btn-add" value="加入購物車" />*@
-                                        <button type="submit" class="btn btn-primary float-lg-end" id="btn-add">
+                                        <button type="button" class="btn btn-primary float-lg-end" id="btn-add">
                                             <i class="bi bi-cart-plus"></i>
                                             加入購物車
                                         </button>
@@ -343,13 +343,13 @@
         let addtocart = document.querySelector("#btn-add");
 
         addtocart.addEventListener("click", async (event) => {
-            this.preventDefault();
+            //this.preventDefault();
             //event.preventDefault();
             //console.log(event);
 
             let cartform = new FormData(document.cartForm)
 
-            let jresponce = await fetch("AddToCart", {
+            let jresponce = await fetch("@Url.Content("~/Coupon/AddToCart")", {
                 body: cartform,
                 method: "POST",
             })
