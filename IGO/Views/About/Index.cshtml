@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <link rel="stylesheet" href="/css2/Timelines.css">
+</head>
+<body>
+    <div class="container-xxl bg-white p-0">
+
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        <div class="container-fluid page-header mb-5 p-0" style="background-image: url(/img/yama.jpg);">
+            <div class="container-fluid page-header-inner py-5">
+                <div class="container text-center pb-5">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">關於 IGO</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+
+                            <li class="breadcrumb-item text-white active" aria-current="page">關於</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <h6 class="section-title text-start text-primary text-uppercase">關於我們</h6>
+                        <h1 class="mb-4">歡迎來到<span class="text-primary text-uppercase">IGO</span></h1>
+                        <p class="mb-4">2020年誕生 和IGO一起去移動、呼吸、飛翔、漂流，在給出的同時獲得一切，到遙遠的土地去流浪，用IGO旅行正是活著最好的證明</p>
+                        <div class="row g-3 pb-4">
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-bag-shopping fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">549</h2>
+                                        <p class="mb-0">商品</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.3s">
+                                <div class="border rounded p-1">
+                                    <div class="border rounded text-center p-4">
+                                        <i class="fa fa-shop fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up">58</h2>
+                                        <p class="mb-0">供應商</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="border rounded p-1">
+                                <div class="border rounded text-center p-4">
+                                    <i class="fa fa-address-book fa-2x text-primary mb-2"></i>
+                                    <h2 class="mb-1" data-toggle="counter-up">150</h2>
+                                    <p class="mb-0">用戶</p>
+                                </div>
+                            </div>
+                        </div>
+                        @*<a class="btn btn-primary py-3 px-5 mt-2" href="">了解更多</a>*@
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-end">
+                                <img @*class="img-fluid rounded w-75 wow zoomIn"*@ data-wow-delay="0.1s" src="/img/travel-map.jpg" width="600" height="500">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+        @*<願景使命等>*@
+
+        <div class="container px-4 py-5" id="featured-3">
+            @*<h2 class="pb-2 border-bottom">Columns with icons</h2>*@
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                <div class="feature col">
+                    <div class="feature-icon bg-primary bg-gradient">
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="#collection" /></svg>
+                    </div>
+                    <h2>願景</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                    <div align="center"> <img src="~/img/vision.png" /></div>
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right" /></svg>
+                     
+                </div>
+                <div class="feature col">
+                    <div class="feature-icon bg-primary bg-gradient">
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle" /></svg>
+                    </div>
+                    <h2>使命</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                    <div align="center"> <img src="~/img/mission.png" /></div>
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right" /></svg>
+                    
+                </div>
+                <div class="feature col">
+                    <div class="feature-icon bg-primary bg-gradient">
+                        <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2" /></svg>
+                    </div>
+                    <h2>態度</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                    <div align="center"> <img src="~/img/attitude.png" /></div>
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right" /></svg>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+
+                    @*<時間軸>*@
+                    <h4>IGO的旅程</h4>
+                    <ul class="timeline">
+                        <li>
+                            <a target="_blank" href="https://www.totoprayogo.com/#">New Web Design</a>
+                            <a href="#" class="float-right">1 August, 2020</a>
+                            <p>IGO創立</p>
+                        </li>
+                        <li>
+                            <a href="#">迎接第100客戶</a>
+                            <a href="#" class="float-right">4 March, 2021</a>
+                            <p>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                        </li>
+                        <li>
+                            <a href="#">IGO增加據點</a>
+                            <a href="#" class="float-right">1 April, 2022</a>
+                            <p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio, tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor nibh...</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- About End -->
+        <!--價值觀 Start-->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    @*<h6 class="section-title text-center text-primary text-uppercase">Our Team</h6>*@
+                    <h1 class="mb-5">IGO的 <span class="text-primary text-uppercase">價值觀及保證</span></h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="rounded shadow overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="/img/god.jpg" alt="">
+                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                    @*<a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>*@
+                                </div>
+                            </div>
+                            <div class="text-center p-4 mt-3">
+                                <h5 class="fw-bold mb-0">用戶至上</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="rounded shadow overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="/img/honest.jpg" height="200" alt="">
+                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                    @*<a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>*@
+                                </div>
+                            </div>
+                            <div class="text-center p-4 mt-3">
+                                <h5 class="fw-bold mb-0">誠實評價</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="rounded shadow overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="/img/workhard - 複製.jpg" height="200" alt="">
+                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                    @*<a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>*@
+                                </div>
+                            </div>
+                            <div class="text-center p-4 mt-3">
+                                <h5 class="fw-bold mb-0">全力以赴</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="rounded shadow overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="/img/team-4.jpg" alt="">
+                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                    @*<a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>*@
+                                </div>
+                            </div>
+                            <div class="text-center p-4 mt-3">
+                                <h5 class="fw-bold mb-0">保持謙遜</h5>
+                                <small>Designation</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--價值觀 End-->
+        @*Bottom*@
+        <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s" id="full-1">
+            <div class="row justify-content-center">
+                <div @*class="col-lg-10 border rounded p-1"*@>
+                    <div @*class="border rounded text-center p-1"*@>
+                        <div class="bg-transparent rounded text-center p-5">
+                            <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                            <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                                @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                                    <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Bottom*@
+
+
+    
+</body>
+
+
+
+
+

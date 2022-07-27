@@ -1,0 +1,223 @@
+﻿@model IEnumerable<IGO.Models.TCollection>
+
+@{
+    ViewData["Title"] = "myFavList";
+}
+
+
+
+@*<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">*@
+<br />
+<h1>我的所有收藏</h1>
+
+<p>
+    <a asp-action="myFavGroup"> 回到收藏分類</a>
+</p>
+@*<table class="table" hidden>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FCollectionId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FCustomerId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FCollectionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FCollectionPhoto)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FCollectionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FCustomerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FCollectionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FCollectionPhoto)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+
+@foreach (var item in Model)
+{
+    
+    <div class="card border-warning mb-3" style="max-width: 840px; height: 270px; background-color: white">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/img/123.jpg" class="img-fluid rounded-start" alt="..." style="height:270px;display:block; margin:auto;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" style="display:inline-block">@Html.DisplayFor(modelItem => item.FProductId)</h5>
+
+
+
+                    @Html.ActionLink(" ", "_UnFav", "Collection", new { id = @item.FProductId }, new { Class = "fa-solid fa-heart"})
+
+                    <input type="submit" class="test" value="1234">
+                    @*<i class="fa-solid fa-heart-circle-plus">
+                        新增至收藏分類
+                    </i>*@
+
+
+                    <select id='myGroup' onchange="select()">
+                    </select>
+
+
+
+
+                    @Html.ActionLink("新增至收藏分類", "CreateDetail", "Collection", new { id = item.FCollectionId
+                        }, new { @class = "fa-solid fa-heart-circle-plus" })
+
+
+
+
+
+
+
+                    @*<p class="card-text">Html.DisplayFor(modelItem => item.FProduct.FIntroduction)</p>
+                    <p class="card-text"><small class="text-muted">Html.DisplayFor(modelItem => @item.FProduct.FEndTime)</small></p>*@
+
+
+
+                    
+                    <i class="fa-solid fa-fire"></i>
+                    <label>@Html.DisplayFor(modelItem => item.FProduct.FQuantity)</label>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+}
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+@section Scripts {
+    @*<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>*@
+
+    <script>
+        //var AddItems = $("#AddToGroup");
+
+        let adds = document.querySelector(".test");
+
+        adds.addEventListener("click", function () {
+            console.log("AAA");
+        })
+
+        console.log("AAA");
+
+        //AddItems.on("click",function () {
+        //    console.log("123");
+        //});
+
+        //const chkAll = $("#chkAll");
+        //let AllCheckFlag = false;
+        //const heart = document.querySelectorAll("#heart");
+
+        //heart.forEach(function (data) {
+        //    console.log(data);
+        //    data.addEventListener("click", function () {
+        //        $(this).toggleClass("fa-regular fa-solid");
+        //        /* $(this).parentsUntil("#div1").parent().html("");*/
+        //        $(this).parentsUntil("#div1").remove();
+
+
+        //    }
+        //    )
+        //})
+
+        @*$(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Content("~/Collection/DisplayGroupDetail")',
+                data: {
+                    "FCollectionGroupId": "FCollectionGroupId",
+                    "FCollectionGroupName": "FCollectionGroupName"},
+                success: function (data) {
+                    var s = '<option value="-1">請選擇收藏群組</option>';
+
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].FCollectionGroupId + '">' + data[i].FCollectionGroupName + '</option>';
+                    }
+                    /*$("#myGroup").html(s);*/
+                    var groups = document.querySelectorAll("#myGroup");
+                    groups.forEach(function (data) {
+                        data.innerHTML = s;
+                    });
+                }
+            });
+        });*@
+
+
+        //function select() {
+        //    var selectedid = document.getElementById("myGroup").value;
+        //    //alert(selectedid);
+        //    console.log(this);
+        // /*   window.location.href = "/Collection/CreateDetail/?selectedid=" + selectedid + '&id=' +*/
+
+        //}
+
+
+
+
+
+
+
+
+
+
+    </script>
+}
+

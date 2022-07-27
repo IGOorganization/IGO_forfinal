@@ -15,6 +15,11 @@ namespace IGO.ViewModels
         {
             _dbIgo = db;
         }
+        public CProductViewModel()
+        {
+            _prod = new TProduct();
+        }
+
         public TProduct product
         {
             get

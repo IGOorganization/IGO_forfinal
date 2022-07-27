@@ -1,0 +1,66 @@
+﻿@model IEnumerable<IGO.Models.TSupplier>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">供應商列表</h6>
+           
+
+            <form class="d-none d-md-flex ms-4">
+                <div class="col-md-3">
+                    
+                    @using (Html.BeginForm())
+                    {
+                        @:關鍵字 @Html.TextBox("txtKeyword")
+                    <input class="btn btn-secondary m-2" type="submit" value="搜尋" placeholder="搜尋供應商" />
+                    }
+                    
+                    <a asp-action="Create"> 新增供應商</a>
+                </div>
+
+            </form>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">序號</th>
+                            <th scope="col">公司名稱</th>
+                            <th scope="col">供應商電話</th>
+                            <th scope="col">供應商地址</th>
+
+                        </tr>
+                    </thead>
+                    @{ int count = 0;
+                        @foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>
+                                    @count
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FCompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FPhone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FAddress)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("修改", "Edit", "Supplier", new { id = item.FSupplierId }, new { @class = "btn btn-warning" }) |
+
+                                    @Html.ActionLink("刪除", "Delete", "Supplier", new { id = item.FSupplierId }, new { onclick = "return confirm('確定刪除嗎?')", @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
