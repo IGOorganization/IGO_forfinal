@@ -35,8 +35,10 @@ namespace IGO.Controllers
             
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))  //判斷使用者是否登入
             {
+                
                 int UserId = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
-                if ((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId).FSupplierId) > 0)  //判斷是否為驗票人員
+               
+                if ((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId).FSupplierId)>0)  //判斷是否為驗票人員
                 {
 
                     if (_dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId) != null) //判斷是否有此筆訂單
@@ -132,23 +134,39 @@ namespace IGO.Controllers
    
         public IActionResult CheckCustomerOrderDetails(int id)
         {
-            int SupplierId =(int)(_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER))).FSupplierId;     //取出SupplierId
-            int Productid = (_dbIgo.TProducts.FirstOrDefault(p => p.FSupplierId == SupplierId)).FProductId;//取出ProductId
-            List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
-            List<int> orderdetailId = new List<int>();  //創造一個這個顧客有的orderId
-            foreach (var data in _dbIgo.TOrders.Where(c => c.FCustomerId == id ).ToList())
+            //int UserId =(int) HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+            int UserId = 1;
+            id = 1;
+            if (!String.IsNullOrEmpty((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId.ToString()) )
             {
-                orderdetailId.Add(data.FOrderId);
-            }
-            foreach (var data in _dbIgo.TOrderDetails.Where(c => orderdetailId.Contains(c.FOrderId) &&c.FProductId == Productid))
-            {
-                COrderDetailViewModel cOrderDetailViewModel = new COrderDetailViewModel(_dbIgo);
-                cOrderDetailViewModel.orderDetail = data;
-                lists.Add(cOrderDetailViewModel);
-            }
+                int SupplierId = (int)(_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId;     //取出SupplierId
+                int Productid = (_dbIgo.TProducts.FirstOrDefault(p => p.FSupplierId == SupplierId)).FProductId;//取出ProductId
+                List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
+                List<int> orderdetailId = new List<int>();  //創造一個這個顧客有的orderId
+                foreach (var data in _dbIgo.TOrders.Where(c => c.FCustomerId == id).ToList())
+                {
+                    orderdetailId.Add(data.FOrderId);
+                }
+                foreach (var data in _dbIgo.TOrderDetails.Where(c => orderdetailId.Contains(c.FOrderId) && c.FProductId == Productid))
+                {
+                    COrderDetailViewModel cOrderDetailViewModel = new COrderDetailViewModel(_dbIgo);
+                    cOrderDetailViewModel.orderDetail = data;
+                    lists.Add(cOrderDetailViewModel);
+                }
 
+
+                return View(lists);
+            }
+            else { 
+                 return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List");
+            }
+        }
+
+        public JsonResult Checked([FromBody]List<int> id)
+        {
            
-            return View(lists);
+
+            return Json(true);
         }
         private void StoreInFolder(IFormFile file, string fileName)
         {

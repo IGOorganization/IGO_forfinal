@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace IGO
                     Configuration.GetConnectionString("IGOConnection")));
             services.AddDbContext<DemoIgoContext>(option =>
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
+
             services.AddRazorPages().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -44,6 +46,18 @@ namespace IGO
 
 
             });
+            services.AddControllersWithViews().AddNewtonsoftJson
+               (options =>
+               {  
+                 
+                   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+               });
+            services.AddRazorPages()
+           .AddNewtonsoftJson(options =>
+           {
+             options.UseMemberCasing();
+              });
+
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -86,7 +100,7 @@ namespace IGO
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Login}/{id?}");
+                    pattern: "{controller=CheckTicket}/{action=CheckCustomerOrderDetails}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

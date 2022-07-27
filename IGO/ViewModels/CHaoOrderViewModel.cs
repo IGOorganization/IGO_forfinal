@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace IGO.ViewModels
 {
-    public class COrderViewModel
+    public class CHaoOrderViewModel
     {
         private TOrder _order;
         private DemoIgoContext _dbIgo;
 
-        public COrderViewModel(DemoIgoContext db)
+        public CHaoOrderViewModel(DemoIgoContext db)
         {
             _order = new TOrder();
             _dbIgo = db;

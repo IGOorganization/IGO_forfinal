@@ -974,9 +974,11 @@ namespace IGO.Models
 
                 entity.Property(e => e.FPoint).HasColumnName("fPoint");
 
-                entity.Property(e => e.FTestResult)
+                entity.Property(e => e.FTestResultType)
                     .HasMaxLength(50)
-                    .HasColumnName("fTestResult");
+                    .HasColumnName("fTestResultType");
+
+                entity.Property(e => e.FTestResultTypeId).HasColumnName("fTestResultTypeID");
 
                 entity.HasOne(d => d.FCustomer)
                     .WithMany(p => p.TTestResults)

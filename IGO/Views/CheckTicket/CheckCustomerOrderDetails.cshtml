@@ -1,81 +1,73 @@
 ﻿@model IEnumerable<IGO.ViewModels.COrderDetailViewModel>
 
 @{
-    ViewData["Title"] = "CheckCustomerOrderDetails";
+    ViewData["Title"] = "驗票";
 }
 
-<h1>CheckCustomerOrderDetails</h1>
+ <h1 style="margin-top:50px;">@Html.ActionLink("返回人臉辨識","Capture", "CheckTicket") </h1>        
+           
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FOrderDetailsId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FOrderId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FBookingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FTicketId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FCouponId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FPrice)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FOrderDetailsId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FOrderId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FBookingTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FTicketId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FCouponId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FQuantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FPrice)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="col-md-2"></div>
+<div class="col-md-8" style="margin: auto">
+    <div class="card card p-5" style="width: 100%">
+        <h1>確認票券</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        產品名稱
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FBookingTime)
+                    </th>
+                    <th>
+                        票種
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FQuantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FPrice)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    
+                <tr>
+                    
+                    <td>
+                        <span><input type="button" class="btn btn-light btn-lg" style="font-family:Arial;color:brown" hidden value="" id="deleteDetail" /></span>
+                        <span class="form-check" style="float:left">
+                            <input class="form-check-input" data-id="@item.FOrderDetailsId" type="checkbox" id="gridCheck">
+                        </span>
+                        @Html.DisplayFor(modelItem => item.product.FProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FBookingTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ticket.FTicketName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FQuantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FPrice)
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <p><input type="checkbox" class="form-check-input" name="chkAll" id="chkAll" />全選</p>
+        <div style="display:flex;justify-content:end">
+            <input id="btnSend" class="btn btn-light btn-lg" style="font-family:Arial;color:brown" type="button" name="btnPay" value="使用" />
+        </div>
+    </div>
+</div>
+<div class="col-md-2"></div>
 @*Bottom*@
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="row justify-content-center">
@@ -93,3 +85,73 @@
     </div>
 </div>
 @*Bottom*@
+
+@section Scripts{
+    <script>
+
+        let AllCheckFlag = false;
+        const chkAll = $("#chkAll");
+        const chkAllButton = $('input[type="checkbox"]');
+        const btnSend = $("#btnSend");
+        const btnDelete = document.querySelectorAll("#deleteDetail");
+        //===========================================全選功能====================================================
+        chkAll.click(function (e) {
+            if (AllCheckFlag == false) {
+                $.each($('input[type="checkbox"]'), function () {
+                    $(this).prop('checked', true);
+                });
+                AllCheckFlag = true;
+            }
+            else {
+
+                $.each($('input[type="checkbox"]'), function () {
+                    $(this).prop('checked', false);
+                });
+                AllCheckFlag = false;
+            }
+        });
+         //===========================================使用票券====================================================
+        btnSend.click(function () {
+            let array = [];
+            $.each($('input[type="checkbox"]:checked'), function () {
+                if ($(this).prop("id") != 'chkAll') {
+                    array.push(+$(this).data("id"))
+                }
+            })
+
+            if (array.length == 0) {
+
+                alert("至少勾選一筆訂單");
+            }
+            else {
+                $.ajax({
+                    url: '@Url.Content("~/CheckTicket/Checked")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(array)
+
+
+                }).done(function () {
+                    $.each($('input[type="checkbox"]:checked'), function () {
+                        if ($(this).prop("id") != 'chkAll') {
+                            $(this).closest("tr").prop("style", "text-decoration:line-through");
+
+                            $(this).parent().prev().find('input').val("已刪除");
+                            $(this).parent().prev().find('input').prop("hidden", false);
+                            
+                            
+                            
+                            $(this).remove();
+                           
+                            
+                           
+                        }
+                    })
+                })
+            }
+        });
+    </script>
+
+
+
+ }
