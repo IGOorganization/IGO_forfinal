@@ -30,7 +30,7 @@ namespace IGO.Controllers
             List<CProductViewModel> list = new List<CProductViewModel>();
             foreach (TProduct t in datas)
             {
-                CProductViewModel p = new CProductViewModel();
+                CProductViewModel p = new CProductViewModel(_dbIgo);
                 p.product = t;
                 list.Add(p);
             }
