@@ -1,5 +1,6 @@
 ﻿using IGO.Models;
 using IGO.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -41,147 +42,166 @@ namespace IGO.Controllers
 
         public ActionResult _Fav(int? id)
         {
-
-            TCollection item = new TCollection
+            int userid = 0;
+            string result = "";
+            if (!HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
-
-                FCustomerId = 1,
-                FProductId = id,
-
-                FCollectionDate = DateTime.Now.ToString(),
-
-            };
-
-            db.TCollections.Add(item);
-            db.SaveChanges();
-
-            return RedirectToAction("List");
-        }
-
-        public ActionResult _UnFav(int? id)
-        {
-
-            TCollection item = db.TCollections.FirstOrDefault(t => t.FProductId == id);
-            if (item != null)
-            {
-                db.TCollections.Remove(item);
-                db.SaveChanges();
-
-            };
-
-
-
-            return RedirectToAction("List");
-        }
-
-        public IActionResult myFavList()
-        {
-            var datas = from t in _dbIgo.TCollections
-                        select t;
-            List<TCollection> list = new List<TCollection>();
-            foreach (TCollection t in datas)
-            {
-
-                list.Add(t);
+                result = "請先登入";
             }
-            return View(list);
-        }
-
-        public IActionResult myFavGroup()
-        {
-            var datas = from t in _dbIgo.TCollectionGroups
-                        select t;
-            List<TCollectionGroup> list = new List<TCollectionGroup>();
-            foreach (TCollectionGroup t in datas)
+            else
             {
+                userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
 
-                list.Add(t);
+                TCollection t = _dbIgo.TCollections.FirstOrDefault(n => n.FCustomerId == userid && n.FProductId == id);
+                if (t==null)
+                {
+                    TCollection item = new TCollection
+                    {
+                        FCustomerId = userid,
+                        FProductId = id,
+
+                        FCollectionDate = DateTime.Now.ToString(),
+                    };
+
+                    db.TCollections.Add(item);
+                    db.SaveChanges();
+
+                    result = "已加入收藏";
+                }
+                else
+                {
+                    db.TCollections.Remove(t);
+                    db.SaveChanges();
+                    result = "取消收藏";
+                }
             }
-            return View(list);
+            return Json(result);
         }
 
+    //public ActionResult _UnFav(int? id)
+    //{
+
+    //    TCollection item = db.TCollections.FirstOrDefault(t => t.FProductId == id);
+    //    if (item != null)
+    //    {
+    //        db.TCollections.Remove(item);
+    //        db.SaveChanges();
+
+    //    };
 
 
-        public IActionResult myFavGroupDetail()
-        {
-            var datas = from t in _dbIgo.TCollectionGroupDetails
-                        select t;
 
-            List<TCollectionGroupDetail> list = new List<TCollectionGroupDetail>();
-            foreach (TCollectionGroupDetail t in datas)
-            {
+    //    return RedirectToAction("List");
+    //}
 
-                list.Add(t);
-            }
-            return View(list);
-
-        }
-
-
-        public IActionResult CreateGroup()
-        {
-            return View();
-        }
-        [HttpPost]
-
-        public IActionResult CreateGroup(TCollectionGroup g)
+    public IActionResult myFavList()
+    {
+        var datas = from t in _dbIgo.TCollections
+                    select t;
+        List<TCollection> list = new List<TCollection>();
+        foreach (TCollection t in datas)
         {
 
-            db.TCollectionGroups.Add(g);
-            db.SaveChanges();
-            return RedirectToAction("myFavGroup");
+            list.Add(t);
         }
+        return View(list);
+    }
 
-        public IActionResult CreateDetail()
+    public IActionResult myFavGroup()
+    {
+        var datas = from t in _dbIgo.TCollectionGroups
+                    select t;
+        List<TCollectionGroup> list = new List<TCollectionGroup>();
+        foreach (TCollectionGroup t in datas)
         {
-            return View();
-        }
-        [HttpPost]
 
-        public IActionResult CreateDetail(int id, int selectedid)
+            list.Add(t);
+        }
+        return View(list);
+    }
+
+
+
+    public IActionResult myFavGroupDetail()
+    {
+        var datas = from t in _dbIgo.TCollectionGroupDetails
+                    select t;
+
+        List<TCollectionGroupDetail> list = new List<TCollectionGroupDetail>();
+        foreach (TCollectionGroupDetail t in datas)
         {
-            TCollectionGroupDetail item = new TCollectionGroupDetail
-            {
-                FCollectionGroupId = selectedid,
-                FCollectionId =id,
-            };
 
-
-            db.TCollectionGroupDetails.Add(item);
-            db.SaveChanges();
-            return RedirectToAction("myFavGroup");
+            list.Add(t);
         }
-
-        public IActionResult DisplayGroupDetail()
-        {
-            
-
-            var Group=_dbIgo.TCollectionGroups.Select(x => new
-            {
-                FCollectionGroupId = x.FCollectionGroupId,
-                FCollectionGroupName = x.FCollectionGroupName
-            }).ToList();
-
-            //var JData = JsonSerializer.Serialize(Group);
-
-            return Json(Group);
-        }
-
-
-
-
-
-
-
-
+        return View(list);
 
     }
 
 
-  
- 
+    public IActionResult CreateGroup()
+    {
+        return View();
+    }
+    [HttpPost]
+
+    public IActionResult CreateGroup(TCollectionGroup g)
+    {
+
+        db.TCollectionGroups.Add(g);
+        db.SaveChanges();
+        return RedirectToAction("myFavGroup");
+    }
+
+    public IActionResult CreateDetail()
+    {
+        return View();
+    }
+    [HttpPost]
+
+    public IActionResult CreateDetail(int id, int selectedid)
+    {
+        TCollectionGroupDetail item = new TCollectionGroupDetail
+        {
+            FCollectionGroupId = selectedid,
+            FCollectionId = id,
+        };
+
+
+        db.TCollectionGroupDetails.Add(item);
+        db.SaveChanges();
+        return RedirectToAction("myFavGroup");
+    }
+
+    public IActionResult DisplayGroupDetail()
+    {
+
+
+        var Group = _dbIgo.TCollectionGroups.Select(x => new
+        {
+            FCollectionGroupId = x.FCollectionGroupId,
+            FCollectionGroupName = x.FCollectionGroupName
+        }).ToList();
+
+        //var JData = JsonSerializer.Serialize(Group);
+
+        return Json(Group);
+    }
 
 
 
- }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+}
 

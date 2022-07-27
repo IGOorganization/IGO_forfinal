@@ -103,13 +103,7 @@
 
 @section Scripts{
     <script>
-        //const hearts = document.querySelectorAll("#btn_heart");
-        //console.log(hearts);
-        //hearts.forEach(function (heart) {
-        //    heart.addEventListener("click", () => {
-        //        $(this).toggleClass("fa-regular")
-        //    })
-        //})
+       
 
         //取得商品資訊
         const subcategoryid = document.querySelector("#subcategoryid").getAttribute("value");
@@ -150,6 +144,8 @@
                 let h4 = document.createElement("h4");
                 let a1 = document.createElement("a");
                 let i = document.createElement("i");
+                //收藏按鈕
+                /*let btn_heart = document.createElement("btn_heart");*/
 
                 div1.className = "col-lg-4 col-md-6 wow fadeInUp";
                 div1.setAttribute("data-wow-delay", "0.1s");
@@ -170,6 +166,7 @@
                 i.className = "fa-solid fa-heart fa-regular";
                 i.style = "padding:0px 0 0 10px ;font-size:150%";
                 i.setAttribute("data-id", item.FProductId);
+                
                 div4_1.appendChild(i);
                 div4_2.className = "d-flex justify-content-lg-start";
                 h4.innerText = `${item.FProductName}`;
@@ -260,6 +257,49 @@
             console.log(products);
             showList(products);
         })
+       
+        $("#productList").on("click", "i", async function (event) {
+
+            //alert(event.currentTarget.getAttribute("data-id"));
+
+            let jresult = await fetch('@Url.Content("/Collection/_Fav")' + `?id=${event.currentTarget.getAttribute("data-id")}`);
+
+            let result = await jresult.json();
+
+            alert(result);
+
+
+
+
+            //if (result == "已加入收藏" ) {
+            //    event.currentTarget.addEventListener("click",
+            //        () => {
+            //            $(this).toggleClass("fa-solid fa-heart fa-regular");
+            //        })
+            //} else if (result == "取消收藏" ) {
+            //    event.currentTarget.addEventListener("click",
+            //        () => {
+            //            $(this).toggleClass("fa-duotone fa-heart-circle-check");
+            //        })
+                 
+            //} else if (result == "請先登入")
+            // {
+
+            //    alert("請先登入");
+            //}
+
+
+        });
+        
+
+        // const hearts = document.querySelectorAll("#btn_heart");
+        //console.log(hearts);
+        //hearts.forEach(function (heart) {
+        //    heart.addEventListener("click", () => {
+        //        $(this).toggleClass("fa-regular")
+        //    })
+        //})
+        
 
     </script>
 }
