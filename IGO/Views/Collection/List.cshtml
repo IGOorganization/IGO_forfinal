@@ -67,7 +67,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.FSupplierId)
                     </td>*@
-                <td>
+                <td id="qty">
                     @Html.DisplayFor(modelItem => item.FQuantity)
                 </td>
                 @*<td>
@@ -85,11 +85,11 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.FDiscountOrNot)
                     </td>*@
-            <td>
+                <td>
 
-                @Html.ActionLink(" ", "_Fav", "Collection", new { id = item.FProductId }, new { @class = "fa-regular fa-heart" })
-          
-            </td>
+                    @Html.ActionLink(" ", "_Fav", "Collection", new { id = item.FProductId }, new { @class = "fa-regular fa-heart" })
+
+                </td>
             </tr>
         }
     </tbody>
@@ -112,3 +112,42 @@
     </div>
 </div>
 @*Bottom*@
+
+
+@section Scripts{
+    <script>
+
+
+
+
+
+
+        //let div = document.createElement("div");
+
+
+        let btn_heart = document.createElement("button");
+
+        btn_heart.setAttribute("name", "heart");
+        btn_heart.setAttribute("id", "heart");
+        btn_heart.setAttribute("data-question","heart");
+        btn_heart.className = "fa-regular fa-heart";
+
+
+
+        var td = document.getElementById("qty");
+        td.appendChild(btn_heart);
+
+
+
+       
+
+       async function fav() {
+           let jheart = await fetch('@Url.Content("~/Collection/_Fav")' + `?id=${item.FProductId}`);
+
+           let heart = await jheart.json();
+           alert(heart);
+           
+        }
+
+    </script>
+}
