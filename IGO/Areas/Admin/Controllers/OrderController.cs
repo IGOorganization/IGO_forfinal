@@ -141,7 +141,10 @@ namespace IGO.Areas.Admin.Controllers
             //    cancelinfo[i]
             //}
 
-            DateTime today = DateTime.Now.Date;
+            //7/26修改
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
 
             MailMessage mail = new MailMessage();
             // 發信來源,最好與你發送信箱相同,否則容易被其他的信箱判定為垃圾郵件.
@@ -175,7 +178,7 @@ namespace IGO.Areas.Admin.Controllers
             "<hr>" +
             "<h3>【顧客取消訂單】</h3>" +
             $"<h4>顧客:{lastname}{firstname}  先生/小姐</h4>" +
-            $"<h4>於{today}取消訂單<h4>" +
+             $"<h4>於{year}/{month}/{day}取消訂單<h4>" +
             "<h4>訂單狀態: 取消訂單</h4>" +
             "<h4>退款狀態: 申請退款中</h4>" +          
             $"<h4>金額:{totalprice}元</h4>" +

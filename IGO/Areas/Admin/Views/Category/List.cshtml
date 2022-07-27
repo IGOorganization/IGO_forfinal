@@ -143,23 +143,24 @@
                {
                    //console.log(item.FSubCategoryName);
                    $('.showSub').append(`${item.FSubCategoryName}<br>`);
-                   
+
                })
            })
        })
-        //新增商品次分類
+         //新增商品次分類
         $('.Add').on('click', function ()
         {
             let subcategoryname = $('.txtSubCategory').val();
             $('.showSub').append(`${subcategoryname}<br>`);
-            console.log(subcategoryname);
+            //console.log(subcategoryname);
             let id = Number(cateID.split("-")[1]);
-           
+
             //console.log(id);
 
-            $.post('@Url.Content("~/Admin/Category/CreateSubcategory")', { "Subcategoryname": subcategoryname, "Subcategoryname": subcategoryname, "CategoryID": id}, function (datas)
+            //新增subcategory:7/26修改
+            $.post('@Url.Content("~/Admin/Category/CreateSubcategory")', { "Subcategoryname": subcategoryname, "CategoryID": id}, function (datas)
             {
-                console.log(datas);
+                //console.log(datas);
                 window.location.href = 'List';  //refresh此頁
             })
         })

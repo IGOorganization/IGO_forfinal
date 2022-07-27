@@ -185,7 +185,8 @@
                                 <p>剩餘數量:@remaining 張  || 已售出:@item.OrderQuantity 張</p>
                             </div>
                             <div class="d-flex justify-content-lg-end">
-                                <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
+                                @*7/26修改*@
+                                <a href="/Product/Detail?prodid=@item.tProduct.FProductId" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct">詳細資訊</a>
                             </div>
                         </div>
                     </div>
@@ -498,7 +499,7 @@
                                 <p></p>
                             </div>
                             <div class="d-flex justify-content-lg-end">
-                                <a href="/City/PopularCity" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
+                                 <a href="/Product/Detail?prodid=${ProductId}" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
                             </div>
                         </div>
                     </div>

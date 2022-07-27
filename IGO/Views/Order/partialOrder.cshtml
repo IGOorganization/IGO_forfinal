@@ -1,0 +1,178 @@
+﻿
+@model List<IGO.ViewModels.COrdersViewModel>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - prjIGOfront</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />*@
+
+    <!-- Favicon -->
+    @*<link href="img/favicon.ico" rel="icon">*@
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Site CSS -->
+    <link href="/css/site.css?v=@(DateTime.Now.ToString("yyyyMMddHHmmss"))" rel="stylesheet" />
+    @*育緯新增*@
+
+    <!-- Date picker plugins css -->
+    <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    @*宜潔新增*@
+    <style>
+        .message-fix {
+            position: fixed;
+            right: 20px;
+            bottom: 400px;
+            /* left: 50px;*/
+            z-index: $zindex-fixed;
+            font-size: 150%;
+            color: orange;
+        }
+
+        .parking-fix {
+            position: fixed;
+            right: 20px;
+            bottom: 200px;
+            /* left: 50px;*/
+            z-index: $zindex-fixed;
+            font-size: 150%;
+            color: orange;
+        }
+
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+            color: gray;
+        }
+    </style>
+
+</head>
+<body>
+    @*目前訂單*@
+    @{ int count = 0;
+        string taq1 = "";
+        string taq2 = "";
+        string taq3 = "";
+        string taq4 = "";}
+    <div class="tab-content  container-md py-5">
+        @foreach (var item in Model)
+        {
+            if (item.StatusId == 1)
+            {
+                taq1 = "btn";
+                taq2 = "btn-danger";
+                taq3 = "訂單取消申請";
+                taq4 = "btnCancel";
+            }
+            else
+            {
+                taq1 = "";
+                taq2 = "";
+                taq3 = "無法取消";
+                taq4 = "";
+            }
+            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <table class="table table-striped justify-content-sm-center">
+                    <thead class="justify-content-sm-center">
+                        <tr align="right"> <th> 訂單日期</th> <th> 訂單編號</th> <th> 訂單狀態</th> <th> 訂購總額</th> <th> </th> </tr>
+                    </thead>
+                    <tbody class="justify-content-sm-center">
+                        <tr align="right"> <td> @Convert.ToDateTime(item.OrderDate) </td> <td>@item.OrderNum </td> <td>@item.StatusName </td> <td>@String.Format("{0:C0}", item.TotalPrice) </td> <td> <a class="@taq1 @taq2 @taq4" id="Order-@item.OrderId">@taq3 </a> </td> </tr>
+                        <tr>
+                            <th>
+                                <button type="button" class="btn btn-primary btnOrderdetail" data-bs-toggle="modal" data-bs-target="#exampleModal" id="Order-@item.OrderId">
+                                    詳細訂單明細
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"> 訂單明細</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr> <th> 產品</th> <th> 數量</th> <th> 票種</th> <th> 金額</th> </tr>
+                                                    </thead>
+                                                    <tbody id="orderdetailTable-@count" class="showDetail">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            count++;
+        }
+    </div>
+
+    <script>
+        //訂單明細Modal
+        const firstTabEl = document.querySelector('#myTab li:last-child button')
+
+        //取消訂單
+        $(".btnCancel").click(function ()
+        {
+            console.log("取消申請中");
+            $(this).text("取消申請中");
+            $(this).attr("class", "disabled");
+            let orderid = $(this).attr("id");
+            console.log(orderid);
+            $.get('@Url.Content("~/Order/EditOrderStatus")', { "Orderid": orderid }, function (datas)
+            {
+                console.log(datas);
+            })
+
+        });
+
+    $('.btnOrderdetail').click(function () {
+                $('.showDetail').empty();
+                let orderid = $(this).attr("id");
+                console.log($(this).attr("id"));
+                $.get('@Url.Content("~/Order/OrderDetailList")', { "Orderid": orderid },
+                    function (datas)
+                    {
+                        console.log(datas);
+                        $.each(datas, function (idx, item)
+                        {
+                            $(`#orderdetailTable-${idx}`).append(`<tr><td>${item.ProductName}</td><td>${item.TicketName}</td><td>${item.Quantity}</td><td>${item.Price}元</td></tr>`);
+                        })
+                    })
+            })
+    </script>
+</body>
+</html>

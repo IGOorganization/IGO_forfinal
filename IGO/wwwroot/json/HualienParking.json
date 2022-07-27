@@ -1,0 +1,541 @@
+﻿{
+  "UpdateTime": "2022-07-27T13:07:22+08:00",
+  "UpdateInterval": -1,
+  "SrcUpdateTime": "2022-07-27T13:07:28+08:00",
+  "SrcUpdateInterval": 60,
+  "AuthorityCode": "HUA",
+  "ParkingAvailabilities": [
+    {
+      "CarParkID": "22763918+15001",
+      "CarParkName": {
+        "Zh_tw": "花蓮市三民停車場"
+      },
+      "TotalSpaces": 100,
+      "AvailableSpaces": 94,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 100,
+          "AvailableSpaces": 94
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "28984733+15002",
+      "CarParkName": {
+        "Zh_tw": "花蓮遠東百貨停車場"
+      },
+      "TotalSpaces": 929,
+      "AvailableSpaces": 735,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 929,
+          "AvailableSpaces": 735
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "80118614+15003",
+      "CarParkName": {
+        "Zh_tw": "財團法人佛教慈濟綜合醫院花蓮院區附設停車場"
+      },
+      "TotalSpaces": 300,
+      "AvailableSpaces": 48,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 300,
+          "AvailableSpaces": 48
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "53297327+15004",
+      "CarParkName": {
+        "Zh_tw": "仁里立體停車場"
+      },
+      "TotalSpaces": 183,
+      "AvailableSpaces": 2,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 183,
+          "AvailableSpaces": 2
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "53599694+15005",
+      "CarParkName": {
+        "Zh_tw": "花蓮文化創意產業園區停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 0,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "10614013+15006",
+      "CarParkName": {
+        "Zh_tw": "多功能停車場"
+      },
+      "TotalSpaces": 43,
+      "AvailableSpaces": 13,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 43,
+          "AvailableSpaces": 13
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "85051937+15007",
+      "CarParkName": {
+        "Zh_tw": "中山明智停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 0,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "80118614+15008",
+      "CarParkName": {
+        "Zh_tw": "永發停車場-東洋站"
+      },
+      "TotalSpaces": 235,
+      "AvailableSpaces": 170,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 235,
+          "AvailableSpaces": 170
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "58019180+15009",
+      "CarParkName": {
+        "Zh_tw": "明心停車場"
+      },
+      "TotalSpaces": 80,
+      "AvailableSpaces": 26,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 80,
+          "AvailableSpaces": 26
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "58019180+15010",
+      "CarParkName": {
+        "Zh_tw": "仁愛停車場"
+      },
+      "TotalSpaces": 134,
+      "AvailableSpaces": 84,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 134,
+          "AvailableSpaces": 84
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "82182231+15011",
+      "CarParkName": {
+        "Zh_tw": "花蓮市 PP 停車場"
+      },
+      "TotalSpaces": 62,
+      "AvailableSpaces": 49,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 62,
+          "AvailableSpaces": 49
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "37993678+15012",
+      "CarParkName": {
+        "Zh_tw": "彪吉利(花蓮停三)汽(紅黃牌重機)停車場"
+      },
+      "TotalSpaces": 93,
+      "AvailableSpaces": 27,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 93,
+          "AvailableSpaces": 27
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "80118614+15013",
+      "CarParkName": {
+        "Zh_tw": "成佳財停車場"
+      },
+      "TotalSpaces": 210,
+      "AvailableSpaces": 130,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 210,
+          "AvailableSpaces": 130
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "97329493+15014",
+      "CarParkName": {
+        "Zh_tw": "東大門一二場"
+      },
+      "TotalSpaces": 330,
+      "AvailableSpaces": 250,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 330,
+          "AvailableSpaces": 250
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "52882567+15015",
+      "CarParkName": {
+        "Zh_tw": "新港街停車場"
+      },
+      "TotalSpaces": 27,
+      "AvailableSpaces": 3,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 27,
+          "AvailableSpaces": 3
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "13124285+15017",
+      "CarParkName": {
+        "Zh_tw": "明禮路停車場"
+      },
+      "TotalSpaces": 106,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 106,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "37993678+15018",
+      "CarParkName": {
+        "Zh_tw": "彪吉利停車場(國聯五路站)"
+      },
+      "TotalSpaces": 40,
+      "AvailableSpaces": 27,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 40,
+          "AvailableSpaces": 27
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "37993678+15019",
+      "CarParkName": {
+        "Zh_tw": "前站停車場(檳榔攤)"
+      },
+      "TotalSpaces": 46,
+      "AvailableSpaces": 14,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 46,
+          "AvailableSpaces": 14
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "80118614+15020",
+      "CarParkName": {
+        "Zh_tw": "後火車站機車停車場"
+      },
+      "TotalSpaces": 340,
+      "AvailableSpaces": 180,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 340,
+          "AvailableSpaces": 180
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "37993678+15021",
+      "CarParkName": {
+        "Zh_tw": "彪吉利(花蓮停四)機車停車場"
+      },
+      "TotalSpaces": 495,
+      "AvailableSpaces": 137,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 495,
+          "AvailableSpaces": 137
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "80738683+15022",
+      "CarParkName": {
+        "Zh_tw": "花蓮醫院停車場(有3層樓)"
+      },
+      "TotalSpaces": 50,
+      "AvailableSpaces": 27,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 50,
+          "AvailableSpaces": 27
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "94607424+15023",
+      "CarParkName": {
+        "Zh_tw": "財團法人臺灣基督教門諾會醫院(00:30~06:30非營業時間)"
+      },
+      "TotalSpaces": 235,
+      "AvailableSpaces": 156,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 235,
+          "AvailableSpaces": 156
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "42958475+15024",
+      "CarParkName": {
+        "Zh_tw": "建程停車場"
+      },
+      "TotalSpaces": 121,
+      "AvailableSpaces": 55,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 121,
+          "AvailableSpaces": 55
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "87344137+15025",
+      "CarParkName": {
+        "Zh_tw": "停好車停車場"
+      },
+      "TotalSpaces": 37,
+      "AvailableSpaces": 36,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 37,
+          "AvailableSpaces": 36
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "85056975+15026",
+      "CarParkName": {
+        "Zh_tw": "東芥東大門停車場"
+      },
+      "TotalSpaces": 161,
+      "AvailableSpaces": 153,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 161,
+          "AvailableSpaces": 153
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "97329493+15028",
+      "CarParkName": {
+        "Zh_tw": "東大門三場"
+      },
+      "TotalSpaces": 83,
+      "AvailableSpaces": 71,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 83,
+          "AvailableSpaces": 71
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "90831316+15030",
+      "CarParkName": {
+        "Zh_tw": "統冠重慶站停車場"
+      },
+      "TotalSpaces": 49,
+      "AvailableSpaces": 10,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 49,
+          "AvailableSpaces": 10
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    },
+    {
+      "CarParkID": "ggyy+15032",
+      "CarParkName": {
+        "Zh_tw": "TEST_VD_LIVE"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 0,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:07:28+08:00"
+    }
+  ]
+}

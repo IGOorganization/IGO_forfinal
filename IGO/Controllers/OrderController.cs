@@ -99,5 +99,40 @@ namespace IGO.Controllers
 
             return RedirectToAction("Order");
         }
+
+        public IActionResult partialOrder()
+        {
+            int userid = 0;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            {
+                userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+                Debug.WriteLine(userid);
+                //return Json(userid);
+            }
+
+            COrdersViewModel vModel = null;
+
+            List<COrdersViewModel> v = new List<COrdersViewModel>();
+
+            var q = (from o in _IgoContext.TOrders
+                     where o.FCustomerId == userid
+                     select o).ToList();
+            foreach (var r in q)
+            {
+                vModel = new COrdersViewModel
+                {
+                    OrderId = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == r.FOrderId).FOrderId,
+                    OrderDate = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == r.FOrderId).FOrderDate,
+                    StatusName = _IgoContext.TOrders.Include(m => m.FStatus).FirstOrDefault(m => m.FOrderId == r.FOrderId).FStatus.FStatusName,
+                    TotalPrice = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == r.FOrderId).FTotalPrice,
+                    //PayType = _context.TOrders.Include(m => m.FPayType).FirstOrDefault(m => m.FOrderId == r.FOrderId).FPayType
+                    OrderNum = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == r.FOrderId).FOrderNum,
+                    StatusId = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == r.FOrderId).FStatusId
+                };
+                v.Add(vModel);
+            }
+
+            return PartialView(v);
+        }
     }
 }
