@@ -107,26 +107,7 @@
                     </div>
                     @*宜潔新增*@
                     <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-eye"></i>
-                            <span style="font-size:120%">瀏覽紀錄</span><span id="ShowRecord" style="color: #DEDEBE; font-size: 120%">0</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none" id="viewContent">
-                            @* <p  class="dropdown-item"><small>目前無資料</small></p>*@
-                            @*<a href="/Products/Food" class="dropdown-item"><img src="~/img/City_HotSales_02.jpg" width="50" height="50" /><small>台北喜來登大飯店｜十二廚</small></a>
-                                @*<a href="/Products/Food" class="dropdown-item">
-                                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
-                                    <small>台北喜來登大飯店｜十二廚</small>
-                                </a>
-                                <hr class="dropdown-divider">
-                                <a href="/Products/Exhibit" class="dropdown-item">
-                                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
-                                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
-                                </a>
-                                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
-                        </div>
-                    </div>
+                  
                     <div class="nav-item">
                         <a href="~/ShoppingCart/List">
                             <i class="fa-solid fa-cart-plus"></i>
@@ -561,60 +542,27 @@
                     })
             })
         };
-
-        //顯示瀏覽過的次數(之後用id/session)
-        window.addEventListener("DOMContentLoaded", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
-        async function ViewRecord()
+        //===================================================
+                //點閱後瀏覽次數增加 7/27新增
+        $(window).ready(function ()
         {
-            //7/26修改
-            if (window.location.href.indexOf("Product") > -1)
-            {
-                //顯示瀏覽過的次數
-                let response = await fetch('@Url.Content("~/HomeApi/showViewProductCountBySession")');
-                //console.log(response);
-                let views = await response.text();
-                //console.log(views);
+            if (window.location.href.indexOf("prodid=") > -1) {
+                //console.log(window.location.href);
+                let querystring = window.location.search;
+                let productIDstring = querystring.split("=");
+                let productID = productIDstring[1];
+                //console.log(productID);
 
-                document.querySelector("#ShowRecord").innerHTML = views;
 
-                //顯示瀏覽過的產品
-                @*console.log(window.location.href);
-                //console.log(window.location.search);
-                $.post('@Url.Content("~/Home/layoutViewContent")'), {
-                    "prodId": 放productID, "path": window.location.href
-                }, function (datas) { console.log(datas) };*@
+                $.get('@Url.Content("~/Home/AddViewRecord")', { "Productid": productID }, function (Datas) {
+                    //console.log(Datas)
+                });
 
             }
+            })
+         //===================================================
 
-            else
-            {
-                //顯示瀏覽過的次數
-                let response = await fetch('@Url.Content("~/HomeApi/showViewNoProductCountBySession")');
-                //console.log(response);
-                let views = await response.text();
-                //console.log(views);
-                document.querySelector("#ShowRecord").innerHTML = views;
-                //$("#ShowRecord").text({ views});
-            }
-        }
 
-        //顯示瀏覽過的內容
-        @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
-        async function ViewRecordContent()
-        {
-            if (window.location.href.indexOf("City") > -1) //連結中是否包含City 之後改為Product
-            {
-                //顯示瀏覽過的內容
-                const response = await fetch('@Url.Content("~/HomeApi/showViewProductContentBySession")');
-                //console.log(response);
-                //const datas = await response.json();
-                const datas = await response.text();
-                //console.log(datas);
-
-                $("#ShowViewRecord").text(`(${datas})`);
-
-            };
-        }*@
     </script>
 
 

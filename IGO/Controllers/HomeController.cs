@@ -121,24 +121,27 @@ namespace IGO.Controllers
 
             return Json(v);
         }
-        //點閱後增加瀏覽紀錄
-        public IActionResult UpdateViewRecord(int Productid, int Viewcount)
+
+        //點閱後瀏覽次數增加 7/27新增
+        public IActionResult AddViewRecord(int Productid)
         {
-            int counts = Viewcount + 1;
-
             var product = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == Productid);
-
-            if (product != null) 
+            int count = (int)_IgoContext.TProducts.FirstOrDefault(m => m.FProductId == Productid).FViewRecord;
+            int viewcounts = count + 1;
+            if (product != null)
             {
-                product.FViewRecord = counts;
+                product.FViewRecord = viewcounts;
 
             }
             _IgoContext.SaveChanges();
 
             return View();
         }
-            //票卷種類
-            public IActionResult SubCategory() 
+
+
+
+        //票卷種類
+        public IActionResult SubCategory() 
         {
             var q = from c in _IgoContext.TSubCategories
                     select c;
