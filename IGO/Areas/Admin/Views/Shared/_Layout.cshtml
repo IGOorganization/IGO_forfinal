@@ -48,17 +48,10 @@
             </div>
             <div class="navbar-nav w-100">
                 <a href="/Admin/Customer/List" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>會員管理</a>
-                @*<div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>訂單管理</a>
-                    <div class="dropdown-menu bg-transparent border-0">
-                        <a href="/Admin/Home/Order" class="dropdown-item">所有訂單</a>
-                        <a href="/Admin/Home/CancelOrder" class="dropdown-item">申請取消訂單</a>
-                        <a href="element.html" class="dropdown-item">待放</a>
-                    </div>
-                </div>*@
                 <a href="/Admin/FeedbackManagement/Index" class="nav-item nav-link"><i class="fa fa-th me-2"></i>評論管理</a>
                 <a href="/Admin/Supplier/List" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>供應商管理</a>
-                <a href="/Admin/Home/Order" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>所有訂單</a>
+                <a href="/Admin/Order/List" class="nav-item nav-link"><i class="fa fa-table me-2"></i>所有訂單</a>
+                <a href="/Admin/Category/List" class="nav-item nav-link"><i class="fa fa-address-book me-2"></i>商品類別管理</a>
                 <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>分析圖表</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>商品管理</a>
@@ -87,20 +80,31 @@
             <form class="d-none d-md-flex ms-4">
                 <input class="form-control bg-dark border-0" type="search" placeholder="Search">
             </form>
-            <div class="navbar-nav align-items-center ms-auto">                
-                <div class="nav-item dropdown">
+            <div class="navbar-nav align-items-center ms-auto">
+                @*小鈴鐺通知-Start*@
+                <div class="nav-item dropdown" id="bell">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex">員工</span>
+                        <i class="fa fa-bell" id="cancelBellcount" style="color:red"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
                         <a href="#" class="dropdown-item"></a>
-                        <a href="/Home/Home" class="dropdown-item">返回前台</a>
-                        <a href="#" class="dropdown-item">登出</a>
+                        <a href="/Admin/Order/List" class="dropdown-item text-white" id="cancelBellcontent"></a>
+                    </div>
+                </div>
+                @*小鈴鐺通知-End*@
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="~/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex text-white">員工</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                        <a href="#" class="dropdown-item"></a>
+                        <a href="/Home/Home" class="dropdown-item text-white">返回前台</a>
+                        <a href="#" class="dropdown-item text-white">登出</a>
                     </div>
                 </div>
             </div>
-        </nav>
+</nav>
         <!-- Navbar End -->
 
         @RenderBody()
@@ -139,6 +143,27 @@
 
     <!-- Template Javascript -->
     <script src="~/background/js/main.js"></script>
+
+        <script>
+            //顯示申請取消訂單的小鈴鐺通知
+            $(window).ready(function ()
+            {
+                $.get('@Url.Content("~/Admin/Order/QueryByCancelOrder")', { "id": 5 },
+                    function (datas)
+                    {
+                        //console.log(datas);
+                        //console.log(datas.length);  /*顯示幾筆訂單取消申請通知*/
+                        $.each(datas, function (idx, item)
+                        {
+                            //console.log(item);
+                            $('#cancelBellcount').text(datas.length);
+                            $('#cancelBellcontent').text(`${datas.length}筆訂單申請取消通知`);
+
+                        })
+                    })
+            })          
+        </script>
+
     @await RenderSectionAsync("Scripts", required: false)
     </body>
 </html>

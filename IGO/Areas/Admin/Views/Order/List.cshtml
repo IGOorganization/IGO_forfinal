@@ -1,0 +1,244 @@
+﻿@model List<IGO.ViewModels.COrdersViewModel>
+
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h4>訂單狀態查詢</h4>
+<br>
+<select class="form-select text-white" aria-label="Default select example" style="border:3px solid yellow" id="selStatus">
+    <option class="text-white" value="1">已下訂</option>
+    <option class="text-white" value="2">取消訂單</option>
+    <option class="text-white" value="3">已出貨</option>
+    <option class="text-white" value="4">完成訂單</option>
+    <option class="text-white" value="5">取消程序中</option>
+</select>
+<table class="table-dark table">
+    <thead>
+        <tr align="right">
+            <th>
+                   訂單編號
+                </th>
+            <th>
+                顧客姓氏
+            </th>
+            <th>
+                顧客名字
+            </th>
+            <th>
+                訂單日期
+            </th>
+            <th>
+                價格
+            </th>
+            <th>
+                訂單狀態
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr align="right">
+                <td>
+                        @item.OrderId
+                    </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @Convert.ToDateTime(item.OrderDate)
+                </td>
+                <td>
+                    @String.Format("{0:C0}", item.TotalPrice)
+                </td>
+                <td>
+                    @item.StatusName
+                </td>          
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black-50" id="staticBackdropLabel">訂單狀態修改</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label>訂單編號</label><span>: </span><input class="form text-black-50" id="txtOrderID" type="text" value="">
+                <hr>
+                <label>訂單狀態</label><span>: </span><input class="form text-black-50" id="txtStatus" type="text" value="">
+                <br><br>
+                <label>變更訂單狀態:</label>
+                <select class="form-select text-white" aria-label="Default select example" style="border:1px solid white" id="EditStatus">
+                    <option class="text-white" value="0"></option>
+                    <option class="text-white" value="1">已下訂</option>
+                    <option class="text-white" value="2">取消訂單</option>
+                    <option class="text-white" value="3">已出貨</option>
+                    <option class="text-white" value="4">完成訂單</option>
+                    <option class="text-white" value="5">取消程序中</option>
+                </select>
+                <br><br>
+                <button type="button" data-bs-dismiss="modal" aria-label="Update" id="update" class="btn-danger liveToastBtn">更新</button>            
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        //訂單狀態查詢
+        $('#selStatus').change(function ()
+        {
+        $('tbody').empty();
+        //console.log($('option:selected').val());
+            let statusID = $('option:selected').val();
+            $.get('@Url.Content("~/Admin/Order/QueryByCancelOrder")', { "id": statusID },
+            function (datas)
+            {
+                //console.log(datas);
+                $.each(datas, function (idx, item)
+                {
+                    //console.log(item);
+                    let year = item.OrderDate.substr(6, 4);
+                    //console.log(year);
+                    let month = item.OrderDate.substr(0, 2);
+                    //console.log(month);
+                    let day = item.OrderDate.substr(3, 2);
+                    //console.log(day);
+                    var date = `${year}-${month}-${day}`;
+
+
+                    $('tbody').append(`<tr align="right"><td>${item.OrderId}</td><td>${item.LastName}</td><td>${item.FirstName}</td><td>${date}</td><td>${item.TotalPrice}元</td><td>${item.StatusName}</td><td>
+                    <button class="btn btn-danger btnEdit" id=orderID-${item.OrderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
+                })
+                }
+            )
+        })
+
+         //訂單狀態編輯
+        $(document).on("click", ".btnEdit", function ()   /* 動態產生的元素需用on繫結事件*/
+        {
+            let orderid = $(this).attr("id");
+            //console.log(orderid);
+            $.get('@Url.Content("~/Admin/Order/EditByOrderID")', { "Orderid": orderid }, function (datas) {
+                //console.log(datas);
+                //console.log(datas.StatusName);
+                //console.log(datas.OrderId);
+                $('#txtStatus').val(datas.StatusName);
+                $('#txtOrderID').val(datas.OrderId);
+            })
+
+        })
+
+        //顯示編輯用的modal
+        $('#EditStatus').on("change", function ()
+        {
+
+            $('#txtStatus').val($('#EditStatus>option:selected').text());
+
+
+        })
+        let orid = "";
+        let lastname = "";
+        let firstname = "";
+        let prodName = "";
+        let ticketype = "";
+        let totalprice = "";
+        let number = "";
+        arr = new Array();
+        //更新編輯後的訂單狀態
+        $('#bell').on("click", function ()
+        {
+             $.get('@Url.Content("~/Admin/Order/QueryByCancelOrder")', { "id": 5 },
+                    function (datas)
+                    {
+                        //console.log(datas);
+                        console.log(datas.length);  /*顯示幾筆訂單取消申請通知*/
+                        $.each(datas, function (idx, item)
+                        {                     
+                           
+                            $('#cancelBellcount').text(datas.length);
+                            $('#cancelBellcontent').text(`${datas.length}筆訂單申請取消通知`);
+
+                        })
+                    })
+        })
+
+
+        $('#update').on("click", function ()   /*更新訂單取消申請為取消訂單的狀態*/
+        {
+            let changeStatueID = $('#EditStatus>option:selected').val();
+            //console.log(changeStatueID);
+            let changeOrderId = $('#txtOrderID').val();
+            //console.log(changeOrderId);
+            //alert('確定更新訂單狀態?');
+            $.get('@Url.Content("~/Admin/Order/CancelEmailInfo")', { "Orderid": changeOrderId }, function (datas) {
+                //console.log(datas);
+                arr = datas;
+
+                    lastname = datas[0].LastName;
+                    firstname = datas[0].FirstName;
+                totalprice = datas[0].TotalPrice;
+                orid = datas[0].OrderId;
+
+            });
+
+            //更新訂單狀態
+            $.get('@Url.Content("~/Admin/Order/UpdateByOrderID")', { "Orderid": changeOrderId, "Statusid": changeStatueID }, function (datas)
+            {
+                //console.log(datas);
+
+                if (changeStatueID == 2)  //寄送取消訂單信函
+                {
+                    @*$.ajax(
+                        {
+                            type: "POST",
+                            dataType: "json",
+                            url: '@Url.Content("~/Admin/Order/SentCancelOrderEmail")',
+                            data: { "lastname": lastname, "firstname": firstname, "totalprice": totalprice, "orderid": orid},
+                            success: function (result) {
+                                if (!result) {
+                                    console.log("寄送失敗");
+                                }
+                                else {
+                                    console.log("寄送成功");
+
+                                }
+                            }
+                        });*@
+
+                    alert('送出取消訂單信件?')
+                    $.post('@Url.Content("~/Admin/Order/SentCancelOrderEmail")', { "lastname": lastname, "firstname": firstname, "totalprice": totalprice},
+                        function (result)
+                        {
+                            if (!result) {
+                                console.log("寄送失敗");
+                            }
+                            else {
+                                console.log("寄送成功");
+
+                            }
+                        })
+                    console.log('send');
+
+                    //window.location.href = 'List';  //refresh此頁
+                }
+            })
+        })
+
+
+
+
+    </script>
+}

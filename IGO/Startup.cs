@@ -39,29 +39,50 @@ namespace IGO
             services.AddDbContext<DemoIgoContext>(option =>
             option.UseLazyLoadingProxies().UseSqlServer("IGOConnection"));
 
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
+
+
+            });
+            services.AddControllersWithViews().AddNewtonsoftJson
+               (options =>
+               {
+
+                   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+               });
+            services.AddRazorPages().AddNewtonsoftJson(options =>
+           {
+               options.UseMemberCasing();
+
+           });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddControllersWithViews()
                .AddNewtonsoftJson(options =>
                {
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                });
             services.AddRazorPages().AddNewtonsoftJson(options =>
-{
-        options.UseMemberCasing();
-    });
-
+            {
+                options.UseMemberCasing();
+            });
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddSession();  //¥[¤JsessionªA°È
+
             services.AddRazorPages().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
 
-
-
             });
+
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,7 +102,7 @@ namespace IGO
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();  //±Ò¥ÎsessionªA°È
+            app.UseSession();  //Â±Ã’Â¥ÃŽsessionÂªAÂ°Ãˆ
 
             app.UseRouting();
 
@@ -92,10 +113,12 @@ namespace IGO
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Home}/{id?}");
+
+                    pattern: "{controller=ShoppingCart}/{action=List}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

@@ -1,13 +1,14 @@
-﻿
+﻿@model IGO.CouponViewModel;
+
 @{
     ViewData["Title"] = "Detail";
 }
 
 <!-- Page Header Start -->
-<div class="container-fluid page-header mb-5 p-0" style="background-image: url('/img/taipei.jpg');">
+<div class="container-fluid page-header mb-5 p-5" style="background-image: url('/img/@Model.FCouponImage');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center pb-5">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">商品細節</h1>
+            <h1 id="Coupon" class="display-3 text-white mb-3 animated slideInDown" data-coupon="@Model.FCouponId">@Model.FCouponName</h1>
         </div>
     </div>
 </div>
@@ -15,44 +16,7 @@
 <!-- Booking Start -->
 <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
-        <div class="bg-white shadow" style="padding: 35px;">
-            <div class="row g-2">
-                <div class="col-md-10">
-                    <div class="row g-2">
-                        <div class="col-md-3">
-                            <div class="date" id="date1" data-target-input="nearest">
-                                <input type="text" class="form-control date"
-                                       placeholder="Check in" data-target="#date1" data-toggle="datetimepicker" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="date" id="date2" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select">
-                                <option selected>Adult</option>
-                                <option value="1">Adult 1</option>
-                                <option value="2">Adult 2</option>
-                                <option value="3">Adult 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <select class="form-select">
-                                <option selected>Child</option>
-                                <option value="1">Child 1</option>
-                                <option value="2">Child 2</option>
-                                <option value="3">Child 3</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-primary w-100">Submit</button>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 <!-- Booking End -->
@@ -60,60 +24,149 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="section-title text-center text-primary text-uppercase">商品細節</h6>
-            <h1 class="mb-5">台北好行 <span class="text-primary text-uppercase">方案</span></h1>
+            <h6 class="section-title text-center text-primary text-uppercase">優惠時限</h6>
+            @{
+                string alertMessage = "           ";
+                string imgSource = "";
+                if (Model.endtime.Days <= 100)
+                {
+                    alertMessage = "活動即將結束";
+                    imgSource = "/img/alarm.png";
+                }
+                else
+                {
+                    imgSource = "/img/noalarm.png";
+                }
+            }
+
+
+            <br>
+            <h5 class="align-items-center" style="color:cadetblue"></h5>
+            <p class="align-items-end"></p>
+            <p class="align-items-end"><img src="@imgSource" width="30" height="30"></p>
+            <h5 class="align-items-end" style="color:red">@alertMessage</h5>
+            <h1 class="mb-5">離活動結束還剩 @Model.endtime.Days 天 </h1>
         </div>
         <div class="row g-4">
-            @*商品組件*@
-            <div class="col-lg-6 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="room-item shadow rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="~/img/food1.jpg" alt="" />
-                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
-                    </div>
-                    <div class="p-4 mt-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h5 class="mb-0">台北喜來登大飯店｜十二廚</h5>
-                            <div class="ps-2">
-                                <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                <small class="fa fa-star text-primary"><span> 5.0</span></small>
+
+            @{
+                foreach (var item in Model.VMproducts)
+                {
+
+                    //修改版商品組件
+                    <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="~/img/@item.getPhotoPath" alt="封面圖片">
+                                @*<p class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">票價 / 票種</p>*@
+                            </div>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h4 class="mb-0"></h4>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    @for (int s = 1; s <= 4; s++)
+                                    {
+                                        <i class="fa fa-star text-primary"></i>
+                                    }
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+                                    <h4>@item.FProductName</h4>
+
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+
+                                </div>
+                                <div class="d-flex justify-content-lg-start">
+                                    |
+                                    @foreach (var q in item.tickets)
+                                    {
+                                        <p>@q.ticket 價格:NT$ @q.price.ToString("0")  |  </p>
+                                    }
+                                    @*剩餘數量:XX 張  || 已售出:XX 張*@
+                                </div>
+                                <div class="d-flex justify-content-lg-end">
+                                    <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
+                                </div>
                             </div>
                         </div>
-                        <p class="text-body mb-3 ellipsis">
-                            鄰近捷運板南線【善導寺站】2 號出口，步行約 1 分鐘，12 區全開放式的美食料理區，各式生魚片、清燉越南河粉、爐烤嫩牛排、中東風味料理、精緻手工甜點
-                        </p>
-                        <div class="d-flex justify-content-between">
-                            @Html.ActionLink("細節", "Food", "Products", null,
-                           new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                            @Html.ActionLink("訂購", "Order", "Coupon", null,
-                           new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                        </div>
                     </div>
+                }
+            }
+
+
+            <div class="col-lg-12 row col-md-6" style="margin-top:20px">
+                <div id="divcalender" class="col-lg-8 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <table class="col-lg-12 col-md-6 wow fadeInUp table">
+                        <thead>
+                            <tr>
+                                <td colspan="3">
+                                    <button class="float-lg-left" id="btn_prev"><</button>
+                                </td>
+                                <td colspan="1">
+                                    <label id="lb_month"></label>
+                                </td>
+                                <td colspan="3">
+                                    <button class="float-lg-end" id="btn_next">></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>星期日</th>
+                                <th>星期一</th>
+                                <th>星期二</th>
+                                <th>星期三</th>
+                                <th>星期四</th>
+                                <th>星期五</th>
+                                <th>星期六</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbcalender">
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            @*商品組件*@
-            <div class="col-lg-6 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="room-item shadow rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="~/img/exhibition1.jpg" alt="">
-                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
-                    </div>
-                    <div class="p-4 mt-2">
-                        <div class="d-flex justify-content-between mb-3">
-                            <h5 class="mb-0">普立茲獎80週年展</h5>
-                            <div class="ps-2">
-                                <i id="btn_heart" class="fa-solid fa-heart fa-regular" style="padding:0px 0 0 10px ;font-size:150% "></i>
-                                <small class="fa fa-star text-primary"><span> 5.0</span></small>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <form asp-controller="Coupon" asp-action="AddToCart" name="cartForm">
+                                    <div class="m-3" id="TicketArea">
+                                        <span class="fw-bold">票種</span>
+                                        @{
+                                            decimal full = 0;
+                                            decimal half = 0;
+                                            foreach (var q in Model.VMproducts)
+                                            {
+                                                full += q.tickets[0].price;
+                                                half += q.tickets[1].price;
+                                            }
+                                            <input type="radio" class="btn-check" id="ticket1" name="ticket" value="1" data-price="@full.ToString("0")">
+                                            <label class="btn btn-outline-primary" for="ticket1">全票</label>
+                                            <input type="radio" class="btn-check" id="ticket2" name="ticket" value="2" data-price="@half.ToString("0")">
+                                            <label class="btn btn-outline-primary" for="ticket2">半票</label>
+                                        }
+                                    </div>
+                                    <input type="hidden" id="tickettype" name="fTickettype" />
+                                    <input type="hidden" name="ToCartId" value="@Model.FCouponId" />
+                                    <div class="m-3">
+                                        <span class="fw-bold">日期</span>
+                                        <input type="date" class="form-control" id="bookingTime" name="fBookingTime" />
+                                    </div>
+                                    <div class="m-3">
+                                        <span class="fw-bold">數量</span>
+                                        <input type="number" class="form-control" id="input-quantity" name="fQuantity" />
+                                    </div>
+                                    <div class="m-3">
+                                        <span class="fw-bold">價格</span>
+                                        <span id="lbl-price">NT$ - 元</span>
+                                        @*<input type="submit" class="btn btn-primary float-lg-end" id="btn-add" value="加入購物車" />*@
+                                        <button type="button" class="btn btn-primary float-lg-end" id="btn-add">
+                                            <i class="bi bi-cart-plus"></i>
+                                            加入購物車
+                                        </button>
+                                    </div>
+                                </form>
+
                             </div>
-                        </div>
-                        <p class="text-body mb-3 ellipsis">
-                            橫跨80年、138 幀得獎作品就在普立茲新聞攝影獎80週年展，今年暑假將於華山1914文化創意產業園區正式開展，「靜止的瞬間是很特別的，那一個瞬間，觸動了無數人心。」―卡洛·古茲(𝑪𝒂𝒓𝒐𝒍 𝑮𝒖𝒛𝒚)，1986、1995、2000、2011 年普立茲新聞攝影獎得獎得主
-                        </p>
-                        <div class="d-flex justify-content-between">
-                            @Html.ActionLink("細節", "Exhibit", "Products", null,
-                           new { Class = "btn btn-sm btn-primary rounded py-2 px-4" })
-                            @Html.ActionLink("訂購", "Order", "Coupon", null,
-                           new { Class = "btn btn-sm btn-dark rounded py-2 px-4" })
                         </div>
                     </div>
                 </div>
@@ -138,6 +191,175 @@
     </div>
 </div>
 @*Bottom*@
+
+@section Scripts{
+
+    <script>
+        //顯示價格
+        let price = document.querySelector("#lbl-price");
+
+        $("#TicketArea").on("click", "input", function (event) {
+            //console.log(event.currentTarget);
+            price.textContent = `NT$ ${event.currentTarget.getAttribute("data-price")} 元`
+            price.setAttribute("data-price", event.currentTarget.getAttribute("data-price"));
+            $("#tickettype").val(event.currentTarget.getAttribute("value"))
+        })
+
+        let quantity = document.querySelector("#input-quantity");
+        
+
+        quantity.addEventListener("change", function () {
+            if (this.value >= 0) {
+                price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+            } else {
+                this.value = 0;
+                price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+            }
+        })
+
+        //月曆
+
+        let tbody = document.querySelector("#tbcalender");
+
+        const Now = new Date();
+        let NowYear = Now.getFullYear();
+        let NowMonth = Now.getMonth();
+        let NowDate = Now.getDate();
+        let cid = document.querySelector("#Coupon");
+
+        console.log(Now);
+        console.log(NowYear);
+        console.log(NowMonth);
+        console.log(NowDate);
+
+
+        getsoldedList(cid);
+
+        $(function () {
+            changeMonth(NowMonth);
+        })
+        changeMonth(NowMonth);
+
+        function changeMonth(month) {
+
+            let list = getsoldedList(cid);
+            //console.log(list);
+            list.then(datas => {
+
+
+                console.log(datas);
+
+                tbody.textContent = "";
+                let lbmonth = document.querySelector("#lb_month");
+                lbmonth.textContent = `${NowYear} - ${NowMonth + 1}月`
+
+                let tgmonthfirst = new Date(NowYear, NowMonth, 1);
+                let tgmonthlast = new Date(NowYear, NowMonth + 1, 0);
+
+                let str = Math.ceil((tgmonthfirst.getDay() + tgmonthlast.getDate()) / 7);
+                let d = tgmonthlast.getDate() - datas.length;
+
+
+                let index = 0;
+                for (let i = 0; i < str; i++) {
+                    let ctr = document.createElement("tr");
+                    for (let j = 0; j < 7; j++) {
+                        let ctd = document.createElement("td");
+                        let tag = i * 7 + j;
+                        if (tag < tgmonthfirst.getDay() || tag >= (tgmonthlast.getDate() + tgmonthfirst.getDay())) {
+                            ctd.innerText = "";
+                        } else {
+                            let day = i * 7 + j + 1 - tgmonthfirst.getDay();
+                            ctd.setAttribute("data-year", `${NowYear}`)
+                            ctd.setAttribute("data-month", `${NowMonth + 1}`)
+                            ctd.setAttribute("data-day", `${day}`)
+                            d--;
+                            if (index < datas.length && datas[index].day==day) {
+                                ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
+                                index++;
+                            }
+                            else {
+                                ctd.innerText = day;
+                            }
+                        }
+                        ctr.appendChild(ctd);
+                    }
+
+                    tbody.appendChild(ctr);
+                }
+            })
+
+        }
+
+        let prev = document.querySelector("#btn_prev");
+        let next = document.querySelector("#btn_next");
+
+        prev.addEventListener("click", function () {
+            if (NowMonth == 0) {
+                NowMonth = 12;
+                NowYear--;
+            }
+            NowMonth--;
+            changeMonth(NowMonth+1);
+        })
+        next.addEventListener("click", function () {
+            if (NowMonth == 11) {
+                NowMonth = -1;
+                NowYear++;
+            }
+            NowMonth++;
+            changeMonth(NowMonth+1);
+        })
+
+        $("#tbcalender").on("click", "td", function (event) {
+            console.log(event.currentTarget);
+            let takeyear = event.currentTarget.getAttribute("data-year");
+            let takemonth = event.currentTarget.getAttribute("data-month");
+            let takeday = event.currentTarget.getAttribute("data-day");
+
+            if (takemonth < 10) {
+                takemonth = `0${takemonth}`;
+            }
+            if (takeday < 10) {
+                takeday = `0${takeday}`
+            }
+            let takedate = `${takeyear}-${takemonth}-${takeday}`;
+
+            $("#bookingTime").val(takedate);
+        })
+
+        //=====================================
+
+        async function getsoldedList(c) {
+            //console.log(c.getAttribute("data-coupon"));
+            let jsolded = await fetch('@Url.Content("~/Coupon/TakeSoldOut")' + `?cid=${c.getAttribute("data-coupon")}&month=${NowMonth}`)
+
+            let solded = await jsolded.json();
+            //console.log(solded);
+            return solded;
+        }
+
+        //========新增到購物車===========
+        let addtocart = document.querySelector("#btn-add");
+
+        addtocart.addEventListener("click", async (event) => {
+            //this.preventDefault();
+            //event.preventDefault();
+            //console.log(event);
+
+            let cartform = new FormData(document.cartForm)
+
+            let jresponce = await fetch("@Url.Content("~/Coupon/AddToCart")", {
+                body: cartform,
+                method: "POST",
+            })
+            let responce = await jresponce.json();
+            console.log(responce)
+            alert(responce);
+        })
+
+    </script>
+}
 
 
 @section Styles{
