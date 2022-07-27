@@ -49,15 +49,11 @@
             right: 20px;
             bottom: 400px;
             /* left: 50px;*/
-
-            /*z-index: $zindex-fixed;*/
-            font-size: 200%;
-            color: cornflowerblue;
-
             z-index: $zindex-fixed;
             font-size: 150%;
             color: orange;
         }
+
         .parking-fix {
             position: fixed;
             right: 20px;
@@ -66,7 +62,6 @@
             z-index: $zindex-fixed;
             font-size: 150%;
             color: orange;
-
         }
     </style>
 
@@ -96,6 +91,7 @@
                         <h1 class="m-0 text-primary text-uppercase">IGO</h1>
                     </a>
 
+
                     <div class="navbar-nav mr-auto py-0" id="category">
                     </div>
                     <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -103,30 +99,14 @@
                             <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 
-                        <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
-                            <a class="btn dropdown-toggle nav-item nav-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="~/img/UserPhoto.jpg" alt="mdo" width="50" height="50" class="rounded-circle">
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
-                                    <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
-                                    <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
-                                    <li><a class="dropdown-item" href="/Collection/myFavGroup"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
-                                    <li><a class="dropdown-item" href="/Customer/List"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="/Home/Login"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
-                                </ul>
                         </div>
                         <div class="offcanvas-body bg-dark">
                             <div class="card-body">
-
                             </div>
                         </div>
                     </div>
                     @*宜潔新增*@
-                    <a href="~/Coupon/List" class="nav-item nav-link" style="font-size:120%">特惠組合</a>
-                    <a href="/Questionnaire/Test" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
+                    <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-eye"></i>
@@ -135,16 +115,16 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0 viewRecordDropdown" data-bs-popper="none" id="viewContent">
                             @* <p  class="dropdown-item"><small>目前無資料</small></p>*@
                             @*<a href="/Products/Food" class="dropdown-item"><img src="~/img/City_HotSales_02.jpg" width="50" height="50" /><small>台北喜來登大飯店｜十二廚</small></a>
-                @*<a href="/Products/Food" class="dropdown-item">
-                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
-                    <small>台北喜來登大飯店｜十二廚</small>
-                </a>
-                <hr class="dropdown-divider">
-                <a href="/Products/Exhibit" class="dropdown-item">
-                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
-                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
-                </a>
-                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
+                                @*<a href="/Products/Food" class="dropdown-item">
+                                    <img src="~/img/City_HotSales_02.jpg" width="50" height="50" />
+                                    <small>台北喜來登大飯店｜十二廚</small>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a href="/Products/Exhibit" class="dropdown-item">
+                                    <img src="~/img/Home_carousel_01.jpg" width="50" height="50" />
+                                    <small class="viewName">普立茲新聞攝影獎80週年展</small>
+                                </a>
+                                <a href="#" class="dropdown-item text-center">看所有瀏覽紀錄</a>*@
                         </div>
                     </div>
                     <div class="nav-item">
@@ -172,7 +152,7 @@
                                         <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
                                         <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
-                                        <li><a class="dropdown-item" href="/Customer/CollectionList"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
+                                        <li><a class="dropdown-item" href="/Collection/myFavGroup"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
                                         <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
@@ -246,7 +226,6 @@
                             <a class="btn btn-link" href="/About/index">關於IGO</a>
                             <a class="btn btn-link" href="/About/Helper">幫助中心</a>
                             <a class="btn btn-link" href="/Privacy/index">隱私權</a>
-                            <a class="btn btn-link" href="/Questionnaire/Question">網頁問卷</a>
 
                             @*<a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>*@
                             <a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#BackendModal">管理後台</a>
@@ -474,8 +453,6 @@
         </div>
     </div>
     <!-- Backend Modal End -->
-
-
     <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
     <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
 
@@ -514,18 +491,16 @@
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <a href="#" class="message-fix"><img src="~/img/robot.png" title="客服小幫手"/><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
-    <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位"/><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
+    <a href="#" class="message-fix"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
+    <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
 
-    
+
 
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
     <script src="~/lib/wow/wow.min.js"></script>
     <script src="~/lib/easing/easing.min.js"></script>
     <script src="~/lib/waypoints/waypoints.min.js"></script>
@@ -534,7 +509,6 @@
     <script src="~/lib/tempusdominus/js/moment.min.js"></script>
     <script src="~/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://unpkg.com/vue@3"></script>
 
 
 
@@ -546,6 +520,7 @@
         let CategoryIDArray = new Array();
         window.addEventListener("DOMContentLoaded", ShowCategory);
         async function ShowCategory() {
+
             let Response = await fetch('@Url.Content("~/Home/layoutCategory")');
             /*console.log(Response);*/
             let Datas = await Response.json();
@@ -588,7 +563,6 @@
 
         //顯示瀏覽過的次數(之後用id/session)
         window.addEventListener("DOMContentLoaded", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
-
         async function ViewRecord()
         {
             if (window.location.href.indexOf("City") > -1)
@@ -624,8 +598,9 @@
         }
 
         //顯示瀏覽過的內容
-        @* window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
-        async function ViewRecordContent() {
+        @*window.addEventListener("load", ViewRecordContent); //當產品頁面載入時紀錄瀏覽紀錄
+        async function ViewRecordContent()
+        {
             if (window.location.href.indexOf("City") > -1) //連結中是否包含City 之後改為Product
             {
                 //顯示瀏覽過的內容
