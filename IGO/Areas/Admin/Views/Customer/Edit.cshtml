@@ -1,0 +1,88 @@
+﻿@model IGO.Models.TCustomer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>會員資料修改作業</h1>
+
+<h4>填寫欲修改資料</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" value="@Model.FCustomerId" name="FCustomerID" />
+            <div class="form-group">
+                <label asp-for="FCustomerId" class="control-label"></label>
+                <input asp-for="FCustomerId" class="form-control" />
+                <span asp-validation-for="FCustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FPassword" class="control-label"></label>
+                <input asp-for="FPassword" class="form-control" />
+                <span asp-validation-for="FPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FCityId" class="control-label"></label>
+                <input asp-for="FCityId" class="form-control" />
+                <span asp-validation-for="FCityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FAddress" class="control-label"></label>
+                <input asp-for="FAddress" class="form-control" />
+                <span asp-validation-for="FAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FLastName" class="control-label"></label>
+                <input asp-for="FLastName" class="form-control" />
+                <span asp-validation-for="FLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FFirstName" class="control-label"></label>
+                <input asp-for="FFirstName" class="form-control" />
+                <span asp-validation-for="FFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FEmail" class="control-label"></label>
+                <input asp-for="FEmail" class="form-control" />
+                <span asp-validation-for="FEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FPhone" class="control-label"></label>
+                <input asp-for="FPhone" class="form-control" />
+                <span asp-validation-for="FPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FGender" class="control-label"></label>
+                <input asp-for="FGender" class="form-control" />
+                <span asp-validation-for="FGender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FBirth" class="control-label"></label>
+                <input asp-for="FBirth" class="form-control" />
+                <span asp-validation-for="FBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FSignUpDate" class="control-label"></label>
+                <input asp-for="FSignUpDate" class="form-control" />
+                <span asp-validation-for="FSignUpDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">會員貼圖</label>
+                <input type="file" name="photo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="送出並修改" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">返回會員管理列表</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

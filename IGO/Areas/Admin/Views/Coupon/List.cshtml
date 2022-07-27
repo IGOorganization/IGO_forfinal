@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<IGO.CouponViewModel>
 @{
     ViewData["Title"] = "List";
 }
@@ -16,121 +16,43 @@
 
             </form>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-dark">
                     <thead>
                         <tr>
-                            <th scope="col">序號</th>
                             <th scope="col">商品名稱</th>
                             <th scope="col">商品</th>
+                            <th scope="col">封面圖片</th>
+                            <th scope="col">庫存量</th>
                             <th scope="col">折數</th>
                             <th scope="col">販售期限</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @*商品組*@
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>台北好行</td>
-                            <td>
-                                <ul>
-                                    <li>台北喜來登大飯店｜十二廚</li>
-                                    <li>普立茲獎80週年展</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>
-                        @*商品組*@
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>高雄好行</td>
-                            <td>
-                                <ul>
-                                    <li>高雄翰品酒店 | 品日式料理</li>
-                                    <li>會動的文藝復興</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>
-                        @*商品組*@
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>台中之旅</td>
-                            <td>
-                                <ul>
-                                    <li>侏羅紀Ｘ恐龍3.0 台中站</li>
-                                    <li>台中長榮桂冠自助餐</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>
-                        @*商品組*@
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>台南一日遊</td>
-                            <td>
-                                <ul>
-                                    <li>頑皮世界野生動物園</li>
-                                    <li>漢來海港城南紡夢時代店</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>
-                        @*商品組*@
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>台東溫泉之旅</td>
-                            <td>
-                                <ul>
-                                    <li>台東桂田喜來登酒店</li>
-                                    <li>桂田酒店｜阿力海百匯餐廳</li>
-                                    <li>知本國家森林遊樂園</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>
-                        @*商品組*@
-                        <tr class="a" name="6">
-                            <th scope="row">6</th>
-                            <td>宜蘭田野之旅</td>
-                            <td>
-                                <ul>
-                                    <li>宜蘭二結穀倉稻農文化館</li>
-                                    <li>蘭城百匯自助餐廳</li>
-                                    <li>煙波大飯店 宜蘭館</li>
-                                </ul>
-                            </td>
-                            <td>85</td>
-                            <td>2022/8/31</td>
-                            <td>
-                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
-                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
-                            </td>
-                        </tr>
+                    <tbody id="tb_coupon">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                @*商品組*@
+                                <tr id="@item.FCouponId">
+                                    <td>@item.FCouponName</td>
+                                    <td>
+                                        <ul>
+                                            @foreach (var p in item.VMproducts)
+                                            {
+                                                <li>@p.FProductName</li>
+                                            }
+                                        </ul>
+                                    </td>
+                                    <td><img src="~/img/@item.FCouponImage" style="width:160px;height:90px" /></td>
+                                    <td>@item.FQuantity</td>
+                                    <td>@item.FDiscount</td>
+                                    <td>@item.FDeadTime</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success m-2" style="font-size:0.8em" name="edit" data-eid="@item.FCouponId" data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button>
+                                        <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete" data-did="@item.FCouponId">刪除</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
@@ -138,8 +60,10 @@
     </div>
 </div>
 
+
+@*新增商品*@
 <div class="modal fade" id="createproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg bg-secondary rounded h-100 p-0">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-secondary rounded h-100 p-0">
         <div class="modal-content bg-secondary rounded h-100 p-0">
             <div class="modal-header">
                 <h5 class="modal-title">
@@ -152,103 +76,137 @@
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4">商品新增作業</h6>
-                                <form>
+                                <form asp-area="Admin" asp-controller="Coupon" asp-action="Create" name="createForm">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">組合名稱</label>
-                                        <input type="text" class="form-control" id="couponName"
+                                        <input type="text" class="form-control" name="fcouponName"
                                                aria-describedby="emailHelp">
                                     </div>
                                     <div class="mb-3" id="dropzone">
-                                        <label for="text" class="form-label">組合內容</label>
+                                        <label for="text" class="form-label">組合內容(上限五件)</label>
 
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">庫存量</label>
+                                        <input type="number" class="form-control" name="fquantity">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">折數</label>
-                                        <input type="number" class="form-control" id="discount">
+                                        <input type="number" class="form-control" name="fdiscount">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">販售期限</label>
-                                        <input type="date" class="form-control" id="deadtime">
+                                        <input type="date" class="form-control" name="fdeadtime">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">新增</button>
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="btn_createCoupon">新增</button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
-
                             </div>
                         </div>
                         <div class="col-sm-12 col-xl-6">
-                            <table class="table">
+                            <div class="float-lg-start" style="margin-left:10px;">
+                                <select id="createsel_subcategory" class="form-select" name="fSubcategoryID">
+                                    <option value="2">景點</option>
+                                    <option value="4">展覽</option>
+                                    <option value="5">美食</option>
+                                </select>
+                            </div>
+                            <table class="table table-dark">
                                 <thead>
                                     <tr>
                                         <th>商品列表</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="1">
-                                                <input type="hidden" value="1" />
-                                                <label>世界宗教博物館門票</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="2">
-                                                <input type="hidden" value="2" />
-                                                <label>遠雄海洋公園門票</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="3">
-                                                <input type="hidden" value="1" />
-                                                <label>野柳海洋世界</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="4">
-                                                <input type="hidden" value="1" />
-                                                <label>六福村票券</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="5">
-                                                <input type="hidden" value="1" />
-                                                <label>麗寶票券</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="6">
-                                                <input type="hidden" value="1" />
-                                                <label>劍湖山票券</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="7">
-                                                <input type="hidden" value="1" />
-                                                <label>台北喜來登大飯店｜十二廚</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div name="dragitem" draggable="true" id="8">
-                                                <input type="hidden" value="1" />
-                                                <label>台北君悅酒店｜凱菲屋</label>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tbody id="createtb_products">
                                 </tbody>
                             </table>
+                            <div class="col-sm-12 col-xl-6" style="margin-left:10px;">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div id="createpagebar" class="btn-group me-2" role="group" aria-label="First group">
+                                        @*<button type="button" class="btn btn-secondary">1</button>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*編輯商品*@
+<div class="modal fade" id="editcoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    產品編輯作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="bg-secondary rounded h-100 p-4">
+                                <h6 class="mb-4">基本資料</h6>
+                                <form asp-area="Admin" asp-controller="Coupon" asp-action="Edit" name="editForm">
+                                    <input type="hidden" name="FCouponId" id="editId" />
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">組合名稱</label>
+                                        <input type="text" class="form-control" name="FCouponName" id="editName"
+                                               aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="mb-3" id="editdropzone">
+                                        <label class="form-label">組合內容(至少兩件,上限五件)</label>
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">庫存量</label>
+                                        <input type="number" class="form-control" name="FQuantity" id="editquantity">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">折數</label>
+                                        <input type="number" class="form-control" name="FDiscount" id="editdiscount">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleInputPassword1" class="form-label">販售期限</label>
+                                        <input type="date" class="form-control" name="FDeadTime" id="editEnd">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn_editCoupon">送出</button>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-xl-6">
+                            <div class="float-lg-start" style="margin-left:10px;">
+                                <select id="editsel_subcategory" class="form-select" name="fSubcategoryID">
+                                    <option value="2">景點</option>
+                                    <option value="4">展覽</option>
+                                    <option value="5">美食</option>
+                                </select>
+                            </div>
+                            <table class="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th>商品列表</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="edittb_products">
+                                </tbody>
+                            </table>
+                            <div class="col-sm-12 col-xl-6" style="margin-left:10px;">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div id="editpagebar" class="btn-group me-2" role="group" aria-label="First group">
+                                        @*<button type="button" class="btn btn-secondary">1</button>*@
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -259,24 +217,320 @@
 
 
 
+
 @section Scripts{
     <script>
-        const items = document.getElementsByName("dragitem");
-        const zone = document.querySelector("#dropzone");
 
-        items.forEach(function (item) {
-            item.addEventListener("dragstart", dragstartHandler);
+        //=================商品分頁===============
+        let pagebar = document.querySelector("#createpagebar");
+
+        async function page(s,bar) {
+            console.log(bar);
+            let frag = document.createDocumentFragment();
+            let jpages = await fetch('@Url.Content("~/Admin/Product/Pages")' + `?number=${s}`);
+
+            let pages = await jpages.json();
+            console.log(pages);
+
+            bar.textContent = "";
+            for (var i = 0; i < pages; i++) {
+                let button = document.createElement("button");
+                button.setAttribute("data-index", i);
+                button.textContent = i + 1;
+                button.className = "btn btn-secondary";
+                frag.appendChild(button);
+            }
+            bar.appendChild(frag);
+        }
+
+        $("#createpagebar").on("click", "button", function (event) {
+            console.log(event.currentTarget.getAttribute("data-index"));
+            changeSubCategory(tbody, event.currentTarget.getAttribute("data-index"));
         })
 
+
+        //=============拖曳功能====================
+        const zone = document.querySelector("#dropzone");
+
+        $("#createtb_products").on("dragstart", $("div"), dragstartHandler);
+
+        //items.forEach(function (item) {
+        //    item.addEventListener("dragstart", dragstartHandler);
+        //})
 
         zone.addEventListener("dragover", dragoverHandler);
         zone.addEventListener("drop", dropHandler);
 
-        function dragstartHandler(e) {
+        function dragstartHandler(event) {
+            if (event.target.hasAttribute("data-pid")) {
+                //console.log(event.target);
+                //let e = event.originalEvent;  //DragEvent
+                //console.log(e);
+                event.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+            }
             //儲存要拖放的資料
-            e.dataTransfer.setData("text/plain", e.currentTarget.id);
+
         }
 
+        function dragoverHandler(e) {
+            //取消預設動作
+            e.preventDefault();
+        }
+        let num = 0;
+        function dropHandler(e) {
+            num = 0;
+            if (num < 5) {
+                num++;
+                //console.log(num);
+                //取消預設動作
+                e.preventDefault();
+                //取出拖放資料
+                e.stopPropagation();
+                //建立div元素
+                let sourceid = e.dataTransfer.getData('text/plain');
+                //console.log(sourceid);
+                let source = document.getElementById(sourceid);
+                console.log(source);
+                //設定屬性及外觀s
+                //console.log(source);
+                let div1 = document.createElement("div");
+                let div2 = document.createElement("div");
+                let div3 = document.createElement("div");
+                let input = document.createElement("input");
+                let span = document.createElement("span");
+                let button = document.createElement("button");
+                div1.className = "d-flex align-items-center border-bottom py-2";
+                div2.className = "w-100 ms-3";
+                div3.className = "d-flex w-100 align-items-center justify-content-between";
+                input.value = source.firstElementChild.value;
+                input.type = "hidden";
+                input.name = `fProductId${num}`;
+                span.textContent = source.lastElementChild.textContent;
+                button.className = "btn btn-sm";
+                button.name = "removeProduct";
+                button.innerHTML = '<i class="fa fa-times"></i>';
+
+                div3.appendChild(input);
+                div3.appendChild(span);
+                div3.appendChild(button);
+                div2.appendChild(div3);
+                div1.appendChild(div2);
+                e.currentTarget.appendChild(div1);
+                //新增到dropZone or dropZone1元素後面
+            } else {
+                alert("商品已達上限");
+            }
+        }
+
+        //==========從編輯列表移除商品==========
+        $("#dropzone").on("click", "button", (event) => {
+            event.preventDefault();
+            $(event.currentTarget).parent().parent().parent().remove();
+            num--;
+        })
+
+
+        //=========載入商品列表==============
+
+        let tbody = document.querySelector("#createtb_products");
+
+        const createSelsubcategory = document.querySelector("#createsel_subcategory");
+        createSelsubcategory.addEventListener("change", function () { changeSubCategory(tbody,0) });
+
+        changeSubCategory(tbody,0);
+
+        //==========類別篩選==============
+        async function changeSubCategory(body,p) {
+            let subcategoryid = await createSelsubcategory.options[createSelsubcategory.selectedIndex].value;
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
+
+            let products = await jproducts.json();
+            //console.log(products);
+            createtable(products, body);
+
+            page(subcategoryid, pagebar)
+        }
+
+        async function createtable(products,body) {
+            body.textContent = "";
+            if (products.length == 0)
+                body.textContent = "商品不存在";
+            else {
+                let frag = document.createDocumentFragment();
+                products = JSON.parse(products);
+                products.forEach(product => {
+                    console.log(product)
+                    let tr = document.createElement("tr");
+                    let td = document.createElement("td");
+                    let div = document.createElement("div");
+                    let input = document.createElement("input");
+                    let label = document.createElement("label");
+
+                    input.value = product.FProductId;
+                    input.type = "hidden";
+                    label.textContent = product.FProductName;
+                    div.setAttribute("name", "dragitem");
+                    div.setAttribute("draggable", "true");
+                    div.setAttribute("id", `prod${product.FProductId}`);
+                    div.setAttribute("data-pid", `prod${product.FProductId}`);
+
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    td.appendChild(div);
+                    tr.appendChild(td);
+                    frag.appendChild(tr);
+                })
+                body.appendChild(frag);
+            }
+        }
+
+
+        //=========新增商品=============
+
+
+        let create = document.querySelector("#btn_createCoupon");
+        create.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+            //console.log(event);
+            let createData = new FormData(document.createForm);
+
+            let jcoupons = await fetch("Create", {
+                body: createData,
+                method: "POST",
+            })
+            let coupons = await jcoupons.json();
+            console.log(coupons);
+            refrechCoupon(coupons);
+        })
+
+        //==========刷新組合列表===========
+        let tbcoupon = document.querySelector("#tb_coupon");
+
+
+        function refrechCoupon(coupons) {
+            let frag = document.createDocumentFragment()
+            tbcoupon.textContent = "";
+            if (coupons.length == 0) {
+                tbcoupon.textContent = "商品不存在";
+            }
+            else {
+                coupons = JSON.parse(coupons);
+                console.log(coupons);
+                coupons.forEach(item => {
+                    let tr = document.createElement("tr");
+                    let td1 = document.createElement("td");
+                    let ul = document.createElement("ul");
+                    let td2 = document.createElement("td");
+                    let td3 = document.createElement("td");
+                    let td4 = document.createElement("td");
+                    let td5 = document.createElement("td");
+                    let td6 = document.createElement("td");
+                    let img = document.createElement("img");
+                    let td7 = document.createElement("td");
+
+                    img.src = `/img/${item.FCouponImage}`;
+                    img.style.width = "160px";
+                    img.style.height = "90px";
+                    td6.appendChild(img);
+
+                    tr.setAttribute("id", item.FCouponId);
+                    td1.textContent = item.FCouponName;
+                    item.VMproducts.forEach(product => {
+                        let li = document.createElement("li");
+                        li.textContent = product.FProductName;
+                        ul.appendChild(li);
+                    });
+                    td2.appendChild(ul);
+                    td7.textContent = item.FQuantity;
+                    td3.textContent = item.FDiscount;
+                    td4.textContent = item.FDeadTime;
+                    td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${item.FCouponId} data-bs-toggle="modal" data-bs-target="#editcoupon">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${item.FCouponId}>刪除</button>`;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td6);
+                    tr.appendChild(td7);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    tr.appendChild(td5);
+                    frag.appendChild(tr);
+                })
+
+                tbcoupon.append(frag);
+            }
+        }
+
+
+        //==========刪除組合包===========
+
+        $("#tb_coupon").on("click", $("delete"), async function (event) {
+            //console.log(event.target.getAttribute("data-did"));
+            if (event.target.hasAttribute("data-did")) {
+                alert("確定要刪除該商品?")
+                let jcoupons = await fetch('@Url.Content("~/Admin/Coupon/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
+
+                let coupons = await jcoupons.json();
+                //console.log(coupons);
+                refrechCoupon(coupons);
+                alert("刪除成功!");
+             }
+        });
+
+        //============載入編輯頁商品列表=============
+        let edittbody = document.querySelector("#edittb_products");
+        let editSelsubcategory = document.querySelector("#editsel_subcategory");
+
+        let editbar = document.querySelector("#editpagebar");
+
+        editSelsubcategory.addEventListener("change", function () { editSubCategory(edittbody,0) });
+        editSubCategory(edittbody,0);
+
+
+        async function editSubCategory(body,p) {
+            let subcategoryid = await editSelsubcategory.options[editSelsubcategory.selectedIndex].value;
+            let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
+
+            let products = await jproducts.json();
+            //console.log(products);
+            createtable(products, body);
+
+            page(subcategoryid, editbar);
+        }
+
+        $("#editpagebar").on("click", "button", function (event) {
+            console.log(event.currentTarget.getAttribute("data-index"));
+            editSubCategory(edittbody, event.currentTarget.getAttribute("data-index"));
+        })
+
+
+        //=============拖曳功能====================
+        const editzone = document.querySelector("#editdropzone");
+
+        $("#edittb_products").on("dragstart", $("div"), dragstartHandler);
+
+        //items.forEach(function (item) {
+        //    item.addEventListener("dragstart", dragstartHandler);
+        //})
+
+        $("#editdropzone").on("click", "button", (event) => {
+            event.preventDefault();
+            $(event.currentTarget).parent().parent().parent().remove();
+            num--;
+        })
+
+        editzone.addEventListener("dragover", dragoverHandler);
+        editzone.addEventListener("drop", dropHandler);
+
+        function dragstartHandler(event) {
+            if (event.target.hasAttribute("data-pid")) {
+                //console.log(event.target);
+                //let e = event.originalEvent;  //DragEvent
+                //console.log(e);
+                event.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+            }
+            //儲存要拖放的資料
+
+        }
 
         function dragoverHandler(e) {
             //取消預設動作
@@ -284,44 +538,126 @@
         }
 
         function dropHandler(e) {
-            //取消預設動作
-            e.preventDefault();
-            //取出拖放資料
-            e.stopPropagation();
-            //建立div元素
-            let sourceid = e.dataTransfer.getData('text/plain');
-            let source = document.getElementById(sourceid);
-            //設定屬性及外觀s
-            console.log(source);
-            let div1 = document.createElement("div");
-            let div2 = document.createElement("div");
-            let div3 = document.createElement("div");
-            let span = document.createElement("span");
-            let button = document.createElement("button");
-            div1.className = "d-flex align-items-center border-bottom py-2";
-            div2.className = "w-100 ms-3";
-            div3.className = "d-flex w-100 align-items-center justify-content-between";
-            span.textContent = source.lastElementChild.textContent;
-            button.className = "btn btn-sm";
-            button.innerHTML = '<i class="fa fa-times"></i>';
+            if (num < 5) {
+                num++;
+                //console.log(num);
+                //取消預設動作
+                e.preventDefault();
+                //取出拖放資料
+                e.stopPropagation();
+                //建立div元素
+                let sourceid = e.dataTransfer.getData('text/plain');
+                //console.log(sourceid);
+                let source = document.getElementById(sourceid);
+                //console.log(source);
+                //設定屬性及外觀s
+                //console.log(source);
+                let div1 = document.createElement("div");
+                let div2 = document.createElement("div");
+                let div3 = document.createElement("div");
+                let input = document.createElement("input");
+                let span = document.createElement("span");
+                let button = document.createElement("button");
+                div1.className = "d-flex align-items-center border-bottom py-2";
+                div2.className = "w-100 ms-3";
+                div3.className = "d-flex w-100 align-items-center justify-content-between";
+                input.value = source.firstElementChild.value;
+                input.type = "hidden";
+                input.name = `fProductId${num}`;
+                span.textContent = source.lastElementChild.textContent;
+                button.className = "btn btn-sm";
+                button.name = "removeProduct";
+                button.innerHTML = '<i class="fa fa-times"></i>';
 
-            div3.appendChild(span);
-            div3.appendChild(button);
-            div2.appendChild(div3);
-            div1.appendChild(div2);
-            e.currentTarget.appendChild(div1);
-            //新增到dropZone or dropZone1元素後面
-
+                div3.appendChild(input);
+                div3.appendChild(span);
+                div3.appendChild(button);
+                div2.appendChild(div3);
+                div1.appendChild(div2);
+                e.currentTarget.appendChild(div1);
+                //新增到dropZone or dropZone1元素後面
+            } else {
+                alert("商品已達上限");
+            }
         }
 
-        const btn_dels = document.getElementsByName("delete");
-        btn_dels.forEach(function (del) {
-            del.addEventListener("click", (event) => {
-                let d = event.currentTarget
-                $(event.currentTarget).closest("tr").remove();
-                //d.parentElement.parentElement.remove();
-            });
+
+        //==========編輯組合包===========
+
+
+        $("#tb_coupon").on("click", $("edit"), async function (event) {
+            //console.log(event.target.getAttribute("data-eid"));
+            let label = document.createElement("label");
+            label.className = "form-label";
+            label.textContent = "組合內容(至少兩件,上限五件)";
+            editzone.textContent = "";
+            editzone.appendChild(label);
+             if (event.target.hasAttribute("data-eid")) {
+                 alert("edit");
+                 //console.log(event.target);
+                 let jcoupon = await fetch('@Url.Content("~/Admin/Coupon/searchCouponById")' + `?id=${event.target.getAttribute("data-eid")}`)
+
+                 let coupon = await jcoupon.json();
+                 console.log(coupon);
+                 $("#editId").val(coupon.FCouponId);
+                 $("#editName").val(coupon.FCouponName);
+                 $("#editquantity").val(coupon.FQuantity);
+                 $("#editdiscount").val(coupon.FDiscount);
+                 $("#editEnd").val(coupon.FDeadtime);
+
+                 num = 0;
+                 coupon.VMproducts.forEach(product => {
+                     num++;
+                     let div1 = document.createElement("div");
+                     let div2 = document.createElement("div");
+                     let div3 = document.createElement("div");
+                     let input = document.createElement("input");
+                     let span = document.createElement("span");
+                     let button = document.createElement("button");
+                     div1.className = "d-flex align-items-center border-bottom py-2";
+                     div2.className = "w-100 ms-3";
+                     div3.className = "d-flex w-100 align-items-center justify-content-between";
+                     input.value = product.FProductId;
+                     input.type = "hidden";
+                     input.name = `fProductId${num}`;
+                     span.textContent = product.FProductName;
+                     button.className = "btn btn-sm";
+                     button.name = "removeProduct";
+                     button.innerHTML = '<i class="fa fa-times"></i>';
+
+                     div3.appendChild(input);
+                     div3.appendChild(span);
+                     div3.appendChild(button);
+                     div2.appendChild(div3);
+                     div1.appendChild(div2);
+                     editzone.appendChild(div1);
+
+                 })
+
+             }
+        });
+
+
+        let edit = document.querySelector("#btn_editCoupon");
+        edit.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+            let editData = new FormData(document.editForm);
+
+            let jcoupons = await fetch("Edit", {
+                body: editData,
+                method: "POST",
+            })
+
+            let coupons = await jcoupons.json();
+            console.log(coupons);
+            refrechCoupon(coupons);
+
         })
+
+        //===========上傳圖片===========
+
+
 
     </script>
 }

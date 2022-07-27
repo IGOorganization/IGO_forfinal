@@ -42,6 +42,7 @@ namespace IGO
             services.AddRazorPages().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
                 options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
 
 
@@ -52,21 +53,40 @@ namespace IGO
                  
                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                });
-            services.AddRazorPages()
-           .AddNewtonsoftJson(options =>
+            services.AddRazorPages().AddNewtonsoftJson(options =>
            {
              options.UseMemberCasing();
+              
               });
 
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
+            });
 
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
+
+
+            });
+            services.AddControllersWithViews()
+               .AddNewtonsoftJson(options =>
+               {
+                   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+               });
+            services.AddRazorPages().AddNewtonsoftJson(options =>
+            {
+                options.UseMemberCasing();
+            });
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
             services.AddSession();
 
-         //¥[¤JsessionªA°È
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,7 +106,7 @@ namespace IGO
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();  //±Ò¥ÎsessionªA°È
+            app.UseSession();  //Â±Ã’Â¥ÃŽsessionÂªAÂ°Ãˆ
 
             app.UseRouting();
 
@@ -97,10 +117,12 @@ namespace IGO
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
+
                     pattern: "{controller=CheckTicket}/{action=CheckCustomerOrderDetails}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

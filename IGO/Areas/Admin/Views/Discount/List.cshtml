@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">產品列表</h6>
+            <form class="d-none d-md-flex ms-4">
+                <div class="col-md-3">
+                    <input class="form-control bg-dark border-0 " type="search" placeholder="輸入商品名稱">
+                    <input class="btn btn-secondary m-2" type="submit" value="搜尋" />
+                    <button class="btn btn-secondary m-2 float-lg-end" type="button" data-bs-toggle="modal" data-bs-target="#createproduct">新增</button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">封面圖片</th>
+                            <th scope="col">優惠名稱</th>
+                            <th scope="col">販售期限</th>
+                            <th scope="col">折數</th>
+                            <th scope="col" class="col-md-4">狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb_discounts">
+                        @*商品組*@
+                        <!--<tr>
+                            <td>父親節優惠</td>
+                            <td>2022/8/31</td>
+                            <td>88</td>
+                            <td>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option>開</option>
+                                    <option>關</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success m-2" style="font-size:0.8em">編輯</button>
+                                <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" name="delete">刪除</button>
+                            </td>
+                        </tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*商品新增*@
+<div class="modal fade" id="createproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    商品新增作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-8">
+                            <div class="bg-secondary rounded h-100 p-2">
+                                <h6 class="mb-4">基本資料</h6>
+                                <form asp-area="Admin" asp-controller="Discount" asp-action="Create" name="createForm">
+                                    <div class="mb-2">
+                                        <label for="fDiscountName" class="form-label">商品名稱</label>
+                                        <input type="text" class="form-control" name="fDiscountName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">販售期限</label>
+                                        <input type="date" class="form-control col-xl-4" name="fDeadTime">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">折數</label>
+                                        <input type="number" class="form-control" name="fDiscount">
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="checkbox" class="form-check-input" name="fTimeOut" />
+                                        <label class="form-check-label">開/關</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btn_createDiscount" data-bs-dismiss="modal">新增</button>
+                                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*商品編輯*@
+<div class="modal fade" id="editdiscount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    商品編輯作業
+                </h5>
+            </div>
+            <div class="modal-body ">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-8">
+                            <div class="bg-secondary rounded h-100 p-2">
+                                <h6 class="mb-4">基本資料</h6>
+                                <form asp-area="Admin" asp-controller="Discount" asp-action="Edit" name="EditForm">
+                                    <input type="hidden" name="fDiscountId" id="editId" />
+                                    <div class="mb-2">
+                                        <label for="FDiscountName" class="form-label">商品名稱</label>
+                                        <input type="text" id="editName" class="form-control" name="FDiscountName">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">販售期限</label>
+                                        <input type="date" id="editDeadTime" class="form-control col-xl-4" name="FDeadTime">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label">折數</label>
+                                        <input type="number" id="editDiscount" class="form-control" name="FDiscount">
+                                    </div>
+                                    <div class="mb-2">
+                                        <input type="checkbox" class="form-check-input" name="FTimeOut" />
+                                        <label class="form-check-label">開/關</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="control-label">封面圖片</label>
+                                        <input type="file" name="Photo" class="form-control" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btn_editDiscount" data-bs-dismiss="modal">送出</button>
+                                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+
+        getdiscounts();
+
+        //回傳折扣清單
+        async function getdiscounts() {
+            let jdiscounts = await fetch('@Url.Content("~/Admin/Discount/getAll")');
+
+            let discounts = await jdiscounts.json();
+            console.log(discounts);
+            showdiscounts(discounts);
+        }
+
+        //呈現回傳的資料
+        function showdiscounts(items) {
+            //console.log(items);
+            let tbody = document.querySelector("#tb_discounts");
+            tbody.textContent = "";
+            if (items.length == 0) {
+                tbody.textContent = "無此商品";
+            } else {
+                let frag = document.createDocumentFragment();
+
+                items.forEach(item => {
+                    let tr = document.createElement("tr");
+
+                    let tdp = document.createElement("td");
+                    let img = document.createElement("img");
+
+                    let td1 = document.createElement("td");
+                    let td2 = document.createElement("td");
+                    let td3 = document.createElement("td");
+                    let td4 = document.createElement("td");
+                    let td5 = document.createElement("td");
+
+                    img.src = `/img/${item.FImagePath}`;
+                    img.style.width = "160px";
+                    img.style.height = "90px";
+                    tdp.appendChild(img);
+
+                    td1.textContent = item.FDiscountName;
+                    td2.textContent = item.FDeadTime;
+                    td3.textContent = item.FDiscount;
+                    td4.textContent = item.FTimeOut;
+                    td5.innerHTML = `<button type="button" class="btn btn-success m-2" style="font-size: 0.8em" name ="edit" data-eid=${item.FDiscountId} data-bs-toggle="modal" data-bs-target="#editdiscount">編輯</button><button type ="button" class="btn btn-danger  m-2" style ="font-size:0.8em" name ="delete" data-did=${item.FDiscountId}>刪除</button>`;
+
+                    tr.appendChild(tdp);
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    tr.appendChild(td5);
+                    frag.appendChild(tr);
+                })
+                tbody.appendChild(frag);
+            }
+        }
+
+        //新增優惠
+        let createDiscount = document.querySelector("#btn_createDiscount");
+        createDiscount.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            let createdata = new FormData(document.createForm);
+
+            let jdiscounts = await fetch("Create", {
+                body: createdata,
+                method: "POST",
+            });
+            let discounts = await jdiscounts.json();
+            showdiscounts(discounts);
+        })
+
+
+
+        //==========刪除商品=============
+
+
+        $("#tb_discounts").on("click", $("delete"), async function (event) {
+            //console.log(event.target.getAttribute("data-did"));
+             if (event.target.hasAttribute("data-did")) {
+                 alert("確定要刪除該商品?");
+                 let jproducts = await fetch('@Url.Content("~/Admin/Discount/Delete")' + `?id=${event.target.getAttribute("data-did")}`);
+
+                 let products = await jproducts.json();
+                 showdiscounts(products);
+             }
+        });
+
+
+        //顯示編輯頁面
+        $("#tb_discounts").on("click", $("edit"), async function (event) {
+            //console.log(event.target.getAttribute("data-eid"));
+             if (event.target.hasAttribute("data-eid")) {
+                 alert("edit");
+                 let jproducts = await fetch('@Url.Content("~/Admin/Discount/getDiscountById")' + `?id=${event.target.getAttribute("data-eid")}`)
+
+                 let products = await jproducts.json();
+                 console.log(products);
+                 $("#editId").val(products.FDiscountId);
+                 $("#editName").val(products.FDiscountName);
+                 $("#editDeadTime").val(products.FDeadTime);
+                 $("#editDiscount").val(products.FDiscount);
+
+             }
+        });
+
+         //==========編輯商品=============
+
+        let editdiscount = document.querySelector("#btn_editDiscount");
+        editdiscount.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+            let editData = new FormData(document.EditForm);
+
+            let jproducts = await fetch("Edit", {
+                body: editData,
+                method: "POST",
+            })
+            let products = await jproducts.json();
+            showdiscounts(products);
+        })
+
+
+
+    </script>
+}
