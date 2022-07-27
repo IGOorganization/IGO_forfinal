@@ -59,18 +59,8 @@ namespace IGO
 
            });
 
-
-        
-
-
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddRazorPages().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
 
-
-            });
             services.AddControllersWithViews()
                .AddNewtonsoftJson(options =>
                {
@@ -84,8 +74,14 @@ namespace IGO
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
-            services.AddSession();
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
 
+            });
+
+            services.AddSession();
 
         }
 

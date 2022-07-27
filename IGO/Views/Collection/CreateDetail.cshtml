@@ -1,0 +1,62 @@
+﻿@model IGO.Models.TCollectionGroupDetail
+
+@{
+    ViewData["Title"] = "CreateDetail";
+}
+
+<h1>加入成功</h1>
+
+<h4> </h4>
+<hr />
+<div class="row">
+    <div class="col-md-4" hidden>
+        <form asp-action="CreateDetail">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FCollectionGroupDetailId" class="control-label"></label>
+                <input asp-for="FCollectionGroupDetailId" class="form-control" />
+                <span asp-validation-for="FCollectionGroupDetailId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FCollectionGroupId" class="control-label"></label>
+                <input asp-for="FCollectionGroupId" class="form-control" />
+                <span asp-validation-for="FCollectionGroupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FCollectionId" class="control-label"></label>
+                <input asp-for="FCollectionId" class="form-control" />
+                <span asp-validation-for="FCollectionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s" id="full-1">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Bottom*@

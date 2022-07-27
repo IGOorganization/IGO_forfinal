@@ -109,8 +109,6 @@ namespace IGO.Models
                     .HasMaxLength(50)
                     .HasColumnName("fCollectionDate");
 
-                entity.Property(e => e.FCollectionState).HasColumnName("fCollectionState");
-
                 entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
 
                 entity.Property(e => e.FMovieId).HasColumnName("fMovieID");
@@ -148,15 +146,17 @@ namespace IGO.Models
 
             modelBuilder.Entity<TCollectionGroupDetail>(entity =>
             {
-                entity.HasKey(e => e.FCollectionGroupDetail);
+
+                entity.HasKey(e => e.FCollectionGroupDetailId);
 
                 entity.ToTable("tCollectionGroupDetail");
 
-                entity.Property(e => e.FCollectionGroupDetail).HasColumnName("fCollectionGroupDetail");
-
-                entity.Property(e => e.FCollection).HasColumnName("fCollection");
+                entity.Property(e => e.FCollectionGroupDetailId).HasColumnName("fCollectionGroupDetailID");
 
                 entity.Property(e => e.FCollectionGroupId).HasColumnName("fCollectionGroupID");
+
+                entity.Property(e => e.FCollectionId).HasColumnName("fCollectionID");
+
 
                 entity.HasOne(d => d.FCollectionGroup)
                     .WithMany(p => p.TCollectionGroupDetails)
