@@ -1,0 +1,381 @@
+﻿{
+  "UpdateTime": "2022-07-27T13:05:22+08:00",
+  "UpdateInterval": -1,
+  "SrcUpdateTime": "2022-07-27T13:05:22+08:00",
+  "SrcUpdateInterval": 60,
+  "AuthorityCode": "TNN",
+  "ParkingAvailabilities": [
+    {
+      "CarParkID": "88909858",
+      "CarParkName": {
+        "Zh_tw": "復興停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "88909843",
+      "CarParkName": {
+        "Zh_tw": "復華一街停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "81401856",
+      "CarParkName": {
+        "Zh_tw": "裕文停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "81401841",
+      "CarParkName": {
+        "Zh_tw": "立德停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47927760",
+      "CarParkName": {
+        "Zh_tw": "關聖里停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47885810",
+      "CarParkName": {
+        "Zh_tw": "環河停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47885804",
+      "CarParkName": {
+        "Zh_tw": "萬昌停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47882362",
+      "CarParkName": {
+        "Zh_tw": "榮譽街停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47847561-A",
+      "CarParkName": {
+        "Zh_tw": "大宏社區停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47847561",
+      "CarParkName": {
+        "Zh_tw": "新營綠都心停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "81496017",
+      "CarParkName": {
+        "Zh_tw": "五都停車場台南車寶貝站"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "37709940",
+      "CarParkName": {
+        "Zh_tw": "五都停車場高鐵台南二站"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "37695615",
+      "CarParkName": {
+        "Zh_tw": "五都停車場高鐵台南站"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "85744208",
+      "CarParkName": {
+        "Zh_tw": "崇善路龍山停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "54555420",
+      "CarParkName": {
+        "Zh_tw": "海安地下停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47940406",
+      "CarParkName": {
+        "Zh_tw": "林默娘停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47940399",
+      "CarParkName": {
+        "Zh_tw": "港區停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47940383",
+      "CarParkName": {
+        "Zh_tw": "億載停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47940378",
+      "CarParkName": {
+        "Zh_tw": "水景停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47939674",
+      "CarParkName": {
+        "Zh_tw": "大學路(社E2)停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "40856918",
+      "CarParkName": {
+        "Zh_tw": "廣二機車停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "40814707",
+      "CarParkName": {
+        "Zh_tw": "東光路地下停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "88908324",
+      "CarParkName": {
+        "Zh_tw": "目加溜灣橋下停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "88908318",
+      "CarParkName": {
+        "Zh_tw": "臺鐵南科車站西側(第二區)停車場"
+      },
+      "TotalSpaces": 200,
+      "AvailableSpaces": 63,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 100,
+          "AvailableSpaces": 30
+        },
+        {
+          "SpaceType": 2,
+          "NumberOfSpaces": 100,
+          "AvailableSpaces": 33
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "88908204",
+      "CarParkName": {
+        "Zh_tw": "LM陽光電城停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47911872",
+      "CarParkName": {
+        "Zh_tw": "崇明E6停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47911839",
+      "CarParkName": {
+        "Zh_tw": "德光公園停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47911818",
+      "CarParkName": {
+        "Zh_tw": "和平公園停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "47911795",
+      "CarParkName": {
+        "Zh_tw": "崇明E37停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    },
+    {
+      "CarParkID": "tn17",
+      "CarParkName": {
+        "Zh_tw": "大學路社E1停車場"
+      },
+      "TotalSpaces": 0,
+      "AvailableSpaces": 0,
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:22+08:00"
+    }
+  ]
+}

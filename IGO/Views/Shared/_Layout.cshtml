@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - prjIGOfront</title>
+    <title>@ViewData["Title"] - IGO-訂票系統</title>
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />*@
 
@@ -150,7 +150,8 @@
                                 <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
                                     <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
                                         <li><a class="dropdown-item" href="~/Order/List"><i class="fa-solid fa-list"></i>檢查登入ID</a></li>
-                                        <li><a class="dropdown-item" href="~/Order/Order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                        @*7/26修改*@
+                                        <li><a class="dropdown-item" href="~/Customer/Index" id="order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                         <li><a class="dropdown-item" href="/Collection/myFavGroup"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
                                         <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
@@ -509,7 +510,7 @@
     <script src="~/lib/tempusdominus/js/moment.min.js"></script>
     <script src="~/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    <script src="https://unpkg.com/vue@3"></script>
 
 
     <!-- Template Javascript -->
@@ -565,8 +566,8 @@
         window.addEventListener("DOMContentLoaded", ViewRecord); //當產品頁面載入時紀錄瀏覽紀錄
         async function ViewRecord()
         {
-            if (window.location.href.indexOf("City") > -1)
-            /*if (window.location.href.indexOf("Products") > -1)*/ //連結中是否包含City 之後改為Product
+            //7/26修改
+            if (window.location.href.indexOf("Product") > -1)
             {
                 //顯示瀏覽過的次數
                 let response = await fetch('@Url.Content("~/HomeApi/showViewProductCountBySession")');

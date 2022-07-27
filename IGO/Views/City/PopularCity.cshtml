@@ -50,10 +50,11 @@
                                     <small class="fa fa-star text-primary"></small>
                                 </div>*@
                             @*<p class="text-body mb-3">賣出數量:5</p>*@
-                            <div class="d-flex justify-content-between">
-                                @*<a href="~/Home/Home" class="btn btn-sm btn-dark rounded py-2 px-4">詳細資訊</a>*@
-                                @Html.ActionLink("詳細資訊", "Home", "Home", new { }, new { @class = "btn btn-sm btn-dark rounded py-2 px-4" })
-                            </div>
+                        <div class="d-flex justify-content-between">
+                            @*7/26修改*@
+                            <a href="/Product/Detail?prodid=@item.ProductId" class="btn btn-sm btn-dark rounded py-2 px-4" id="btnDetail-@count">詳細資訊</a>
+                            @*@Html.ActionLink("詳細資訊", "Home", "Home", new { }, new { @class = "btn btn-sm btn-dark rounded py-2 px-4" })*@
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -95,6 +96,8 @@
                     $(`#prodSmall-${idx}`).text(`NT$${item.Price}/${item.TicketName}`);
                     $(`#prodPath-${idx}`).attr("src", `/img/${item.PhotoPath}`);
                     $(`#prodh5-${idx}`).text(`${item.CompanyName}-${item.ProductName}`);
+                    //7/26新增
+                    $(`#btnDetail-${idx}`).attr("href", `/Product/Detail?prodid=${item.ProductId}`);
                })
                 })
 
@@ -109,6 +112,8 @@
                     $(`#prodSmall-${idx}`).text(`NT$${item.Price}/${item.TicketName}`);
                     $(`#prodPath-${idx}`).attr("src", `/img/${item.PhotoPath}`);
                     $(`#prodh5-${idx}`).text(`${item.CompanyName}-${item.ProductName}`);
+                    //7/26新增
+                    $(`#btnDetail-${idx}`).attr("href", `/Product/Detail?prodid=${item.ProductId}`);
                     @*@String.Format("{0:C0}", item.Price) / @item.TicketName*@
 
                 })
@@ -125,6 +130,8 @@
                     $(`#prodSmall-${idx}`).text(`NT$${item.Price}/${item.TicketName}`);
                     $(`#prodPath-${idx}`).attr("src", `/img/${item.PhotoPath}`);
                     $(`#prodh5-${idx}`).text(`${item.CompanyName}-${item.ProductName}`);
+                    //7/26新增
+                    $(`#btnDetail-${idx}`).attr("href", `/Product/Detail?prodid=${item.ProductId}`);
 
                })
                 })

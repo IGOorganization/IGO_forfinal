@@ -124,6 +124,22 @@
                 })
                 }
             )
+
+            //若無取消申請的小鈴鐺次數消失:7/26修改
+            $.get('@Url.Content("~/Admin/Order/QueryByCancelOrder")', { "id": 5 },
+                    function (datas)
+                    {
+                        //console.log(datas);
+                        //console.log(datas.length);  /*顯示幾筆訂單取消申請通知*/
+                        if (datas.length == 0)
+                        {
+                            //console.log(item);
+                            $('#cancelBellcount').empty();
+                            $('#cancelBellcontent').text(`${datas.length}筆訂單申請取消通知`);
+                        }
+                    })
+
+
         })
 
          //訂單狀態編輯
@@ -166,8 +182,8 @@
                         //console.log(datas);
                         console.log(datas.length);  /*顯示幾筆訂單取消申請通知*/
                         $.each(datas, function (idx, item)
-                        {                     
-                           
+                        {
+
                             $('#cancelBellcount').text(datas.length);
                             $('#cancelBellcontent').text(`${datas.length}筆訂單申請取消通知`);
 
