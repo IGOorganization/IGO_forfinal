@@ -531,23 +531,6 @@
             }
         }
 
-        //點閱後瀏覽次數增加
-        $(document).on("click", ".viewProduct", function ()
-        {
-            let info = $(this).attr("id");
-            let prodid = Number(info.split('-')[1]);
-            let viewcount = Number(info.split('-')[2]);
-
-
-
-            console.log(prodid);
-            console.log(viewcount);
-            $.get('@Url.Content("~/Home/UpdateViewRecord")', {"Productid":prodid,"Viewcount":viewcount}, function (Datas)
-            {
-               
-
-            });
-        })
 
         //顯示評論
         $(window).ready(function ()
