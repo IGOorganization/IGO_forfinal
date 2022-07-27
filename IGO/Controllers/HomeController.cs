@@ -59,7 +59,6 @@ namespace IGO.Controllers
             {
                 vModel = new CHomeViewModel()
                 {
-<<<<<<< HEAD
                     tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r),
                     tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r).FCity,
                     ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
@@ -83,13 +82,6 @@ namespace IGO.Controllers
                 };
                 //Debug.WriteLine(vModel.productRanking)
                 v.Add(vModel);
-=======
-                    HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
-
-                    return RedirectToAction("Home", "Home");
-                }
-                return RedirectToAction("Home", "Home");
->>>>>>> pr/19
             }
             return View(v);
 

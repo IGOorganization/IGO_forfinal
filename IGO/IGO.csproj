@@ -17,34 +17,25 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.17" />
-<<<<<<< HEAD
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.17" />
 
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
 
-=======
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
->>>>>>> pr/19
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.17" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-<<<<<<< HEAD
     <PackageReference Include="QRCoder" Version="1.4.3" />
-=======
->>>>>>> pr/19
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-<<<<<<< HEAD
     <Folder Include="wwwroot\CameraPhotos\" />
     <Folder Include="wwwroot\QRCodeTicketImgs\" />
-=======
     <Folder Include="Hubs\" />
->>>>>>> pr/19
   </ItemGroup>
 
 </Project>

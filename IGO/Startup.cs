@@ -63,8 +63,6 @@ namespace IGO
            });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
-<<<<<<< HEAD
-
             services.AddControllersWithViews()
                .AddNewtonsoftJson(options =>
                {
@@ -87,14 +85,7 @@ namespace IGO
 
             services.AddSession();
 
-=======
-           
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
-            services.AddSession();  //¥[¤JsessionªA°È
             services.AddSignalR();
->>>>>>> pr/19
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,13 +104,8 @@ namespace IGO
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-<<<<<<< HEAD
 
-            app.UseSession();  //Â±Ã’Â¥ÃŽsessionÂªAÂ°Ãˆ
-=======
-          
-            app.UseSession();  //±Ò¥ÎsessionªA°È
->>>>>>> pr/19
+            app.UseSession(); 
 
             app.UseRouting();
 
@@ -130,11 +116,7 @@ namespace IGO
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-<<<<<<< HEAD
-                    pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
-=======
                     pattern: "{area:exists}/{controller=Home}/{action=List}/{id?}");
->>>>>>> pr/19
                 endpoints.MapControllerRoute(
                     name: "default",
 
