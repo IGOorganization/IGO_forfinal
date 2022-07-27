@@ -1,4 +1,5 @@
-﻿using IGO.Models;
+﻿using Comment.ViewModels;
+using IGO.Models;
 using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
