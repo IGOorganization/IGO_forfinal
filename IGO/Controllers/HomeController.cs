@@ -228,6 +228,7 @@ namespace IGO.Controllers
                 v.Add(vModel);
             }
             return Json(v);
+
         }
         //Layout的商品次分類
         public IActionResult layoutSubCategory(int idd)

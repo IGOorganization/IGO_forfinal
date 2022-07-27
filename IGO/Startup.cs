@@ -42,16 +42,26 @@ namespace IGO
             services.AddRazorPages().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
+
+
             });
-            services.AddControllersWithViews()
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                });
+            services.AddControllersWithViews().AddNewtonsoftJson
+               (options =>
+               {  
+                 
+                   options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+               });
             services.AddRazorPages().AddNewtonsoftJson(options =>
-            {
-                options.UseMemberCasing();
+           {
+             options.UseMemberCasing();
+              
+              });
+
+
             });
+
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddRazorPages().AddJsonOptions(options =>
@@ -73,7 +83,9 @@ namespace IGO
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
-            services.AddSession();  //¥[¤JsessionªA°È
+
+            services.AddSession();
+
 
         }
 
@@ -94,7 +106,7 @@ namespace IGO
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();  //±Ò¥ÎsessionªA°È
+            app.UseSession();  //Â±Ã’Â¥ÃŽsessionÂªAÂ°Ãˆ
 
             app.UseRouting();
 
@@ -108,7 +120,9 @@ namespace IGO
                     pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=City}/{action=PopularCity}/{id?}");
+
+                    pattern: "{controller=CheckTicket}/{action=CheckCustomerOrderDetails}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
