@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace prjMvcCoreDemo.ViewModels
 {
-    public class CProductViewModel
+    public class CFeedbackProductViewModel
     {
-        public CProductViewModel()
+        public CFeedbackProductViewModel()
         {
             _prod = new TFeedbackManagement();
         }

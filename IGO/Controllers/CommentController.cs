@@ -91,7 +91,7 @@ namespace Comment.Controllers
             return View(prod);
         }
         [HttpPost]
-        public ActionResult Edit(CProductViewModel p)
+        public ActionResult Edit(CFeedbackProductViewModel p)
         {
 
             DemoIgoContext db = new DemoIgoContext();
