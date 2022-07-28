@@ -10,15 +10,13 @@ using System.Threading.Tasks;
 
 namespace IGO.ViewModels
 {
-    public class CCustmoerViewModel
+    public class CCustomerViewModel
     {
         private TCustomer _cust;
-        private DemoIgoContext _dbIgo;
 
-        public CCustmoerViewModel(DemoIgoContext db)
+        public CCustomerViewModel()
         {
             _cust = new TCustomer();
-            _dbIgo = db;
         }
         public TCustomer customer
         {

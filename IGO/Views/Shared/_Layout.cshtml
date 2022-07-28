@@ -144,7 +144,7 @@
                                         <li><a class="dropdown-item" href="~/Customer/Index" id="order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                         <li><a class="dropdown-item" href="/Collection/myFavGroup"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
-                                        <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
+                                        <li><a class="dropdown-item" href="/Customer/UserData"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
                                     </ul>
@@ -687,6 +687,11 @@
             $("#rePwd_FEmail").val("");
         });
 
+        //後台登入Demo
+        $("#Backend_Demo").click(function () {
+            $("#Backend_txtAccount").val("IGO001");
+            $("#Backend_txtPassword").val("123456");
+        });
 
 
     </script>
