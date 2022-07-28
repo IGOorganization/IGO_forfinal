@@ -37,6 +37,21 @@ namespace IGO.Controllers
             string result = System.Text.Json.JsonSerializer.Serialize(list);
             return Json(result);
         }
+        public IActionResult searchbycity(int cityid)
+        {
+            IEnumerable<TSupplier> suppliers = _dbIgo.TSuppliers.Where(n => n.FSubCategoryId == 1 && n.FCityId==cityid);
+            List<TSupplier> list = new List<TSupplier>();
+            for (int i = 0; i < 9; i++)
+            {
+                if (i < suppliers.ToList().Count())
+                {
+                    list.Add(suppliers.ToList()[i]);
+                }
+
+            }
+            string result = System.Text.Json.JsonSerializer.Serialize(list);
+            return Json(result);
+        }
         public IActionResult pages(int cityid)
         {
             if (cityid != -1)

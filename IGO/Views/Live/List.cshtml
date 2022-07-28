@@ -241,7 +241,7 @@
 
         selcity.addEventListener("change", async function (e) {
             console.log(selcity.options[e.target.selectedIndex].value);
-            let jproducts = await fetch('@Url.Content("~/Product/SearchAndRank")' + `?subid=${subcategoryid}&cityid=${selcity.options[e.target.selectedIndex].value}`);
+            let jproducts = await fetch('@Url.Content("~/Live/searchbycity")' + `?cityid=${selcity.options[e.target.selectedIndex].value}`);
 
             let products = await jproducts.json();
             console.log(products);

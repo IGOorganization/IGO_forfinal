@@ -63,14 +63,15 @@
             font-size: 150%;
             color: orange;
         }
+
         #chat {
             border: 1px solid black;
-            width:300px;
+            width: 300px;
             position: fixed;
             bottom: 0px;
             right: 100px;
             background-color: aqua;
-            z-index:2;
+            z-index: 2;
         }
     </style>
 
@@ -110,7 +111,7 @@
 
                         </div>
                         <div class="offcanvas-body bg-dark">
-                            <div class="card-body">
+                            <div class="SubSpace">
                             </div>
                         </div>
                     </div>
@@ -190,14 +191,17 @@
 
     <div id="chat">
         <div>
-            <div class="collapse" id="collapseExample" style="position:absolute;bottom:0;right:100px; width:100%">
+            <div class="collapse" id="collapseExample" style="position:absolute;bottom:0; width:100%">
                 <div class="card card-body" style="width:100%;height:500px">
+                    <div style="background-color:coral">
+                        <h6>客服小幫手</h6>
+                    </div>
                     <div id="context" style="width:100% ;height:90%;border:2px solid black;overflow:auto">
-                        <ul class="list-group" id="Content"style="bottom:auto">
+                        <ul class="list-group" id="Content" style="bottom:auto">
                         </ul>
                     </div>
                     <div id="inputspace">
-                        <input type="text" class="form-control float-lg-left" id="message1" style="width:85%"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%"id="sendButton"></i>
+                        <input type="text" class="form-control float-lg-left" id="message1" style="width:85%"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%" id="sendButton"></i>
                     </div>
                 </div>
             </div>
@@ -558,7 +562,7 @@
             $(".btn-card").click(function () {
                 $.getJSON('@Url.Content("~/Home/layoutSubCategory")', { "idd": $(this).attr("CategoryID") },
                     function (datas) {
-                        $(".card-body").empty();
+                        $(".SubSpace").empty();
                         //console.log(datas);
                         //console.log(datas.subCategoryNameList);
                         $.each(datas, function (idx, item) {
@@ -566,7 +570,7 @@
                             //console.log(idx);
 
                             //$(".card-body").append(item + "<hr/>"); //寫法1
-                            $(".card-body").append(`<a class="btn btn-secondary justify-item-center" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr/>`); //寫法2
+                            $(".SubSpace").append(`<a class="btn btn-secondary justify-item-center" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr/>`); //寫法2
                         })
 
                     })
@@ -592,7 +596,7 @@
             })
          //===================================================
 
-    
+
         //==============宜璟聊天室===============
          var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
@@ -636,8 +640,8 @@
         });
 
 
-     
-       
+
+
 
     </script>
 
