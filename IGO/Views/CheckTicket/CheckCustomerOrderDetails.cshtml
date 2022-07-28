@@ -110,46 +110,48 @@
                 AllCheckFlag = false;
             }
         });
-         //===========================================使用票券====================================================
-        btnSend.click(function () {
-            let array = [];
-            $.each($('input[type="checkbox"]:checked'), function () {
-                if ($(this).prop("id") != 'chkAll') {
-                    array.push(+$(this).data("id"))
-                }
-            })
-
-            if (array.length == 0) {
-
-                alert("至少勾選一筆訂單");
-            }
-            else {
-                $.ajax({
-                    url: '@Url.Content("~/CheckTicket/Checked")',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(array)
-
-
-                }).done(function () {
-                    $.each($('input[type="checkbox"]:checked'), function () {
-                        if ($(this).prop("id") != 'chkAll') {
-                            $(this).closest("tr").prop("style", "text-decoration:line-through");
-
-                            $(this).parent().prev().find('input').val("已刪除");
-                            $(this).parent().prev().find('input').prop("hidden", false);
-                            
-                            
-                            
-                            $(this).remove();
-                           
-                            
-                           
-                        }
-                    })
+        //===========================================使用票券====================================================
+        
+            btnSend.click(function () {
+                let array = [];
+                $.each($('input[type="checkbox"]:checked'), function () {
+                    if ($(this).prop("id") != 'chkAll') {
+                        array.push(+$(this).data("id"))
+                    }
                 })
-            }
-        });
+                
+                    if (array.length == 0) {
+
+                        alert("沒有可以使用的票券");
+                    }
+                    else {
+                        if (confirm("確定使用票券嗎?")) {
+
+                            $.ajax({
+                                url: '@Url.Content("~/CheckTicket/Checked")',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify(array)
+
+
+                            }).done(function () {
+                                alert("票券使用成功");
+                                $.each($('input[type="checkbox"]:checked'), function () {
+                                    if ($(this).prop("id") != 'chkAll') {
+                                        
+                                        $(this).closest("tr").prop("style", "text-decoration:line-through");
+                                        $(this).parent().prev().find('input').val("已刪除");
+                                        $(this).parent().prev().find('input').prop("hidden", false);
+                                        $(this).remove();
+                                    }
+                                })
+                               
+                            })
+                        }
+                    }
+                
+            });
+        
     </script>
 
 

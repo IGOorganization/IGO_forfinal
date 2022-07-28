@@ -106,7 +106,7 @@ namespace IGO
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();  //±Ò¥ÎsessionªA°È
+            app.UseSession();  
 
             app.UseRouting();
 
@@ -121,7 +121,7 @@ namespace IGO
                 endpoints.MapControllerRoute(
                     name: "default",
 
-                    pattern: "{controller=ShoppingCart}/{action=List}/{id?}");
+                    pattern: "{controller=CheckTicket}/{action=Capture}/{id?}");
 
                 endpoints.MapRazorPages();
             });

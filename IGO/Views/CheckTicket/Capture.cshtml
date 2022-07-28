@@ -1,12 +1,13 @@
 ﻿@{
 
     Layout = null;
+    
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html" ; charset="utf-8" />
-    <title>WebCamJS Test Page</title>
+    <title>人臉辨識系統</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <style type="text/css">
         body {
@@ -32,13 +33,13 @@
         }
     </style>
 </head>
-<body class="container">
+<body  class="container card p-5" >
     <br />
     <div class="col-md-2"></div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin:0 auto">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Camera
+            <h1 style="text-align:center">相機</h1>
             </div>
             <div class="panel-body">
                 <div id="my_camera"></div>
@@ -50,14 +51,14 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin:0 auto">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Captured Photo
+               <br>
             </div>
 
             <div class="panel-body">
-                <div id="results">Your captured image will appear here...</div>
+                <div id="results"></div>
             </div>
             <br />
             <br />
@@ -84,11 +85,15 @@
 
                     function (code, text) {
                         /*alert('Photo Captured');*/
-                        if (text != null) {
+                        
+                        if (text) {
 
                             console.log(text);
                             window.location.href = "@Url.Content("~/CheckTicket/CheckCustomerOrderDetails/?id=")" + (+JSON.parse(text));
 
+                        }
+                        else {
+                            alert("無此顧客的購票紀錄");
                         }
                     });
             });
