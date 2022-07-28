@@ -47,7 +47,7 @@
         .message-fix {
             position: fixed;
             right: 20px;
-            bottom: 400px;
+            bottom: 420px;
             /* left: 50px;*/
             z-index: $zindex-fixed;
             font-size: 150%;
@@ -57,7 +57,16 @@
         .parking-fix {
             position: fixed;
             right: 20px;
-            bottom: 200px;
+            bottom: 280px;
+            /* left: 50px;*/
+            z-index: $zindex-fixed;
+            font-size: 150%;
+            color: orange;
+        }
+        .face-fix {
+            position: fixed;
+            right: 5px;
+            bottom: 100px;
             /* left: 50px;*/
             z-index: $zindex-fixed;
             font-size: 150%;
@@ -105,9 +114,14 @@
                             </div>
                         </div>
                     </div>
+                    @*7/28調整版面*@
+                    <div class="col-sm-1 px-5 text-end">
+                        <div class="d-inline-flex align-items-center py-2">
+                        </div>
+                    </div>
                     @*宜潔新增*@
                     <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
-                  
+
                     <div class="nav-item">
                         <a href="~/ShoppingCart/List">
                             <i class="fa-solid fa-cart-plus"></i>
@@ -144,8 +158,9 @@
                         }
                         else
                         {
+                            @*7/28刪掉登入的框線*@
                             <div class="navbar-nav navbar-right mr-auto py-0 ">
-                                <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <button type="button" class="btn btn-lg text-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     <i class="fa fa-user"> 登入/ 註冊 </i>
                                 </button>
                             </div>
@@ -475,8 +490,8 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     <a href="#" class="message-fix"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
     <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
-
-
+    <a href="/CheckTicket/Capture" class="face-fix"><img src="~/img/face.png" title="入場票卷辨識" width="50" height="50" /><p style="font-size:14px; font-weight: bold">入場票卷辨識</p></a>
+    @*7/28新增入場票券辨識*@
 
 
     <!-- JavaScript Libraries -->
