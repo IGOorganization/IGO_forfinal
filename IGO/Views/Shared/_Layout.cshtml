@@ -43,11 +43,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @*宜潔新增*@
-    <style>
+    @*<style>
         .message-fix {
             position: fixed;
             right: 20px;
-            bottom: 400px;
+            bottom: 420px;
             /* left: 50px;*/
             z-index: $zindex-fixed;
             font-size: 150%;
@@ -57,7 +57,16 @@
         .parking-fix {
             position: fixed;
             right: 20px;
-            bottom: 200px;
+            bottom: 280px;
+            /* left: 50px;*/
+            z-index: $zindex-fixed;
+            font-size: 150%;
+            color: orange;
+        }
+        .face-fix {
+            position: fixed;
+            right: 5px;
+            bottom: 100px;
             /* left: 50px;*/
             z-index: $zindex-fixed;
             font-size: 150%;
@@ -73,7 +82,7 @@
             background-color: aqua;
             z-index: 2;
         }
-    </style>
+    </style>*@
 
     @await RenderSectionAsync("Styles", required: false)
 
@@ -115,15 +124,35 @@
                             </div>
                         </div>
                     </div>
+                    @*7/28調整版面*@
+                    <div class="col-sm-1 px-5 text-end">
+                        <div class="d-inline-flex align-items-center py-2">
+                        </div>
+                    </div>
                     @*宜潔新增*@
                     <a href="/Coupon/List" class="nav-item nav-link" style="font-size:120%">特惠組合</a>
                     <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
 
                     <div class="nav-item">
-                        <a href="~/ShoppingCart/List">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
-                        </a>
+                        @{
+                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                            {
+                                <a href="@Url.Content("~/ShoppingCart/List")">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#loginModal"data-bs-toggle="modal" >
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
+                                </a>
+                                   
+                            }
+
+                        }
+
                     </div>
                     @{
                         if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
@@ -145,24 +174,32 @@
                                         <li><a class="dropdown-item" href="~/Customer/Index" id="order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                         <li><a class="dropdown-item" href="/Collection/myFavGroup"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
-                                        <li><a class="dropdown-item" href="/Customer/Index"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
+                                        <li><a class="dropdown-item" href="/Customer/UserData"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a></li>
                                     </ul>
                                 </div>
                             </div>
+                            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                            <a href="#" class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
+                            <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
+
                         }
                         else
                         {
+                            @*7/28刪掉登入的框線*@
                             <div class="navbar-nav navbar-right mr-auto py-0 ">
-                                <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <button type="button" class="btn btn-lg text-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
                                     <i class="fa fa-user"> 登入/ 註冊 </i>
                                 </button>
                             </div>
                             <br />
                             <br />
                             <br />
-                            <br />
+                            <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                            <a href="#" hidden class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
+                            <a href="/Parking/Parking" hidden class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
+                        <br />
                         }
                     }
 
@@ -192,6 +229,7 @@
     <div id="chat">
         <div>
             <div class="collapse" id="collapseExample" style="position:absolute;bottom:0; width:100%">
+            <h4 hidden>個人 ID: <span id="SelfID"></span></h4>
                 <div class="card card-body" style="width:100%;height:500px">
                     <div style="background-color:coral">
                         <h6>客服小幫手</h6>
@@ -505,11 +543,8 @@
     </div>
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <a href="#" class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
-    <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
-
-
+<a href="/CheckTicket/Capture" class="face-fix"><img src="~/img/face.png" title="入場票卷辨識" width="50" height="50" /><p style="font-size:14px; font-weight: bold">入場票卷辨識</p></a>
+    @*7/28新增入場票券辨識*@
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -617,13 +652,17 @@
         });
 
         // 更新用戶個人連線 ID 事件
-        connection.on("UpdSelfID", function (id) {
-            var userName = @ViewBag.UserName
-                console.log(userName);
-                $('#SelfID').html(id);
+        connection.on("UpdSelfID", async function (id) {
+            let juserName = await fetch('@Url.Content("/Hubs/getUserName")');
+            let userName = await juserName.json();
+
+            //console.log("AA");
+            console.log(userName);
+            id = userName;
+            console.log(id);
+            $('#SelfID').html(id);
 
        });
-
         // 更新聊天內容事件
         connection.on("UpdContent", function (msg) {
             $("#Content").append($("<li></li>").attr("class", "list-group-item").text(msg));
@@ -691,6 +730,11 @@
             $("#rePwd_FEmail").val("");
         });
 
+        //後台登入Demo
+        $("#Backend_Demo").click(function () {
+            $("#Backend_txtAccount").val("IGO001");
+            $("#Backend_txtPassword").val("123456");
+        });
 
 
     </script>

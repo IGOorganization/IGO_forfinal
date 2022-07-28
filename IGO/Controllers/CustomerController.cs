@@ -27,6 +27,25 @@ namespace IGO.Controllers
             _environment = igo;
         }
 
+        public IActionResult List()
+        {
+
+            List<CCustomerViewModel> List = new List<CCustomerViewModel>();
+            // 從DB裡拿出Customer的資料
+            List<TCustomer> dbList = _dbIgo.TCustomers.ToList();
+
+            //逐筆轉換為CCustomerViewModel
+            foreach (TCustomer t in dbList)
+            {
+                CCustomerViewModel cc = new CCustomerViewModel();
+                cc.customer = t;
+                List.Add(cc);
+            }
+
+            return View(dbList);
+
+        }
+
         //===================================================> 登入系統 <===========================================
 
         public IActionResult Login()
@@ -107,7 +126,7 @@ namespace IGO.Controllers
             return View(data);
         }
         [HttpPost]
-            public IActionResult UserData(CCustmoerViewModel vmodel)
+            public IActionResult UserData(CCustomerViewModel vmodel)
         {
             
             TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
@@ -136,12 +155,12 @@ namespace IGO.Controllers
             return View(data);
         }
         [HttpPost]
-        public IActionResult EditPWD(TCustomer tc)
+        public IActionResult EditPWD(CCustomerViewModel vmodel)
         {
             TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
-            if (data != null) 
+            if (data != null)
             {
-                data.FPassword = tc.FPassword;
+                data.FPassword = vmodel.FPassword;
             }
             _dbIgo.SaveChanges();
             return View(data);
