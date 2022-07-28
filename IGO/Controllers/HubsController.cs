@@ -20,5 +20,15 @@ namespace IGO.Controllers
              ViewBag.UserName = UserName;
             return View();
         }
+        public IActionResult getUserName()
+        {
+            String UserName = null;
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            {
+                UserName = (_db.TCustomers.FirstOrDefault(c => c.FCustomerId == (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER))).FFirstName;
+            }
+
+            return Json(UserName);
+        }
     }
 }
