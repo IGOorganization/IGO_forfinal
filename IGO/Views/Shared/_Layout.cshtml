@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @*宜潔新增*@
-    @*<style>
+    <style>
         .message-fix {
             position: fixed;
             right: 20px;
@@ -82,7 +82,7 @@
             background-color: aqua;
             z-index: 2;
         }
-    </style>*@
+    </style>
 
     @await RenderSectionAsync("Styles", required: false)
 
@@ -144,11 +144,11 @@
                             }
                             else
                             {
-                                <a href="#loginModal"data-bs-toggle="modal" >
+                                <a href="#loginModal" data-bs-toggle="modal">
                                     <i class="fa-solid fa-cart-plus"></i>
                                     <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
                                 </a>
-                                   
+
                             }
 
                         }
@@ -171,7 +171,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
                                     <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink" width="80">
                                         @*7/26修改*@
-                                        <li><a class="dropdown-item" href="~/Customer/Index" id="order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
+                                        <li><a class="dropdown-item" href="~/Order/Order" id="order"><i class="fa-solid fa-list"></i> 我的訂單</a></li>
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-tags"></i> 優惠碼</a></li>
                                         <li><a class="dropdown-item" href="/Collection/myFavGroup"><i class="fa-solid fa-heart"></i> 我的收藏</a></li>
                                         <li><a class="dropdown-item" href="/Customer/UserData"><i class="fa-solid fa-gear"></i> 帳戶設定</a></li>
@@ -196,10 +196,10 @@
                             <br />
                             <br />
                             <br />
-                            <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                            <br />
+                    <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                             <a href="#" hidden class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
                             <a href="/Parking/Parking" hidden class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
-                        <br />
                         }
                     }
 
