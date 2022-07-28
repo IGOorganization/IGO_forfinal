@@ -315,7 +315,7 @@ namespace IGO.Controllers
 			TOrder order = new TOrder()
 			{
 				FCustomerId = sessionData.UserId,
-				FOrderDate = (DateTime.Now).ToString("yyyyMMddHHmmss"),
+				FOrderDate = (DateTime.Now).ToString("yyyy MM dd HH:mm:ss"),
 				FStatusId = 1,
 				FTotalPrice = Price,
 				FOrderNum = DateTime.Now.ToString("yyyyMMdd") + (sessionData.UserId).ToString() +"IGO" +(OrderNum + 1).ToString()
@@ -368,14 +368,14 @@ namespace IGO.Controllers
 			}
             //----------------------------------------------------------寄信------------------------------------------
             MailMessage em = new MailMessage();
-            em.From = new System.Net.Mail.MailAddress("zeroqazggc0504@gmail.com");
-            em.To.Add("zeroqazggc0504@gmail.com");
+            em.From = new System.Net.Mail.MailAddress("igocompanysender@gmail.com");
+            em.To.Add("igocompanysender@gmail.com");
             em.SubjectEncoding = System.Text.Encoding.UTF8;
             em.BodyEncoding = System.Text.Encoding.UTF8;
             em.Subject = "IGO訂單已成立";
             em.IsBodyHtml = true;
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("zeroqazggc0504@gmail.com", "ccpapemvmokdjpjk");
+            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "eklktfcbelgblutv");
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
