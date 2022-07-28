@@ -29,35 +29,42 @@ namespace IGO.Controllers
         }
         public IActionResult ScanTicket(string id)
         {
-
-            int OdId = int.Parse(CEncryptAndDecrypt.Decrypt(id));
-
-            
-            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))  //判斷使用者是否登入
+            int OdId = 0;
+             //OdId = int.Parse(CEncryptAndDecrypt.Decrypt(id));
+            bool IsNum = int.TryParse(CEncryptAndDecrypt.Decrypt(id), out OdId);   //判斷是否解碼為數字
+            if (IsNum)
             {
-                
-                int UserId = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
-               
-                if ((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId).FSupplierId)>0)  //判斷是否為驗票人員
+                if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))  //判斷使用者是否登入
                 {
 
-                    if (_dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId) != null) //判斷是否有此筆訂單
+                    int UserId = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+
+                    if (!string.IsNullOrEmpty((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId).FSupplierId.ToString())))  //判斷是否為驗票人員
                     {
-                        COrderDetailViewModel orderDetail = new COrderDetailViewModel(_dbIgo);
-                        orderDetail.orderDetail = _dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId);
-                        List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
-                        lists.Add(orderDetail);
-                        return View(lists);
+
+                        if (_dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId) != null) //判斷是否有此筆訂單
+                        {
+                            COrderDetailViewModel orderDetail = new COrderDetailViewModel(_dbIgo);
+                            orderDetail.orderDetail = _dbIgo.TOrderDetails.FirstOrDefault(c => c.FOrderDetailsId == OdId);
+                            List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
+                            lists.Add(orderDetail);
+                            return View(lists);
+                        }
+                        else
+                            return RedirectToAction("CheckFail");
                     }
                     else
-                        return RedirectToAction("CheckFail");
+                    {
+                        return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List");
+                    }
                 }
-                else {
+                else
+                {
                     return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List");
                 }
             }
-            else { 
-                 return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List"); 
+            else {
+                return Redirect($"{Request.Scheme}://{Request.Host}/Home/Home");
             }
         }
 
@@ -134,9 +141,7 @@ namespace IGO.Controllers
    
         public IActionResult CheckCustomerOrderDetails(int id)
         {
-            //int UserId =(int) HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
-            int UserId = 1;
-            id = 1;
+            int UserId =(int) HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
             if (!String.IsNullOrEmpty((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId.ToString()) )
             {
                 int SupplierId = (int)(_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId;     //取出SupplierId
@@ -152,6 +157,11 @@ namespace IGO.Controllers
                     COrderDetailViewModel cOrderDetailViewModel = new COrderDetailViewModel(_dbIgo);
                     cOrderDetailViewModel.orderDetail = data;
                     lists.Add(cOrderDetailViewModel);
+                }
+                if (lists.Count == 0)
+                {
+
+                    return RedirectToAction("CheckFail");
                 }
 
 

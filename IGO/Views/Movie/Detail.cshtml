@@ -12,9 +12,8 @@
 }
 
 <div class="row" style="padding-top:1rem">
-
-    <div class="col-md-6 col-sm-12">
-        <h3 class="fw-bold">@Model.Item1.Cname</h3>
+    <h3 class="fw-bold">@Model.Item1.Cname</h3>
+    <div class="col-md-5 col-sm-12">
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 @for (int i = 0; i < Model.Item1.PhotoPathList.Count; i++)
@@ -51,7 +50,7 @@
                     <div class="row">
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
-                            <select class="form-control" tabindex="1" id="supplier" onchange="SearchChosenSeat()">
+                            <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat()">
                                 @foreach (var a in Model.Item2)
                                 {
                                     <option value="@a.FSupplierId">@a.FCompanyName</option>
@@ -72,7 +71,7 @@
                                 int idx = 0;
                                 foreach (var a in Model.Item3)
                                 {
-                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="showing" value="@a.FShowingId" onchange="SearchChosenSeat()">
+                                    <input type="radio" class="form-control btn-check" id="@("ticket" + idx)" name="showing" value="@a.FShowingId" onchange="ResetSeat()">
                                     <label class="btn btn-outline-primary" for="@("ticket" + idx)">@a.FShowingName</label>
                                     idx++;
                                 }
@@ -112,25 +111,27 @@
                         <div class="col-md-4 my-3">
                             <label class="control-label">座位</label>
                             <span id="seatText"></span>
-                            </div>
-                            <div class="col-md-4 my-3">
-                                @if (Model.Item1.IsCollection)
-                                {
-                                    <button type="button" class="btn btn-success" id="btn-collection" onclick="CancelCollection()">
-                                        <i class="bi bi-bookmark-check"></i>
-                                        已收藏
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button type="button" class="btn btn-outline-secondary" id="btn-collection" onclick="AddCollection()">
-                                        <i class="bi bi-heart"></i>
-                                        加入收藏
-                                    </button>
-                                }
-                            </div>
+                            <input type="hidden" id="movieSeat" />
+                        </div>
+                        <div class="col-md-4 my-3">
+                            @if (Model.Item1.IsCollection)
+                            {
+                                <button type="button" class="btn btn-success" id="btn-collection" onclick="CancelCollection()">
+                                    <i class="bi bi-bookmark-check"></i>
+                                    已收藏
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-secondary" id="btn-collection" onclick="AddCollection()">
+                                    <i class="bi bi-heart"></i>
+                                    加入收藏
+                                </button>
+                            }
+                            <button type="button" class="btn btn-outline-secondary" id="btn-shopping-cart" onclick="AddShoppingCart()">加入購物車</button>
                         </div>
                     </div>
+                </div>
 
                 @*<div class="m-3">
                         <span class="fw-bold">票種</span>
@@ -349,9 +350,10 @@
 
                         foreach (int column in columnList)
                         {
+                            var seat = Model.Item4.FirstOrDefault(x => x.FSeatRow == row && x.FSeatColumn == column);
                             <a role="button" onclick="ChooseSeat('@("seat"+row+column)')">
                                 <span>@(row + column)</span>
-                                <img id="@("seat"+row+column)" src="/img/can-choose.png" class="seat"  data-seat-name="@(row+column)" />
+                                <img id="@("seat"+row+column)" src="/img/can-choose.png" class="seat"  data-seat-name="@(row+column)" data-id="@seat.FSeatId"/>
                             </a>
                         }
 
@@ -378,7 +380,7 @@
             autoclose: true,
             format: 'yyyy-mm-dd'
         }).on('changeDate', function () {
-            SearchChosenSeat();
+            ResetSeat();
         });
 
         $('#seatModal').on('hide.bs.modal', function () {
@@ -387,6 +389,16 @@
             })
             SearchChosenSeat();
         })
+
+        $('#seatModal').on('show.bs.modal', function () {
+            let chosenSeatString = $("#seatText").text();
+            let chosenSeatArray = chosenSeatString.split("、");
+
+            //['A1','A2']
+            $.each(chosenSeatArray, function (index, item) {
+                $("#seat" + item).attr("src", "/img/chosen.png");
+            })
+        });
 
         function SaveSeat() {
             let count = +$('#count').val();
@@ -398,13 +410,15 @@
             }
 
             let seats = [];
+            let seatIDs = [];
 
             $.each($('img.seat[src="/img/chosen.png"]'), function (index, item) {
                 seats.push($(item).data("seat-name"));
+                seatIDs.push($(item).data("id"));
             })
 
             $("#seatText").text(seats.join('、'));
-
+            $("#movieSeat").val(seatIDs.join('、'));
             $('#seatModal').modal('hide');
         }
 
@@ -419,6 +433,16 @@
             }
         }
 
+        function ResetSeat() {
+            $("#seatText").text('');
+            $("#movieSeat").val('');
+
+            $.each($("img.seat"), function (index, item) {
+                $(item).attr("src", "/img/can-choose.png")
+            })
+
+            SearchChosenSeat();
+        }
 
         function GetPrice() {
             let price = $('input[name="ticket"]:checked').data("price");
@@ -489,6 +513,58 @@
             });
         }
 
+        function AddShoppingCart() {
+            let data =
+            {
+                userID:@Model.Item6,
+                money: $('#money').val(),
+                bookingTime: $('#movie-date').val(),
+                supplierID: $('#supplier').val(),
+                showingID: $('input[name="showing"]:checked').val(),
+                count: +$("#count").val(),
+                movieID:@Model.Item1.MovieId,
+                movieSeat: $('#movieSeat').val(),
+                ticketTypeID: $('input[name="ticket"]:checked').val(),
+            }
+            if (data.userID == 0) {
+                alert("請先登入，再加入購物車");
+                return;
+            }
+            let errorField = [];
+            if (data.bookingTime == '') {
+                errorField.push("日期");
+            }
+            if (data.showingID == undefined) {
+                errorField.push("場次");
+            }
+            if (data.ticketTypeID == undefined) {
+                errorField.push("票種");
+            }
+
+            if (errorField.length > 0) {
+                alert("請輸入必填欄位: " + errorField.join('、'))
+                return;
+            }
+
+            let chosenSeat = data.movieSeat == '' ? 0 :  data.movieSeat.split('、').length;
+            if (chosenSeat < data.count)
+            {
+                alert("還有" + (data.count - chosenSeat) + "個座位未劃位");
+                return;
+            }
+            $.ajax({
+                url: '@Url.Content("~/Movie/AddShoppingCart")',
+                method: 'POST',
+                data: data,
+                success: function (res) {
+                    if (res) {
+                        alert("成功加入購物車");
+                        location.reload();
+                    }
+                },
+                error: function (err) { console.log(err) },
+            });
+        }
 
         function ChooseSeat(seat) {
             let imgPath = $("#" + seat).attr("src");
