@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @*宜潔新增*@
-    <style>
+    @*<style>
         .message-fix {
             position: fixed;
             right: 20px;
@@ -81,7 +81,7 @@
             background-color: aqua;
             z-index:2;
         }
-    </style>
+    </style>*@
 
     @await RenderSectionAsync("Styles", required: false)
 
@@ -133,10 +133,25 @@
                     <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
 
                     <div class="nav-item">
-                        <a href="~/ShoppingCart/List">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
-                        </a>
+                        @{
+                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                            {
+                                <a href="@Url.Content("~/ShoppingCart/List")">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="#loginModal"data-bs-toggle="modal" >
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
+                                </a>
+                                   
+                            }
+
+                        }
+
                     </div>
                     @{
                         if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))

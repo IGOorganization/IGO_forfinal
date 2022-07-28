@@ -26,8 +26,14 @@ namespace IGO.Controllers
         private DemoIgoContext _dbIgo;
 		//public static List<int> BuyedLists;
 		//public static int UserID;
-		
 
+		public JsonResult CheckLogIn(string id)
+		{
+			if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+				return Json(true);
+			else
+				return Json(false);
+		}
 
 		public ShoppingCartController(IWebHostEnvironment hostEnvironment, DemoIgoContext db)
         {
@@ -59,7 +65,7 @@ namespace IGO.Controllers
             }
 
 
-
+			
             return Redirect($"{Request.Scheme}://{Request.Host}/Home/Home");
 
         }

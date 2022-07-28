@@ -120,7 +120,7 @@ namespace IGO
                 endpoints.MapControllerRoute(
                     name: "default",
 
-                    pattern: "{controller=ShoppingCart}/{action=List}/{id?}");
+                    pattern: "{controller=CheckTicket}/{action=Capture}/{id?}");
 
                 endpoints.MapRazorPages();
                 endpoints.MapHub<ChatHub>("/chatHub");
