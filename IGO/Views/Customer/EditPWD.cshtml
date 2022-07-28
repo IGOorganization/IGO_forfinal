@@ -1,32 +1,118 @@
-﻿@model IGO.Models.TCustomer
+﻿@model IGO.ViewModels.CCustomerViewModel
+@using IGO.Controllers
 
 @{
     ViewData["Title"] = "EditPWD";
 }
 
-<h1>EditPWD</h1>
 
-<h4>TCustomer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditPWD">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FPassword" class="control-label"></label>
-                <input asp-for="FPassword" class="form-control" />
-                <span asp-validation-for="FPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+
+<div class="container-xxl bg-light p-0">
+    <div class="container">
+        <form asp-controller="Customer" asp-action="EditPWD">
+            <div class="bg-white shadow" style="padding: 35px;">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div>
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <hr />
+                                <div class=" card-title text-center">
+                                    @{
+                                        if (CustomerController.imgpath == null)
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
+
+                                        }
+                                        else
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
+
+                                        }
+                                    }
+                                </div>
+                                @*<label class="text-center">
+                                    <button button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
+                                        <i title="" class="fa fa-camera">  頭貼修改  </i>
+                                    </button>
+                                </label>*@
+                                <hr />
+                                <div class="card-body">
+                                    <h4 class="text-primary text-center ">@CustomerController.userName</h4>
+                                </div>
+                            </div>
+                            <!--============================================這邊加入超連結======================================================================================-->
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-dark">
+                                        <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen"> 個人資訊</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-key"> 修改密碼</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                    </li>
+                                    <li class="list-group-item ">
+                                        @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                    <li class="list-group-item">
+                                        @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                    <li class="list-group-item ">
+                                        @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                </ul>
+                                <div class="card-body text-end ">
+                                    <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                                </div>
+                            </div>
+                            <!--============================================這邊加入超連結======================================================================================-->
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="border">
+                            <div class="card-header bg-dark">
+                                <h1 class="text-primary">帳號設定</h1>
+                            </div>
+                            <div class="border-top-0">
+                                <div class="bg-white shadow" style="padding: 35px;">
+                                    <div class="tab-content">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <div class="form-group">
+                                                    <label asp-for="FPassword" class="control-label"></label>
+                                                    <input  class="form-control" />
+                                                    <span asp-validation-for="FPassword" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">確認密碼</label>
+                                                    <input class="form-control" />
+                                                    <span asp-validation-for="FPassword" class="text-danger"></span>
+                                                </div>
+                                                <br />
+                                                <div class="form-group text-end">
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                                </div>
+                                                <hr />
+                                                <div class="text-end">
+                                                    <a asp-action="UserData">返回帳戶設定</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @*Bottom*@
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
