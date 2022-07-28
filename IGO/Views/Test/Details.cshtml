@@ -1,0 +1,247 @@
+﻿@model IGO.ViewModels.CTestViewModel
+
+
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<head>
+    <link rel="stylesheet" href="/css2/Test.css">
+</head>
+
+
+
+<div id="fullpart">
+    <div id="content">
+
+        @*<hr />*@
+        <!--<dl class="row">-->
+        @*<dt class="col-sm-2" hidden>
+            @Html.DisplayNameFor(model => model.FAnswerID)
+        </dt>
+        <dd class="col-sm-10" hidden>
+            @Html.DisplayFor(model => model.FAnswerID)
+        </dd>*@
+        @*<dt class="col-sm-2" hidden>
+            @Html.DisplayNameFor(model => model.FQuestionId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.testQuestion.FQuestion)
+        </dd>*@
+
+        <!--</dl>-->
+
+        <h3 id="question">@Model.testQuestion.FQuestion</h3>
+
+        <br />
+
+
+
+
+        @{
+
+
+            <div id="QuestionArea" class="text-center">
+
+                @foreach (var item in Model.testAnswer)
+                {
+                    @*count++;
+
+                    @count*@
+
+                    @*<button>
+                        @Html.DisplayFor(modelItem => item.FAnswer)
+
+                        @Html.DisplayFor(modelItem => item.FScore)分
+                    </button>*@
+                    <button data-question="@item.FQuestionId" data-id="@item.FAnswerId" data-point="@item.FScore" data-content="@Model.Id" >      @item.FAnswer @item.FScore 分     </button>
+
+                    <div class="total"></div>
+
+                    <br />
+
+                }
+            </div>
+
+
+
+        }
+    </div>
+
+</div>
+
+@*<a href="/Test/Detail/@Model.FQuestionId">前往下一頁測驗 </a>*@
+
+
+
+<br />
+<label id="time"></label>
+
+<br />
+
+<div>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    @*<a asp-action="Index">Back to List</a>*@
+</div>
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s" id="full-1">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Bottom*@
+
+
+@section Scripts {
+
+    <script>
+
+            //const score = document.querySelectorAll("#score");
+
+            //score.forEach(function (data) {
+            //    console.log(data);
+            //    data.addEventListener("click", function (e) {
+            //        console.log(e);
+            //        $("#total").text = "您已得到" + e + "分";
+            //    }
+            //    )
+            //})
+
+
+        //---------------------------------------按鈕得分-----------------------------
+
+        let total = 0;
+        //const point =document.querySelector("#data-point");
+        $("#QuestionArea").on("click", "button", async function (event) {
+            //console.log($(this).data("point"));
+            total += $(this).data("point");
+            //console.log(total);
+        //console.log(event.currentTarget.getAttribute("data-point"));
+
+})
+
+        //------------------------------------按鈕切換畫面----------------------------
+
+        $("#QuestionArea").on("click", "button", async function (event) {
+            // console.log(event.currentTarget.getAttribute("data-question"));
+
+            if (event.currentTarget.getAttribute("data-question") < 7) {
+                let jquestion = await fetch('@Url.Content("~/Test/nextquestion")' + `?id=${event.currentTarget.getAttribute("data-question")}`);
+
+                let question = await jquestion.json();
+                //console.log(question);
+
+                let lbQuestion = document.querySelector("#question");
+                lbQuestion.textContent = question.Question;
+
+                let div = document.querySelector("#QuestionArea");
+                div.textContent = "";
+
+
+
+
+
+                let frag = document.createDocumentFragment();
+
+
+
+                question.Answers.forEach(item => {
+                    //console.log(item);
+                    let button = document.createElement("button");
+                    button.setAttribute("data-question", item.FQuestionId);
+                    button.setAttribute("data-id", item.FAnswerId);
+                    button.setAttribute("data-point", item.FScore);
+                    //button.setAttribute("data-total", total);
+
+                    button.textContent = `${item.FAnswer} ${item.FScore} 分`;
+                    button.style = "margin:10px";
+
+
+
+
+                    let br = document.createElement("br");
+                    frag.appendChild(button);
+                    frag.appendChild(br);
+
+
+
+                })
+                div.appendChild(frag);
+            }
+
+
+            //--------------結束測驗傳輸資料-----------------------------------------
+            else {
+                // if (event.currentTarget.getAttribute("data-question") >= 7) {
+
+
+                    @*function AjaxDisplayString() {
+                        var action = '@Url.Action("~/Test/index")'; // action must be between quotes
+                        var totalvalue = 0;
+                        totalvalue += $("data-point").val(); // get the "Title" from input text
+
+                        var url = action + "?id=" + id; // get the complete url with route values
+
+                        $.ajax({
+                            url: url,
+                            method: 'GET',
+                            success: function (data) { alert(data); }
+                        });
+                    }
+                }
+            }*@
+
+                let type = ['1~24分：悠哉悠哉型', '25~50分：文化體驗型','51分以上：滿腔熱血型'];
+
+                if (total < 25) {
+
+
+                    window.location.href = "/Test/ResultDetail/1?total=" + total + '&type=' + type[0];
+                    //window.location.href = ('@Url.Content("~/Test/ResultDetail/?id=1&total=2")');
+
+
+                }
+
+                else if (total < 51 && total > 24) {
+                    window.location.href = "/Test/ResultDetail/2?total=" + total + '&type=' + type[1];
+                    //window.location.href = ('@Url.Content("~/Test/ResultDetail/2")');
+                }
+
+                else if (total >= 51) {
+                    window.location.href = "/Test/ResultDetail/3?total=" + total + '&type=' + type[2];
+                   // window.location.href = ('@Url.Content("~/Test/ResultDetail/3")');
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+         })
+
+    </script>
+
+
+}
+

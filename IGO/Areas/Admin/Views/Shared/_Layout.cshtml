@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - prjIGObackend</title>
+    <title>@ViewData["Title"] - IGO後台管理系統</title>
     <!-- Favicon-->
     <link href="~/background/img/favicon.ico" rel="icon">
     <!-- Google Web Fonts-->
@@ -47,20 +47,21 @@
                 </div>
             </div>
             <div class="navbar-nav w-100">
-                <a href="/Admin/Customer/List" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>會員管理</a>
-                <a href="/Admin/FeedbackManagement/Index" class="nav-item nav-link"><i class="fa fa-th me-2"></i>評論管理</a>
-                <a href="/Admin/Supplier/List" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>供應商管理</a>
-                <a href="/Admin/Order/List" class="nav-item nav-link"><i class="fa fa-table me-2"></i>所有訂單</a>
-                <a href="/Admin/Category/List" class="nav-item nav-link"><i class="fa fa-address-book me-2"></i>商品類別管理</a>
-                <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>分析圖表</a>
+                <a href="/Admin/Customer/List" class="nav-item nav-link text-white"><i class="fa fa-tachometer-alt me-2"></i>會員管理</a>
+                <a href="/Admin/Comment/List" class="nav-item nav-link text-white"><i class="fa fa-th me-2"></i>評論管理</a>
+                <a href="/Admin/Supplier/List" class="nav-item nav-link text-white"><i class="fa fa-keyboard me-2"></i>供應商管理</a>
+                <a href="/Admin/Order/List" class="nav-item nav-link text-white"><i class="fa fa-table me-2"></i>所有訂單</a>
+                <a href="/Admin/Category/List" class="nav-item nav-link text-white"><i class="fa fa-address-book me-2"></i>商品類別管理</a>
+                <a href="/Admin/Home/Analyze" class="nav-item nav-link text-white"><i class="fa fa-chart-bar me-2"></i>分析圖表</a>
+
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>商品管理</a>
+                    <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>商品管理</a>
                     <div class="dropdown-menu bg-transparent border-0">
-                        <a href="/Admin/Product/List" class="dropdown-item">一般商品</a>
-                        <a href="/Admin/Live/List" class="dropdown-item">住宿</a>
-                        <a href="/Admin/Coupon/List" class="dropdown-item">組合包</a>
-                        <a href="/Admin/Discount/List" class="dropdown-item">節日優惠</a>
-                        <a href="blank.html" class="dropdown-item">待放</a>
+                        <a href="/Admin/Product/List" class="dropdown-item text-white">一般商品</a>
+                        <a href="/Admin/Live/List" class="dropdown-item text-white">住宿</a>
+                        <a href="/Admin/Coupon/List" class="dropdown-item text-white">組合包</a>
+                        <a href="/Admin/Discount/List" class="dropdown-item text-white">節日優惠</a>
+                        <a href="blank.html" class="dropdown-item text-white">待放</a>
                     </div>
                 </div>
             </div>
@@ -83,7 +84,7 @@
             <div class="navbar-nav align-items-center ms-auto">
                 @*小鈴鐺通知-Start*@
                 <div class="nav-item dropdown" id="bell">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
                         <i class="fa fa-bell" id="cancelBellcount" style="color:red"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">

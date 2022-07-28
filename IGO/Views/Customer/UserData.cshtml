@@ -7,61 +7,67 @@
 
 <div class="container-xxl bg-light p-0">
     <div class="container">
-        <div class="bg-white shadow" style="padding: 35px;">
-            <div class="row ">
-                <div class="col-md-3">
-                    <div>
-                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
-                            <hr />
-                            <div class=" card-title text-center">
-                                @{
-                                    if (CustomerController.imgpath == null)
-                                    {
-                                        <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
-                                    }
-                                    else
-                                    {
-                                        <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
-                                    }
-                                }
-                            </div>
-                            <div class="card-body">
-                                <h4 class="text-primary text-center ">@CustomerController.userName</h4>
+        <form asp-controller="Customer" asp-action="UserData">
+            <div class="bg-white shadow" style="padding: 35px;">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div>
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <hr />
+                                <div class=" card-title text-center">
+                                    @{
+                                        if (CustomerController.imgpath == null)
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
 
+                                        }
+                                        else
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
+
+                                        }
+                                    }
+                                </div>
+                                <label class="text-center">
+                                    <button button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
+                                        <i title="" class="fa fa-camera">  頭貼修改  </i>
+                                    </button>
+                                </label>
+                                <hr />
+                                <div class="card-body">
+                                    <h4 class="text-primary text-center ">@CustomerController.userName</h4>
+                                </div>
                             </div>
-                            <hr />
-                        </div>
-                        <!--============================================這邊加入超連結======================================================================================-->
-                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
-                            <ul class="list-group">
-                                <li class="list-group-item bg-dark">
-                                    <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen">個人資訊</i></a>
-                                </li>
-                                <li class="list-group-item">
-                                    @Html.ActionLink("修改密碼", "", new { /* id=item.PrimaryKey */ })
-                                </li>
-                                <li class="list-group-item">
-                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
-                                </li>
-                                <li class="list-group-item list-group-item-primary">
-                                    @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
-                                </li>
-                                <li class="list-group-item">
-                                    @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
-                                </li>
-                                <li class="list-group-item list-group-item-primary">
-                                    @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
-                                </li>
-                            </ul>
-                            <div class="card-body text-end ">
-                                <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                            <!--============================================這邊加入超連結======================================================================================-->
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-dark">
+                                        <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen"> 個人資訊</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-key"> 修改密碼</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                    </li>
+                                    <li class="list-group-item ">
+                                        @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                    <li class="list-group-item">
+                                        @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                    <li class="list-group-item ">
+                                        @Html.ActionLink("我的評論", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                </ul>
+                                <div class="card-body text-end ">
+                                    <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                                </div>
                             </div>
+                            <!--============================================這邊加入超連結======================================================================================-->
                         </div>
-                        <!--============================================這邊加入超連結======================================================================================-->
                     </div>
-                </div>
-                <div class="col-md-9">
-                    <form asp-controller="Customer" asp-action="UserData">
+                    <div class="col-md-9">
                         <div class="border">
                             <div class="card-header bg-dark">
                                 <h1 class="text-primary">帳號設定</h1>
@@ -72,21 +78,21 @@
                                         <div class="container px-4">
                                             <div class="row gx-5">
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FLastName" class="control-label "></label>
                                                         <input asp-for="FLastName" class="form-control" />
                                                         <span asp-validation-for="FLastName" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FFirstName" class="control-label"></label>
                                                         <input asp-for="FFirstName" class="form-control" />
                                                         <span asp-validation-for="FFirstName" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FGender" class="control-label"></label>
                                                         <input asp-for="FGender" class="form-control" />
                                                         <span asp-validation-for="FGender" class="text-danger"></span>
@@ -94,25 +100,24 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="container px-4">
                                             <div class="row gx-5">
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FCityId" class="control-label"></label>
                                                         <input asp-for="FCityId" class="form-control" />
                                                         <span asp-validation-for="FCityId" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FBirth" class="control-label"></label>
                                                         <input asp-for="FBirth" class="form-control" />
                                                         <span asp-validation-for="FBirth" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FPhone" class="control-label"></label>
                                                         <input asp-for="FPhone" class="form-control" />
                                                         <span asp-validation-for="FPhone" class="text-danger"></span>
@@ -124,7 +129,7 @@
                                         <div class="container px-4">
                                             <div class="row gx-5">
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FAddress" class="control-label"></label>
                                                         <input asp-for="FAddress" class="form-control" />
                                                         <span asp-validation-for="FAddress" class="text-danger"></span>
@@ -136,7 +141,7 @@
                                         <div class="container px-4">
                                             <div class="row gx-5">
                                                 <div class="col">
-                                                    <div class="p-3 border bg-primary">
+                                                    <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FEmail" class="control-label"></label>
                                                         <input asp-for="FEmail" class="form-control" />
                                                         <span asp-validation-for="FEmail" class="text-danger"></span>
@@ -152,14 +157,68 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
-
+                    </div>
                 </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 修改頭貼Modal 彈出登入視窗 -->
+<div class="modal fade " id="EditImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="staticBackdropLabel">會員頭貼修改</h5>
+                <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-dark">
+                <br />
+                <form asp-controller="Customer" asp-action="EditImg" enctype="multipart/form-data">
+
+                    <div class="text-center">
+                        @{
+                            if (CustomerController.imgpath == null)
+                            {
+                                <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
+
+                            }
+                            else
+                            {
+                                <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
+
+                            }
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <input type="file" name="photo" class="form-control" />
+                    </div>
+                    <div class="modal-footer">
+                        <br />
+                        <input type="submit" value="修改並關閉" class="btn btn-primary" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 關閉</button>
+                        <br />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <hr />
+                        <div>
+                            <div class="row bg-dark">
+                                <div class="col text-center">
+                                    <button type="button" class="btn btn-danger" id="Backend_Demo">  Demo </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
+<!-- Backend Modal End -->
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

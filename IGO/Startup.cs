@@ -1,4 +1,5 @@
 using IGO.Data;
+using IGO.Hubs;
 using IGO.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+
+
 
 namespace IGO
 {
@@ -59,18 +62,7 @@ namespace IGO
 
            });
 
-
-        
-
-
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddRazorPages().AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
-
-
-            });
             services.AddControllersWithViews()
                .AddNewtonsoftJson(options =>
                {
@@ -84,9 +76,16 @@ namespace IGO
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
+            services.AddRazorPages().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs);
+
+            });
+
             services.AddSession();
 
-
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,7 +105,7 @@ namespace IGO
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseSession();  
+            app.UseSession(); 
 
             app.UseRouting();
 
@@ -117,13 +116,14 @@ namespace IGO
             {
                 endpoints.MapControllerRoute(
                     name: "areas",
-                    pattern: "{area:exists}/{controller=Order}/{action=List}/{id?}");
+                    pattern: "{area:exists}/{controller=Home}/{action=List}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
 
                     pattern: "{controller=CheckTicket}/{action=Capture}/{id?}");
 
                 endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

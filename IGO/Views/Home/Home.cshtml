@@ -24,7 +24,7 @@
                     <div class="p-3" style="max-width: 500px;">
                         <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">最新消息</h6>
                         <h1 class="display-3 text-white mb-4 animated slideInDown">普立茲新聞攝影獎80週年展</h1>
-                        <a href="~/Products/Exhibit" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight">馬上訂票</a>
+                        <a href="/Product/Detail?prodid=517" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight">馬上訂票</a>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,8 @@
                                 <p>剩餘數量:@remaining 張  || 已售出:@item.OrderQuantity 張</p>
                             </div>
                             <div class="d-flex justify-content-lg-end">
-                                <a href="~/Products/Food" class="btn btn-primary rounded py-2 px-4 align-items-end">詳細資訊</a>
+                                @*7/26修改*@
+                                <a href="/Product/Detail?prodid=@item.tProduct.FProductId" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct">詳細資訊</a>
                             </div>
                         </div>
                     </div>
@@ -498,7 +499,7 @@
                                 <p></p>
                             </div>
                             <div class="d-flex justify-content-lg-end">
-                                <a href="/City/PopularCity" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
+                                 <a href="/Product/Detail?prodid=${ProductId}" class="btn btn-primary rounded py-2 px-4 align-items-end viewProduct" id="ProductId-${ProductId}-${ViewRecord}">詳細資訊</a>
                             </div>
                         </div>
                     </div>
@@ -530,23 +531,6 @@
             }
         }
 
-        //點閱後瀏覽次數增加
-        $(document).on("click", ".viewProduct", function ()
-        {
-            let info = $(this).attr("id");
-            let prodid = Number(info.split('-')[1]);
-            let viewcount = Number(info.split('-')[2]);
-
-
-
-            console.log(prodid);
-            console.log(viewcount);
-            $.get('@Url.Content("~/Home/UpdateViewRecord")', {"Productid":prodid,"Viewcount":viewcount}, function (Datas)
-            {
-               
-
-            });
-        })
 
         //顯示評論
         $(window).ready(function ()

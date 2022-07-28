@@ -1,0 +1,47 @@
+﻿body {
+    background-image: url("../img/tyty-min.jpg");
+    
+}
+
+button {
+    border-radius: 30px;
+    background-color: yellow;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+    button:hover {
+        border-radius: 30px;
+        color: white;
+        background-color: black;
+        padding-left: 20px;
+        padding-right: 20px;
+        
+    }
+
+#fullpart {
+    background-color: white;
+    margin: 0px auto;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    width: 500px;
+    height: 350px;
+    margin: auto;
+    
+}
+
+
+#content {
+    margin: auto;
+    width: 400px;
+}
+
+.text-center{
+    text-align:center;
+}
+
+
+
+

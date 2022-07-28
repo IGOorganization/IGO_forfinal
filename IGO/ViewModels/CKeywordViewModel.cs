@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace prjMvcCoreDemo.ViewModels
+namespace Comment.ViewModels
 {
     public class CKeywordViewModel
     {

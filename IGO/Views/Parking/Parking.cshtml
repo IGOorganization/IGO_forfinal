@@ -25,8 +25,8 @@
             </div>
         </div>
     </div>
-    <h3 class="row justify-content-center">停車場剩餘車位查詢</h3>
-    <label>請選擇欲查詢的縣市城市</label>
+    <h3 class="row justify-content-center text-warning"> 停車場剩餘車位查詢</h3><button class="planB"><img src="~/img/park.png" style="float:left" width="25" height="25"></button>
+    <label class="text-dark" style="overflow:auto">請選擇欲查詢的縣市城市</label>
     <select>
         <option value="" id="non"></option>
         <option value="https://tdx.transportdata.tw/api/basic/v1/Parking/OffStreet/ParkingAvailability/City/Tainan?%24top=30&%24format=JSON" id="Tainan">台南</option>
@@ -38,13 +38,29 @@
         <p id="avaliblespace"></p>*@
     <table class="table table-striped">
         <thead>
-            <tr><th>停車場名稱</th><th>剩餘停車位</th><th>最後更新時間</th></tr>
+            <tr><th></th><th>停車場名稱</th><th>剩餘停車位</th><th>最後更新時間</th></tr>
         </thead>
         <tbody>
         </tbody>
 
     </table>
-
+    @*Bottom*@
+    <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div @*class="col-lg-10 border rounded p-1"*@>
+                <div @*class="border rounded text-center p-1"*@>
+                    <div class="bg-transparent rounded text-center p-5">
+                        <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                        <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                            @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                                <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Bottom*@
     @*Bottom*@
     <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="row justify-content-center">
@@ -71,8 +87,7 @@
     let selCity = document.querySelector("select");
     //selCity.addEventListener("change", showInfo);
     selCity.addEventListener("change", showInfo);
-    function showInfo()
-    {
+    function showInfo() {
         $("tbody").empty();
         request_url = selCity.options[selCity.selectedIndex].value;
         //console.log(request_url);
@@ -90,8 +105,7 @@
     //});
 
 
-    function GetAuthorizationHeader()
-    {
+    function GetAuthorizationHeader() {
         const parameter = {
             grant_type: "client_credentials",
             client_id: "joychang97-26982d3d-ab86-4eed",
@@ -119,15 +133,13 @@
     }
 
 
-    function GetApiResponse()
-    {
+    function GetApiResponse() {
         //let accesstokenStr = $("#accesstoken").text();
 
         let accesstoken = JSON.parse(accesstokenStr);
 
 
-        if (accesstoken != undefined)
-        {
+        if (accesstoken != undefined) {
             $.ajax(
                 {
                     type: 'GET',
@@ -142,53 +154,51 @@
                         "authorization": "Bearer " + accesstoken.access_token,
                     },
                     async: false,
-                    success: function (Data)
-                    {
+                    success: function (Data) {
                         //$('#apireponse').text(JSON.stringify(Data));
-                        //console.log('Data', Data);
+                        console.log('Data', Data);
                         var parkingName = Data['ParkingAvailabilities'][0]['CarParkName']['Zh_tw'];
                         var avalibleSpace = Data['ParkingAvailabilities'][0]['AvailableSpaces'];
                         var parkingNumber = Data['ParkingAvailabilities'].length;
                         var updateTime = Data["UpdateTime"];
+                        console.log('updateTime', updateTime);
                         //alert(`停車場:${parkingName},剩餘位置:${avalibleSpace},最後更新時間:${updateTime},數量:${parkingNumber}`); //小數點2位
                         //$("#parkname").text(parkingName);
                         //$("#avaliblespace").text(avalibleSpace);
 
-                        let docFrag = document.createDocumentFragment();
-                        let theTbody = document.querySelector("tbody");
                         for (let i = 0; i < parkingNumber; i++) {
                             let Name = Data['ParkingAvailabilities'][i]['CarParkName']['Zh_tw'];
                             let Space = Data['ParkingAvailabilities'][i]['AvailableSpaces'];
                             let Time = Data["UpdateTime"];
 
 
-                            let eleTr = document.createElement('tr');
-                            let eleNameTd = document.createElement('td');
-                            let txtNameTd = document.createTextNode(Name);
-                            eleNameTd.appendChild(txtNameTd);
-                            eleTr.appendChild(eleNameTd);
+                            if (Space > 0) {
 
-                            let eleSpaceTd = document.createElement('td');
-                            let txtSpaceTd = document.createTextNode(Space);
-                            eleSpaceTd.appendChild(txtSpaceTd);
-                            eleTr.appendChild(eleSpaceTd);
+                                $('tbody').append(`<tr><td><img src="/img/alarm.png" width=50 height=50 style="background:transparent"/></td><td>${Name}</td><td>${Space}</td><td>${Time}</td></tr>`)
+                            }
+                            else {
+                                $('tbody').append(`<tr><td></td><td>${Name}</td><td>${Space}</td><td>${Time}</td></tr>`)
+                            }
 
-                            let eleTimeTd = document.createElement('td');
-                            let txtTimeTd = document.createTextNode(Time);
-                            eleTimeTd.appendChild(txtTimeTd);
-                            eleTr.appendChild(eleTimeTd);
 
-                            docFrag.appendChild(eleTr);
+
                         }
-                        theTbody.appendChild(docFrag);
+                        /* theTbody.appendChild(docFrag);*/
                     },
-                    error: function (xhr, textStatus, thrownError)
-                    {
+                    error: function (xhr, textStatus, thrownError) {
                         console.log('errorStatus:', textStatus);
                         console.log('Error:', thrownError);
                     }
                 });
         }
     }
+
+
+
+
+
+    $('.planB').on('click', function () {
+        window.location.href = 'backupParking';
+    })
 
 </script>

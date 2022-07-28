@@ -1,0 +1,153 @@
+﻿@model IEnumerable<IGO.ViewModels.CProductViewModel>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>收藏產品列表</h1>
+
+<p>
+    <a asp-action="MyFavGroup">我的收藏</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.FProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FProductName)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FCityId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FSupplierId)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FQuantity)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FStartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FEndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FSubCategoryId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FIntroduction)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FDiscountOrNot)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.FProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FProductName)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FCityId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FSupplierId)
+                    </td>*@
+                <td id="qty">
+                    @Html.DisplayFor(modelItem => item.FQuantity)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FStartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FEndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FSubCategoryId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FIntroduction)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FDiscountOrNot)
+                    </td>*@
+                <td>
+
+                    @Html.ActionLink(" ", "_Fav", "Collection", new { id = item.FProductId }, new { @class = "fa-regular fa-heart" })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*Bottom*@
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row justify-content-center">
+        <div @*class="col-lg-10 border rounded p-1"*@>
+            <div @*class="border rounded text-center p-1"*@>
+                <div class="bg-transparent rounded text-center p-5">
+                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Bottom*@
+
+
+@section Scripts{
+    <script>
+
+
+
+
+
+
+        //let div = document.createElement("div");
+
+
+        let btn_heart = document.createElement("button");
+
+        btn_heart.setAttribute("name", "heart");
+        btn_heart.setAttribute("id", "heart");
+        btn_heart.setAttribute("data-question","heart");
+        btn_heart.className = "fa-regular fa-heart";
+
+
+
+        var td = document.getElementById("qty");
+        td.appendChild(btn_heart);
+
+
+
+       
+
+       async function fav() {
+           let jheart = await fetch('@Url.Content("~/Collection/_Fav")' + `?id=${item.FProductId}`);
+
+           let heart = await jheart.json();
+           alert(heart);
+           
+        }
+
+    </script>
+}

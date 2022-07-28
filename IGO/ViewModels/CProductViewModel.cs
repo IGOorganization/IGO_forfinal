@@ -16,7 +16,9 @@ namespace IGO.ViewModels
         {
             _dbIgo = db;
         }
+
         public TProduct product;
+        
         public int FProductId
         {
             get

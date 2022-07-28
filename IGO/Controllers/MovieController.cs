@@ -103,6 +103,44 @@ namespace IGO.Controllers
             return Json(true);
         }
 
+        public JsonResult AddShoppingCart(int userID, int money, string bookingTime, int supplierID, int showingID, int movieID, string movieSeat, int ticketTypeID)
+        {
+            TMovie movie = _dbIgo.TMovies.FirstOrDefault(x => x.MovieId == movieID);
+            TSupplier supplier = _dbIgo.TSuppliers.FirstOrDefault(x => x.FSupplierId == supplierID);
+            TProduct product = new TProduct
+            {
+                FProductName = movie.Cname,
+                FCityId = supplier.FCityId,
+                FAddress = supplier.FAddress,
+                FSupplierId = supplierID,
+            };
+            _dbIgo.TProducts.Add(product);
+            _dbIgo.SaveChanges();
+
+            List<int> movieSeats = movieSeat.Split('、').Select(x => int.Parse(x)).ToList();
+            foreach (int movieSeatID in movieSeats)
+            {
+                TShoppingCart shoppingCart = new TShoppingCart
+                {
+                    FProductId = product.FProductId,
+                    FCustomerId = userID,
+                    FQuantity = 1,
+                    FTotalPrice = money / movieSeats.Count,
+                    FBookingTime = bookingTime,
+                    FSupplierId = supplierID,
+                    FShowingId = showingID,
+                    FMovieId = movieID,
+                    FMovieSeatId = movieSeatID,
+                    FMovieTicketTypeId = ticketTypeID
+                };
+                _dbIgo.TShoppingCarts.Add(shoppingCart);
+                _dbIgo.SaveChanges();
+            }
+
+
+
+            return Json(true);
+        }
         public JsonResult SearchChosenSeat(int movieID, string movieDate, int supplierID, int showingID)
         {
             List<TShoppingCart> shoppingCarts = _dbIgo.TShoppingCarts.Where(t => t.FMovieId == movieID &&

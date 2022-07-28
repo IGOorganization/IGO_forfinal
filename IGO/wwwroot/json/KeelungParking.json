@@ -1,0 +1,597 @@
+﻿{
+  "UpdateTime": "2022-07-27T13:06:23+08:00",
+  "UpdateInterval": -1,
+  "SrcUpdateTime": "2022-07-27T13:06:22+08:00",
+  "SrcUpdateInterval": 86400,
+  "AuthorityCode": "KEE",
+  "ParkingAvailabilities": [
+    {
+      "CarParkID": "KEE12706",
+      "CarParkName": {
+        "Zh_tw": "光明停二停車場",
+        "En": "Guangming 2st Parking Lot"
+      },
+      "TotalSpaces": 101,
+      "AvailableSpaces": 42,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 101,
+          "AvailableSpaces": 42
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:32+08:00"
+    },
+    {
+      "CarParkID": "KEE11304",
+      "CarParkName": {
+        "Zh_tw": "銘傳立體停車場"
+      },
+      "TotalSpaces": 80,
+      "AvailableSpaces": 11,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 80,
+          "AvailableSpaces": 11
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:05+08:00"
+    },
+    {
+      "CarParkID": "KEE11703",
+      "CarParkName": {
+        "Zh_tw": "基隆七堵舊站停車場"
+      },
+      "TotalSpaces": 138,
+      "AvailableSpaces": 33,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 138,
+          "AvailableSpaces": 32
+        },
+        {
+          "SpaceType": 7,
+          "NumberOfSpaces": 2,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:06:00+08:00"
+    },
+    {
+      "CarParkID": "KEE12501",
+      "CarParkName": {
+        "Zh_tw": "鶯歌石溪停車場",
+        "En": "Yingge-Shixi Parking Lot"
+      },
+      "TotalSpaces": 76,
+      "AvailableSpaces": 39,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 76,
+          "AvailableSpaces": 39
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:56+08:00"
+    },
+    {
+      "CarParkID": "KEE22111",
+      "CarParkName": {
+        "Zh_tw": "易信行和平島停車場"
+      },
+      "TotalSpaces": 64,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 64,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-03-01T10:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE12203",
+      "CarParkName": {
+        "Zh_tw": "基隆六合停車場"
+      },
+      "TotalSpaces": 492,
+      "AvailableSpaces": 167,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 492,
+          "AvailableSpaces": 167
+        },
+        {
+          "SpaceType": 7,
+          "NumberOfSpaces": 10,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:08+08:00"
+    },
+    {
+      "CarParkID": "KEE12502",
+      "CarParkName": {
+        "Zh_tw": "基隆安和停車場"
+      },
+      "TotalSpaces": 44,
+      "AvailableSpaces": 16,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 44,
+          "AvailableSpaces": 16
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:33+08:00"
+    },
+    {
+      "CarParkID": "KEE12105",
+      "CarParkName": {
+        "Zh_tw": "基隆和平島公園停車場",
+        "En": "Hepingdao Parking Lot"
+      },
+      "TotalSpaces": 134,
+      "AvailableSpaces": 60,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 134,
+          "AvailableSpaces": 60
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:04:59+08:00"
+    },
+    {
+      "CarParkID": "KEE11301",
+      "CarParkName": {
+        "Zh_tw": "博愛國宅地下室停車場",
+        "En": "Boai Public Parking Garage"
+      },
+      "TotalSpaces": 253,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 253,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 2,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:04+08:00"
+    },
+    {
+      "CarParkID": "KEE11102",
+      "CarParkName": {
+        "Zh_tw": "正濱國小收費立體停車場",
+        "En": "Zhengbin Primary School Parking Garage"
+      },
+      "TotalSpaces": 98,
+      "AvailableSpaces": 6,
+      "Availabilities": [
+        {
+          "SpaceType": 0,
+          "NumberOfSpaces": 98,
+          "AvailableSpaces": 6
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:06:16+08:00"
+    },
+    {
+      "CarParkID": "KEE12704",
+      "CarParkName": {
+        "Zh_tw": "崇孝街停車場"
+      },
+      "TotalSpaces": 210,
+      "AvailableSpaces": 111,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 210,
+          "AvailableSpaces": 111
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:04:30+08:00"
+    },
+    {
+      "CarParkID": "KEE11303",
+      "CarParkName": {
+        "Zh_tw": "南榮公墓殯儀館停車場"
+      },
+      "TotalSpaces": 146,
+      "AvailableSpaces": 80,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 146,
+          "AvailableSpaces": 80
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:06:11+08:00"
+    },
+    {
+      "CarParkID": "KEE12112",
+      "CarParkName": {
+        "Zh_tw": "南區大客車停車場"
+      },
+      "TotalSpaces": 41,
+      "AvailableSpaces": 31,
+      "Availabilities": [
+        {
+          "SpaceType": 5,
+          "NumberOfSpaces": 41,
+          "AvailableSpaces": 31
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:06:17+08:00"
+    },
+    {
+      "CarParkID": "KEE12705",
+      "CarParkName": {
+        "Zh_tw": "光明停一停車場",
+        "En": "Guangming 1st Parking Lot"
+      },
+      "TotalSpaces": 56,
+      "AvailableSpaces": 20,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 56,
+          "AvailableSpaces": 20
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-25T11:10:40+08:00"
+    },
+    {
+      "CarParkID": "KEE12402",
+      "CarParkName": {
+        "Zh_tw": "西三停車場"
+      },
+      "TotalSpaces": 500,
+      "AvailableSpaces": 354,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 500,
+          "AvailableSpaces": 354
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:01+08:00"
+    },
+    {
+      "CarParkID": "KEE11201",
+      "CarParkName": {
+        "Zh_tw": "信義國中停車場"
+      },
+      "TotalSpaces": 177,
+      "AvailableSpaces": 71,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 177,
+          "AvailableSpaces": 71
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:06+08:00"
+    },
+    {
+      "CarParkID": "KEE12602",
+      "CarParkName": {
+        "Zh_tw": "源遠路第二停車場"
+      },
+      "TotalSpaces": 75,
+      "AvailableSpaces": 51,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 75,
+          "AvailableSpaces": 51
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:24+08:00"
+    },
+    {
+      "CarParkID": "KEE22406",
+      "CarParkName": {
+        "Zh_tw": "富士捷中山一路機車停車場"
+      },
+      "TotalSpaces": 777,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 2,
+          "NumberOfSpaces": 777,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-04-28T15:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE12109",
+      "CarParkName": {
+        "Zh_tw": "濱海遊憩區停車場"
+      },
+      "TotalSpaces": 60,
+      "AvailableSpaces": 37,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 60,
+          "AvailableSpaces": 37
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:26+08:00"
+    },
+    {
+      "CarParkID": "KEE12111",
+      "CarParkName": {
+        "Zh_tw": "65高地停車場"
+      },
+      "TotalSpaces": 33,
+      "AvailableSpaces": 30,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 33,
+          "AvailableSpaces": 30
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:04:29+08:00"
+    },
+    {
+      "CarParkID": "KEE12401",
+      "CarParkName": {
+        "Zh_tw": "基隆市中和路168巷停車場",
+        "En": "Zhonghe Rd., Parking Lot"
+      },
+      "TotalSpaces": 50,
+      "AvailableSpaces": 36,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 50,
+          "AvailableSpaces": 36
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:31+08:00"
+    },
+    {
+      "CarParkID": "KEE12306",
+      "CarParkName": {
+        "Zh_tw": "仁愛獅球停車場",
+        "En": "Renai-Shiqiu Parking Lot"
+      },
+      "TotalSpaces": 107,
+      "AvailableSpaces": 36,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 107,
+          "AvailableSpaces": 36
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:04+08:00"
+    },
+    {
+      "CarParkID": "KEE12113",
+      "CarParkName": {
+        "Zh_tw": "基隆和一停車場"
+      },
+      "TotalSpaces": 302,
+      "AvailableSpaces": 257,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 302,
+          "AvailableSpaces": 257
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:04+08:00"
+    },
+    {
+      "CarParkID": "KEE22112",
+      "CarParkName": {
+        "Zh_tw": "基隆八尺門停車場"
+      },
+      "TotalSpaces": 90,
+      "AvailableSpaces": 77,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 90,
+          "AvailableSpaces": 77
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 0,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-07-27T13:05:04+08:00"
+    },
+    {
+      "CarParkID": "KEE22407",
+      "CarParkName": {
+        "Zh_tw": "基隆中山機車停車場"
+      },
+      "TotalSpaces": 37,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 2,
+          "NumberOfSpaces": 37,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-04-28T15:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE22108",
+      "CarParkName": {
+        "Zh_tw": "海洋大學洽公臨時停車場"
+      },
+      "TotalSpaces": 45,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 45,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-03-01T10:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE21201",
+      "CarParkName": {
+        "Zh_tw": "基隆皇冠停車場"
+      },
+      "TotalSpaces": 153,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 153,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-03-01T10:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE22113",
+      "CarParkName": {
+        "Zh_tw": "中正公園遊客服務中心停車場"
+      },
+      "TotalSpaces": 27,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 27,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-03-01T10:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE21301",
+      "CarParkName": {
+        "Zh_tw": "基隆市國民運動中心地下停車場"
+      },
+      "TotalSpaces": 31,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 31,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-03-01T10:55:00+08:00"
+    },
+    {
+      "CarParkID": "KEE21302",
+      "CarParkName": {
+        "Zh_tw": "基隆市仁愛收費停車場"
+      },
+      "TotalSpaces": 109,
+      "AvailableSpaces": 0,
+      "Availabilities": [
+        {
+          "SpaceType": 1,
+          "NumberOfSpaces": 109,
+          "AvailableSpaces": 0
+        }
+      ],
+      "ServiceStatus": 1,
+      "FullStatus": 3,
+      "ChargeStatus": 1,
+      "DataCollectTime": "2022-03-01T10:55:00+08:00"
+    }
+  ]
+}

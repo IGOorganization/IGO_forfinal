@@ -10,7 +10,6 @@ namespace IGO.Models
         public int FCollectionId { get; set; }
         public int? FCustomerId { get; set; }
         public int? FProductId { get; set; }
-        public bool? FCollectionState { get; set; }
         public string FCollectionDate { get; set; }
         public int? FMovieId { get; set; }
 

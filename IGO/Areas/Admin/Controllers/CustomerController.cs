@@ -1,4 +1,5 @@
-﻿using IGO.Models;
+﻿using Comment.ViewModels;
+using IGO.Models;
 using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -27,26 +28,53 @@ namespace IGO.Areas.Admin.Controllers
             _enviroment = IGO;
         }
 
+        //public IActionResult Index()
+        //{
+        //    List<CCustomerViewModel> List = new List<CCustomerViewModel>();
 
+        //    // 從DB裡拿出Customer的資料
+        //    IEnumerable<TCustomer> datas = _dbIgo.TCustomers.ToList();
 
-        public IActionResult List(CKeywordViewModel vModel)
+        //    //逐筆轉換為CCustomerViewModel
+        //    foreach (TCustomer c in _dbIgo.TCustomers)
+        //    {
+        //        CCustomerViewModel cust = new CCustomerViewModel();
+        //        cust.customer = c;
+        //        List.Add(cust);
+        //    }
+
+        //    return View(List);
+        //}
+
+        public IActionResult List()
         {
-            IEnumerable<TCustomer> datas = null;
-            if (string.IsNullOrEmpty(vModel.txtKeyword))
+            //IEnumerable<TCustomer> datas = null;
+            //if (string.IsNullOrEmpty(vModel.txtKeyword))
+            //{
+            //    datas = from t in _dbIgo.TCustomers
+            //            select t;
+            //}
+            //else
+            //{
+            //    datas = _dbIgo.TCustomers.Where(t => 
+            //        t.FLastName.Contains(vModel.txtKeyword) ||
+            //        t.FFirstName.Contains(vModel.txtKeyword) ||
+            //        t.FGender.Contains(vModel.txtKeyword) ||
+            //        t.FPhone.Contains(vModel.txtKeyword) ||
+            //        t.FEmail.Contains(vModel.txtKeyword) ||
+            //        t.FAddress.Contains(vModel.txtKeyword));
+            //}
+            IEnumerable<TCustomer> c = _dbIgo.TCustomers;
+
+            List<CCustomerViewModel> datas = new List<CCustomerViewModel>();
+
+            foreach(TCustomer item in c)
             {
-                datas = from t in _dbIgo.TCustomers
-                        select t;
+                CCustomerViewModel data = new CCustomerViewModel();
+                data.customer = item;
+                datas.Add(data);
             }
-            else
-            {
-                datas = _dbIgo.TCustomers.Where(t => 
-                    t.FLastName.Contains(vModel.txtKeyword) ||
-                    t.FFirstName.Contains(vModel.txtKeyword) ||
-                    t.FGender.Contains(vModel.txtKeyword) ||
-                    t.FPhone.Contains(vModel.txtKeyword) ||
-                    t.FEmail.Contains(vModel.txtKeyword) ||
-                    t.FAddress.Contains(vModel.txtKeyword));
-            }
+
             return View(datas);
 
         }
@@ -77,7 +105,7 @@ namespace IGO.Areas.Admin.Controllers
             return View(cust);
         }
         [HttpPost]
-        public IActionResult Edit(CCustmoerViewModel vModel)
+        public IActionResult Edit(CCustomerViewModel vModel)
         {
 
             TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == vModel.FCustomerId);

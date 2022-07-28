@@ -93,13 +93,7 @@
 @section Scripts{
 
     <script>
-        //const hearts = document.querySelectorAll("#btn_heart");
-        //console.log(hearts);
-        //hearts.forEach(function (heart) {
-        //    heart.addEventListener("click", () => {
-        //        $(this).toggleClass("fa-regular")
-        //    })
-        //})
+       
 
         //取得飯店資訊
         const subcategoryid = 1;
@@ -140,6 +134,7 @@
                 let h4 = document.createElement("h4");
                 let a1 = document.createElement("a");
                 let i = document.createElement("i");
+                
 
                 div1.className = "col-lg-4 col-md-6 wow fadeInUp";
                 div1.setAttribute("data-wow-delay", "0.1s");
@@ -160,6 +155,11 @@
                 i.className = "fa-solid fa-heart fa-regular";
                 i.style = "padding:0px 0 0 10px ;font-size:150%";
                 i.setAttribute("data-id", item.FSupplierId);
+
+                
+               
+                 
+
                 div4_1.appendChild(i);
                 div4_2.className = "d-flex justify-content-lg-start";
                 h4.innerText = `${item.FCompanyName}`;
@@ -247,6 +247,17 @@
             console.log(products);
             showList(products);
         })
+
+        //收藏改變圖案
+         //const hearts = document.querySelectorAll("#btn_heart"); 
+         //console.log(hearts); 
+         //hearts.forEach(function (heart) { 
+         //    heart.addEventListener("click", () => { 
+         //        $(this).toggleClass("fa-regular") 
+         //    }) 
+         //}) 
+
+          
 
     </script>
 }
