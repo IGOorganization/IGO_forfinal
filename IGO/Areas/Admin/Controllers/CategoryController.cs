@@ -48,7 +48,33 @@ namespace IGO.Areas.Admin.Controllers
 
             return RedirectToAction("List");
         }
-        public IActionResult ShowSubcategory(string categoryID) //新增主類別
+        public IActionResult DeleteCategory(string categoryID) //刪除商品主分類 //宜潔7/29新增
+        {
+            string id = categoryID.Split("-")[1];
+            int CategoryID = Convert.ToInt32(id);
+
+            TCategory c = _IgoContext.TCategories.FirstOrDefault(c => c.FCategoryId == CategoryID);
+
+            if (c != null) 
+            {
+                _IgoContext.TCategories.Remove(c);
+                _IgoContext.SaveChanges();
+            }
+            return RedirectToAction("List");
+        }
+        //查詢商品指定次分類數量:宜潔7/29新增
+        public IActionResult querySubcategoryCount(TSubCategory Subcategory, string categoryID) //查詢subcategoryId
+        {
+            string id = categoryID.Split("-")[1];
+            int CategoryID = Convert.ToInt32(id);
+
+            int count = _IgoContext.TSubCategories.Where(c => c.FCategoryId == CategoryID).Count();
+
+            return Content(count.ToString());
+        }
+
+
+        public IActionResult ShowSubcategory(string categoryID) //顯示次類別
         {
             string id = categoryID.Split("-")[1];
             int CategoryID = Convert.ToInt32(id);
@@ -60,7 +86,7 @@ namespace IGO.Areas.Admin.Controllers
 
             return Json(subcategory);
         }
-        //新增商品次分類    //新增subcategory:7/26修改
+        //新增商品次分類    //新增subcategory:宜潔7/29新增
         public IActionResult CreateSubcategory(TSubCategory Subcategory, string Subcategoryname, int CategoryID) //新增次類別
         {
 
@@ -71,6 +97,28 @@ namespace IGO.Areas.Admin.Controllers
             _IgoContext.SaveChanges();
 
             return RedirectToAction("List");
+        }
+        //查詢商品次分類id:宜潔7/29新增
+        public IActionResult querySubcategoryId(TSubCategory Subcategory, string Subcategoryname) //查詢subcategoryId
+        {
+
+            int SubCategoryId = _IgoContext.TSubCategories.FirstOrDefault(c => c.FSubCategoryName == Subcategoryname).FSubCategoryId;
+
+            return Content(SubCategoryId.ToString());
+        }
+
+        //刪除商品次分類 //宜潔7/29新增
+        public IActionResult deleteSubcategory(int SubcategoryId) //查詢subcategoryId
+        {
+            TSubCategory s = _IgoContext.TSubCategories.FirstOrDefault(c => c.FSubCategoryId == SubcategoryId);
+
+            if (s != null)
+            {
+                _IgoContext.TSubCategories.Remove(s);
+                _IgoContext.SaveChanges();
+            }
+            return RedirectToAction("List");
+
         }
     }
 }

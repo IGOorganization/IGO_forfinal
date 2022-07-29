@@ -4,119 +4,99 @@
     ViewData["Title"] = "List";
 }
 
-<h4>商品類別管理</h4>
-<br>
-<p>
-    <button type="button" class="btn btn-light btnCreate" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        新增商品主類別
-    </button>
-</p>
-<!-- Modal -->
-@*<form name="categoryInfo" method="post" enctype="application/x-www-form-urlencoded">*@ @*寫法2:*@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">新增商品主類別</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h4>商品類別管理</h4>
+            <br>
+            <p>
+                <button type="button" class="btn btn-warning btnCreate" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    新增商品主類別
+                </button>
+            </p>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog bg-secondary rounded h-100 p-4 text-white">
+                    <div class="modal-content ">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">新增商品主類別</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label>輸入主類別名稱:</label><br>
+                            <input class="form-text" id="txtCategory" type="text" value=""><button type="button" class="btn btn-warning" id="update">新增</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>                          
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <label>輸入主類別名稱</label><span>: </span><input class="form-text" id="txtCategory" type="text" value="">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="update">新增</button>
+            <table class="table table-dark">
+                <thead>
+                    <tr align="right">
+                        <th>
+                            商品主類別名稱
+                        </th>
+                        <th>
+
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr align="right">
+                            <td>
+                                @item.CategoryName
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
+                                    檢視/編輯次類別
+                                </button>
+                                <button type="button" class="btn btn-danger btnDelete" id="CategoryId-@item.CategoryId">刪除</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-secondary rounded h-100 p-4 text-white">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">商品次類別編輯</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-dark">
+                                <thead><tr><th>次類別名稱</th><th></th></tr></thead>
+                                <tbody class="showSub">
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="modal-body">
+                            <label>輸入欲新增的次類別名稱</label><span>: </span><input class="form-text txtSubCategory" type="text" value="">
+                            <button type="button" class="btn btn-warning Add">新增</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-@*</form>*@
-<table class="table table-dark">
-    <thead>
-        <tr align="right">
-            <th>
-                商品主類別名稱
-            </th>
-            <th>
-
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @*@foreach (var item in Model)
-        {
-            <tr align="right" id="cateTable">
-                <td>
-                    @item.CategoryName
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
-                        檢視/編輯次類別
-                    </button>
-                </td>
-            </tr>
-        }*@
-        @foreach (var item in Model)
-        {
-            <tr align="right">
-                <td>
-                    @item.CategoryName
-                </td>
-                <td>
-                    <button type="button" class="btn btn-warning btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
-                        檢視/編輯次類別
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">商品次類別編輯</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body showSub">
-                <h4>目前已有的次分類</h4><br>
-            </div>
-            <hr>
-            <div class="modal-body">
-                <label>輸入欲新增的次類別名稱</label><span>: </span><input class="form-text txtSubCategory" type="text" value="">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                <button type="button" class="btn btn-primary Add">更新</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts
+        @section Scripts
 {
-    <script>
-            //新增商品主分類:寫法2:
-            @*let btnAdd = document.querySelector('#update');
-
-            btnAdd.addEventListener('click', () =>
-            {
-                console.log('update');
-                let formData = new FormData(document.categoryInfo);
-
-
-            fetch('@Url.Content("~/Category/Create")',
-            {
-                method: 'POST',
-                    body: formData
-                }).then(response => response.text())
-
-            })*@
-
-        //新增商品主分類:寫法1:
+            <script>
+        //宜潔 7/29刪除註解
+        //新增商品主分類
         $('#update').on("click", function ()
         {
             let Categoryname = $('#txtCategory').val();
@@ -126,14 +106,41 @@
                 //console.log(datas);
                 window.location.href = 'List';  //refresh此頁
             })
-       })
+        })
+
+        //宜潔 7/29新增'刪除商品主分類'
+        $('.btnDelete').on("click", function ()
+        {
+            let CategoryId = $(this).attr("id");
+            console.log(CategoryId);
+
+            //回傳指定主分類的次分類數量
+             $.get('@Url.Content("~/Admin/Category/querySubcategoryCount")', { "categoryID": CategoryId }, function (count) {
+
+                 //console.log(count);
+
+                 if (count > 0) {
+                     alert('請先刪除此分類中的次類別');
+                 }
+                 else
+                 {
+                      $.get('@Url.Content("~/Admin/Category/DeleteCategory")', { "categoryID": CategoryId }, function (datas) {
+
+                         //console.log('Delete successfully')
+                         alert('確定刪除?');
+                         window.location.href = 'List';  //refresh此頁
+                     }) 
+                 }
+
+           })
+          
+        })
 
         let cateID = "";  //商品主分類ID
         //編輯商品次分類
        $(document).on("click", ".btnEdit", function ()
        {
            $('.showSub').empty();
-
            let CategoryId = $(this).attr("id");
            /*console.log(CategoryId);*/
            cateID = CategoryId;
@@ -142,16 +149,18 @@
                $.each(datas, function (idx, item)
                {
                    //console.log(item.FSubCategoryName);
-                   $('.showSub').append(`${item.FSubCategoryName}<br>`);
+
+                   $('.showSub').append(`<tr><td class="subname">${item.FSubCategoryName}</td><td><button type="button" class="btn btn-primary btnRemove">刪除</button></td></tr>`)
 
                })
            })
        })
-         //新增商品次分類
+
+          //新增商品次分類
         $('.Add').on('click', function ()
         {
             let subcategoryname = $('.txtSubCategory').val();
-            $('.showSub').append(`${subcategoryname}<br>`);
+            $('.showSub').append(`<tr><td class="subname">${subcategoryname}</td><td><button type="button" class="btn btn-primary btnRemove">刪除</button></td></tr>`)
             //console.log(subcategoryname);
             let id = Number(cateID.split("-")[1]);
 
@@ -160,10 +169,30 @@
             //新增subcategory:7/26修改
             $.post('@Url.Content("~/Admin/Category/CreateSubcategory")', { "Subcategoryname": subcategoryname, "CategoryID": id}, function (datas)
             {
-                //console.log(datas);
-                window.location.href = 'List';  //refresh此頁
+                //console.log('新增成功');
             })
         })
 
-    </script>
-}
+        //宜潔 7/29新增'刪除商品次分類'
+        let subID = "";
+        $(document).on("click", ".btnRemove", function () {
+            let subcategoryname = $(this).closest('tr').children('td').eq(0).text();
+            //console.log(subcategoryname);
+            $.post('@Url.Content("~/Admin/Category/querySubcategoryId")', { "Subcategoryname": subcategoryname}, function (data)
+            {
+                console.log('查詢成功');
+                //console.log(data);
+                subID = data;
+                $.get('@Url.Content("~/Admin/Category/DeleteSubcategory")', { "SubcategoryId": subID }, function (data)
+                {
+                    //console.log('刪除成功');
+                    //console.log(subID);
+                    alert('確定刪除?');
+                    $(this).closest("tr").remove();
+                    window.location.href = 'List';  //refresh此頁
+                })
+            })
+
+        })
+            </script>
+        }
