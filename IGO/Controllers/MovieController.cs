@@ -111,6 +111,9 @@ namespace IGO.Controllers
             {
                 FProductName = movie.Cname,
                 FCityId = supplier.FCityId,
+                FStartTime = "2022-10-22",
+                FEndTime = "2022-10-22",
+                FQuantity = 30,
                 FAddress = supplier.FAddress,
                 FSupplierId = supplierID,
             };
