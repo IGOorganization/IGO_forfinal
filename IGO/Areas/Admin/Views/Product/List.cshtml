@@ -88,10 +88,10 @@
                         <div class="col-sm-12 col-xl-8">
                             <div class="bg-secondary rounded h-100 p-2">
                                 <h6 class="mb-4">基本資料</h6>
-                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="createForm"class="table-dark">
+                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="createForm" class="table-dark">
                                     <div class="mb-2">
                                         <label for="ProductName" class="form-label">商品名稱</label>
-                                        <input type="text" class="form-control" name="fProductName" required>
+                                        <input type="text" class="form-control" name="fProductName" id="createName">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">縣市</label>
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">地址</label>
-                                        <input type="text" class="form-control" name="fAddress" required>
+                                        <input type="text" class="form-control" name="fAddress" id="createAddress">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品類別</label>
@@ -117,12 +117,12 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">庫存量</label>
-                                        <input type="number" class="form-control" name="fQuantity" required>
+                                        <input type="number" class="form-control" name="fQuantity" id="createQuantity">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">販售期限</label>
-                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" required />
-                                        ~ <input type="date" class="form-control col-xl-4" name="fEndTime" required>
+                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" id="createStart" />
+                                        ~ <input type="date" class="form-control col-xl-4" name="fEndTime" id="createEnd">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品介紹</label>
@@ -132,7 +132,7 @@
                                         <label class="control-label">封面圖片</label>
                                         <input type="file" name="Photo" class="form-control" />
                                     </div>
-                                    <button type="submit" class="btn btn-primary" id="btn_createProduct" data-bs-dismiss="modal">新增</button>
+                                    <button type="submit" class="btn btn-primary" id="btn_createProduct">新增</button>
                                     <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
                             </div>
@@ -160,11 +160,11 @@
                         <div class="col-sm-12 col-xl-7">
                             <div class="bg-secondary rounded h-100 p-2">
                                 <h6 class="mb-4">基本資料</h6>
-                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="editForm"class="table-dark">
+                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="editForm" class="table-dark">
                                     <input type="hidden" id="editId" name="fProductId" />
                                     <div class="mb-2">
                                         <label for="ProductName" class="form-label">商品名稱</label>
-                                        <input type="text" class="form-control" name="fProductName" id="editName" required>
+                                        <input type="text" class="form-control" name="fProductName" id="editName">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">縣市</label>
@@ -204,7 +204,7 @@
                                         <label class="control-label">封面圖片</label>
                                         <input type="file" name="Photo" class="form-control" />
                                     </div>
-                                    <button type="submit" class="btn btn-primary" id="btn_editProduct" data-bs-dismiss="modal">完成</button>
+                                    <button type="submit" class="btn btn-primary" id="btn_editProduct">完成</button>
                                     <button type="button" class="btn btn-primary " data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
                             </div>
@@ -235,6 +235,26 @@
 @section Scripts{
     <script>
 
+        //日期物件設定不能選取今日以前
+        const Now = new Date();
+        let month = Now.getMonth();
+        let date = Now.getDate();
+        if (date < 10) {
+            date = `0${date}`;
+            console.log(date)
+        }
+        if (month < 9) {
+
+            month = `0${month + 1}`;
+            console.log(month)
+        }
+        document.querySelector("#createStart").min = `${Now.getFullYear()}-${month}-${date}`;
+        document.querySelector("#createEnd").min = `${Now.getFullYear()}-${month}-${date}`;
+        document.querySelector("#editStart").min = `${Now.getFullYear()}-${month}-${date}`;
+        document.querySelector("#editEnd").min = `${Now.getFullYear()}-${month}-${date}`;
+
+
+
         //=========圖片上傳=========
 
         let saveimg = document.querySelector("#btn_editphoto");
@@ -250,14 +270,16 @@
             })
             let photo = await jphoto.json();
             imgspace.textContent = "";
+            imgnum = 0;
             photo.forEach(p => {
                 let img = document.createElement("img");
-                img.setAttribute("data-num", num);
+                img.setAttribute("data-num", imgnum);
                 img.style.width = "200px";
                 img.style.height = "100px";
                 img.style.margin = "10px";
                 img.src = `/img/${p.FPhotoPath}`
                 imgspace.appendChild(img);
+                imgnum++;
             })
         })
 
@@ -296,7 +318,7 @@
                     j++;
                 }
                 imgnum = 3;
-            } 
+            }
         })
 
         function inputphoto(e,num) {
@@ -526,15 +548,32 @@
 
             event.preventDefault();
 
-            let createData = new FormData(document.createForm);
+            if ($("#createName").val() == "") {
+                alert("請輸入商品名稱");
+            }
+            else if ($("#createQuantity").val() == "") {
+                alert("請輸入庫存量");
+            }
+            else if ($("#createquantity").val() <= 0) {
+                alert("請輸入0以上的數字");
+            }
+            else if ($("#createStart").val() == "") {
+                alert("請輸入期限");
+            }
+            else if ($("#createEnd").val() == "") {
+                alert("請輸入期限");
+            }            
+            else {
+                let createData = new FormData(document.createForm);
 
-            let jproducts = await fetch("Create", {
-                body: createData,
-                method:"POST",
-            })
+                let jproducts = await fetch("Create", {
+                    body: createData,
+                    method: "POST",
+                })
+                let products = await jproducts.json();
+                createtable(products);
+            }
 
-            let products = await jproducts.json();
-            createtable(products);
         })
 
         //==========刪除商品=============
@@ -593,14 +632,32 @@
         edit.addEventListener("click", async (event) => {
 
             event.preventDefault();
-            let editData = new FormData(document.editForm);
 
-            let jproducts = await fetch("Edit", {
-                body: editData,
-                method: "POST",
-            })
-            let products = await jproducts.json();
-            createtable(products);
+            if ($("#editName").val() == "") {
+                alert("請輸入商品名稱");
+            }
+            else if ($("#editQuantity").val() == "") {
+                alert("請輸入庫存量");
+            }
+            else if ($("#editQuantity").val() <= 0) {
+                alert("請輸入0以上的數字");
+            }
+            else if ($("#editStart").val() == "") {
+                alert("請輸入期限");
+            }
+            else if ($("#editEnd").val() == "") {
+                alert("請輸入期限");
+            }
+            else {
+                let editData = new FormData(document.editForm);
+
+                let jproducts = await fetch("Edit", {
+                    body: editData,
+                    method: "POST",
+                })
+                let products = await jproducts.json();
+                createtable(products);
+            }
         })
 
     </script>

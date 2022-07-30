@@ -13,7 +13,7 @@ namespace IGO.ViewModels
         public string fProductName { get; set; }
         public int tickettype { get; set; }
         public decimal price { get; set; }
-        public int Quentity { get; set; }
+        public int Quantity { get; set; }
         public string fIntroduction { get; set; }
 
     }

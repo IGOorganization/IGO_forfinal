@@ -121,6 +121,7 @@
 
 
 
+
             let divproduct = document.querySelector("#productList");
             const supplier = document.querySelector("#Supplier");
         const roomtype = document.querySelector("#sel_roomtype");
@@ -283,11 +284,26 @@
 
             const Now = new Date();
             const year = Now.getFullYear();
-            const month = Now.getMonth();
-            const date = Now.getDate();
+            let month = Now.getMonth();
+            let date = Now.getDate();
         let NowYear = Now.getFullYear();
         let NowMonth = Now.getMonth();
         let NowDate = Now.getDate();
+
+
+            //日期物件設定不能選取今日以前
+            if (date < 10) {
+                date = `0${date}`;
+                console.log(date)
+            }
+            if (month < 9) {
+
+                month = `0${month + 1}`;
+                console.log(month)
+            }
+            document.querySelector("#bookingTime").min = `${Now.getFullYear()}-${month}-${date}`;
+
+
 
         //console.log(Now);
         //console.log(NowYear);

@@ -195,5 +195,26 @@ namespace IGO.ViewModels
             }
 
         }
+        public List<string> photos
+        {
+            get
+            {
+                List<string> items = new List<string>();
+
+                IEnumerable<TProductsPhoto> list = _dbIgo.TProductsPhotos.Where(n => n.FProductId == FProductId && n.FPhotoSiteId == 4);
+                if (list.Count() == 0)
+                {
+                    items = null;
+                }
+                else
+                {
+                    foreach(TProductsPhoto p in list)
+                    {
+                        items.Add(p.FPhotoPath);
+                    }
+                }
+                return items;
+            }
+        }
     }
 }

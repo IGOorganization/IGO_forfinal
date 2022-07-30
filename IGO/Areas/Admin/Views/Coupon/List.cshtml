@@ -79,26 +79,25 @@
                                 <form asp-area="Admin" asp-controller="Coupon" asp-action="Create" name="createForm">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">組合名稱</label>
-                                        <input type="text" class="form-control" name="fcouponName"
-                                               aria-describedby="emailHelp">
+                                        <input type="text" class="form-control" name="fcouponName" id="createName">
                                     </div>
                                     <div class="mb-3" id="dropzone">
-                                        <label for="text" class="form-label">組合內容(上限五件)</label>
+                                        <label for="text" class="form-label">組合內容(至少兩件,上限五件)</label>
 
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">庫存量</label>
-                                        <input type="number" class="form-control" name="fquantity">
+                                        <input type="number" class="form-control" name="fquantity" id="createquantity">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">折數</label>
-                                        <input type="number" class="form-control" name="fdiscount">
+                                        <input type="number" class="form-control" name="fdiscount" id="creatediscount">
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1" class="form-label">販售期限</label>
-                                        <input type="date" class="form-control" name="fdeadtime">
+                                        <input type="date" class="form-control" name="fdeadtime" id="createEnd">
                                     </div>
-                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="btn_createCoupon">新增</button>
+                                    <button type="submit" class="btn btn-primary" id="btn_createCoupon">新增</button>
                                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
                             </div>
@@ -151,7 +150,7 @@
                         <div class="col-sm-12 col-xl-6">
                             <div class="bg-secondary rounded h-100 p-4">
                                 <h6 class="mb-4">基本資料</h6>
-                                <form asp-area="Admin" asp-controller="Coupon" asp-action="Edit" name="editForm">
+                                <form asp-area="Admin" asp-controller="Coupon" asp-action="Edit" name="editForm" class="table-dark">
                                     <input type="hidden" name="FCouponId" id="editId" />
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">組合名稱</label>
@@ -178,7 +177,7 @@
                                         <label class="control-label">封面圖片</label>
                                         <input type="file" name="Photo" class="form-control" />
                                     </div>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn_editCoupon">送出</button>
+                                    <button type="button" class="btn btn-primary" id="btn_editCoupon">送出</button>
                                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="margin-left:10px">取消</button>
                                 </form>
                             </div>
@@ -254,18 +253,12 @@
 
         $("#createtb_products").on("dragstart", $("div"), dragstartHandler);
 
-        //items.forEach(function (item) {
-        //    item.addEventListener("dragstart", dragstartHandler);
-        //})
 
         zone.addEventListener("dragover", dragoverHandler);
         zone.addEventListener("drop", dropHandler);
 
         function dragstartHandler(event) {
             if (event.target.hasAttribute("data-pid")) {
-                //console.log(event.target);
-                //let e = event.originalEvent;  //DragEvent
-                //console.log(e);
                 event.originalEvent.dataTransfer.setData("text/plain", event.target.id);
             }
             //儲存要拖放的資料
@@ -280,7 +273,7 @@
         function dropHandler(e) {
             num = 0;
             if (num < 5) {
-                num++;
+
                 //console.log(num);
                 //取消預設動作
                 e.preventDefault();
@@ -288,35 +281,45 @@
                 e.stopPropagation();
                 //建立div元素
                 let sourceid = e.dataTransfer.getData('text/plain');
-                //console.log(sourceid);
-                let source = document.getElementById(sourceid);
-                console.log(source);
-                //設定屬性及外觀s
-                //console.log(source);
-                let div1 = document.createElement("div");
-                let div2 = document.createElement("div");
-                let div3 = document.createElement("div");
-                let input = document.createElement("input");
-                let span = document.createElement("span");
-                let button = document.createElement("button");
-                div1.className = "d-flex align-items-center border-bottom py-2";
-                div2.className = "w-100 ms-3";
-                div3.className = "d-flex w-100 align-items-center justify-content-between";
-                input.value = source.firstElementChild.value;
-                input.type = "hidden";
-                input.name = `fProductId${num}`;
-                span.textContent = source.lastElementChild.textContent;
-                button.className = "btn btn-sm";
-                button.name = "removeProduct";
-                button.innerHTML = '<i class="fa fa-times"></i>';
 
-                div3.appendChild(input);
-                div3.appendChild(span);
-                div3.appendChild(button);
-                div2.appendChild(div3);
-                div1.appendChild(div2);
-                e.currentTarget.appendChild(div1);
-                //新增到dropZone or dropZone1元素後面
+                let source = document.getElementById(sourceid);
+
+                if (list.find(n => n == source.firstElementChild.value)) {
+                    console.log(source.firstElementChild.value);
+                    console.log(list);
+                    alert("商品已存在");
+                } else {
+                    num++;
+
+                    //console.log(source);
+                    //設定屬性及外觀s
+                    //console.log(source);
+                    let div1 = document.createElement("div");
+                    let div2 = document.createElement("div");
+                    let div3 = document.createElement("div");
+                    let input = document.createElement("input");
+                    let span = document.createElement("span");
+                    let button = document.createElement("button");
+                    div1.className = "d-flex align-items-center border-bottom py-2";
+                    div2.className = "w-100 ms-3";
+                    div3.className = "d-flex w-100 align-items-center justify-content-between";
+                    input.value = source.firstElementChild.value;
+                    input.type = "hidden";
+                    input.name = `fProductId${num}`;
+                    span.textContent = source.lastElementChild.textContent;
+                    button.className = "btn btn-sm";
+                    button.name = "removeProduct";
+                    button.setAttribute("data-num", num - 1);
+                    button.innerHTML = '<i class="fa fa-times"></i>';
+
+                    div3.appendChild(input);
+                    div3.appendChild(span);
+                    div3.appendChild(button);
+                    div2.appendChild(div3);
+                    div1.appendChild(div2);
+                    e.currentTarget.appendChild(div1);
+                    list[num - 1] = source.firstElementChild.value;
+                }
             } else {
                 alert("商品已達上限");
             }
@@ -325,6 +328,8 @@
         //==========從編輯列表移除商品==========
         $("#dropzone").on("click", "button", (event) => {
             event.preventDefault();
+            //console.log(event.currentTarget.getAttribute("data-num"));
+            list.splice(event.currentTarget.getAttribute("data-num"), 1);
             $(event.currentTarget).parent().parent().parent().remove();
             num--;
         })
@@ -384,10 +389,26 @@
             }
         }
 
+        //日期物件設定不能選取今日以前
+        const Now = new Date();
+        let month = Now.getMonth();
+        let date = Now.getDate();
+        if (date < 10) {
+            date = `0${date}`;
+            console.log(date)
+        }
+        if (month < 9) {
+
+            month = `0${month + 1}`;
+            console.log(month)
+        }
+        document.querySelector("#createEnd").min = `${Now.getFullYear()}-${month}-${date}`;
+        document.querySelector("#editEnd").min = `${Now.getFullYear()}-${month}-${date}`;
+
+
+
 
         //=========新增商品=============
-
-
         let create = document.querySelector("#btn_createCoupon");
         create.addEventListener("click", async (event) => {
 
@@ -398,15 +419,35 @@
                 //console.log(event);
                 let createData = new FormData(document.createForm);
 
-                let jcoupons = await fetch("Create", {
-                    body: createData,
-                    method: "POST",
-                })
+                if ($("#createName").val() == "") {
+                    alert("請輸入商品名稱");
+                }
+                else if ($("#createquantity").val() == "") {
+                    alert("請輸入庫存量");
+                }
+                else if ($("#createquantity").val() <= 0) {
+                    alert("請輸入0以上的數字");
+                }
+                else if ($("#creatediscount").val() == "") {
+                    alert("請輸入折數");
+                }
+                else if ($("#creatediscount").val() <= 0) {
+                    alert("請輸入0以上的數字");
+                }
+                else if ($("#createEnd").val() == "") {
+                    alert("請輸入期限");
+                } else {
+                    let jcoupons = await fetch("Create", {
+                        body: createData,
+                        method: "POST",
+                    });
                 let coupons = await jcoupons.json();
                 console.log(coupons);
                 refrechCoupon(coupons);
+                }
+
             }
-           
+
         })
 
         //==========刷新組合列表===========
@@ -496,7 +537,7 @@
             let jproducts = await fetch('@Url.Content("~/Admin/Product/SelectBySubCategory")' + `?id=${subcategoryid}&num=${p}`)
 
             let products = await jproducts.json();
-            //console.log(products);
+
             createtable(products, body);
 
             page(subcategoryid, editbar);
@@ -519,6 +560,7 @@
 
         $("#editdropzone").on("click", "button", (event) => {
             event.preventDefault();
+            list.splice(event.currentTarget.getAttribute("data-num"), 1);
             $(event.currentTarget).parent().parent().parent().remove();
             num--;
         })
@@ -544,7 +586,7 @@
 
         function dropHandler(e) {
             if (num < 5) {
-                num++;
+
                 //console.log(num);
                 //取消預設動作
                 e.preventDefault();
@@ -552,35 +594,45 @@
                 e.stopPropagation();
                 //建立div元素
                 let sourceid = e.dataTransfer.getData('text/plain');
-                //console.log(sourceid);
-                let source = document.getElementById(sourceid);
-                //console.log(source);
-                //設定屬性及外觀s
-                //console.log(source);
-                let div1 = document.createElement("div");
-                let div2 = document.createElement("div");
-                let div3 = document.createElement("div");
-                let input = document.createElement("input");
-                let span = document.createElement("span");
-                let button = document.createElement("button");
-                div1.className = "d-flex align-items-center border-bottom py-2";
-                div2.className = "w-100 ms-3";
-                div3.className = "d-flex w-100 align-items-center justify-content-between";
-                input.value = source.firstElementChild.value;
-                input.type = "hidden";
-                input.name = `fProductId${num}`;
-                span.textContent = source.lastElementChild.textContent;
-                button.className = "btn btn-sm";
-                button.name = "removeProduct";
-                button.innerHTML = '<i class="fa fa-times"></i>';
 
-                div3.appendChild(input);
-                div3.appendChild(span);
-                div3.appendChild(button);
-                div2.appendChild(div3);
-                div1.appendChild(div2);
-                e.currentTarget.appendChild(div1);
-                //新增到dropZone or dropZone1元素後面
+                let source = document.getElementById(sourceid);
+
+                if (list.find(n=>n==source.firstElementChild.value)) {
+                    console.log(source.firstElementChild.value);
+                    console.log(list);
+                    alert("商品已存在");
+                } else {
+                    num++;
+
+                    //console.log(source);
+                    //設定屬性及外觀s
+                    //console.log(source);
+                    let div1 = document.createElement("div");
+                    let div2 = document.createElement("div");
+                    let div3 = document.createElement("div");
+                    let input = document.createElement("input");
+                    let span = document.createElement("span");
+                    let button = document.createElement("button");
+                    div1.className = "d-flex align-items-center border-bottom py-2";
+                    div2.className = "w-100 ms-3";
+                    div3.className = "d-flex w-100 align-items-center justify-content-between";
+                    input.value = source.firstElementChild.value;
+                    input.type = "hidden";
+                    input.name = `fProductId${num}`;
+                    span.textContent = source.lastElementChild.textContent;
+                    button.className = "btn btn-sm";
+                    button.name = "removeProduct";
+                    button.setAttribute("data-num", num - 1);
+                    button.innerHTML = '<i class="fa fa-times"></i>';
+
+                    div3.appendChild(input);
+                    div3.appendChild(span);
+                    div3.appendChild(button);
+                    div2.appendChild(div3);
+                    div1.appendChild(div2);
+                    e.currentTarget.appendChild(div1);
+                    list[num-1] = source.firstElementChild.value;
+                }
             } else {
                 alert("商品已達上限");
             }
@@ -589,6 +641,7 @@
 
         //==========編輯組合包===========
 
+        let list = new Array();
 
         $("#tb_coupon").on("click", $("edit"), async function (event) {
             //console.log(event.target.getAttribute("data-eid"));
@@ -598,8 +651,6 @@
             editzone.textContent = "";
             editzone.appendChild(label);
              if (event.target.hasAttribute("data-eid")) {
-                 alert("edit");
-                 //console.log(event.target);
                  let jcoupon = await fetch('@Url.Content("~/Admin/Coupon/searchCouponById")' + `?id=${event.target.getAttribute("data-eid")}`)
 
                  let coupon = await jcoupon.json();
@@ -608,10 +659,11 @@
                  $("#editName").val(coupon.FCouponName);
                  $("#editquantity").val(coupon.FQuantity);
                  $("#editdiscount").val(coupon.FDiscount);
-                 $("#editEnd").val(coupon.FDeadtime);
+                 $("#editEnd").val(coupon.FDeadTime);
 
                  num = 0;
                  coupon.VMproducts.forEach(product => {
+                     list[num] = product.FProductId;
                      num++;
                      let div1 = document.createElement("div");
                      let div2 = document.createElement("div");
@@ -653,18 +705,35 @@
             } else {
                 let editData = new FormData(document.editForm);
 
-                let jcoupons = await fetch("Edit", {
-                    body: editData,
-                    method: "POST",
-                })
-
-                let coupons = await jcoupons.json();
-                console.log(coupons);
-                refrechCoupon(coupons);
+                if ($("#editName").val() == "") {
+                    alert("請輸入商品名稱");
+                }
+                else if ($("#editquantity").val() == "") {
+                    alert("請輸入庫存量");
+                }
+                else if ($("#editquantity").val() <= 0) {
+                    alert("請輸入0以上的數字");
+                }
+                else if ($("#editdiscount").val() == "") {
+                    alert("請輸入折數");
+                }
+                else if ($("#editdiscount").val() <= 0) {
+                    alert("請輸入0以上的數字");
+                }
+                else if ($("#editEnd").val() == "") {
+                    alert("請輸入期限");
+                } else {
+                    let jcoupons = await fetch("Edit", {
+                        body: editData,
+                        method: "POST",
+                    });
+                    let coupons = await jcoupons.json();
+                    console.log(coupons);
+                    refrechCoupon(coupons);
+                }
             }
         })
 
-        //===========上傳圖片===========
 
 
 
