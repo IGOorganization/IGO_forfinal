@@ -67,6 +67,7 @@ namespace IGO.Controllers
                 cvm.coupon = _dbIgo.TCoupons.FirstOrDefault(n => n.FCouponId == c.ToCartId);
                 if (c.fTickettype == 1)
                 {
+                    int d = Convert.ToInt32(cvm.FDiscount);
                     foreach (CProductViewModel t in cvm.VMproducts)
                     {
                         TShoppingCart cart = new TShoppingCart
@@ -75,7 +76,7 @@ namespace IGO.Controllers
                             FCustomerId = userid,
                             FTicketId = _dbIgo.TTicketAndProducts.FirstOrDefault(n => n.FProductId == t.FProductId).FTicketId,
                             FQuantity = c.fQuantity,
-                            FTotalPrice = (_dbIgo.TTicketAndProducts.FirstOrDefault(n => n.FProductId == t.FProductId).FPrice) * c.fQuantity,
+                            FTotalPrice = (_dbIgo.TTicketAndProducts.FirstOrDefault(n => n.FProductId == t.FProductId).FPrice) * c.fQuantity * d / 100,
                             FTempOrder = s,
                             FBookingTime = c.fBookingTime,
                             FCouponId = c.ToCartId

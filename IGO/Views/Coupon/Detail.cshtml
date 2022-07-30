@@ -16,7 +16,7 @@
 <!-- Booking Start -->
 <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="container">
-        
+
     </div>
 </div>
 <!-- Booking End -->
@@ -28,9 +28,9 @@
             @{
                 string alertMessage = "           ";
                 string imgSource = "";
-                if (Model.endtime.Days <= 100)
+                if (Model.endtime.Days <= 30)
                 {
-                    alertMessage = "活動即將結束";
+                    alertMessage = "優惠即將結束";
                     imgSource = "/img/alarm.png";
                 }
                 else
@@ -45,7 +45,7 @@
             <p class="align-items-end"></p>
             <p class="align-items-end"><img src="@imgSource" width="30" height="30"></p>
             <h5 class="align-items-end" style="color:red">@alertMessage</h5>
-            <h1 class="mb-5">離活動結束還剩 @Model.endtime.Days 天 </h1>
+            <h1 class="mb-5">離優惠結束還剩 @Model.endtime.Days 天 </h1>
         </div>
         <div class="row g-4">
 
@@ -134,14 +134,20 @@
                                         @{
                                             decimal full = 0;
                                             decimal half = 0;
+                                            decimal ofull = 0;
+                                            decimal ohalf = 0;
+                                            int d = Convert.ToInt32(Model.FDiscount);
                                             foreach (var q in Model.VMproducts)
                                             {
-                                                full += q.tickets[0].price;
-                                                half += q.tickets[1].price;
+                                                full += q.tickets[0].price * d / 100;
+                                                half += q.tickets[1].price * d / 100;
+                                                ofull += q.tickets[0].price;
+                                                ohalf += q.tickets[1].price;
+
                                             }
-                                            <input type="radio" class="btn-check" id="ticket1" name="ticket" value="1" data-price="@full.ToString("0")">
+                                            <input type="radio" class="btn-check" id="ticket1" name="ticket" value="1" data-price="@full.ToString("0")" data-org="@ofull.ToString("0")">
                                             <label class="btn btn-outline-primary" for="ticket1">全票</label>
-                                            <input type="radio" class="btn-check" id="ticket2" name="ticket" value="2" data-price="@half.ToString("0")">
+                                            <input type="radio" class="btn-check" id="ticket2" name="ticket" value="2" data-price="@half.ToString("0")" data-org="@ohalf.ToString("0")">
                                             <label class="btn btn-outline-primary" for="ticket2">半票</label>
                                         }
                                     </div>
@@ -156,13 +162,17 @@
                                         <input type="number" class="form-control" id="input-quantity" name="fQuantity" />
                                     </div>
                                     <div class="m-3">
-                                        <span class="fw-bold">價格</span>
-                                        <span id="lbl-price">NT$ - 元</span>
-                                        @*<input type="submit" class="btn btn-primary float-lg-end" id="btn-add" value="加入購物車" />*@
+                                        <span class="fw-bold">原價</span>
+                                        <span id="lbl-oprice">NT$ - 元</span>
                                         <button type="button" class="btn btn-primary float-lg-end" id="btn-add">
                                             <i class="bi bi-cart-plus"></i>
                                             加入購物車
                                         </button>
+                                        <br />
+                                        <span class="fw-bold" style="color:orangered;">折價後</span>
+                                        <span id="lbl-price">NT$ - 元</span>
+                                        @*<input type="submit" class="btn btn-primary float-lg-end" id="btn-add" value="加入購物車" />*@
+
                                     </div>
                                 </form>
 
@@ -197,16 +207,19 @@
     <script>
         //顯示價格
         let price = document.querySelector("#lbl-price");
+        let oprice = document.querySelector("#lbl-oprice");
 
         $("#TicketArea").on("click", "input", function (event) {
             //console.log(event.currentTarget);
             price.textContent = `NT$ ${event.currentTarget.getAttribute("data-price")} 元`
             price.setAttribute("data-price", event.currentTarget.getAttribute("data-price"));
             $("#tickettype").val(event.currentTarget.getAttribute("value"))
+            oprice.textContent = `NT$ ${event.currentTarget.getAttribute("data-org")} 元`
+            oprice.setAttribute("data-org", event.currentTarget.getAttribute("data-org"));
         })
 
         let quantity = document.querySelector("#input-quantity");
-        
+
 
         quantity.addEventListener("change", function () {
             if (this.value >= 0) {
@@ -222,15 +235,13 @@
         let tbody = document.querySelector("#tbcalender");
 
         const Now = new Date();
+        const year = Now.getFullYear();
+        const month = Now.getMonth();
+        const date = Now.getDate();
         let NowYear = Now.getFullYear();
         let NowMonth = Now.getMonth();
         let NowDate = Now.getDate();
         let cid = document.querySelector("#Coupon");
-
-        console.log(Now);
-        console.log(NowYear);
-        console.log(NowMonth);
-        console.log(NowDate);
 
 
         getsoldedList(cid);
@@ -274,7 +285,9 @@
                             ctd.setAttribute("data-month", `${NowMonth + 1}`)
                             ctd.setAttribute("data-day", `${day}`)
                             d--;
-                            if (index < datas.length && datas[index].day==day) {
+                            let checkdate = new Date(`${NowYear}-${NowMonth + 1}-${day}`);
+                            if (checkdate >= Now && index < datas.length && datas[index].day == day) {
+                                ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
                                 index++;
                             }
@@ -313,19 +326,21 @@
 
         $("#tbcalender").on("click", "td", function (event) {
             console.log(event.currentTarget);
-            let takeyear = event.currentTarget.getAttribute("data-year");
-            let takemonth = event.currentTarget.getAttribute("data-month");
-            let takeday = event.currentTarget.getAttribute("data-day");
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                let takeyear = event.currentTarget.getAttribute("data-year");
+                let takemonth = event.currentTarget.getAttribute("data-month");
+                let takeday = event.currentTarget.getAttribute("data-day");
 
-            if (takemonth < 10) {
-                takemonth = `0${takemonth}`;
-            }
-            if (takeday < 10) {
-                takeday = `0${takeday}`
-            }
-            let takedate = `${takeyear}-${takemonth}-${takeday}`;
+                if (takemonth < 10) {
+                    takemonth = `0${takemonth}`;
+                }
+                if (takeday < 10) {
+                    takeday = `0${takeday}`
+                }
+                let takedate = `${takeyear}-${takemonth}-${takeday}`;
 
-            $("#bookingTime").val(takedate);
+                $("#bookingTime").val(takedate);
+            }
         })
 
         //=====================================

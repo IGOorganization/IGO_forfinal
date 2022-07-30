@@ -62,11 +62,11 @@
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">預定時間:</span>
-                                    <input type="date" name="fBookingTime" class="col-md-8" id="bookingTime"/>
+                                    <input type="date" name="fBookingTime" class="col-md-8" id="bookingTime" />
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">數量:</span>
-                                    <input type="number" name="fQuantity" class="col-md-8" id="quantity" disabled/>
+                                    <input type="number" name="fQuantity" class="col-md-8" id="quantity" disabled />
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">價格</span>
@@ -133,17 +133,17 @@
 
             quantity.setAttribute("disabled", true);
             quantity.value = 1;
-
-            let jticket = await fetch('@Url.Content("~/Live/gettickets")' + `?prodid=${this.options[this.selectedIndex].value}`);
-
-            let tickets = await jticket.json();
-            console.log(tickets);
-            let frag = document.createDocumentFragment();
+            tbody.textContent = "";
             ticket.textContent = "";
             let optionf = new Option;
             optionf.textContent = "請選擇人數";
             optionf.setAttribute("data-price", "-");
             ticket.appendChild(optionf);
+
+            let jticket = await fetch('@Url.Content("~/Live/gettickets")' + `?prodid=${this.options[this.selectedIndex].value}`);
+
+            let tickets = await jticket.json();
+            let frag = document.createDocumentFragment();
             for (let i = 0; i < tickets.length; i++) {
                 let option = new Option;
                 option.value = tickets[i].ticketid;
@@ -202,7 +202,6 @@
                 let div4_3 = document.createElement("div");
                 let div4_4 = document.createElement("div");
                 let img1 = document.createElement("img");
-                let p1 = document.createElement("p");
                 let h4 = document.createElement("h4");
                 //let a1 = document.createElement("a");
                 let i = document.createElement("i");
@@ -213,10 +212,7 @@
                 div3.className = "position-relative";
                 img1.className = "img-fluid";
                 img1.src = `/img/${item.getPhotoPath}`;
-                p1.className = "position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4";
-                p1.innerText = `使用期限至 ${item.FEndTime}`;
                 div3.appendChild(img1);
-                div3.appendChild(p1);
                 div4.className = "p-4 mt-2";
                 div4_1.className = "d-flex mb-3";
                 for (var s = 1; s <= 4; s++) {
@@ -285,7 +281,10 @@
 
         let tbody = document.querySelector("#tbcalender");
 
-        const Now = new Date();
+            const Now = new Date();
+            const year = Now.getFullYear();
+            const month = Now.getMonth();
+            const date = Now.getDate();
         let NowYear = Now.getFullYear();
         let NowMonth = Now.getMonth();
         let NowDate = Now.getDate();
@@ -329,7 +328,9 @@
                             ctd.setAttribute("data-year", `${NowYear}`)
                             ctd.setAttribute("data-month", `${NowMonth + 1}`)
                             ctd.setAttribute("data-day", `${day}`)
-                            if (index < datas.length && datas[index].day == day) {
+                            let checkdate = new Date(`${NowYear}-${NowMonth+1}-${day}`);
+                            if (checkdate >= Now && index < datas.length && datas[index].day == day) {
+                                ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
                                 index++;
                             }
@@ -366,19 +367,21 @@
 
         $("#tbcalender").on("click", "td", function (event) {
             console.log(event.currentTarget);
-            let takeyear = event.currentTarget.getAttribute("data-year");
-            let takemonth = event.currentTarget.getAttribute("data-month");
-            let takeday = event.currentTarget.getAttribute("data-day");
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                let takeyear = event.currentTarget.getAttribute("data-year");
+                let takemonth = event.currentTarget.getAttribute("data-month");
+                let takeday = event.currentTarget.getAttribute("data-day");
 
-            if (takemonth < 10) {
-                takemonth = `0${takemonth}`;
-            }
-            if (takeday < 10) {
-                takeday = `0${takeday}`
-            }
-            let takedate = `${takeyear}-${takemonth}-${takeday}`;
+                if (takemonth < 10) {
+                    takemonth = `0${takemonth}`;
+                }
+                if (takeday < 10) {
+                    takeday = `0${takeday}`
+                }
+                let takedate = `${takeyear}-${takemonth}-${takeday}`;
 
-            $("#bookingTime").val(takedate);
+                $("#bookingTime").val(takedate);
+            }
         })
 
         //=====================================
@@ -401,7 +404,7 @@
                     lbprice.textContent = `NT$ ${this.value * ticket.options[ticket.selectedIndex].getAttribute("data-price")} 元`;
                 }
                 //console.log(this.value);
-                
+
             })
 
         </script>

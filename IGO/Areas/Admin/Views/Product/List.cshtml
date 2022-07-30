@@ -88,10 +88,10 @@
                         <div class="col-sm-12 col-xl-8">
                             <div class="bg-secondary rounded h-100 p-2">
                                 <h6 class="mb-4">基本資料</h6>
-                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="createForm">
+                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="createForm"class="table-dark">
                                     <div class="mb-2">
                                         <label for="ProductName" class="form-label">商品名稱</label>
-                                        <input type="text" class="form-control" name="fProductName">
+                                        <input type="text" class="form-control" name="fProductName" required>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">縣市</label>
@@ -100,11 +100,11 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">地址</label>
-                                        <input type="text" class="form-control" name="fAddress">
+                                        <input type="text" class="form-control" name="fAddress" required>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品類別</label>
-                                        <select class="form-select" name="fSubcategoryID">
+                                        <select class="form-select" name="fSubcategoryID" id="sel_creatsub">
                                             <option value="2">景點</option>
                                             <option value="4">展覽</option>
                                             <option value="5">美食</option>
@@ -117,11 +117,12 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">庫存量</label>
-                                        <input type="number" class="form-control" name="fQuantity">
+                                        <input type="number" class="form-control" name="fQuantity" required>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">販售期限</label>
-                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" /> ~ <input type="date" class="form-control col-xl-4" name="fEndTime">
+                                        <input type="date" class="form-control col-xl-4 " name="fStartTime" required />
+                                        ~ <input type="date" class="form-control col-xl-4" name="fEndTime" required>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品介紹</label>
@@ -156,14 +157,14 @@
             <div class="modal-body ">
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <div class="col-sm-12 col-xl-8">
+                        <div class="col-sm-12 col-xl-7">
                             <div class="bg-secondary rounded h-100 p-2">
                                 <h6 class="mb-4">基本資料</h6>
-                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="editForm">
+                                <form asp-area="Admin" asp-controller="Product" asp-action="Create" name="editForm"class="table-dark">
                                     <input type="hidden" id="editId" name="fProductId" />
                                     <div class="mb-2">
                                         <label for="ProductName" class="form-label">商品名稱</label>
-                                        <input type="text" class="form-control" name="fProductName" id="editName">
+                                        <input type="text" class="form-control" name="fProductName" id="editName" required>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">縣市</label>
@@ -176,7 +177,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">商品類別</label>
-                                        <select class="form-select" name="fSubcategoryID">
+                                        <select class="form-select" name="fSubcategoryID" id="sel_editsub">
                                             <option value="2">景點</option>
                                             <option value="4">展覽</option>
                                             <option value="5">美食</option>
@@ -208,6 +209,21 @@
                                 </form>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-xl-5">
+                            <div class="bg-secondary rounded h-100 p-2">
+                                <form asp-area="Admin" asp-controller="Product" asp-action="addPhoto" name="photoForm" class="table-dark">
+                                    <label class="control-label">商品內頁圖片(上限三張)</label>
+                                    <input type="hidden" id="editphotoId" name="fProductId" />
+                                    <div id="ImgSpace" style="width:300px;height:400px;background-color:black">
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="file" name="Photos" class="form-control" id="upload" accept="image/*" multiple />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="btn_editphoto">儲存</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -219,6 +235,80 @@
 @section Scripts{
     <script>
 
+        //=========圖片上傳=========
+
+        let saveimg = document.querySelector("#btn_editphoto");
+
+        saveimg.addEventListener("click", async (event) => {
+
+            event.preventDefault();
+            let photoData = new FormData(document.photoForm);
+
+            let jphoto = await fetch("addPhoto", {
+                body: photoData,
+                method: "POST",
+            })
+            let photo = await jphoto.json();
+            imgspace.textContent = "";
+            photo.forEach(p => {
+                let img = document.createElement("img");
+                img.setAttribute("data-num", num);
+                img.style.width = "200px";
+                img.style.height = "100px";
+                img.style.margin = "10px";
+                img.src = `/img/${p.FPhotoPath}`
+                imgspace.appendChild(img);
+            })
+        })
+
+
+        //=========圖片預覽==========
+        let imgspace = document.querySelector("#ImgSpace");
+        let imgnum = 0;
+        let upload = document.querySelector("#upload");
+
+        upload.addEventListener("change", function (e) {
+            console.log(e.srcElement.files);
+
+            let files = e.srcElement.files;
+            let n = 0;
+            if (files.length > 3) {
+                n = 3;
+            } else {
+                n = files.length;
+            }
+            if (imgnum == 0) {
+                let j = 0;
+                //console.log(imgnum);
+                for (let i = 0; i < n; i++) {
+                    inputphoto(files[i], imgnum);
+                    imgnum++;
+                }
+            } else if (n + imgnum > 3) {
+                for (let i = n + imgnum - 4; i >= 0; i--) {
+                    imgspace.lastChild.remove();
+                    imgnum--;
+                }
+                let j = 0;
+                //console.log(imgnum);
+                for (let i = imgnum; i < 3; i++) {
+                    inputphoto(files[j],imgnum);
+                    j++;
+                }
+                imgnum = 3;
+            } 
+        })
+
+        function inputphoto(e,num) {
+            let objectURL = URL.createObjectURL(e);
+            let img = document.createElement("img");
+            img.setAttribute("data-num", num);
+            img.style.width = "200px";
+            img.style.height = "100px";
+            img.style.margin = "10px";
+            img.src = objectURL;
+            imgspace.appendChild(img);
+        }
 
 
         //=========分頁================
@@ -250,7 +340,14 @@
 
         }
 
-       // $("#pagebar").on("click")
+        $("#sel_creatsub").on("change", function (event) {
+            //console.log(event.currentTarget.options[event.currentTarget.selectedIndex].value);
+            let index = event.currentTarget.options[event.currentTarget.selectedIndex].value;
+            let city = selcity.options[selcity.options.selectedIndex].value;
+            getSupplier(selsupplier, index, city);
+        })
+
+
 
 
         //=========加入縣市============
@@ -268,10 +365,12 @@
             });
             e.appendChild(fcitys);
         }
+
         //==========加入供應商==========
-        async function getSupplier(e) {
+        async function getSupplier(e,subid,cityid) {
             let fSupplier = document.createDocumentFragment();
-            let jsuppliers = await fetch('@Url.Content("~/Api/getSupplier")')
+            let jsuppliers = await fetch('@Url.Content("~/Api/getSupplier")' + `?subid=${subid}&cityid=${cityid}`)
+            e.textContent = "";
 
             let suppliers = await jsuppliers.json();
             //console.log(suppliers);
@@ -287,23 +386,50 @@
 
         const selsubcategory = document.querySelector("#sel_subcategory");
         const tbody = document.querySelector("#tb_products");
-        let frag = document.createDocumentFragment();
-        let selcity = document.querySelector("#sel_city");
-        let selsupplier = document.querySelector("#sel_supplier");
-
-
-        let editcity = document.querySelector("#edit_city");
-        let editsupplier = document.querySelector("#edit_supplier");
 
         selsubcategory.addEventListener("change", changeSubCategory);
+
+
+        let selcity = document.querySelector("#sel_city");
+        let selsupplier = document.querySelector("#sel_supplier");
+        let selcreatsub = document.querySelector("#sel_creatsub");
+        let editcity = document.querySelector("#edit_city");
+        let editsupplier = document.querySelector("#edit_supplier");
+        let seleditsub = document.querySelector("#sel_editsub");
+
+
+        selcity.addEventListener("change", function () {
+            let index = selcreatsub.options[selcreatsub.options.selectedIndex].value;
+            let city = selcity.options[selcity.options.selectedIndex].value;
+            getSupplier(selsupplier, index, city);
+        })
+        selcreatsub.addEventListener("change", function() {
+            let index = selcreatsub.options[selcreatsub.options.selectedIndex].value;
+            let city = selcity.options[selcity.options.selectedIndex].value;
+            getSupplier(selsupplier, index, city);
+        })
+
+        editcity.addEventListener("change", function () {
+            let index = seleditsub.options[seleditsub.options.selectedIndex].value;
+            let city = editcity.options[editcity.options.selectedIndex].value;
+            getSupplier(editsupplier, index, city);
+        })
+        seleditsub.addEventListener("change", function () {
+            let index = seleditsub.options[seleditsub.options.selectedIndex].value;
+            let city = editcity.options[editcity.options.selectedIndex].value;
+            getSupplier(editsupplier, index, city);
+        })
+
+
+        let frag = document.createDocumentFragment();
 
         changeSubCategory(0);
         getcity(selcity);
         getcity(editcity);
-        getSupplier(selsupplier);
-        getSupplier(editsupplier);
+        getSupplier(selsupplier,2,1);
+        getSupplier(editsupplier,2,1);
 
-        
+
         //page();
 
         //將回傳的json放進table
@@ -406,6 +532,7 @@
                 body: createData,
                 method:"POST",
             })
+
             let products = await jproducts.json();
             createtable(products);
         })
@@ -430,26 +557,36 @@
         $("#t_Product").on("click", $("edit"), async function (event) {
             //console.log(event.target.getAttribute("data-eid"));
              if (event.target.hasAttribute("data-eid")) {
-                 alert("edit");
                  let jproducts = await fetch('@Url.Content("~/Admin/Product/searchProductById")' + `?id=${event.target.getAttribute("data-eid")}`)
 
                  let products = await jproducts.json();
                  //console.log(products);
+                 $("#editphotoId").val(products.FProductId);
                  $("#editId").val(products.FProductId);
                  $("#editName").val(products.FProductName);
-                 console.log($("#edit_city").children("option"));
-                 //$("#edit_city").children("option").each(item => {
-                 //    if ($(item).attr("value") == products.fCityId) {
-                 //        $(item).attr("selected","true");
-                 //        $(item).siblings().removeAttr("selected");
-                 //    }
-                 //})
                  $("#editAddress").val(products.FAddress);
                  $("#editQuantity").val(products.FQuantity);
                  $("#editStart").val(products.FStartTime);
                  $("#editEnd").val(products.FEndTime);
                  $("#editIntroduction").val(products.FIntroduction);
-             }
+            }
+
+        //==========取得商品內頁圖片========
+            let jphotos = await fetch('@Url.Content("~/Admin/Product/takephotos")' + `?id=${event.target.getAttribute("data-eid")}`)
+            let photos = await jphotos.json();
+            console.log(photos);
+            imgspace.textContent = "";
+            imgnum = 0;
+            photos.forEach(p => {
+                let img = document.createElement("img");
+                img.setAttribute("data-num", imgnum);
+                img.style.width = "200px";
+                img.style.height = "100px";
+                img.style.margin = "10px";
+                img.src = `/img/${p.FPhotoPath}`
+                imgspace.appendChild(img);
+                imgnum++;
+            })
         });
 
         let edit = document.querySelector("#btn_editProduct");
@@ -465,7 +602,6 @@
             let products = await jproducts.json();
             createtable(products);
         })
-
 
     </script>
 }

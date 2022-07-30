@@ -69,7 +69,6 @@ namespace IGO.Controllers
         }
         public IActionResult RoomList(int supplierid)
         {
-            //string result = System.Text.Json.JsonSerializer.Serialize(list);
             return View(_dbIgo.TSuppliers.FirstOrDefault(n => n.FSupplierId == supplierid));
         }
         public IActionResult getRoomType(int supid)

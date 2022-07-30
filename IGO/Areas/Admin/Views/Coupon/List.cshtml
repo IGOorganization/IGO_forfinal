@@ -392,16 +392,21 @@
         create.addEventListener("click", async (event) => {
 
             event.preventDefault();
-            //console.log(event);
-            let createData = new FormData(document.createForm);
+            if (num < 2) {
+                alert("請加入兩項以上的商品");
+            } else {
+                //console.log(event);
+                let createData = new FormData(document.createForm);
 
-            let jcoupons = await fetch("Create", {
-                body: createData,
-                method: "POST",
-            })
-            let coupons = await jcoupons.json();
-            console.log(coupons);
-            refrechCoupon(coupons);
+                let jcoupons = await fetch("Create", {
+                    body: createData,
+                    method: "POST",
+                })
+                let coupons = await jcoupons.json();
+                console.log(coupons);
+                refrechCoupon(coupons);
+            }
+           
         })
 
         //==========刷新組合列表===========
@@ -642,17 +647,21 @@
         edit.addEventListener("click", async (event) => {
 
             event.preventDefault();
-            let editData = new FormData(document.editForm);
 
-            let jcoupons = await fetch("Edit", {
-                body: editData,
-                method: "POST",
-            })
+            if (num < 2) {
+                alert("請加入兩項以上的商品");
+            } else {
+                let editData = new FormData(document.editForm);
 
-            let coupons = await jcoupons.json();
-            console.log(coupons);
-            refrechCoupon(coupons);
+                let jcoupons = await fetch("Edit", {
+                    body: editData,
+                    method: "POST",
+                })
 
+                let coupons = await jcoupons.json();
+                console.log(coupons);
+                refrechCoupon(coupons);
+            }
         })
 
         //===========上傳圖片===========
