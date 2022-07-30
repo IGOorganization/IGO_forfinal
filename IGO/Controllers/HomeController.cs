@@ -62,7 +62,9 @@ namespace IGO.Controllers
                     tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r),
                     tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r).FCity,
                     ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
-                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r).FPhotoPath,
+                    //PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r).FPhotoPath,
+                    //7/30宜潔修改
+                    PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
                     RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
                                          where f.FProductId == r
                                          select f).Average(m => m.FRanking),
@@ -110,7 +112,7 @@ namespace IGO.Controllers
                                          select f).Average(m => m.FRanking),
                     Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FPrice,
                     TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r.FProductId).FTicket.FTicketName,
-                    //EndTime = _context.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
+                    //EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
                     StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FQuantity,
                     OrderQuantity = (from o in _IgoContext.TOrderDetails
                                      group o by o.FProductId into g
@@ -266,6 +268,54 @@ namespace IGO.Controllers
             };            
             return Json(vModel);
         }
+        public IActionResult News(CHomeViewModel vModel) //7/30宜潔新增廣告輪播的最新消息
+        {
+            var q = (from p in _IgoContext.TProducts
+                    orderby p.FEndTime
+                    select p.FProductId).Take(1).ToList();
+            List<CHomeViewModel> v = new List<CHomeViewModel>();
+            foreach (var r in q) 
+            {
+                vModel = new CHomeViewModel()
+                {
+                ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
+                ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
+                PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
+                };
+                v.Add(vModel);
+            }
+            
+            return Json(v);
+        }
+        public IActionResult SpacialCombination(CHomeViewModel vModel) //7/30宜潔新增廣告輪播的優惠組合
+        {       
+            List<CHomeViewModel> v = new List<CHomeViewModel>();
+
+                vModel = new CHomeViewModel()
+                {
+                    ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 517).FProductName,
+                    ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == 517).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
+                    PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == 517).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
+                };
+                v.Add(vModel);
+
+            return Json(v);
+        }
+
+        public IActionResult Test(CHomeViewModel vModel) //7/30宜潔新增測試用
+        {
+            vModel = new CHomeViewModel()
+            {
+                ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 436).FProductName,
+
+                EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 436).FEndTime
+
+            };
+            return View(vModel);
+
+        }
+
+
 
     }
 }
