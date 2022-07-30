@@ -306,9 +306,9 @@ namespace IGO.Controllers
         {
             vModel = new CHomeViewModel()
             {
-                ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 436).FProductName,
+                ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 267).FProductName,
 
-                EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 436).FEndTime
+                EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == 267).FEndTime
 
             };
             return View(vModel);
