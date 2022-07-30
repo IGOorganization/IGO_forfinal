@@ -157,6 +157,8 @@
                     @{
                         if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                         {
+                            @*7/30修改畫面格式*@
+                            <div class="col-lg-1 px-5"></div>
                             <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
                                 <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (CustomerController.imgpath == null)
@@ -187,6 +189,8 @@
                         }
                         else
                         {
+                            @*7/30修改畫面格式*@
+                            <div class="col-lg-1 px-5"></div>
                             @*7/28刪掉登入的框線*@
                             <div class="navbar-nav navbar-right mr-auto py-0 ">
                                 <button type="button" class="btn btn-lg text-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -197,7 +201,7 @@
                             <br />
                             <br />
                             <br />
-                    <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                            <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                             <a href="#" hidden class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
                             <a href="/Parking/Parking" hidden class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
                         }
