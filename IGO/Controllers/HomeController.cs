@@ -55,14 +55,28 @@ namespace IGO.Controllers
 
             List<CHomeViewModel> v = new List<CHomeViewModel>();
 
+
             foreach (int r in q)
             {
+                //7/31宜潔新增產品無照片防呆
+                var len = (from f in _IgoContext.TProductsPhotos
+                           where f.FProductId == r && f.FPhotoSiteId == 1
+                           select f.FPhotoPath).ToList();
+
+                //7/31宜潔新增產品結束日期小於今日防呆
+                DateTime today = DateTime.Now.Date;    /*今日日期 */
+                var End = from f in _IgoContext.TProducts     
+                          where f.FProductId == r
+                           select f.FEndTime;
+                DateTime day = Convert.ToDateTime(End.First());   /*產品結束日期 */
+                TimeSpan time = (Convert.ToDateTime(End.First())).Date - today;
+                
+                if (len.Count > 0 && time.Days >= 1)
+                { 
                 vModel = new CHomeViewModel()
                 {
                     tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r),
                     tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r).FCity,
-                    ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
-                    //PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r).FPhotoPath,
                     //7/30宜潔修改
                     PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
                     RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
@@ -70,7 +84,7 @@ namespace IGO.Controllers
                                          select f).Average(m => m.FRanking),
                     Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
                     TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
-                    //EndTime = _context.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
+                    EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
                     StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FQuantity,
                     //OrderQuantity寫法1:
                     OrderQuantity = (from o in _IgoContext.TOrderDetails
@@ -84,6 +98,35 @@ namespace IGO.Controllers
                 };
                 //Debug.WriteLine(vModel.productRanking)
                 v.Add(vModel);
+                }
+                else if(time.Days >= 1)
+                {
+                    vModel = new CHomeViewModel()
+                    {
+                        tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r),
+                        tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r).FCity,
+                        //7/30宜潔修改
+                        PhotoPath = "aaf2c4d4-e523-4563-8fa6-094e19d641e2.jpg",
+                        RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
+                                             where f.FProductId == r
+                                             select f).Average(m => m.FRanking),
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
+                        EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
+                        StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FQuantity,
+                        //OrderQuantity寫法1:
+                        OrderQuantity = (from o in _IgoContext.TOrderDetails
+                                         group o by o.FProductId into g
+                                         where g.Key == r
+                                         select new { key = g.Key, count = g.Sum(od => od.FQuantity) }).FirstOrDefault().count
+                        //OrderQuantity寫法2:
+                        //OrderQuantity = (from o in _context.TOrderDetails
+                        //                 where o.FProductId == r
+                        //                 select o).Sum(o => o.FQuantity)
+                    };
+                    //Debug.WriteLine(vModel.productRanking)
+                    v.Add(vModel);
+                }
             }
             return View(v);
 
@@ -100,26 +143,67 @@ namespace IGO.Controllers
             List<CHomeViewModel> v = new List<CHomeViewModel>();
             foreach (var r in q)
             {
-                vModel = new CHomeViewModel()
+                //7/31宜潔新增無評論防呆
+                var lenRanking = (from f in _IgoContext.TFeedbackManagements
+                              where f.FProductId == r.FProductId
+                              select f.FRanking).ToList();
+                //7/31宜潔新增產品無照片防呆
+                var lenPhoto = (from f in _IgoContext.TProductsPhotos
+                           where f.FProductId == r.FProductId && f.FPhotoSiteId == 1
+                           select f.FPhotoPath).ToList();
+
+                ////7/31宜潔新增產品結束日期小於今日防呆
+                //DateTime today = DateTime.Now.Date;    /*今日日期 */
+                //var End = from f in _IgoContext.TProducts
+                //          where f.FProductId == r.FProductId
+                //          select f.FEndTime;
+                //DateTime day = Convert.ToDateTime(End.First());   /*產品結束日期 */
+                //TimeSpan time = (Convert.ToDateTime(End.First())).Date - today;
+
+                if (lenRanking.Count > 0 && lenPhoto.Count > 0)
                 {
-                    tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId),
-                    tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r.FProductId).FCity,
-                    ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
-                    PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
-                    ViewRecord = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FViewRecord,
-                    RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
-                                         where f.FProductId == r.FProductId
-                                         select f).Average(m => m.FRanking),
-                    Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FPrice,
-                    TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r.FProductId).FTicket.FTicketName,
-                    //EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
-                    StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FQuantity,
-                    OrderQuantity = (from o in _IgoContext.TOrderDetails
-                                     group o by o.FProductId into g
-                                     where g.Key == r.FProductId
-                                     select new { key = g.Key, count = g.Sum(od => od.FQuantity) }).FirstOrDefault().count
-                };
-                v.Add(vModel);
+                    vModel = new CHomeViewModel()
+                    {
+                        tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId),
+                        tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r.FProductId).FCity,                        
+                        PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r.FProductId).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
+                        ViewRecord = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FViewRecord,
+                        RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
+                                             where f.FProductId == r.FProductId
+                                             select f).Average(m => m.FRanking),
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r.FProductId).FTicket.FTicketName,
+                        //EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
+                        StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FQuantity,
+                        //OrderQuantity = (from o in _IgoContext.TOrderDetails
+                        //                 group o by o.FProductId into g
+                        //                 where g.Key == r.FProductId
+                        //                 select new { key = g.Key, count = g.Sum(od => od.FQuantity) }).FirstOrDefault().count
+                    };
+                    v.Add(vModel);
+                }
+                else if (lenRanking.Count > 0) 
+                {
+                    vModel = new CHomeViewModel()
+                    {
+                        tProduct = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId),
+                        tCity = _IgoContext.TProducts.Include(m => m.FCity).FirstOrDefault(m => m.FProductId == r.FProductId).FCity,                      
+                        PhotoPath = "aaf2c4d4-e523-4563-8fa6-094e19d641e2.jpg",
+                        ViewRecord = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FViewRecord,
+                        RankingCount = (int)(from f in _IgoContext.TFeedbackManagements
+                                             where f.FProductId == r.FProductId
+                                             select f).Average(m => m.FRanking),
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r.FProductId).FTicket.FTicketName,
+                        //EndTime = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FEndTime,
+                        StorageQuantity = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r.FProductId).FQuantity,
+                        //OrderQuantity = (from o in _IgoContext.TOrderDetails
+                        //                 group o by o.FProductId into g
+                        //                 where g.Key == r.FProductId
+                        //                 select new { key = g.Key, count = g.Sum(od => od.FQuantity) }).FirstOrDefault().count
+                    };
+                    v.Add(vModel);
+                }             
             }
 
             return Json(v);
