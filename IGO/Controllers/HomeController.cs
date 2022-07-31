@@ -58,6 +58,10 @@ namespace IGO.Controllers
 
             foreach (int r in q)
             {
+                //7/31宜潔新增無評論防呆
+                var lenRanking = (from f in _IgoContext.TFeedbackManagements
+                                  where f.FProductId == r
+                                  select f.FRanking).ToList();
                 //7/31宜潔新增產品無照片防呆
                 var len = (from f in _IgoContext.TProductsPhotos
                            where f.FProductId == r && f.FPhotoSiteId == 1
@@ -71,7 +75,7 @@ namespace IGO.Controllers
                 DateTime day = Convert.ToDateTime(End.First());   /*產品結束日期 */
                 TimeSpan time = (Convert.ToDateTime(End.First())).Date - today;
                 
-                if (len.Count > 0 && time.Days >= 1)
+                if (lenRanking.Count > 0 && len.Count > 0 && time.Days >= 1)
                 { 
                 vModel = new CHomeViewModel()
                 {
@@ -99,7 +103,7 @@ namespace IGO.Controllers
                 //Debug.WriteLine(vModel.productRanking)
                 v.Add(vModel);
                 }
-                else if(time.Days >= 1)
+                else if(lenRanking.Count > 0 && time.Days >= 1)
                 {
                     vModel = new CHomeViewModel()
                     {

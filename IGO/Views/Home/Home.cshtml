@@ -396,11 +396,11 @@
         {
             $.getJSON('@Url.Content("~/Home/SpacialCombination")', "", function (datas)
             {
-                console.log(datas);
+                //console.log(datas);
                 productName = datas[0].ProductName;
                 path = datas[0].PhotoPath;
-                console.log(productName);
-                console.log(path);
+                //console.log(productName);
+                //console.log(path);
                 $('#specialcombo').append(`${productName}`);
                 $('#specialcombophoto').attr("src", `/img/${path}`);
 
@@ -433,12 +433,11 @@
             $.getJSON('@Url.Content("~/Home/topViewRecord")', "", function (Datas)
             {
                 //console.log(Datas);
-                for (let i = 0; i < 6; i++)
+                for (let i = 0; i < 3; i++)
                 {
-                    //console.log(Datas[i].CityName)
                     //console.log(Datas[i]);
-                     let CityName = Datas[i].CityName;
-                     let ProductName = Datas[i].ProductName;
+                    let CityName = Datas[i].CityName;
+                    let ProductName = Datas[i].ProductName;
                      let EndTime = Datas[i].EndTime;
                      let RankingCount = Datas[i].RankingCount;
                      let Price = Datas[i].Price;
@@ -447,9 +446,6 @@
                     let ViewRecord = Datas[i].ViewRecord;
                     let ProductId = Datas[i].tProduct.FProductId;
                     //console.log(CityName)
-
-
-
 
                     $('#top3view').append(`<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="room-item shadow rounded overflow-hidden">
@@ -502,11 +498,11 @@
 
             for (let i = 0; i < 3; i++) {
                 //console.log(Datas[i]);
-                let CityName = Datas[i].CityName;
-                //console.log(CityName);
-                let Path = Datas[i].CityPhotoPath;
+                let cityName = Datas[i].CityName; 
+                //console.log(cityName);
+                let Path = Datas[i].CityPhotoPath;  
                 //console.log(Path);
-                document.querySelector(`.cityname${i}`).innerHTML = CityName;
+                document.querySelector(`.cityname${i}`).innerHTML = cityName;
                  document.querySelector(`#path${i}`).setAttribute("src", `/img/${Path}`);
                 /*console.log(`~/img/${Path}`);*/
             }

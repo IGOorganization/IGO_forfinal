@@ -55,8 +55,8 @@ namespace IGO.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True");
             }
         }
 
@@ -142,6 +142,13 @@ namespace IGO.Models
                 entity.Property(e => e.FCollectionGroupName)
                     .HasMaxLength(50)
                     .HasColumnName("fCollectionGroupName");
+
+                entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
+
+                entity.HasOne(d => d.FCustomer)
+                    .WithMany(p => p.TCollectionGroups)
+                    .HasForeignKey(d => d.FCustomerId)
+                    .HasConstraintName("FK_tCollectionGroup_tCustomers");
             });
 
             modelBuilder.Entity<TCollectionGroupDetail>(entity =>
@@ -160,6 +167,11 @@ namespace IGO.Models
                     .WithMany(p => p.TCollectionGroupDetails)
                     .HasForeignKey(d => d.FCollectionGroupId)
                     .HasConstraintName("FK_tCollectionGroupDetail_tCollectionGroup");
+
+                entity.HasOne(d => d.FCollection)
+                    .WithMany(p => p.TCollectionGroupDetails)
+                    .HasForeignKey(d => d.FCollectionId)
+                    .HasConstraintName("FK_tCollectionGroupDetail_tCollection");
             });
 
             modelBuilder.Entity<TCoupon>(entity =>
