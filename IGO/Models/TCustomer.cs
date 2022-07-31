@@ -9,6 +9,7 @@ namespace IGO.Models
     {
         public TCustomer()
         {
+            TCollectionGroups = new HashSet<TCollectionGroup>();
             TCollections = new HashSet<TCollection>();
             TFeedbackManagements = new HashSet<TFeedbackManagement>();
             TOrders = new HashSet<TOrder>();
@@ -33,6 +34,7 @@ namespace IGO.Models
 
         public virtual TCity FCity { get; set; }
         public virtual TSupplier FSupplier { get; set; }
+        public virtual ICollection<TCollectionGroup> TCollectionGroups { get; set; }
         public virtual ICollection<TCollection> TCollections { get; set; }
         public virtual ICollection<TFeedbackManagement> TFeedbackManagements { get; set; }
         public virtual ICollection<TOrder> TOrders { get; set; }
