@@ -24,7 +24,8 @@
                         <div class="p-3" style="max-width: 500px;">
                             <h5 class="section-title text-white text-uppercase mb-3 animated slideInDown">最新消息</h5>
                             <h3 class="display-4 text-white mb-4 animated slideInDown" id="news"></h3>
-                            <a href="~/Products/Exhibit" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight">馬上訂票</a>
+                            @*8/1 宜潔補上連結*@
+                            <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInRight" id="newsHref">馬上訂票</a>
                         </div>
                     </div>
                 </div>
@@ -384,10 +385,14 @@
                 //console.log(datas);
                 productName = datas[0].ProductName;
                 path = datas[0].PhotoPath;
+                productID = datas[0].ProductId;
                 //console.log(productName);
-                //console.log(path);
+                //console.log(productID);
                 $('#news').append(`${productName}`);
                 $('#newsphoto').attr("src", `/img/${path}`);
+                /*8/1 宜潔補上連結*/
+                $('#newsHref').attr("href", `/Product/Detail?prodid=${productID}`);
+                
 
             })
         })

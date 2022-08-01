@@ -32,15 +32,34 @@ namespace IGO.Controllers
 
             foreach (int r in q)
             {
-                vModel = new CCityViewModel()
+                //8/1宜潔新增產品無照片防呆
+                var len = (from f in _IgoContext.TProductsPhotos
+                           where f.FProductId == r && f.FPhotoSiteId == 2
+                           select f.FPhotoPath).ToList();
+                if (len.Count > 0)
                 {
-                    ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
-                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r && m.FPhotoSiteId == 2).FPhotoPath,
-                    Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
-                    TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
-                    ProductId = r
-                };
-                v.Add(vModel);
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
+                        PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r && m.FPhotoSiteId == 2).FPhotoPath,
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
+                        ProductId = r
+                    };
+                    v.Add(vModel);
+                }
+                else 
+                {
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
+                        PhotoPath = "aaf2c4d4-e523-4563-8fa6-094e19d641e2.jpg",
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
+                        ProductId = r
+                    };
+                    v.Add(vModel);
+                }
             }
             return View(v);
         }
@@ -54,22 +73,42 @@ namespace IGO.Controllers
             List<CCityViewModel> v = new List<CCityViewModel>();
             foreach (var r in q)
             {
+               
                 //Debug.WriteLine(r.TTicketAndProducts.FirstOrDefault().FPrice);
                 int productID = r.FProductId;
-
-                vModel = new CCityViewModel()
+                //8/1宜潔新增產品無照片防呆
+                var len = (from f in _IgoContext.TProductsPhotos
+                           where f.FProductId == productID && f.FPhotoSiteId == 2
+                           select f.FPhotoPath).ToList();
+                if (len.Count > 0)
                 {
-                    ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == productID).FProductName,
-                    CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == productID).FSupplier.FCompanyName,
-                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == productID && m.FPhotoSiteId == 2).FPhotoPath,
-                    Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == productID).FPrice,
-                    TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == productID).FTicket.FTicketName,
-                    ProductId = productID
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == productID).FProductName,
+                        CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == productID).FSupplier.FCompanyName,
+                        PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == productID && m.FPhotoSiteId == 2).FPhotoPath,
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == productID).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == productID).FTicket.FTicketName,
+                        ProductId = productID
 
-                };
-                v.Add(vModel);
+                    };
+                    v.Add(vModel);
+                }
+                else
+                {
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == productID).FProductName,
+                        CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == productID).FSupplier.FCompanyName,
+                        PhotoPath = "aaf2c4d4-e523-4563-8fa6-094e19d641e2.jpg",
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == productID).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == productID).FTicket.FTicketName,
+                        ProductId = productID
 
-            }
+                    };
+                    v.Add(vModel);
+                }
+                }
             //return View(v);
             return Json(v);
         }
@@ -84,20 +123,41 @@ namespace IGO.Controllers
             List<CCityViewModel> v = new List<CCityViewModel>();
             foreach (var r in q)
             {
-                //Debug.WriteLine(r.TTicketAndProducts.FirstOrDefault().FPrice);
+                //8/1宜潔新增產品無照片防呆
+                
+                    //Debug.WriteLine(r.TTicketAndProducts.FirstOrDefault().FPrice);
                 int productID = r.FProductId;
-
-                vModel = new CCityViewModel()
+                var len = (from f in _IgoContext.TProductsPhotos
+                           where f.FProductId == productID && f.FPhotoSiteId == 2
+                           select f.FPhotoPath).ToList();
+                if (len.Count > 0)
                 {
-                    ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == productID).FProductName,
-                    CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == productID).FSupplier.FCompanyName,
-                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == productID && m.FPhotoSiteId == 2).FPhotoPath,
-                    Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == productID).FPrice,
-                    TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == productID).FTicket.FTicketName,
-                    ProductId = productID
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == productID).FProductName,
+                        CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == productID).FSupplier.FCompanyName,
+                        PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == productID && m.FPhotoSiteId == 2).FPhotoPath,
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == productID).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == productID).FTicket.FTicketName,
+                        ProductId = productID
 
-                };
-                v.Add(vModel);
+                    };
+                    v.Add(vModel);
+                }
+                else
+                {
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == productID).FProductName,
+                        CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == productID).FSupplier.FCompanyName,
+                        PhotoPath = "aaf2c4d4-e523-4563-8fa6-094e19d641e2.jpg",
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == productID).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == productID).FTicket.FTicketName,
+                        ProductId = productID
+
+                    };
+                    v.Add(vModel);
+                }
 
             }
             return Json(v);
@@ -114,16 +174,35 @@ namespace IGO.Controllers
 
             foreach (int r in q)
             {
-                vModel = new CCityViewModel()
+                var len = (from f in _IgoContext.TProductsPhotos
+                           where f.FProductId == r && f.FPhotoSiteId == 2
+                           select f.FPhotoPath).ToList();
+                if (len.Count > 0)
                 {
-                    ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
-                    CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == r).FSupplier.FCompanyName,
-                    PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r && m.FPhotoSiteId == 2).FPhotoPath,
-                    Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
-                    TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
-                    ProductId = r
-                };
-                v.Add(vModel);
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
+                        CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == r).FSupplier.FCompanyName,
+                        PhotoPath = _IgoContext.TProductsPhotos.FirstOrDefault(m => m.FProductId == r && m.FPhotoSiteId == 2).FPhotoPath,
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
+                        ProductId = r
+                    };
+                    v.Add(vModel);
+                }
+                else
+                {
+                    vModel = new CCityViewModel()
+                    {
+                        ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
+                        CompanyName = _IgoContext.TProducts.Include(m => m.FSupplier).FirstOrDefault(m => m.FProductId == r).FSupplier.FCompanyName,
+                        PhotoPath = "aaf2c4d4-e523-4563-8fa6-094e19d641e2.jpg",
+                        Price = _IgoContext.TTicketAndProducts.FirstOrDefault(m => m.FProductId == r).FPrice,
+                        TicketName = _IgoContext.TTicketAndProducts.Include(m => m.FTicket).FirstOrDefault(m => m.FProductId == r).FTicket.FTicketName,
+                        ProductId = r
+                    };
+                    v.Add(vModel);
+                }
             }
             return Json(v);
         }
