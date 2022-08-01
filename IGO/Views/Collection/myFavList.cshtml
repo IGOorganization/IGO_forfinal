@@ -64,90 +64,170 @@
     </table>*@
 
 
-@foreach (var item in Model)
-{
-    
-    <div class="card border-warning mb-3" style="max-width: 840px; height: 270px; background-color: white">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="/img/123.jpg" class="img-fluid rounded-start" alt="..." style="height:270px;display:block; margin:auto;">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title" style="display:inline-block">@Html.DisplayFor(modelItem => item.FProductId)</h5>
+@*@foreach (var item in Model)
+    {
+
+        <div class="card border-warning mb-3" style="max-width: 840px; height: 270px; background-color: white">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="/img/123.jpg" class="img-fluid rounded-start" alt="..." style="height:270px;display:block; margin:auto;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" style="display:inline-block">@Html.DisplayFor(modelItem => item.FProductId)</h5>
 
 
 
-                    @Html.ActionLink(" ", "_UnFav", "Collection", new { id = @item.FProductId }, new { Class = "fa-solid fa-heart"})
+                        @Html.ActionLink(" ", "_UnFav", "Collection", new { id = @item.FProductId }, new { Class = "fa-solid fa-heart"})
 
-                    <input type="submit" class="test" value="1234">
-                    @*<i class="fa-solid fa-heart-circle-plus">
-                        新增至收藏分類
-                    </i>*@
-
-
-                    <select id='myGroup' onchange="select()">
-                    </select>
+                        <input type="submit" class="test" value="1234">
+                       <i class="fa-solid fa-heart-circle-plus">
+                            新增至收藏分類
+                        </i>
 
 
-
-
-                    @Html.ActionLink("新增至收藏分類", "CreateDetail", "Collection", new { id = item.FCollectionId
-                        }, new { @class = "fa-solid fa-heart-circle-plus" })
+                        <select id='myGroup' onchange="select()">
+                        </select>
 
 
 
 
+                        @Html.ActionLink("新增至收藏分類", "CreateDetail", "Collection", new { id = item.FCollectionId
+                            }, new { @class = "fa-solid fa-heart-circle-plus" })
 
 
 
-                    @*<p class="card-text">Html.DisplayFor(modelItem => item.FProduct.FIntroduction)</p>
-                    <p class="card-text"><small class="text-muted">Html.DisplayFor(modelItem => @item.FProduct.FEndTime)</small></p>*@
 
 
 
-                    
-                    <i class="fa-solid fa-fire"></i>
-                    <label>@Html.DisplayFor(modelItem => item.FProduct.FQuantity)</label>
+
+                        <p class="card-text">Html.DisplayFor(modelItem => item.FProduct.FIntroduction)</p>
+                        <p class="card-text"><small class="text-muted">Html.DisplayFor(modelItem => @item.FProduct.FEndTime)</small></p>*
+
+
+
+
+                        <i class="fa-solid fa-fire"></i>
+                        <label>@Html.DisplayFor(modelItem => item.FProduct.FQuantity)</label>
+                    </div>
+
+
+
                 </div>
 
 
-
             </div>
+
 
 
         </div>
 
 
+    }*@
 
-    </div>
+<div id="List">
+
+</div>
 
 
+
+@section Scripts{
+    <script>
+
+        getList();
+
+        async function getList() {
+
+            let jlist = await fetch('@Url.Content("~/Collection/getList")');
+
+            let list = await jlist.json();
+            console.log(list);
+
+            let space = document.querySelector("#List");
+            let frag = document.createDocumentFragment();
+
+            list.forEach(item => {
+
+                let div1 = document.createElement("div");
+                let div2 = document.createElement("div");
+                let div3 = document.createElement("div");
+                let div4_1 = document.createElement("div");
+                let img = document.createElement("img");
+                let div4_2 = document.createElement("div");
+                let div5 = document.createElement("div");
+                let h5 = document.createElement("h5");
+                let p1 = document.createElement("p");
+                let label = document.createElement("label");
+
+                div1.id = "div1";
+                div2.className = "card border-warning mb-3";
+                div2.style = "max-width: 840px; height: 270px; background-color: white";
+
+                div3.className = "row g-0";
+                div4_1.className = "col-md-4";
+                img.src = "/img/165415514551635_P16927548.jpg";
+                img.className = "img-fluid rounded-start";
+                img.style = "height:270px;display:block; margin:auto;";
+                div4_2.className = "col-md-8";
+                div5.className = "card-body";
+                h5.className = "card-title";
+                h5.style = "display:inline-block";
+                
+                p1.className = "card-text";
+
+                h5.appendChild(p1);
+                div5.appendChild(h5);
+                div4_2.appendChild(div5);
+                div3.appendChild(div4_1);
+                div3.appendChild(div4_2);
+                div2.appendChild(div3);
+                div1.appendChild(div2);
+                frag.appendChild(div1);
+
+
+
+
+
+
+
+
+
+
+
+
+            })
+            space.appendChild(frag);
+        }
+
+    </script>
 }
 
-@*Bottom*@
-<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
-    <div class="row justify-content-center">
-        <div @*class="col-lg-10 border rounded p-1"*@>
-            <div @*class="border rounded text-center p-1"*@>
-                <div class="bg-transparent rounded text-center p-5">
-                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
-                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
-                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
-                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+
+
+
+    @*Bottom*@
+    <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div @*class="col-lg-10 border rounded p-1"*@>
+                <div @*class="border rounded text-center p-1"*@>
+                    <div class="bg-transparent rounded text-center p-5">
+                        <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                        <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                            @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                                <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@*Bottom*@
+    @*Bottom*@
 
-@section Scripts {
-    @*<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>*@
+    @section Scripts {
+        @*<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>*@
 
-    <script>
+        <script>
         //var AddItems = $("#AddToGroup");
 
         let adds = document.querySelector(".test");
@@ -218,6 +298,6 @@
 
 
 
-    </script>
-}
+        </script>
+    }
 

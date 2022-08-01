@@ -16,10 +16,10 @@
                     @using (Html.BeginForm())
                     {
                         @:關鍵字 @Html.TextBox("txtKeyword")
-                    <input class="btn btn-secondary m-2" type="submit" value="搜尋" placeholder="搜尋供應商" />
+                    <input class="btn btn-light m-2" type="submit" value="搜尋" placeholder="搜尋供應商" />
                     }
                     
-                    <a asp-action="Create"> 新增供應商</a>
+                    <a asp-action="Create" class="btn btn-warning m-2"> 新增供應商</a>
                 </div>
 
             </form>
@@ -53,9 +53,9 @@
                                     @Html.DisplayFor(modelItem => item.FAddress)
                                 </td>
                                 <td>
-                                    @Html.ActionLink("修改", "Edit", "Supplier", new { id = item.FSupplierId }, new { @class = "btn btn-warning" }) |
+                                    @Html.ActionLink("修改", "Edit", "Supplier", new { id = item.FSupplierId }, new { @class = "btn btn-success m-2" }) |
 
-                                    @Html.ActionLink("刪除", "Delete", "Supplier", new { id = item.FSupplierId }, new { onclick = "return confirm('確定刪除嗎?')", @class = "btn btn-danger" })
+                                    @Html.ActionLink("刪除", "Delete", "Supplier", new { id = item.FSupplierId }, new { onclick = "return confirm('確定刪除嗎?')", @class = "btn btn-danger m-2" })
                                 </td>
                             </tr>
                         }
