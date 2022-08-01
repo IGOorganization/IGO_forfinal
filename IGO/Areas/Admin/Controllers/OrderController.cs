@@ -91,7 +91,7 @@ namespace IGO.Areas.Admin.Controllers
         }
         public IActionResult CancelEmailInfo(int Orderid)  //編輯訂單狀態
         {          
-            var q = (from o in _IgoContext.TOrderDetails
+            var q = (from o in _IgoContext.TOrders
                      where o.FOrderId == Orderid
                      select o).ToList();
 
@@ -101,16 +101,11 @@ namespace IGO.Areas.Admin.Controllers
             {
                 vModel = new COrdersViewModel
                 {
-                    OrderId = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == Orderid).FOrderId,
-                    StatusName = _IgoContext.TOrders.Include(m => m.FStatus).FirstOrDefault(m => m.FOrderId == Orderid).FStatus.FStatusName,
+                    OrderId = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == Orderid).FOrderId,    
                     LastName = _IgoContext.TOrders.Include(m => m.FCustomer).FirstOrDefault(m => m.FOrderId == Orderid).FCustomer.FLastName,
                     FirstName = _IgoContext.TOrders.Include(m => m.FCustomer).FirstOrDefault(m => m.FOrderId == Orderid).FCustomer.FFirstName,
                     TotalPrice = _IgoContext.TOrders.FirstOrDefault(m => m.FOrderId == Orderid).FTotalPrice,
-                    OrderDetailsId = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FOrderDetailsId,
-                    Price = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FPrice,
-                    ProductName = _IgoContext.TOrderDetails.Include(m => m.FProduct).FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FProduct.FProductName,
-                    Quantity = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FQuantity,
-                    TicketName = _IgoContext.TOrderDetails.Include(m => m.FTicket).FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FTicket.FTicketName                  
+                  
                 };
                 v.Add(vModel);
             }
