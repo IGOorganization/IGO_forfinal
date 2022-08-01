@@ -85,7 +85,7 @@ namespace IGO.Controllers
                 return Json(new { Flag = false, Description = "刪除失敗" });
             }
         }
-        public JsonResult Checked([FromBody] List<int> id)
+        public JsonResult Checked(List<int> id)
         {
             HttpContext.Session.SetString(CDictionary.SK_Selected_Item, JsonSerializer.Serialize(id));
 

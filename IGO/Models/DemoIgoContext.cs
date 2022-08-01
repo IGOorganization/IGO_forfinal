@@ -142,6 +142,13 @@ namespace IGO.Models
                 entity.Property(e => e.FCollectionGroupName)
                     .HasMaxLength(50)
                     .HasColumnName("fCollectionGroupName");
+
+                entity.Property(e => e.FCustomerId).HasColumnName("fCustomerID");
+
+                entity.HasOne(d => d.FCustomer)
+                    .WithMany(p => p.TCollectionGroups)
+                    .HasForeignKey(d => d.FCustomerId)
+                    .HasConstraintName("FK_tCollectionGroup_tCustomers");
             });
 
             modelBuilder.Entity<TCollectionGroupDetail>(entity =>
@@ -160,6 +167,11 @@ namespace IGO.Models
                     .WithMany(p => p.TCollectionGroupDetails)
                     .HasForeignKey(d => d.FCollectionGroupId)
                     .HasConstraintName("FK_tCollectionGroupDetail_tCollectionGroup");
+
+                entity.HasOne(d => d.FCollection)
+                    .WithMany(p => p.TCollectionGroupDetails)
+                    .HasForeignKey(d => d.FCollectionId)
+                    .HasConstraintName("FK_tCollectionGroupDetail_tCollection");
             });
 
             modelBuilder.Entity<TCoupon>(entity =>
