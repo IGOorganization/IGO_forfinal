@@ -15,18 +15,21 @@
                 <div class="carousel-indicators">
                     @{
                         int i = 0;
-                        foreach (string p in Model.photos)
+                        if (Model.photos != null)
                         {
-                            if (i == 0)
+                            foreach (string p in Model.photos)
                             {
-                                <button type="button" class="active" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
-                            }
-                            else
-                            {
-                                <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
-                            }
+                                if (i == 0)
+                                {
+                                    <button type="button" class="active" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
+                                }
 
-                            i++;
+                                i++;
+                            }
                         }
                         @*<button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
                             <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
@@ -36,23 +39,25 @@
                 <div class="carousel-inner bg-secondary">
                     @{
                         int j = 0;
-                        foreach (string p in Model.photos)
+                        if (Model.photos != null)
                         {
-                            if (j == 0)
+                            foreach (string p in Model.photos)
                             {
-                                <div class="carousel-item text-center active">
-                                    <img class="photo-fit" src="~/img/@p" />
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="carousel-item text-center">
-                                    <img class="photo-fit" src="~/img/@p" />
-                                </div>
+                                if (j == 0)
+                                {
+                                    <div class="carousel-item text-center active">
+                                        <img class="photo-fit" src="~/img/@p" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item text-center">
+                                        <img class="photo-fit" src="~/img/@p" />
+                                    </div>
+                                }
                             }
                         }
                     }
-
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -80,7 +85,7 @@
 
                         <div class="m-3">
                             <span class="fw-bold">日期</span>
-                            <input type="date" class="form-control" name="fBookingTime" />
+                            <input type="date" class="form-control" name="fBookingTime" id="bookingTime" />
                         </div>
                         <div class="m-3">
                             <span class="fw-bold">數量</span>
@@ -349,16 +354,29 @@
             //this.preventDefault();
             event.preventDefault();
             console.log(event);
+            let ticket = $('input[name="ticket"]:checked').val();
+            let bookingTime = document.querySelector("#bookingTime").value;
 
-            let cartform = new FormData(document.cartForm)
+            if (ticket == undefined) {
+                console.log("請選擇票種");
+            }
+            else if (bookingTime == "") {
+                console.log("請選擇日期");
+            }
+            else if (quantity.value == "" || quantity.value == 0) {
+                console.log("請輸入數量");
+            }
+            else {
+                let cartform = new FormData(document.cartForm)
 
-            let jresponce = await fetch("AddToCart", {
-                body: cartform,
-                method: "POST",
-            })
-            let responce = await jresponce.json();
-            console.log(responce)
-            alert(responce);
+                let jresponce = await fetch("AddToCart", {
+                    body: cartform,
+                    method: "POST",
+                })
+                let responce = await jresponce.json();
+                console.log(responce)
+                alert(responce);
+            }
         })
 
 

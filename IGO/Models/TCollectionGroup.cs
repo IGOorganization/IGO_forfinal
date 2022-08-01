@@ -14,6 +14,7 @@ namespace IGO.Models
 
         public int FCollectionGroupId { get; set; }
         public string FCollectionGroupName { get; set; }
+        public int? FCustomerId { get; set; }
 
         public virtual ICollection<TCollectionGroupDetail> TCollectionGroupDetails { get; set; }
     }

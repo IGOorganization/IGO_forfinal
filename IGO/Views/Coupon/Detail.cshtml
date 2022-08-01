@@ -224,9 +224,11 @@
         quantity.addEventListener("change", function () {
             if (this.value >= 0) {
                 price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+                oprice.textContent = `NT$ ${oprice.getAttribute("data-org") * this.value} 元`
             } else {
                 this.value = 0;
                 price.textContent = `NT$ ${price.getAttribute("data-price") * this.value} 元`
+                oprice.textContent = `NT$ ${oprice.getAttribute("data-org") * this.value} 元`
             }
         })
 
@@ -286,12 +288,16 @@
                             ctd.setAttribute("data-day", `${day}`)
                             d--;
                             let checkdate = new Date(`${NowYear}-${NowMonth + 1}-${day}`);
-                            if (checkdate >= Now && index < datas.length && datas[index].day == day) {
+                            console.log(checkdate);
+                            console.log(Now);
+                            if ( index < datas.length && datas[index].day == day) {
+                                console.log(index);
                                 ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
                                 index++;
                             }
                             else {
+                                console.log("0");
                                 ctd.innerText = day;
                             }
                         }
@@ -361,16 +367,30 @@
             //this.preventDefault();
             //event.preventDefault();
             //console.log(event);
+            let ticket = $('input[name="ticket"]:checked').val();
+            let bookingTime = document.querySelector("#bookingTime").value;
 
-            let cartform = new FormData(document.cartForm)
+            if (ticket == undefined) {
+                console.log("請選擇票種");
+            }
+            else if (bookingTime == "") {
+                console.log("請選擇日期");
+            }
+            else if (quantity.value == "" || quantity.value == 0) {
+                console.log("請輸入數量");
+            }
+            else {
 
-            let jresponce = await fetch("@Url.Content("~/Coupon/AddToCart")", {
-                body: cartform,
-                method: "POST",
-            })
-            let responce = await jresponce.json();
-            console.log(responce)
-            alert(responce);
+                @*let cartform = new FormData(document.cartForm)
+
+                let jresponce = await fetch("@Url.Content("~/Coupon/AddToCart")", {
+                    body: cartform,
+                    method: "POST",
+                })
+                let responce = await jresponce.json();
+                console.log(responce)
+                alert(responce);*@
+            }
         })
 
     </script>

@@ -10,6 +10,8 @@ namespace IGO.Models
         public int FCollectionGroupDetailId { get; set; }
         public int? FCollectionGroupId { get; set; }
         public int? FCollectionId { get; set; }
+
+        public virtual TCollection FCollection { get; set; }
         public virtual TCollectionGroup FCollectionGroup { get; set; }
     }
 }

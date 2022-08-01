@@ -52,12 +52,12 @@
                             <form name="AddToCartForm" asp-controller="Live" asp-action="AddToCart">
                                 <div class="col-md-10">
                                     <select class="form-select" id="sel_roomtype" name="ToCartId">
-                                        <option selected>請選擇房型</option>
+                                        <option selected value="0">請選擇房型</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
                                     <select class="form-select" id="sel_ticket" name="fTickettype">
-                                        <option selected>請選擇人數</option>
+                                        <option selected value="0">請選擇人數</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
@@ -119,9 +119,6 @@
     @section Scripts{
         <script>
 
-
-
-
             let divproduct = document.querySelector("#productList");
             const supplier = document.querySelector("#Supplier");
         const roomtype = document.querySelector("#sel_roomtype");
@@ -138,6 +135,7 @@
             ticket.textContent = "";
             let optionf = new Option;
             optionf.textContent = "請選擇人數";
+            optionf.value = 0;
             optionf.setAttribute("data-price", "-");
             ticket.appendChild(optionf);
 
@@ -261,20 +259,33 @@
 
         toCart.addEventListener("click", async function () {
 
-            //this.preventDefault();
             event.preventDefault();
             console.log(event);
+            let bookingTime = document.querySelector("#bookingTime");
 
-            let cartform = new FormData(document.AddToCartForm)
+            if (roomtype.options[roomtype.selectedIndex].value == 0) {
+                console.log("請選擇房型");
+            }
+            else if (ticket.options[ticket.selectedIndex].value == 0) {
+                console.log("請選擇人數");
+            }
+            else if (bookingTime.value == "") {
+                console.log("請選擇日期");
+            }
+            else if (quantity.value == "" || quantity.value == 0) {
+                console.log("請輸入數量");
+            }
+            else {
+                let cartform = new FormData(document.AddToCartForm)
 
-            let jresponce = await fetch("AddToCart", {
-                body: cartform,
-                method: "POST",
-            })
-            let responce = await jresponce.json();
-            console.log(responce)
-            alert(responce);
-
+                let jresponce = await fetch("AddToCart", {
+                    body: cartform,
+                    method: "POST",
+                })
+                let responce = await jresponce.json();
+                console.log(responce)
+                alert(responce);
+            }
         });
 
 
@@ -344,8 +355,9 @@
                             ctd.setAttribute("data-year", `${NowYear}`)
                             ctd.setAttribute("data-month", `${NowMonth + 1}`)
                             ctd.setAttribute("data-day", `${day}`)
-                            let checkdate = new Date(`${NowYear}-${NowMonth+1}-${day}`);
-                            if (checkdate >= Now && index < datas.length && datas[index].day == day) {
+                            let checkdate = new Date(`${NowYear}-${NowMonth + 1}-${day}`);
+
+                            if (index < datas.length && datas[index].day == day) {
                                 ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
                                 index++;
