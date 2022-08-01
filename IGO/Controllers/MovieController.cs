@@ -111,6 +111,9 @@ namespace IGO.Controllers
             {
                 FProductName = movie.Cname,
                 FCityId = supplier.FCityId,
+                FStartTime = "2022-10-22",
+                FEndTime = "2022-10-22",
+                FQuantity = 30,
                 FAddress = supplier.FAddress,
                 FSupplierId = supplierID,
             };
@@ -162,6 +165,14 @@ namespace IGO.Controllers
             List<string> result = seats.Select(x => x.FSeatRow + x.FSeatColumn).ToList();
 
             return Json(result);
+        }
+
+        public JsonResult ChangAddress(int supplierID)
+        {
+            if (supplierID == 0)
+            { return Json(' '); }
+            string Address = (_dbIgo.TSuppliers.FirstOrDefault(x => x.FSupplierId == supplierID)).FAddress.ToString();
+            return Json(Address);
         }
     }
 }

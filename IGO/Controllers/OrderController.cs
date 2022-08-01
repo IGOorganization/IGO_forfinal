@@ -73,11 +73,15 @@ namespace IGO.Controllers
             {
                 vModel = new COrdersViewModel
                 {
-                    OrderDetailsId = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FOrderDetailsId,
-                    Price = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FPrice,
-                    ProductName = _IgoContext.TOrderDetails.Include(m => m.FProduct).FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FProduct.FProductName,
-                    Quantity = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FQuantity,
-                    TicketName = _IgoContext.TOrderDetails.Include(m => m.FTicket).FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FTicket.FTicketName,
+                    //8/1宜潔修正
+                    tOrderDetail = _IgoContext.TOrderDetails.Where(m => m.FOrderDetailsId == r.FOrderDetailsId).FirstOrDefault(),
+                    tProduct = (TProduct)_IgoContext.TOrderDetails.Where(m => m.FOrderDetailsId == r.FOrderDetailsId).Select(m=>m.FProduct).FirstOrDefault(),
+                    tTicketType = _IgoContext.TOrderDetails.Where(m => m.FOrderDetailsId == r.FOrderDetailsId).Select(m => m.FTicket).FirstOrDefault(),
+                    //OrderDetailsId = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FOrderDetailsId,
+                    //Price = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FPrice,
+                    //ProductName = _IgoContext.TOrderDetails.Include(m => m.FProduct).FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FProduct.FProductName,
+                    //Quantity = _IgoContext.TOrderDetails.FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FQuantity,
+                    //TicketName = _IgoContext.TOrderDetails.Include(m => m.FTicket).FirstOrDefault(m => m.FOrderDetailsId == r.FOrderDetailsId).FTicket.FTicketName,
 
                 };
                 v.Add(vModel);

@@ -81,5 +81,14 @@ namespace IGO.ViewModels
                 return null;
             }
         }
+        public List<TVoucher> voucher
+        {
+            get
+            {
+                List<TVoucher> voucher = _dbIgo.TVouchers.Where(c => c.FCustomerId == FCustomerId).ToList();
+                return voucher;
+            }
+
+        }
     }
 }

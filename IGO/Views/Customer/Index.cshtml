@@ -45,8 +45,8 @@
                                     @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
                                 </li>
                                 <li class="list-group-item list-group-item-primary">
-                                    @*宜潔7/26新增myorder class*@
-                                    <a class="btn bg-transparent myorder" style="color:orange">我的訂單</a>
+                                    @*宜潔7/30修改*@
+                                    @Html.ActionLink("我的訂單", "Order", "Order", new { /* id=item.PrimaryKey */ }, new { })
                                 </li>
                                 <li class="list-group-item">
                                     @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
@@ -62,18 +62,7 @@
                         <!--============================================這邊加入超連結======================================================================================-->
                     </div>
                 </div>
-                <!--============================================這邊加入頁面======================================================================================-->
-                <div class="col-md-9 showInfo">
-                    @*宜潔7/26新增showInfo class*@
-                    <form asp-controller="" asp-action="">
-                        <div class="border">
-                            <div class="card-header bg-dark">
-                                <h1 class="text-primary"></h1>@*宜潔7/26刪除*@
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
+                @*宜潔7/30刪除原先訂單的部分*@
                 <!--============================================這邊加入頁面======================================================================================-->
             </div>
         </div>

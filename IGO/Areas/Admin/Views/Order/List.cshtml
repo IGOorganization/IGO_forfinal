@@ -4,96 +4,102 @@
 @{
     ViewData["Title"] = "List";
 }
+@*7/29宜潔修改樣式*@
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h4>訂單狀態查詢</h4>
+            <br>
+            <select class="form-select text-white" aria-label="Default select example" style="border:3px solid yellow" id="selStatus">
+                <option class="text-white" value="1">已下訂</option>
+                <option class="text-white" value="2">取消訂單</option>
+                <option class="text-white" value="3">已出貨</option>
+                <option class="text-white" value="4">完成訂單</option>
+                <option class="text-white" value="5">取消程序中</option>
+            </select>
+            <table class="table-dark table">
+                <thead>
+                    <tr align="right">
+                        <th>
+                            訂單編號
+                        </th>
+                        <th>
+                            顧客姓氏
+                        </th>
+                        <th>
+                            顧客名字
+                        </th>
+                        <th>
+                            訂單日期
+                        </th>
+                        <th>
+                            價格
+                        </th>
+                        <th>
+                            訂單狀態
+                        </th>
+                        <th>
 
-<h4>訂單狀態查詢</h4>
-<br>
-<select class="form-select text-white" aria-label="Default select example" style="border:3px solid yellow" id="selStatus">
-    <option class="text-white" value="1">已下訂</option>
-    <option class="text-white" value="2">取消訂單</option>
-    <option class="text-white" value="3">已出貨</option>
-    <option class="text-white" value="4">完成訂單</option>
-    <option class="text-white" value="5">取消程序中</option>
-</select>
-<table class="table-dark table">
-    <thead>
-        <tr align="right">
-            <th>
-                   訂單編號
-                </th>
-            <th>
-                顧客姓氏
-            </th>
-            <th>
-                顧客名字
-            </th>
-            <th>
-                訂單日期
-            </th>
-            <th>
-                價格
-            </th>
-            <th>
-                訂單狀態
-            </th>
-            <th>
-
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr align="right">
-                <td>
-                        @item.OrderId
-                    </td>
-                <td>
-                    @item.LastName
-                </td>
-                <td>
-                    @item.FirstName
-                </td>
-                <td>
-                    @Convert.ToDateTime(item.OrderDate)
-                </td>
-                <td>
-                    @String.Format("{0:C0}", item.TotalPrice)
-                </td>
-                <td>
-                    @item.StatusName
-                </td>          
-            </tr>
-        }
-    </tbody>
-</table>
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-black-50" id="staticBackdropLabel">訂單狀態修改</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label>訂單編號</label><span>: </span><input class="form text-black-50" id="txtOrderID" type="text" value="">
-                <hr>
-                <label>訂單狀態</label><span>: </span><input class="form text-black-50" id="txtStatus" type="text" value="">
-                <br><br>
-                <label>變更訂單狀態:</label>
-                <select class="form-select text-white" aria-label="Default select example" style="border:1px solid white" id="EditStatus">
-                    <option class="text-white" value="0"></option>
-                    <option class="text-white" value="1">已下訂</option>
-                    <option class="text-white" value="2">取消訂單</option>
-                    <option class="text-white" value="3">已出貨</option>
-                    <option class="text-white" value="4">完成訂單</option>
-                    <option class="text-white" value="5">取消程序中</option>
-                </select>
-                <br><br>
-                <button type="button" data-bs-dismiss="modal" aria-label="Update" id="update" class="btn-danger liveToastBtn">更新</button>            
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr align="right">
+                            <td>
+                                @item.OrderId
+                            </td>
+                            <td>
+                                @item.LastName
+                            </td>
+                            <td>
+                                @item.FirstName
+                            </td>
+                            <td>
+                                @Convert.ToDateTime(item.OrderDate)
+                            </td>
+                            <td>
+                                @String.Format("{0:C0}", item.TotalPrice)
+                            </td>
+                            <td>
+                                @item.StatusName
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content bg-secondary rounded h-100 p-4 text-white">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-white" id="staticBackdropLabel">訂單狀態修改</h5>
+                            <button type="button" class="btn-close btn-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label>訂單編號</label><span>: </span><input class="form text-black-50" id="txtOrderID" type="text" value="">
+                            <hr>
+                            <label>訂單狀態</label><span>: </span><input class="form text-black-50" id="txtStatus" type="text" value="">
+                            <br><br>
+                            <label>變更訂單狀態:</label>
+                            <select class="form-select text-white" aria-label="Default select example" style="border:1px solid white" id="EditStatus">
+                                <option class="text-white" value="0"></option>
+                                <option class="text-white" value="1">已下訂</option>
+                                <option class="text-white" value="2">取消訂單</option>
+                                <option class="text-white" value="3">已出貨</option>
+                                <option class="text-white" value="4">完成訂單</option>
+                                <option class="text-white" value="5">取消程序中</option>
+                            </select>
+                            <br><br>
+                            <button type="button" data-bs-dismiss="modal" aria-label="Update" id="update" class="btn btn-warning liveToastBtn">儲存更新</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 @section Scripts
 {
     <script>
@@ -111,16 +117,16 @@
                 {
                     //console.log(item);
                     let year = item.OrderDate.substr(6, 4);
-                    //console.log(year);
+                    ////console.log(year);
                     let month = item.OrderDate.substr(0, 2);
-                    //console.log(month);
+                    ////console.log(month);
                     let day = item.OrderDate.substr(3, 2);
-                    //console.log(day);
+                    ////console.log(day);
                     var date = `${year}-${month}-${day}`;
 
 
                     $('tbody').append(`<tr align="right"><td>${item.OrderId}</td><td>${item.LastName}</td><td>${item.FirstName}</td><td>${date}</td><td>${item.TotalPrice}元</td><td>${item.StatusName}</td><td>
-                    <button class="btn btn-danger btnEdit" id=orderID-${item.OrderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
+                    <button class="btn btn-success btnEdit" id=orderID-${item.OrderId} data-bs-toggle="modal" data-bs-target="#staticBackdrop">編輯</button></td></tr>`)
                 })
                 }
             )
@@ -206,7 +212,7 @@
                     lastname = datas[0].LastName;
                     firstname = datas[0].FirstName;
                 totalprice = datas[0].TotalPrice;
-                orid = datas[0].OrderId;
+               /* orid = datas[0].OrderId;*/
 
             });
 
@@ -248,9 +254,11 @@
                         })
                     console.log('send');
 
-                    //window.location.href = 'List';  //refresh此頁
                 }
             })
+
+            
+              
         })
 
 

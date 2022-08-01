@@ -27,13 +27,13 @@ namespace IGO.Controllers
 		//public static List<int> BuyedLists;
 		//public static int UserID;
 
-		public JsonResult CheckLogIn(string id)
-		{
-			if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-				return Json(true);
-			else
-				return Json(false);
-		}
+		//public JsonResult CheckLogIn(string id)
+		//{
+		//	if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+		//		return Json(true);
+		//	else
+		//		return Json(false);
+		//}
 
 		public ShoppingCartController(IWebHostEnvironment hostEnvironment, DemoIgoContext db)
         {
@@ -85,7 +85,7 @@ namespace IGO.Controllers
                 return Json(new { Flag = false, Description = "刪除失敗" });
             }
         }
-        public JsonResult Checked([FromBody] List<int> id)
+        public JsonResult Checked(List<int> id)
         {
             HttpContext.Session.SetString(CDictionary.SK_Selected_Item, JsonSerializer.Serialize(id));
 
@@ -129,7 +129,7 @@ namespace IGO.Controllers
             ViewData["CustomerURL"] = ""; //商店取號網址
             ViewData["NotifyURL"] = ""; //支付通知網址
                                         //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
-            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/ShoppingCart/Finish/{SessionId}"; //返回商店網址
+            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/Home/Home"; //返回商店網址
 
             //=======================================預設金流變數=========================================
 
@@ -296,7 +296,7 @@ namespace IGO.Controllers
                 shoppingCartViewModel.shoppingCart = data;
                 Price += (int)data.FTotalPrice;
                 lists.Add(shoppingCartViewModel);
-
+				_dbIgo.TShoppingCarts.Remove(data); //刪除結帳的東西
             };
 			//=================================將購買商品存入tOrders=====================================
 			int OrderNum =_dbIgo.TOrders.Where(c => c.FCustomerId == sessionData.UserId).Count();
@@ -315,7 +315,7 @@ namespace IGO.Controllers
 			TOrder order = new TOrder()
 			{
 				FCustomerId = sessionData.UserId,
-				FOrderDate = (DateTime.Now).ToString("yyyy MM dd HH:mm:ss"),
+				FOrderDate = (DateTime.Now).ToString("MM dd yyyy HH:mm:ss"),  /*7/31宜潔修改成日期格式為月日年*/
 				FStatusId = 1,
 				FTotalPrice = Price,
 				FOrderNum = DateTime.Now.ToString("yyyyMMdd") + (sessionData.UserId).ToString() +"IGO" +(OrderNum + 1).ToString()
@@ -341,6 +341,8 @@ namespace IGO.Controllers
                 _dbIgo.TOrderDetails.Add(orderDetail);
             }
             _dbIgo.SaveChanges();
+			//==============================刪除SHOPPINGCART結帳的單子==================================
+			
 
 			//===============================產生QRCODE=================================================
 			int TicketCount = _dbIgo.TOrderDetails.Where(c => c.FOrderId == LatestOrderId).Count();
@@ -369,13 +371,13 @@ namespace IGO.Controllers
             //----------------------------------------------------------寄信------------------------------------------
             MailMessage em = new MailMessage();
             em.From = new System.Net.Mail.MailAddress("igocompanysender@gmail.com");
-            em.To.Add("igocompanysender@gmail.com");
+            em.To.Add("igocompanysender@gmail.com");  /*8/1 宜潔修改收件者email*/
             em.SubjectEncoding = System.Text.Encoding.UTF8;
             em.BodyEncoding = System.Text.Encoding.UTF8;
             em.Subject = "IGO訂單已成立";
             em.IsBodyHtml = true;
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "eklktfcbelgblutv");
+            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "fxlijfrpaulssvln");
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;

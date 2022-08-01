@@ -99,8 +99,8 @@ namespace IGO.Areas.Admin.Controllers
                 string pName = Guid.NewGuid().ToString() + ".jpg";
                 Photo.CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + pName, FileMode.Create));
                 tp.FPhotoPath = pName;
+                _dbIgo.TProductsPhotos.Add(tp);
             }
-            _dbIgo.TProductsPhotos.Add(tp);
 
             _dbIgo.SaveChanges();
             CProductViewModel product = new CProductViewModel(_dbIgo);
@@ -131,7 +131,7 @@ namespace IGO.Areas.Admin.Controllers
             p.FEndTime = prod.FEndTime;
             p.FIntroduction = prod.FIntroduction;
 
-            TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 1 && n.FProductId == prod.FProductId);
+            TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 3 && n.FProductId == prod.FProductId);
 
 
             if (Photo != null)
@@ -165,6 +165,67 @@ namespace IGO.Areas.Admin.Controllers
             }
             string result = System.Text.Json.JsonSerializer.Serialize(products);
             return Json(result);
+        }
+        public IActionResult addPhoto(int fProductId, List<IFormFile> Photos)
+        {
+            if (Photos != null)
+            {
+                int num = 0;
+                if (Photos.Count() > 3)
+                {
+                    num = 3;
+                }
+                else
+                {
+                    num = Photos.Count();
+                }
+
+                IEnumerable<TProductsPhoto> items = _dbIgo.TProductsPhotos.Where(n => n.FProductId == fProductId && n.FPhotoSiteId == 4).ToList();
+                int count = items.Count();
+                if (count == 0)
+                {
+                    for (int i = 0; i < num; i++)
+                    {
+                        string pName = Guid.NewGuid().ToString() + ".jpg";
+                        Photos[i].CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + pName, FileMode.Create));
+                        TProductsPhoto t = new TProductsPhoto()
+                        {
+                            FPhotoSiteId = 4,
+                            FProductId = fProductId,
+                            FPhotoPath = pName
+                        };
+                        _dbIgo.TProductsPhotos.Add(t);
+                    }
+                }
+                else if (count + num > 3)
+                {
+                    for (int i = count + num - 4; i >= 0; i--)
+                    {
+                        _dbIgo.TProductsPhotos.Remove(items.ElementAt(i));
+                    }
+                    for (int i = 0; i < num; i++)
+                    {
+                        string pName = Guid.NewGuid().ToString() + ".jpg";
+                        Photos[i].CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + pName, FileMode.Create));
+                        TProductsPhoto t = new TProductsPhoto()
+                        {
+                            FPhotoSiteId = 4,
+                            FProductId = fProductId,
+                            FPhotoPath = pName
+                        };
+                        _dbIgo.TProductsPhotos.Add(t);
+                    }
+                }
+            }
+            _dbIgo.SaveChanges();
+
+            return RedirectToAction("takephotos",new { id= fProductId });
+        }
+        public IActionResult takephotos(int id)
+        {
+            IEnumerable<TProductsPhoto> list = _dbIgo.TProductsPhotos.Where(n => n.FProductId == id && n.FPhotoSiteId == 4).ToList();
+            //string result = System.Text.Json.JsonSerializer.Serialize(list);
+            return Json(list);
         }
     }
 }
