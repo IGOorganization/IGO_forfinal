@@ -186,10 +186,11 @@
                 $.get('@Url.Content("~/Order/OrderDetailList")', { "Orderid": orderid },
                     function (datas)
                     {
-                        console.log(datas);
+                        //console.log(datas);
                         $.each(datas, function (idx, item)
                         {
-                            $(`#orderdetailTable-${idx}`).append(`<tr><td>${item.ProductName}</td><td>${item.TicketName}</td><td>${item.Quantity}</td><td>${item.Price}元</td></tr>`);
+                            /*8/1宜潔修正*/
+                            $('.showDetail').append(`<tr><td>${item.ProductName}</td><td>${item.TicketName}</td><td>${item.Quantity}</td><td>${item.Price}元</td></tr>`);
                         })
                     })
             })
