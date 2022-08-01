@@ -67,7 +67,15 @@ namespace IGO.Controllers
         }
         public IActionResult SearchAndRank(int subid, int cityid)
         {
-            IEnumerable<TProduct> prod = _dbIgo.TProducts.Where(n => n.FSubCategoryId == subid && n.FCityId == cityid);
+            IEnumerable<TProduct> prod = null;
+            if (cityid != 0)
+            {
+                prod = _dbIgo.TProducts.Where(n => n.FSubCategoryId == subid && n.FCityId == cityid);
+            }
+            else
+            {
+                prod = _dbIgo.TProducts.Where(n => n.FSubCategoryId == subid);
+            }
             List<CProductViewModel> products = new List<CProductViewModel>();
             foreach (TProduct p in prod)
             {

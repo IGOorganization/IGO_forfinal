@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <label for="ProductName" class="form-label">商品名稱</label>
-                                        <input type="text" class="form-control" name="fProductName">
+                                        <input type="text" class="form-control" name="fProductName"id="createName">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">人數</label>
@@ -93,11 +93,11 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">價格</label>
-                                        <input type="text" class="form-control" name="price">
+                                        <input type="text" class="form-control" name="price"id="createPrice">
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">數量</label>
-                                        <input type="number" class="form-control" name="Quentity" />
+                                        <input type="number" class="form-control" name="Quantity" id="createQuantity"/>
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">介紹</label>
@@ -162,7 +162,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">數量</label>
-                                        <input type="number" class="form-control" name="Quentity" id="editQuantity" />
+                                        <input type="number" class="form-control" name="Quantity" id="editQuantity" />
                                     </div>
                                     <div class="mb-2">
                                         <label class="form-label">介紹</label>
@@ -256,10 +256,10 @@
             console.log(event.target.getAttribute("data-did"));
             if (event.target.hasAttribute("data-did")) {
                 alert("確定要刪除該商品?")
-                @*let jcoupons = await fetch('@Url.Content("~/Admin/Live/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
+                let jcoupons = await fetch('@Url.Content("~/Admin/Live/Delete")' + `?id=${event.target.getAttribute("data-did")}`)
 
                 let coupons = await jcoupons.json();
-                createroomtable(coupons);*@
+                createroomtable(coupons);
              }
         });
 
@@ -287,14 +287,32 @@
         edit.addEventListener("click", async (event) => {
 
             event.preventDefault();
-            let editData = new FormData(document.EditForm);
 
-            let jproducts = await fetch("Edit", {
-                body: editData,
-                method: "POST",
-            })
-            let products = await jproducts.json();
-            createroomtable(products);
+            if ($("#editName").val() == "") {
+                alert("請輸入商品名稱");
+            }
+            else if ($("#editPrice").val() == "") {
+                alert("請輸入價格");
+            }
+            else if ($("#editPrice").val() <= 0) {
+                alert("請輸入0以上的數字");
+            }
+            else if ($("#editQuantity").val() == "") {
+                alert("請輸入數量");
+            }
+            else if ($("#editQuantity").val() <= 0) {
+                alert("請輸入0以上的數字");
+            }
+            else {
+                let editData = new FormData(document.EditForm);
+
+                let jproducts = await fetch("Edit", {
+                    body: editData,
+                    method: "POST",
+                })
+                let products = await jproducts.json();
+                createroomtable(products);
+            }
         })
 
 
@@ -303,17 +321,35 @@
         let create = document.querySelector("#btn_createRoom");
         create.addEventListener("click", async (event) => {
             event.preventDefault();
-            alert("create");
+            //alert("create");
 
-            let createData = new FormData(document.createForm);
+            if ($("#createName").val() == "") {
+                alert("請輸入商品名稱");
+            }
+            else if ($("#createPrice").val() == "") {
+                alert("請輸入價格");
+            }
+            else if ($("#createPrice").val() <= 0) {
+                alert("請輸入0以上的數字");
+            }
+            else if ($("#createQuantity").val() == "") {
+                alert("請輸入數量");
+            }
+            else if ($("#createQuantity").val() <= 0) {
+                alert("請輸入0以上的數字");
+            }
+            else {
+                let createData = new FormData(document.createForm);
 
-            let jproducts = await fetch("CreateRoom", {
-                body: createData,
-                method: "POST",
-            })
-            let products = await jproducts.json();
-            console.log(products);
-            createroomtable(products);
+                let jproducts = await fetch("CreateRoom", {
+                    body: createData,
+                    method: "POST",
+                })
+                let products = await jproducts.json();
+                console.log(products);
+                createroomtable(products);
+            }
+
         })
 
 
@@ -347,11 +383,11 @@
             let selHotel = document.querySelector("#editsel_Hotel");
             let frag = document.createDocumentFragment();
             let hotels = await getHotelList();
-            //console.log(hotels);
+            console.log(hotels);
             hotels.forEach(hotel => {
                 let option = new Option;
-                option.value = hotel.fSupplierId;
-                option.textContent = hotel.fCompanyName;
+                option.value = hotel.FSupplierId;
+                option.textContent = hotel.FCompanyName;
                 frag.appendChild(option);
             })
             selHotel.appendChild(frag);

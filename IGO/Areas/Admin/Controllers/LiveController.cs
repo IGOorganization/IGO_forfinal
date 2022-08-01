@@ -57,7 +57,7 @@ namespace IGO.Areas.Admin.Controllers
                 FCityId = supplier.FCityId,
                 FAddress = supplier.FAddress,
                 FSupplierId = c.supplier,
-                FQuantity = c.Quentity,
+                FQuantity = c.Quantity,
                 FStartTime = DateTime.Now.ToString("yyyy-MM-dd"),
                 FEndTime = DateTime.Now.AddYears(100).ToString("yyyy-MM-dd"),
                 FSubCategoryId = 1,
@@ -130,7 +130,7 @@ namespace IGO.Areas.Admin.Controllers
                 TProduct t = _dbIgo.TProducts.FirstOrDefault(n => n.FProductId == c.fProductId);
                 t.FProductName = c.fProductName;
                 t.FSupplierId = c.supplier;
-                t.FQuantity = c.Quentity;
+                t.FQuantity = c.Quantity;
                 t.FIntroduction = c.fIntroduction;
 
                 tap.FTicketId = c.tickettype;

@@ -92,9 +92,9 @@
                                         @{ string alertMessage = "           ";
                                             string imgSource = "";
                                             TimeSpan time = Convert.ToDateTime(coupon.FDeadTime).Date - DateTime.Today;
-                                            if (time.Days <= 100)
+                                            if (time.Days <= 30)
                                             {
-                                                alertMessage = "活動即將結束";
+                                                alertMessage = "優惠即將結束";
                                                 imgSource = "/img/alarm.png";
                                             }
                                             else
@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="d-flex justify-content-lg-start">
                                         <br>
-                                        <h5 class="align-items-center" style="color:cadetblue">離活動結束還剩 @time.Days 天</h5>
+                                        <h5 class="align-items-center" style="color:cadetblue">離優惠結束還剩 @time.Days 天</h5>
                                         <p class="align-items-end"></p>
                                         <p class="align-items-end"><img src=@imgSource width="30" height="30"></p>
                                         <h5 class="align-items-end" style="color:red">@alertMessage</h5>

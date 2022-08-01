@@ -13,24 +13,51 @@
         <div class="col-md-8 col-sm-12">
             <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" class="active" data-bs-target="#myCarousel" data-bs-slide-to="0"></button>
-                    <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
-                    <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
-                    <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="3"></button>
+                    @{
+                        int i = 0;
+                        if (Model.photos != null)
+                        {
+                            foreach (string p in Model.photos)
+                            {
+                                if (i == 0)
+                                {
+                                    <button type="button" class="active" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="@i"></button>
+                                }
+
+                                i++;
+                            }
+                        }
+                        @*<button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="2"></button>
+                            <button type="button" class="" data-bs-target="#myCarousel" data-bs-slide-to="3"></button>*@
+                    }
                 </div>
                 <div class="carousel-inner bg-secondary">
-                    <div class="carousel-item text-center active">
-                        <img class="photo-fit" src="~/img/cook-1.jpg" />
-                    </div>
-                    <div class="carousel-item text-center">
-                        <img class="photo-fit" src="~/img/cook-2.jpg" />
-                    </div>
-                    <div class="carousel-item text-center">
-                        <img class="photo-fit" src="~/img/cook-3.jpg" />
-                    </div>
-                    <div class="carousel-item text-center">
-                        <img class="photo-fit" src="~/img/cook-4.jpg" />
-                    </div>
+                    @{
+                        int j = 0;
+                        if (Model.photos != null)
+                        {
+                            foreach (string p in Model.photos)
+                            {
+                                if (j == 0)
+                                {
+                                    <div class="carousel-item text-center active">
+                                        <img class="photo-fit" src="~/img/@p" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item text-center">
+                                        <img class="photo-fit" src="~/img/@p" />
+                                    </div>
+                                }
+                            }
+                        }
+                    }
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -46,9 +73,9 @@
             <div class="card">
                 <div class="card-body">
                     <form asp-controller="Product" asp-action="AddToCart" name="cartForm">
-                        <input type="hidden" value="@Model.FProductId" name="ToCartId"/>
+                        <input type="hidden" value="@Model.FProductId" name="ToCartId" />
                         <input type="hidden" name="fTickettype" id="tickettype" />
-                        <div class="m-3"id="TicketArea">
+                        <div class="m-3" id="TicketArea">
                             <span class="fw-bold">票種</span>
                             <input type="radio" class="btn-check" id="ticket1" name="ticket" value="0" data-price="@Model.tickets[0].price.ToString("0")">
                             <label class="btn btn-outline-primary" for="ticket1">全票</label>
@@ -58,11 +85,11 @@
 
                         <div class="m-3">
                             <span class="fw-bold">日期</span>
-                            <input type="date" class="form-control"name="fBookingTime" />
+                            <input type="date" class="form-control" name="fBookingTime" id="bookingTime" />
                         </div>
                         <div class="m-3">
                             <span class="fw-bold">數量</span>
-                            <input type="number" class="form-control" id="input-quantity"name="fQuantity" />
+                            <input type="number" class="form-control" id="input-quantity" name="fQuantity" />
                         </div>
                         <div class="m-3">
                             <span class="fw-bold">價格</span>
@@ -121,10 +148,18 @@
                 <h3 class="fw-bold text-primary"><u>使用地址</u></h3>
                 <div class="row">
                     <p style="font-size: 1.3em">@Model.FAddress</p>
+                    <input type="hidden" id="addr" value="@Model.FAddress" />
                 </div>
-                <div class="row">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.6890887995205!2d121.51981641400289!3d25.04462324402163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a971b0535025%3A0x9a800c32c8ff2768!2z5Y2B5LqM5bua5Y-w5YyX5Zac5L6G55m75aSn6aOv5bqX!5e0!3m2!1szh-TW!2stw!4v1657432513056!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-              
+                <div class="row" id="map" style="height:600px;width:800px; ">
+                    @*<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.6890887995205!2d121.51981641400289!3d25.04462324402163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a971b0535025%3A0x9a800c32c8ff2768!2z5Y2B5LqM5bua5Y-w5YyX5Zac5L6G55m75aSn6aOv5bqX!5e0!3m2!1szh-TW!2stw!4v1657432513056!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>*@
+                    @*<iframe width="600"
+                                height="450"
+                                style="border:0"
+                                loading="lazy"
+                                allowfullscreen
+                                referrerpolicy="no-referrer-when-downgrade"
+                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAaLWLgpzbDMkQXzEcjYDWEAbPeSwfsx7U&q=@Model.FAddress">
+                        </iframe>*@
                 </div>
 
             </div>
@@ -226,8 +261,72 @@
     </div>
 </div>
 @section Scripts {
+    @*<script async
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaLWLgpzbDMkQXzEcjYDWEAbPeSwfsx7U&libraries=geometry&callback=initMap">
+        </script>*@
     <script>
-            
+
+        //地圖====================
+        let map1;
+
+
+        let place;
+
+
+        function initMap(t, g) {
+            map1 = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: t, lng: g },
+                zoom: 18,
+                maxZoom: 20,
+                minZoom: 2,
+            });
+        }
+        $(document).ready(function () {
+            mapping();
+        });
+        function setMarker(t, g) {
+            const marker = new google.maps.Marker({
+                position: { lat: t, lng: g },
+                map: map1
+            });
+        }
+
+        mapping();
+
+        function mapping() {
+
+            const geocoder = new google.maps.Geocoder();
+
+            const addr = document.querySelector("#addr").value;
+
+            console.log(addr);
+
+            let lat1, lng1;
+
+
+            geocoder.geocode({
+                "address": addr, componentRestrictions: { country: "TW" }
+            }, function (results, status) {
+                if (status == "OK") {
+                    console.log(results);
+
+                    console.log(results[0].geometry.viewport.Sa.hi);
+                    console.log(results[0].geometry.viewport.vb.hi);
+
+                    lat1 = results[0].geometry.viewport.vb.hi;
+                    lng1 = results[0].geometry.viewport.Sa.hi;
+
+                    initMap(lat1, lng1);
+
+                    // 建立地標
+                    setMarker(lat1, lng1);
+                } else {
+                    //console.log(status);
+                }
+
+            });
+
+        }
 
         let price = document.querySelector("#lbl-price");
         $("#TicketArea").on("click", "input", function (event) {
@@ -255,26 +354,40 @@
             //this.preventDefault();
             event.preventDefault();
             console.log(event);
+            let ticket = $('input[name="ticket"]:checked').val();
+            let bookingTime = document.querySelector("#bookingTime").value;
 
-            let cartform = new FormData(document.cartForm)
+            if (ticket == undefined) {
+                console.log("請選擇票種");
+            }
+            else if (bookingTime == "") {
+                console.log("請選擇日期");
+            }
+            else if (quantity.value == "" || quantity.value == 0) {
+                console.log("請輸入數量");
+            }
+            else {
+                let cartform = new FormData(document.cartForm)
 
-            let jresponce = await fetch("AddToCart", {
-                body: cartform,
-                method: "POST",
-            })
-            let responce = await jresponce.json();
-            console.log(responce)
-            alert(responce);
+                let jresponce = await fetch("AddToCart", {
+                    body: cartform,
+                    method: "POST",
+                })
+                let responce = await jresponce.json();
+                console.log(responce)
+                alert(responce);
+            }
         })
 
-        
+
 
 
 
     </script>
-  
-  
+
 }
+
+
 @*Bottom*@
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="row justify-content-center">
