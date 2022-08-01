@@ -766,12 +766,12 @@
         //登入Demo
 
         $("#btnDemo1").click(function () {
-            $("#Login_txtAcc").val("123");
-            $("#Login_txtPwd").val("123");
+            $("#Login_txtAcc").val("0912345678");
+            $("#Login_txtPwd").val("a12345678");
         });
         $("#btnDemo2").click(function () {
             $("#Login_txtAcc").val("0931000013");
-            $("#Login_txtPwd").val("123");
+            $("#Login_txtPwd").val("a12345678");
         });
         $("#btnDemo3").click(function () {
             $("#Login_txtAcc").val("0911911990");
@@ -781,12 +781,12 @@
         //--  Register===================================================================================== -- >
 
         //註冊日期
-        var registerD = new Date();
-        var year = registerD.getFullYear().toString();
-        var month = (registerD.getMonth() + 101).toString().substring(1);
-        var day = (registerD.getDate() + 100).toString().substring(1);
-        var str = year + month + day;
-        $("#fRegisterDate").val(str);
+        //var registerD = new Date();
+        //var year = registerD.getFullYear().toString();
+        //var month = (registerD.getMonth() + 101).toString().substring(1);
+        //var day = (registerD.getDate() + 100).toString().substring(1);
+        //var str = year + month + day;
+        //$("#fRegisterDate").val(str);
 
 
         //
@@ -887,7 +887,6 @@
             }).then(Response => Response.text()).then(data => {
 
                 {
-
                     if (data == "欄位空白") {
                         alert("註冊失敗，欄位不可空白請正確填入!");
                     }
