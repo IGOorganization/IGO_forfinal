@@ -60,7 +60,7 @@ namespace IGO.Hubs
             await Clients.All.SendAsync("UpdList", jsonString);
 
             // 更新聊天內容
-            await Clients.All.SendAsync("UpdContent", "已離線 ID: " + Context.ConnectionId);
+            //await Clients.All.SendAsync("UpdContent", "已離線 ID: " + Context.ConnectionId);
 
             await base.OnDisconnectedAsync(ex);
         }

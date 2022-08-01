@@ -50,7 +50,7 @@ namespace IGO.Areas.Admin.Controllers
         public ActionResult Edit(int? id)
         {
             DemoIgoContext db = new DemoIgoContext();
-            TFeedbackManagement prod = db.TFeedbackManagements.FirstOrDefault(t => t.FFeedbackId == id);
+            TFeedbackManagement prod = _dbIgo.TFeedbackManagements.FirstOrDefault(t => t.FFeedbackId == id);
             if (prod == null)
                 return RedirectToAction("List");
             return View(prod);
@@ -60,7 +60,7 @@ namespace IGO.Areas.Admin.Controllers
         {
 
             DemoIgoContext db = new DemoIgoContext();
-            TFeedbackManagement prod = db.TFeedbackManagements.FirstOrDefault(t => t.FFeedbackId == p.FeedbackId);
+            TFeedbackManagement prod = _dbIgo.TFeedbackManagements.FirstOrDefault(t => t.FFeedbackId == p.FeedbackId);
             if (prod != null)
             {
                 //if (p.photo != null)
@@ -76,7 +76,8 @@ namespace IGO.Areas.Admin.Controllers
                 //prod.ProductsId = p.ProductsId;
                 //prod.FeedbackDate = p.FeedbackDate;
             }
-            db.SaveChanges();
+
+            _dbIgo.SaveChanges();
             return RedirectToAction("List");
         }
 
