@@ -1,4 +1,6 @@
 ﻿@using IGO.Controllers
+@using Microsoft.AspNetCore.Http
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +65,7 @@
             font-size: 150%;
             color: orange;
         }
+
         .face-fix {
             position: fixed;
             right: 5px;
@@ -157,6 +160,8 @@
                     @{
                         if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                         {
+                            @*7/30修改畫面格式*@
+                            <div class="col-lg-1 px-5"></div>
                             <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
                                 <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (CustomerController.imgpath == null)
@@ -182,11 +187,14 @@
                             </div>
                             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                             <a href="#" class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
+                            <a href="/CheckTicket/Capture" class="face-fix"><img src="~/img/face.png" title="入場票卷辨識" width="50" height="50" /><p style="font-size:14px; font-weight: bold">入場票卷辨識</p></a>
                             <a href="/Parking/Parking" class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
 
                         }
                         else
                         {
+                            @*7/30修改畫面格式*@
+                            <div class="col-lg-1 px-5"></div>
                             @*7/28刪掉登入的框線*@
                             <div class="navbar-nav navbar-right mr-auto py-0 ">
                                 <button type="button" class="btn btn-lg text-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -269,7 +277,8 @@
                     <div class="d-flex pt-5">
                         <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://www.instagram.com/igo_taiwan/" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
                         <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
-                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
+                        @*7/29宜潔新增line的連結*@
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://liff.line.me/1645278921-kWRPP32q/?accountId=420bidid" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-12 justify-content-xxl-center">
@@ -305,8 +314,8 @@
     <!-- Footer End -->
     <!--=============== 鈞傑新增 Login & Register =========================== -->
     <!-- Login Modal 彈出登入視窗 -->
-    <div class="modal fade " id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade " id="loginModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content bg-dark">
                 <div class="modal-header">
                     <h5 class="modal-title text-warning" id="staticBackdropLabel">登入 IGO</h5>
@@ -314,28 +323,32 @@
                 </div>
                 <div class="modal-body bg-dark">
                     <br />
-                    <form asp-controller="Customer" asp-action="Login">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="Login_txtAccount" name="txtAccount" placeholder="手機號碼">
+                    <form asp-controller="Customer" asp-action="Login" method="post" enctype="application/x-www-form-urlencoded" name="userInfo" id="loginForm">
+                        <input name="ReturnUrl" id="inpReturnUrl" type="hidden" />
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control text-dark" id="Login_txtAcc" name="txtAccount" placeholder="請輸入手機號碼" autocomplete="off">
                             <label for="floatingInput">帳號 (手機號碼)</label>
                         </div>
                         <br />
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control text-dark" id="Login_txtPassword" name="txtPassword" placeholder="密碼">
+                            <input type="password" class="form-control text-dark" id="Login_txtPwd" name="txtPassword" placeholder="請輸入密碼" autocomplete="off">
                             <label for="floatingPassword">密碼</label>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check text-white">
-                                <input type="checkbox" class="form-check-input" id="reAccount">
-                                <label class="form-check-label" for="exampleCheck1 ">記住帳號</label>
-                            </div>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgetPWD" data-bs-dismiss="modal">忘記密碼</button>
+                        <div class="form-floating mb-4">
+                            <span id="spwarn" class="text-danger"></span> @*錯誤訊息*@
                         </div>
+                        @*<div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="form-check text-white">
+                                    <input type="checkbox" class="form-check-input" id="reAccount">
+                                    <label class="form-check-label" for="exampleCheck1 ">記住帳號</label>
+                                </div>
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgetPWD" data-bs-dismiss="modal">忘記密碼</button>
+                            </div>*@
                         <h5 class="text-sm-center mb-0 text-white"> 新朋友 ? <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">立即註冊 IGO !</button></h5>
                         <br />
                         <div class="modal-footer">
                             <br />
-                            <input type="submit" value="登入" class="btn btn-primary" />
+                            <button class="btn btn-primary" id="btnLoginModal"><i class="fa fa-sign-in" aria-hidden="true"></i> 登入</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 返回首頁 </button>
                             <br />
                         </div>
@@ -380,47 +393,61 @@
         </div>
     </div>
     <!-- Login Modal End -->
-    <!--使用 Login Modal 執行時檢核並顯示錯誤訊息-->
-    <!--使用 Login Modal 執行時檢核並顯示錯誤訊息-->
     <!-- Register Modal 彈出註冊視窗 -->
     <div class="modal fade " id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <form asp-action="Register" asp-controller="Customer">
-            <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document">
+            <form asp-action="Register" asp-controller="Customer" id="registerForm">
                 <div class="modal-content bg-dark">
                     <div class="modal-header text-center">
-                        <h5 class="modal-title text-warning" id="rLblWelcome">歡迎加入 IGO 會員</h5>
-                        <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title text-warning" id="rlblWelcome">歡迎加入 IGO 會員</h5>
+                        <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body bg-dark">
                         <br />
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="register_FLName" name="FLastName" placeholder="姓氏(LastName)" />
-                            <label for="FLastName">姓氏(LastName)</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="register_FFName" name="FFirstName" placeholder="名字(FirstName)" />
-                            <label for="FFirstName" class="control-label">名字(FirstName)</label>
-                        </div>
-                        <div class="form-floating mb-3">
                             <input type="text" class="form-control text-dark" id="register_FPhone" name="FPhone" placeholder="手機號碼(IGO 帳號)" />
                             <label for="FPhone" class="control-label">手機號碼(IGO 帳號)</label>
+                            <span id="R_warn_Acc" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control text-dark" id="register_FLName" name="FLastName" placeholder="姓氏(LastName)" />
+                                        <label for="FLastName">姓氏(LastName)</label>
+                                        <span id="R_warn_LN" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control text-dark" id="register_FFName" name="FFirstName" placeholder="名字(FirstName)" />
+                                        <label for="FFirstName" class="control-label">名字(FirstName)</label>
+                                        <span id="R_warn_FN" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control text-dark" id="register_FPassword" name="FPassword" placeholder="密碼">
                             <label for="FPassword">密碼</label>
+                            <span id="spwarn_Pwd" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control text-dark" id="register_FCheckPwd" name="FCheckPwd" placeholder="確認密碼" />
-                            <label for="floatingPassword">確認密碼</label>
+                            <input type="password" class="form-control text-dark" id="register_FCheckPwd" name="confirmPassword" placeholder="確認密碼" />
+                            <label for="confirmPassword">請確認密碼</label>
+                            <span id="confirmPwd" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control text-dark" id="register_FEmail" name="FEmail" placeholder="E-Mail" />
                             <label for="FEmail" class="control-label">E-Mail</label>
+                            <span id="R_warn_Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="modal-footer bg-dark">
                         <div class="form-group">
-                            <input type="submit" value="註冊 IGO" class="btn btn-primary" />
+                            <button id="btnRegister" class="btn btn-primary"><i class="fa fa-paper-plane" aria-hidden="true"></i> 註冊 IGO</button>
                         </div>
                         <div>
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
@@ -457,8 +484,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <!-- Register Modal End -->
     <!-- Backend Modal 彈出登入視窗 -->
@@ -543,7 +570,7 @@
     </div>
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
-    <a href="/CheckTicket/Capture" class="face-fix"><img src="~/img/face.png" title="入場票卷辨識" width="50" height="50" /><p style="font-size:14px; font-weight: bold">入場票卷辨識</p></a>
+
     @*7/28新增入場票券辨識*@
 
     <!-- JavaScript Libraries -->
@@ -682,52 +709,216 @@
                 alert('傳送錯誤: ' + err.toString());
             });
         });
-
-
-
-
-
     </script>
 
-
-    <!-- ========================= 登入系統用============================ script -->
+    <!--========================================================登入系統用script================================ -->
     <script>
 
+
+        //--  Login======================================================================================== -- >
+
         //密碼顯示切換
+
         $("#showPassword").click(function () {
             if ($(this).hasClass("fa-eye-slash")) {
                 $(this).removeClass("fa-eye-slash").addClass("fa-eye");
-                $("#inpLogInPassword").attr("type", "text");
+                $("#Login_txtPwd").attr("type", "text");
             }
             else {
                 $(this).removeClass("fa-eye").addClass("fa-eye-slash");
-                $("#inpLogInPassword").attr("type", "password");
+                $("#Login_txtPwd").attr("type", "password");
             }
         });
 
+        //偵測密碼
+
+        const btnUserName = document.querySelector('#btnLoginModal');
+        btnUserName.addEventListener('click', (event) => {
+            event.preventDefault();
+            var formData = new FormData(document.querySelector("#loginForm"));
+            fetch("/Customer/Login", {
+                body: formData,
+                method: "Post"
+            }).then(Response => Response.text()).then(data => {
+
+                if (data == "empty") {
+                    $("#spwarn").html('<i class="fa-solid fa-circle-xmark"> 請輸入帳號或密碼</i>');
+                }
+
+                else if (data == "false") {
+                    alert("輸入的帳號密碼錯誤，請重新嘗試登入");
+                    $("#spwarn").html('<i class="fa-solid fa-circle-xmark"> 輸入的帳號密碼錯誤</i>');
+                    $('#Login_txtAcc').val("");
+                    $('#Login_txtPwd').val("");
+                }
+
+                else if (data == "success") {
+                    $('#loginModal').modal('hide');
+                    window.location.reload(true);//refresh page
+                    alert("帳號密碼正確，登入成功");
+                    $('#Login_txtAcc').val("");
+                    $('#Login_txtPwd').val("");
+                }
+
+            });
+        });
+
         //登入Demo
+
         $("#btnDemo1").click(function () {
-            $("#Login_txtAccount").val("123");
-            $("#Login_txtPassword").val("123");
+            $("#Login_txtAcc").val("0912345678");
+            $("#Login_txtPwd").val("a12345678");
         });
         $("#btnDemo2").click(function () {
-            $("#Login_txtAccount").val("0931000013");
-            $("#Login_txtPassword").val("123");
+            $("#Login_txtAcc").val("0931000013");
+            $("#Login_txtPwd").val("a12345678");
         });
         $("#btnDemo3").click(function () {
-            $("#Login_txtAccount").val("0911911990");
-            $("#Login_txtPassword").val("123");
+            $("#Login_txtAcc").val("0911911990");
+            $("#Login_txtPwd").val("123");
+        });
+
+        //--  Register===================================================================================== -- >
+
+        //註冊日期
+        //var registerD = new Date();
+        //var year = registerD.getFullYear().toString();
+        //var month = (registerD.getMonth() + 101).toString().substring(1);
+        //var day = (registerD.getDate() + 100).toString().substring(1);
+        //var str = year + month + day;
+        //$("#fRegisterDate").val(str);
+
+
+        //
+        $('#register_FPhone').on('blur', () => {
+            event.preventDefault();
+            $('#register_FPhone').empty();
+
+            var mobileRegex = /^09[0-9]{8}$/
+            var RegAcc = mobileRegex.test($('#register_FPhone').val());
+
+            if (RegAcc) {
+                $("#R_warn_Acc").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+
+            else {
+                $("#R_warn_Acc").html('<i class="fa-solid fa-circle-xmark"> 手機號碼空白或格式有誤</i>');
+            }
+        });
+
+        $('#register_FLName').on('blur', () => {
+            event.preventDefault();
+            $('#register_FLName').empty();
+
+            var RecLName = $('#register_FLName').val();
+            if (RecLName != "") {
+                $("#R_warn_LN").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_LN").html('<i class="fa-solid fa-circle-xmark"> 請填入您的姓氏</i>');
+            }
+        });
+
+        $('#register_FFName').on('blur', () => {
+            event.preventDefault();
+            $('#register_FFName').empty();
+
+            var RecLName = $('#register_FFName').val();
+            if (RecLName != "") {
+                $("#R_warn_FN").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_FN").html('<i class="fa-solid fa-circle-xmark"> 請填入您的名字</i>');
+            }
+        });
+
+        $('#register_FPassword').on('blur', () => {
+            event.preventDefault();
+            $('#register_FPassword').empty();
+
+            var regEx = /^(?=.*\d)(?=.*[a-z]).{8,20}$/; //密碼格式 至少有數字+一個字母，字串8~20
+            var RegPwd = regEx.test($('#register_FPassword').val());
+
+            if (RegPwd) {
+                $("#spwarn_Pwd").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#spwarn_Pwd").html('<i class="fa-solid fa-circle-xmark"> 密碼空白或格式不符</i>');
+            };
+        });
+
+        $('#register_FCheckPwd').on('blur', () => {
+            event.preventDefault();
+            console.log("123");
+            $('#confirmPwd').empty();
+
+            var firstPassword = $('#register_FPassword').val();
+            var confirmPassword = $('#register_FCheckPwd').val();
+
+            if (confirmPassword !== firstPassword) {
+                $("#confirmPwd").html('<i class="fa-solid fa-circle-xmark"> 與輸入的密碼不一致</i>');
+            }
+            else {
+                $("#confirmPwd").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+        });
+
+        $('#register_FEmail').on('blur', () => {
+            event.preventDefault();
+            $('#register_FEmail').empty();
+
+            var RecLName = $('#register_FFName').val();
+            if (RecLName != "") {
+                $("#R_warn_Email").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_Email").html('<i class="fa-solid fa-circle-xmark"> 請填入Email</i>');
+            }
+        });
+
+
+        const btn = document.querySelector('#btnRegister');
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            var formData = new FormData(document.querySelector("#registerForm"));
+            fetch("/Customer/Register", {
+                body: formData,
+                method: "Post"
+            }).then(Response => Response.text()).then(data => {
+
+                {
+                    if (data == "欄位空白") {
+                        alert("註冊失敗，欄位不可空白請正確填入!");
+                    }
+                    else if (data == "此電話已有人使用") {
+                        alert("註冊失敗，此號碼已有人使用!")
+                        $("#R_warn_Acc").html('<i class="fa-solid fa-circle-xmark"> 此號碼已有人使用</i>');
+                    }
+                    else if (data == "此信箱已有人使用") {
+                        alert("註冊失敗，此信箱已有人使用!")
+                        $("#R_warn_Email").html('<i class="fa-solid fa-circle-xmark"> 此Email已有人使用</i>');
+                    }
+                    else {
+                        alert("註冊成功，歡迎您成為IGO會員!")
+                        $('#registerModal').modal('hide');
+                        $('#loginModal').modal('show');
+                    }
+                }
+            });
         });
 
         //註冊Demo
         $("#btnDemoRegister").click(function () {
+            $("#register_FPhone").val("0911911990");
             $("#register_FLName").val("林");
             $("#register_FFName").val("炙影");
-            $("#register_FPassword").val("123");
-            $("#register_FCheckPwd").val("123");
-            $("#register_FPhone").val("0911911990");
-            $("#register_FEmail").val("carBomb@gmail.com");
+            $("#register_FPassword").val("a8226520");
+            $("#register_FCheckPwd").val("");
+            $("#register_FEmail").val("igocompanysender@gmail.com");
         });
+
+
+        //--  忘記密碼===================================================================================== -- >
 
         //忘記密碼Demo
         $("#btnDemoForgotPassword").click(function () {
@@ -735,15 +926,16 @@
             $("#rePwd_FEmail").val("");
         });
 
+        //--  後台Login==================================================================================== -- >
+
         //後台登入Demo
         $("#Backend_Demo").click(function () {
             $("#Backend_txtAccount").val("IGO001");
             $("#Backend_txtPassword").val("123456");
         });
 
-
     </script>
-    <!-- ========================= 登入系統用=====================END======= script -->
+    <!--=============================================登入系統用 script ======================================END -->
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -54,7 +54,7 @@ namespace IGO.Controllers
             mail.Priority = MailPriority.Normal;
 
             System.Net.Mail.SmtpClient client = new SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "eklktfcbelgblutv");
+            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "fxlijfrpaulssvln"); //7/29宜潔更新金鑰
 
             client.Host = "smtp.gmail.com";
             client.Port = 587;

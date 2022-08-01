@@ -20,9 +20,9 @@ namespace IGO.Controllers
             return Json(_dbIgo.TCities);
         }
         //=======回傳供應商======
-        public IActionResult getSupplier()
+        public IActionResult getSupplier(int subid,int cityid)
         {
-            return Json(_dbIgo.TSuppliers);
+            return Json(_dbIgo.TSuppliers.Where(n=>n.FSubCategoryId==subid&&n.FCityId==cityid));
         }
     }
 }

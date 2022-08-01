@@ -52,21 +52,21 @@
                             <form name="AddToCartForm" asp-controller="Live" asp-action="AddToCart">
                                 <div class="col-md-10">
                                     <select class="form-select" id="sel_roomtype" name="ToCartId">
-                                        <option selected>請選擇房型</option>
+                                        <option selected value="0">請選擇房型</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
                                     <select class="form-select" id="sel_ticket" name="fTickettype">
-                                        <option selected>請選擇人數</option>
+                                        <option selected value="0">請選擇人數</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">預定時間:</span>
-                                    <input type="date" name="fBookingTime" class="col-md-8" id="bookingTime"/>
+                                    <input type="date" name="fBookingTime" class="col-md-8" id="bookingTime" />
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">數量:</span>
-                                    <input type="number" name="fQuantity" class="col-md-8" id="quantity" disabled/>
+                                    <input type="number" name="fQuantity" class="col-md-8" id="quantity" disabled />
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">價格</span>
@@ -119,8 +119,6 @@
     @section Scripts{
         <script>
 
-
-
             let divproduct = document.querySelector("#productList");
             const supplier = document.querySelector("#Supplier");
         const roomtype = document.querySelector("#sel_roomtype");
@@ -133,17 +131,18 @@
 
             quantity.setAttribute("disabled", true);
             quantity.value = 1;
+            tbody.textContent = "";
+            ticket.textContent = "";
+            let optionf = new Option;
+            optionf.textContent = "請選擇人數";
+            optionf.value = 0;
+            optionf.setAttribute("data-price", "-");
+            ticket.appendChild(optionf);
 
             let jticket = await fetch('@Url.Content("~/Live/gettickets")' + `?prodid=${this.options[this.selectedIndex].value}`);
 
             let tickets = await jticket.json();
-            console.log(tickets);
             let frag = document.createDocumentFragment();
-            ticket.textContent = "";
-            let optionf = new Option;
-            optionf.textContent = "請選擇人數";
-            optionf.setAttribute("data-price", "-");
-            ticket.appendChild(optionf);
             for (let i = 0; i < tickets.length; i++) {
                 let option = new Option;
                 option.value = tickets[i].ticketid;
@@ -202,7 +201,6 @@
                 let div4_3 = document.createElement("div");
                 let div4_4 = document.createElement("div");
                 let img1 = document.createElement("img");
-                let p1 = document.createElement("p");
                 let h4 = document.createElement("h4");
                 //let a1 = document.createElement("a");
                 let i = document.createElement("i");
@@ -213,10 +211,7 @@
                 div3.className = "position-relative";
                 img1.className = "img-fluid";
                 img1.src = `/img/${item.getPhotoPath}`;
-                p1.className = "position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4";
-                p1.innerText = `使用期限至 ${item.FEndTime}`;
                 div3.appendChild(img1);
-                div3.appendChild(p1);
                 div4.className = "p-4 mt-2";
                 div4_1.className = "d-flex mb-3";
                 for (var s = 1; s <= 4; s++) {
@@ -264,20 +259,33 @@
 
         toCart.addEventListener("click", async function () {
 
-            //this.preventDefault();
             event.preventDefault();
             console.log(event);
+            let bookingTime = document.querySelector("#bookingTime");
 
-            let cartform = new FormData(document.AddToCartForm)
+            if (roomtype.options[roomtype.selectedIndex].value == 0) {
+                alert("請選擇房型");
+            }
+            else if (ticket.options[ticket.selectedIndex].value == 0) {
+                alert("請選擇人數");
+            }
+            else if (bookingTime.value == "") {
+                alert("請選擇日期");
+            }
+            else if (quantity.value == "" || quantity.value == 0) {
+                alert("請輸入數量");
+            }
+            else {
+                let cartform = new FormData(document.AddToCartForm)
 
-            let jresponce = await fetch("AddToCart", {
-                body: cartform,
-                method: "POST",
-            })
-            let responce = await jresponce.json();
-            console.log(responce)
-            alert(responce);
-
+                let jresponce = await fetch("AddToCart", {
+                    body: cartform,
+                    method: "POST",
+                })
+                let responce = await jresponce.json();
+                console.log(responce)
+                alert(responce);
+            }
         });
 
 
@@ -285,10 +293,28 @@
 
         let tbody = document.querySelector("#tbcalender");
 
-        const Now = new Date();
+            const Now = new Date();
+            const year = Now.getFullYear();
+            let month = Now.getMonth();
+            let date = Now.getDate();
         let NowYear = Now.getFullYear();
         let NowMonth = Now.getMonth();
         let NowDate = Now.getDate();
+
+
+            //日期物件設定不能選取今日以前
+            if (date < 10) {
+                date = `0${date}`;
+                console.log(date)
+            }
+            if (month < 9) {
+
+                month = `0${month + 1}`;
+                console.log(month)
+            }
+            document.querySelector("#bookingTime").min = `${Now.getFullYear()}-${month}-${date}`;
+
+
 
         //console.log(Now);
         //console.log(NowYear);
@@ -329,7 +355,10 @@
                             ctd.setAttribute("data-year", `${NowYear}`)
                             ctd.setAttribute("data-month", `${NowMonth + 1}`)
                             ctd.setAttribute("data-day", `${day}`)
+                            let checkdate = new Date(`${NowYear}-${NowMonth + 1}-${day}`);
+
                             if (index < datas.length && datas[index].day == day) {
+                                ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
                                 index++;
                             }
@@ -366,19 +395,21 @@
 
         $("#tbcalender").on("click", "td", function (event) {
             console.log(event.currentTarget);
-            let takeyear = event.currentTarget.getAttribute("data-year");
-            let takemonth = event.currentTarget.getAttribute("data-month");
-            let takeday = event.currentTarget.getAttribute("data-day");
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                let takeyear = event.currentTarget.getAttribute("data-year");
+                let takemonth = event.currentTarget.getAttribute("data-month");
+                let takeday = event.currentTarget.getAttribute("data-day");
 
-            if (takemonth < 10) {
-                takemonth = `0${takemonth}`;
-            }
-            if (takeday < 10) {
-                takeday = `0${takeday}`
-            }
-            let takedate = `${takeyear}-${takemonth}-${takeday}`;
+                if (takemonth < 10) {
+                    takemonth = `0${takemonth}`;
+                }
+                if (takeday < 10) {
+                    takeday = `0${takeday}`
+                }
+                let takedate = `${takeyear}-${takemonth}-${takeday}`;
 
-            $("#bookingTime").val(takedate);
+                $("#bookingTime").val(takedate);
+            }
         })
 
         //=====================================
@@ -401,7 +432,7 @@
                     lbprice.textContent = `NT$ ${this.value * ticket.options[ticket.selectedIndex].getAttribute("data-price")} 元`;
                 }
                 //console.log(this.value);
-                
+
             })
 
         </script>
