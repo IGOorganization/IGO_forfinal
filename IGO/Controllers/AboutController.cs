@@ -22,17 +22,56 @@ namespace IGO.Controllers
             return View();
         }
 
-        
+
+        [HttpPost]
+
+        public ActionResult Helper(string FHelperTitle, int FHelperId)
+        {
+            ViewBag.Message = "搜尋" + FHelperTitle + "ID:" + FHelperId;
+
+            return View();
+        }
+
+        public IActionResult Helper()
+        {
+            return View();
+        }
+
 
         public IActionResult HelpByAccount()
         {
             return View();
         }
-        public IActionResult HelpByAccountDetail_1()
+        
+
+
+        public IActionResult HelpByPayment()
         {
             return View();
         }
-       
+
+
+        public IActionResult HelpByBuyProcess()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByTravel()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByUsage()
+        {
+            return View();
+        }
+
+
+
+        public IActionResult HelpByCancel()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
@@ -61,23 +100,135 @@ namespace IGO.Controllers
        
 
 
-        [HttpPost]
+        
 
-        public ActionResult Helper(string FHelperTitle, int FHelperId)
-        {
-            ViewBag.Message = "搜尋" + FHelperTitle + "ID:" + FHelperId;
-           
-            return View();
-        }
 
-        public IActionResult Helper()
+        public IActionResult HelpByAccountDetail_1()
         {
             return View();
         }
 
+        public IActionResult HelpByAccountDetail_2()
+        {
+            return View();
+        }
 
-       
+        public IActionResult HelpByAccountDetail_3()
+        {
+            return View();
+        }
 
+        public IActionResult HelpByAccountDetail_4()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByAccountDetail_5()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByPaymentDetail_1()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByPaymentDetail_2()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByPaymentDetail_3()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByPaymentDetail_4()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByBuyProcessDetail_1()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByBuyProcessDetail_2()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByBuyProcessDetail_3()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByBuyProcessDetail_4()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByBuyProcessDetail_5()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByBuyProcessDetail_6()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByBuyProcessDetail_7()
+        {
+            return View();
+        }
+
+
+        public IActionResult HelpByTravelDetail_1()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByTravelDetail_2()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByTravelDetail_3()
+        {
+            return View();
+        }
+        public IActionResult HelpByTravelDetail_4()
+        {
+            return View();
+        }
+        public IActionResult HelpByTravelDetail_5()
+        {
+            return View();
+        }
+
+
+
+        public IActionResult HelpByCancelDetail_1()
+        {
+            return View();
+        }
+
+        public IActionResult HelpByCancelDetail_2()
+        {
+            return View();
+        }
+        public IActionResult HelpByCancelDetail_3()
+        {
+            return View();
+        }
 
     }
 }

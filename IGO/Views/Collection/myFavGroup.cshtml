@@ -1,60 +1,127 @@
-﻿@model IEnumerable<IGO.Models.TCollectionGroup>
+﻿@model IGO.Models.TCustomer
+@using IGO.Controllers
 
 @{
     ViewData["Title"] = "myFavGroup";
 }
 
 
-<body>
+<div class="container-xxl bg-light p-0">
+    <div class="container">
+        <form >
+            <div class="bg-white shadow" style="padding: 35px;">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div>
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <hr />
+                                <div class=" card-title text-center">
+                                    <input type="hidden" value="@Model.FCustomerId" id="customerID"/>
+                                    
+                                        if (CustomerController.imgpath == null)
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
 
-    <br />
-    <br />
-    <h4>只有你可以看到自己的收藏內容。</h4>
-    <p>
-        <a asp-action="CreateGroup">新增收藏分類</a>
-    </p>
+                                        }
+                                        else
+                                        {
+                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
+
+                                        }
+                                    }
+                                </div>
+                                <label class="text-center">
+                                    <button  type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
+                                        <i title="" class="fa fa-camera">  頭貼修改  </i>
+                                    </button>
+                                </label>
+                                <hr />
+                                <div class="card-body">
+                                    <h4 class="text-primary text-center ">@CustomerController.userName</h4>
+                                </div>
+                            </div>
+                            <!--============================================這邊加入超連結======================================================================================-->
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-dark">
+                                        <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen"> 個人資訊</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-key"> 修改密碼</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                    </li>
+                                    <li class="list-group-item ">
+                                        @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                    <li class="list-group-item">
+                                        @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                    <li class="list-group-item ">
+                                        @Html.ActionLink("我的評論", "CommentList", "Comment", new { }, new { /* id=item.PrimaryKey */ })
+                                    </li>
+                                </ul>
+                                <div class="card-body text-end ">
+                                    <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                                </div>
+                            </div>
+                            <!--============================================這邊加入超連結======================================================================================-->
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="border">
+                            <div class="card-header bg-dark">
+                                <h1 class="text-primary">我的收藏</h1>
+                            </div>
+                            <div class="border-top-0">
+                                <div class="bg-white shadow" style="padding: 35px;">
+                                    <div class="tab-content"id="collectionSpace" >
+
+                                        <h4>只有你可以看到自己的收藏內容。</h4>
+                                        <p>
+                                            <a asp-action="CreateGroup">新增收藏分類</a>
+                                        </p>
+
+                                        <div id="groupSpace">
+                                            @*
+                                                群組物件
+
+                                                <div class="card" style="width: 18rem; display: inline-block;">
+                                                    <img src="/img/a-1.jpg" class="card-img-top" alt="...">
+                                                    <div class="card-body">
+                                                        <p class="card-text">@item.FCollectionGroupName</p>
+                                                    </div>
+                                                </div>
+                                            *@
+                                        </div>
+
+                                        <br />
 
 
 
+                                        <div class="card" style="width: 18rem; display: inline-block;">
+                                            <img src="/img/a-1.jpg" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <button class="btn btn-warning" id="totalcollection">所有收藏</button>
+                                            </div>
+                                        </div>
 
-
-    @foreach (var item in Model)
-    {
-
-        <div class="card" style="width: 18rem; display: inline-block;">
-            <img src="/img/a-1.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">@item.FCollectionGroupName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    }
-
-
-    <br />
-
-
-
-    <div class="card" style="width: 18rem; display: inline-block;">
-        <img src="/img/a-1.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <p class="card-text"><a href="/Collection/MyFavList">所有收藏</a></p>
-        </div>
+        </form>
     </div>
+</div>
 
 
-
-</body>
-
-
-@section Scripts {
-
-    <script>
-
-    </script>
-}
 
 @*Bottom*@
-<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s" id="full-1">
+<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
     <div class="row justify-content-center">
         <div @*class="col-lg-10 border rounded p-1"*@>
             <div @*class="border rounded text-center p-1"*@>
@@ -69,5 +136,210 @@
         </div>
     </div>
 </div>
-
 @*Bottom*@
+
+@section Scripts{
+    <script>
+        const userid = document.querySelector("#customerID").value;
+        //console.log(userid);
+        showGroupList();
+
+
+
+
+
+        //===========取得收藏群組清單===============
+        async function getGroup() {
+
+            let jgroup = await fetch('@Url.Content("~/Collection/getGroup")');
+
+            let group = await jgroup.json();
+            //console.log(group);
+
+            return group;
+        }
+
+        //===========顯示收藏群組清單================
+
+        async function showGroupList() {
+
+            let group = await getGroup();
+            console.log(group);
+            let space = document.querySelector("#groupSpace");
+            let frag = document.createDocumentFragment();
+
+            group.forEach(item => {
+                let div1 = document.createElement("div");
+                let img1 = document.createElement("img");
+                let div2 = document.createElement("div");
+                let button = document.createElement("button");
+
+                div1.className = "card";
+                div1.style = "width: 18rem; display: inline-block;";
+
+                img1.src = "/img/a-1.jpg";
+                img1.className = "card-img-top";
+
+                div2.className = "card-body";
+
+                button.className = "btn btn-warning";
+                button.textContent = item.FCollectionGroupName;
+                button.id = `group${item.FCollectionGroupId}`;
+                button.setAttribute("data-ToGroupDetail", item.FCollectionGroupId)
+
+                div2.appendChild(button);
+                div1.appendChild(img1);
+                div1.appendChild(div2);
+                frag.appendChild(div1);
+            })
+            space.appendChild(frag);
+        }
+
+
+        //取得所有收藏===============
+        let collectionspace = document.querySelector("#collectionSpace");
+
+        let total = document.querySelector("#totalcollection")
+
+        total.addEventListener("click", async function (event) {
+            event.preventDefault();
+            console.log(event);
+
+            let group = await getGroup();
+
+            let s = '<option value="0">請選擇收藏群組</option>'
+            group.forEach(o => {
+                s += `<option value="${o.FCollectionGroupId}">${o.FCollectionGroupName}</option>`
+            })
+
+            let jproducts = await fetch('@Url.Content("~/Collection/myFavList")' + `?id=${userid}`);
+
+            let products = await jproducts.json();
+
+            console.log(products);
+            let frag = document.createDocumentFragment();
+            collectionspace.textContent = "";
+
+
+            products.forEach(item => {
+
+                let div1 = document.createElement("div");
+                let div2 = document.createElement("div");
+                let div3 = document.createElement("div");
+                let div4_1 = document.createElement("div");
+                let img = document.createElement("img");
+                let div4_2 = document.createElement("div");
+                let div5 = document.createElement("div");
+                let h5 = document.createElement("h5");
+                let p1 = document.createElement("p");
+                let label = document.createElement("label");
+                let i = document.createElement("i");
+                let selects = document.createElement("select");
+
+                div1.id = "div1";
+                div2.className = "card border-warning mb-3";
+                div2.style = "max-width: 840px; height: 270px; background-color: white";
+
+
+                div3.className = "row g-0";
+                div4_1.className = "col-md-4";
+                img.src = `/img/${item.VMproduct.getPhotoPath}`;
+                img.className = "img-fluid rounded-start";
+                img.style = "height:270px;display:block; margin:auto;";
+                div4_2.className = "col-md-8";
+                div5.className = "card-body";
+                h5.className = "card-title";
+                h5.style = "display:inline-block";
+                h5.textContent = item.VMproduct.FProductName;
+                i.className = "fa-solid fa-heart";
+                i.style = "color:red";
+                i.setAttribute("data-id", item.VMproduct.FProductId);
+                selects.setAttribute("data-content", item.collectionid)
+                selects.setAttribute("data-id", item.VMproduct.FProductId);
+                selects.className = "float-lg-end";
+                selects.innerHTML = s;
+                console.log(selects);
+
+                p1.className = "card-text";
+                p1.textContent = item.FIntroduction;
+
+                div5.appendChild(h5);
+                div5.appendChild(i);
+                div5.appendChild(selects);
+                div5.appendChild(p1);
+                div4_2.appendChild(div5);
+                div4_1.appendChild(img);
+                div3.appendChild(div4_1);
+                div3.appendChild(div4_2);
+                div2.appendChild(div3);
+                div1.appendChild(div2);
+                frag.appendChild(div1);
+
+            })
+            collectionspace.appendChild(frag);
+        })
+
+        //=============================取得個別收藏===============
+
+        @*async function showGroupDetail() {
+
+
+            let space = document.querySelector("#groupSpace");
+            let part = document.querySelector("button.btn btn-warning");
+            let jgroupde = await fetch('@Url.Content("~/Collection/myFavGroupDetail")' + `?id=${FCollectionGroupId}`);
+
+            let groupde = await jgroupde.json();
+            console.log(groupde);
+
+          
+
+            //console.log(part);
+            //space.addEventListener("click", async function (event) {
+
+
+            //    event.preventDefault();
+            //    console.log(event);
+
+
+
+
+
+            //})
+        }
+
+        showGroupDetail();*@
+
+        //=================================刪除收藏
+        $("#collectionSpace").on("click", "i", async function (event) {
+
+            let jresult = await fetch('@Url.Content("~/Collection/_UnFav")' + `?id=${event.currentTarget.getAttribute("data-id")}`);
+
+            let result = jresult.json();
+            if (result != null) {
+                $(event.currentTarget).parentsUntil("#div1").remove();
+            } else {
+                alert("刪除失敗");
+            }
+
+        })
+
+        //=================================取得收藏群組下拉式選單
+        $("#collectionSpace").on("change", "select", async function (event) {
+
+            console.log(event.currentTarget.getAttribute("data-content"));
+            console.log(event.currentTarget.options[event.currentTarget.selectedIndex].value);
+            let jdata = await fetch('@Url.Content("~/Collection/CreateDetail")' + `?id=${event.currentTarget.getAttribute("data-content")}` + `&selectedid=${event.currentTarget.options[event.currentTarget.selectedIndex].value}`);
+            let data = await jdata.json();
+
+            alert(data);
+
+        })
+
+
+
+
+    </script>
+}
+
+
+
