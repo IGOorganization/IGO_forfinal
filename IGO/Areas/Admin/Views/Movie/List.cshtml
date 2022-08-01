@@ -1,0 +1,147 @@
+﻿@model List<TMovie>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">電影列表</h6>
+            <form class="d-none d-md-flex ms-4">
+                <div class="col-md-3">
+                    <input class="form-control bg-dark border-0 " type="search" name="searchName" value="@ViewBag.SearchName" placeholder="輸入電影名稱">
+                    <input class="btn btn-secondary m-2" type="submit" value="搜尋" />
+                    <button class="btn btn-secondary m-2 float-lg-end" type="button"
+                            onclick="showAdd()"
+                            data-bs-toggle="modal" data-bs-target="#modalMoive">
+                        新增
+                    </button>
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">序號</th>
+                            <th scope="col">中文名稱</th>
+                            <th scope="col">英文名稱</th>
+                            <th scope="col">類型</th>
+                            <th scope="col">時長</th>
+                            <th scope="col">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*電影組*@
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@item.MovieId</th>
+                                <td>@item.Cname</td>
+                                <td>@item.Ename</td>
+                                <td>@item.Type</td>
+                                <td>@item.Time</td>
+                                <td>@item.Description</td>
+                                <td>
+                                    <button type="button" class="btn btn-success m-2" style="font-size:0.8em" onclick="showEdit('@(item.MovieId)')">編輯</button>
+                                    <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" onclick="doDelete('@(item.MovieId)')">刪除</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalMoive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="popup_title">
+                    電影新增/儲存作業
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-secondary rounded p-4">
+                                <form id="modalForm">
+                                    <input type="hidden" name="MovieId" value="0" />
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                中文名稱
+                                                <input type="text" class="form-control" name="Cname">
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                英文名稱
+                                                <input type="text" class="form-control" name="Ename">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                類型
+                                                <input type="text" class="form-control" name="Type">
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                時長
+                                                <input type="number" class="form-control" name="Time">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-12 mb-3">
+                                            <label class="form-label">描述</label>
+                                            <textarea class="form-control" name="Description" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-12 mb-3">
+                                            <label class="form-label">檔案上傳</label>
+                                            <button type="button" class="btn btn-info m-2" onclick="appendImg('', '', '')">新增上傳區塊</button>
+                                            <div class="row" id="photoContainer">
+                                                <div class="col-sm-12 col-xl-12" id="photoSub##fProductPhotoID##">
+                                                    <input type="hidden" name="PhotoIDList" value="##fProductPhotoID##" />
+                                                    <button type="button" class="btn btn-danger m-2" style="font-size:0.8em; ##img_style##" onclick="doDeleteImg('##fProductPhotoID##')">
+                                                        <i class="bi bi-trash"></i>
+                                                        刪除圖片
+                                                    </button>
+                                                    <input type="file" class="form-control" name="Photo" style="##no_img_style##" accept="image/*" />
+                                                    <a href="##fPhotoPath##" target="_blank" style="##img_style##">##fPhotoName##</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-primary" id="btn_popup" onclick="mutation()">新增/儲存</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        function showAdd() {
+            data = {
+                Cname=$('[name=Cname]').val(),
+                Ename=$('[name=Ename]').val(),
+                Type=$('[name=Type]').val(),
+                Time=$('[name=Time]').val(),
+                Description=$('[name=Description]').val()
+            }
+
+        }
+
+    </script>
+}

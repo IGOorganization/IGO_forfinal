@@ -11,9 +11,9 @@
     </style>
 }
 
-<div class="row" style="padding-top:1rem">
+<div class="row" style="padding-top:1rem;margin-left:20px">
     <h3 class="fw-bold">@Model.Item1.Cname</h3>
-    <div class="col-md-5 col-sm-12">
+    <div  class="col-md-5 col-sm-12">
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 @for (int i = 0; i < Model.Item1.PhotoPathList.Count; i++)
@@ -27,7 +27,7 @@
                     foreach (string path in Model.Item1.PhotoPathList)
                     {
                         <div class="carousel-item text-center @(index == 0 ? "active" : "") ">
-                            <img class="photo-fit" src="@path" />
+                            <img class="photo-fit" src="@path"/>
                         </div>
                         index++;
                     }
@@ -51,6 +51,7 @@
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
                             <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat();ChangAddress()">
+                                <option>請選擇影城</option>
                                 @foreach (var a in Model.Item2)
                                 {
                                     <option value="@a.FSupplierId">@a.FCompanyName</option>
@@ -202,10 +203,9 @@
                 <hr />
                 <h3 class="fw-bold text-primary"><u>影城地址</u></h3>
                 <div class="row">
-                    <p style="font-size: 1.3em" id="Address">台北市中正區八德路一段1號</p>
+                    <p style="font-size: 1.3em" id="Address"></p>
                 </div>
-                <div class="row">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.705260463208!2d121.52716961400287!3d25.04407464404373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96523e0246d%3A0xf1c9276707165c71!2z6I-v5bGxMTkxNOaWh-WMluWJteaEj-eUoualreWckuWNgA!5e0!3m2!1szh-TW!2stw!4v1657453804944!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="row" id="map" style="height:600px;width:800px;" hidden>
                 </div>
 
             </div>
@@ -373,6 +373,64 @@
 {
 
     <script>
+
+        //地圖=====================================================================
+        let map1;
+
+        let place;
+
+        function initMap(t, g) {
+            map1 = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: t, lng: g },
+                zoom: 18,
+                maxZoom: 20,
+                minZoom: 2,
+            });
+        }
+        $(document).ready(function () {
+            mapping();
+        });
+        function setMarker(t, g) {
+            const marker = new google.maps.Marker({
+                position: { lat: t, lng: g },
+                map: map1
+            });
+        }
+
+        function mapping(addr) {
+
+            const geocoder = new google.maps.Geocoder();
+
+            //console.log("AA");
+            //console.log(addr);
+
+            let lat1, lng1;
+
+            geocoder.geocode({
+                "address": addr, componentRestrictions: { country: "TW" }
+            }, function (results, status) {
+                if (status == "OK") {
+                    console.log(results);
+
+                    console.log(results[0].geometry.viewport.Sa.hi);
+                    console.log(results[0].geometry.viewport.vb.hi);
+
+                    lat1 = results[0].geometry.viewport.vb.hi;
+                    lng1 = results[0].geometry.viewport.Sa.hi;
+
+                    initMap(lat1, lng1);
+
+                    // 建立地標
+                    setMarker(lat1, lng1);
+                } else {
+                    //console.log(status);
+                }
+
+            });
+
+        }
+        //地圖=====================================================================
+
         let movieLenth = 0;
         let total =@Model.Item4.Count;
 
@@ -409,6 +467,12 @@
                 success: function (res) {
                     console.log(res);
                     $("#Address").text(res);
+                    if (res == " ") {
+                        document.querySelector("#map").setAttribute("hidden", true);
+                    } else {
+                        document.querySelector("#map").removeAttribute("hidden");
+                        mapping(res);
+                    }
                 },
                 error: function (res) { }
             })
