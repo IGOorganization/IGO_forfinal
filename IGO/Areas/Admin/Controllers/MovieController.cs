@@ -19,7 +19,7 @@ namespace IGO.Areas.Admin.Controllers
         {
             this._igodb = db;
         }
-        public IActionResult Index(string searchName)
+        public IActionResult List(string searchName)
         {
 
             List<TMovie> movies = _igodb.TMovies.Select(x => x).ToList();

@@ -169,6 +169,8 @@ namespace IGO.Controllers
 
         public JsonResult ChangAddress(int supplierID)
         {
+            if (supplierID == 0)
+            { return Json(' '); }
             string Address = (_dbIgo.TSuppliers.FirstOrDefault(x => x.FSupplierId == supplierID)).FAddress.ToString();
             return Json(Address);
         }
