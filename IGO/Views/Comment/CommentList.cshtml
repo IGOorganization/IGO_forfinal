@@ -16,14 +16,14 @@
                         <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
                             <hr />
                             <div class=" card-title text-center">
-                                @*@{ if (CustomerController.imgpath == null)
+                                @{ if (CustomerController.imgpath == null)
                                         {
                                              <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg"> }
                                         else
                                         {
                                             <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
                                         }
-                                    }*@
+                                    }
                             </div>
                             <div class="card-body">
                                 <h4 class="text-primary text-center ">@*@CustomerController.userName*@</h4>
@@ -67,9 +67,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="col-lg-2">
+                                    @*<th class="col-lg-2">
                                         產品圖片
-                                    </th>
+                                    </th>*@
                                     <th class="col-lg-2">
                                         產品名稱
                                     </th>
@@ -91,10 +91,11 @@
                                     {
                                         count++;
                                         <tr>
-                                            <td>
+                                            @*<td>
                                                 <img width="160"height="90" src="~/img/@item.ProductImage"/>
-                                            </td>
+                                            </td>*@
                                             <td>
+                                                
                                                 @*@Html.DisplayFor(modelItem => item.FProductId)*@
                                                 @Html.DisplayFor(modelItem => item.product.FProductName)
                                             </td>
