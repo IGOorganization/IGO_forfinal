@@ -129,7 +129,7 @@ namespace IGO.Controllers
             ViewData["CustomerURL"] = ""; //商店取號網址
             ViewData["NotifyURL"] = ""; //支付通知網址
                                         //ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}{Request.Path}"; //返回商店網址
-            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/ShoppingCart/Finish/{SessionId}"; //返回商店網址
+            ViewData["ClientBackURL"] = $"{Request.Scheme}://{Request.Host}/Home/Home"; //返回商店網址
 
             //=======================================預設金流變數=========================================
 
@@ -296,7 +296,7 @@ namespace IGO.Controllers
                 shoppingCartViewModel.shoppingCart = data;
                 Price += (int)data.FTotalPrice;
                 lists.Add(shoppingCartViewModel);
-
+				_dbIgo.TShoppingCarts.Remove(data); //刪除結帳的東西
             };
 			//=================================將購買商品存入tOrders=====================================
 			int OrderNum =_dbIgo.TOrders.Where(c => c.FCustomerId == sessionData.UserId).Count();
@@ -341,6 +341,8 @@ namespace IGO.Controllers
                 _dbIgo.TOrderDetails.Add(orderDetail);
             }
             _dbIgo.SaveChanges();
+			//==============================刪除SHOPPINGCART結帳的單子==================================
+			
 
 			//===============================產生QRCODE=================================================
 			int TicketCount = _dbIgo.TOrderDetails.Where(c => c.FOrderId == LatestOrderId).Count();
