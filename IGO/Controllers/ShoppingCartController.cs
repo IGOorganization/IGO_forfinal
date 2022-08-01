@@ -369,7 +369,7 @@ namespace IGO.Controllers
             //----------------------------------------------------------寄信------------------------------------------
             MailMessage em = new MailMessage();
             em.From = new System.Net.Mail.MailAddress("igocompanysender@gmail.com");
-            em.To.Add("zeroqazggc0504@gmail.com");
+            em.To.Add("igocompanysender@gmail.com");  /*8/1 宜潔修改收件者email*/
             em.SubjectEncoding = System.Text.Encoding.UTF8;
             em.BodyEncoding = System.Text.Encoding.UTF8;
             em.Subject = "IGO訂單已成立";
