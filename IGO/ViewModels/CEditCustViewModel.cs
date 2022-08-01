@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace IGO.ViewModels
 {
-    public class CCustomerViewModel
+    public class CEditCustViewModel
     {
         private TCustomer _cust;
 
-        public CCustomerViewModel()
+        public CEditCustViewModel()
         {
             _cust = new TCustomer();
         }
@@ -24,6 +24,15 @@ namespace IGO.ViewModels
             set { _cust = value; }
         }
 
+        [DisplayName("手機號碼(IGO帳號)")]
+        [Required(ErrorMessage = "請填寫手機號碼，不可為空白")]
+        [RegularExpression(@"^[0]{1}[9]{1}[0-9]{8}$", ErrorMessage = "手機格式有誤，請正確填寫")]
+        public string FPhone
+        {
+            get { return _cust.FPhone; }
+            set { _cust.FPhone = value; }
+        }
+
         [DisplayName("會員序號")]
         public int FCustomerId
         {
@@ -31,37 +40,23 @@ namespace IGO.ViewModels
             set { _cust.FCustomerId = value; }
         }
 
-        [DisplayName("IGO帳號 (手機號碼)")]
-        [Required(ErrorMessage = "不可為空")]
-        [RegularExpression(@"^[0]{1}[9]{1}[0-9]{8}$", ErrorMessage = "手機格式有誤")]
-
-        public string FPhone
-        {
-            get { return _cust.FPhone; }
-            set { _cust.FPhone = value; }
-        }
-
-
         [DisplayName("密碼")]
-        [Required(ErrorMessage = "不可為空")]
-        [RegularExpression(@"^[a-zA-Z0-9]{8,50}$", ErrorMessage = "密碼格式有誤")]
+        [Required]
         public string FPassword
         {
             get { return _cust.FPassword; }
             set { _cust.FPassword = value; }
         }
 
-        [DisplayName("Email")]
-        [Required(ErrorMessage = "不可為空")]
-        [StringLength(50, ErrorMessage = "不得超過50字元")]
-        [EmailAddress(ErrorMessage = "Email格式有誤")]
-        public string FEmail
+
+        [DisplayName("地址")]
+        public string FAddress
         {
-            get { return _cust.FEmail; }
-            set { _cust.FEmail = value; }
+            get { return _cust.FAddress; }
+            set { _cust.FAddress = value; }
         }
 
-        [DisplayName("姓氏(LastName)")]
+        [DisplayName("姓氏")]
         [Required(ErrorMessage = "不可為空")]
         public string FLastName
         {
@@ -69,7 +64,7 @@ namespace IGO.ViewModels
             set { _cust.FLastName = value; }
         }
 
-        [DisplayName("名字(FirstName)")]
+        [DisplayName("名字")]
         [Required(ErrorMessage = "不可為空")]
         public string FFirstName
         {
@@ -77,6 +72,15 @@ namespace IGO.ViewModels
             set { _cust.FFirstName = value; }
         }
 
+        [DisplayName("電子郵件")]
+        [Required(ErrorMessage = "不可為空")]
+        [StringLength(50, ErrorMessage = "不得超過50字元")]
+        [EmailAddress(ErrorMessage = "Email格式有誤")]
+        public string FEmail
+        {
+            get { return _cust.FEmail; }
+            set { _cust.FEmail = value; }
+        }       
 
         [DisplayName("性別")]
         public string FGender
@@ -90,19 +94,6 @@ namespace IGO.ViewModels
         {
             get { return _cust.FBirth; }
             set { _cust.FBirth = value; }
-        }
-        [DisplayName("地區")]
-        public int? FCityId
-        {
-            get { return _cust.FCityId; }
-            set { _cust.FCityId = value; }
-        }
-
-        [DisplayName("地址")]
-        public string FAddress
-        {
-            get { return _cust.FAddress; }
-            set { _cust.FAddress = value; }
         }
 
         [DisplayName("註冊日期")]
@@ -119,27 +110,13 @@ namespace IGO.ViewModels
             set { _cust.FUserPhoto = value; }
         }
 
-        public IFormFile photo { get; set; }
+        public IFormFile photo {get;set;}
 
         public bool RememberMe { get; set; }
         public string ReturnUrl { get; set; }
-
-        [DisplayName("舊密碼")]
-        [Required(ErrorMessage = "不可為空")]
-        [Compare("txtPassword", ErrorMessage = "")]
         public string firstPassword { get; set; }
-
-        [DisplayName("新密碼")]
-        [Required(ErrorMessage = "不可為空")]
-        [Compare("txtPassword", ErrorMessage = "新密碼不能與原本相同")]
-        public string newPassword { get; set; }
-
-
-        [DisplayName("確認密碼")]
-        [Required(ErrorMessage = "不可為空")]
-        [Compare("txtPassword", ErrorMessage = "密碼不一致")]
         public string confirmPassword { get; set; }
     }
 
-
+    
 }
