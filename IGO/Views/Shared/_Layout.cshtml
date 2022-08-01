@@ -1,4 +1,6 @@
 ﻿@using IGO.Controllers
+@using Microsoft.AspNetCore.Http
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +65,7 @@
             font-size: 150%;
             color: orange;
         }
+
         .face-fix {
             position: fixed;
             right: 5px;
@@ -157,6 +160,8 @@
                     @{
                         if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                         {
+                            @*7/30修改畫面格式*@
+                            <div class="col-lg-1 px-5"></div>
                             <div class="navbar-nav navbar-right mr-auto py-0 dropdown">
                                 <a class="btn dropdown-toggle nav-item nav-link" href="/Customer/Index" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     @if (CustomerController.imgpath == null)
@@ -187,6 +192,8 @@
                         }
                         else
                         {
+                            @*7/30修改畫面格式*@
+                            <div class="col-lg-1 px-5"></div>
                             @*7/28刪掉登入的框線*@
                             <div class="navbar-nav navbar-right mr-auto py-0 ">
                                 <button type="button" class="btn btn-lg text-warning" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -269,7 +276,8 @@
                     <div class="d-flex pt-5">
                         <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://www.instagram.com/igo_taiwan/" style="font-size:150%"><i class="fa-brands fa-instagram-square"></i></a>
                         <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-facebook-square"></i></a>
-                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
+                        @*7/29宜潔新增line的連結*@
+                        <a class="btn btn-outline-light btn-social m-4 text-primary" href="https://liff.line.me/1645278921-kWRPP32q/?accountId=420bidid" style="font-size:150%"><i class="fa-brands fa-line"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-12 justify-content-xxl-center">
@@ -682,13 +690,7 @@
                 alert('傳送錯誤: ' + err.toString());
             });
         });
-
-
-
-
-
     </script>
-
 
     <!-- ========================= 登入系統用============================ script -->
     <script>

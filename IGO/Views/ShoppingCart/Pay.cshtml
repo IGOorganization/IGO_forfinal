@@ -109,7 +109,7 @@
 
                         </tr>
 
-                        Total +=(int)item.FTotalPrice;
+                        Total += (int)item.FTotalPrice;
                     }
                 }
             </tbody>
@@ -118,34 +118,38 @@
     </div>
     <h6>優惠券折抵</h6>
     <div class="card p-5" style="margin-bottom:2%;">
-
-        @*<div class="col-md-4">
-            <label for="inputCoupon" class="form-label">優惠券代碼</label>
-            <div style="display:flex;">
-                <input type="text" class="form-control" id="inputCoupon">
-                <input type="button" name="btnCoupon" class="btn btn-light" style="font-family:Arial;color:brown;margin-left:10px;" value="確定" />
-            </div>
-        </div>*@
-        <!-- Button trigger modal -->
         <div class="col-md-4">
             <button type="button" class="btn btn-light btn-lg" style="color:brown" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 查詢優惠券
             </button>
-
+            <span id="voucherAppear">未使用任何優惠券</span>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">優惠券</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            ...
+                            @{
+                                foreach (var item in Model.FirstOrDefault().voucher)
+                                {
+                                    <div class="card">
+                                        <h5 class="card-header">@item.FVoucherName</h5>
+                                        <div class="card-body">
+                                            <h5 class="card-title">現金@((int)item.FVoucherPrice)元折價券</h5>
+                                            <p class="card-text">截止日期:@(item.FVoucherEndDate)</p>
+                                            <button class="btn btn-primary" data-value="@((int)item.FVoucherPrice)" id="btnVoucher" style="float:right">使用</button>
+                                        </div>
+                                    </div>
+                                }
+                            }
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light btn-lg">確認</button>
-                            <button type="button" class="btn btn-light btn-lg" data-bs-dismiss="modal">關閉</button>
+                            <p id="voucherPrice">未使用任何票券</p>
+                            <button type="button" class="btn btn-light btn-lg" id="voucherConfirm" data-bs-dismiss="modal">確認</button>
+
 
                         </div>
                     </div>
@@ -159,52 +163,8 @@
 
         </div>
 
-        @*-------------------------------------------付款方式---------------------------------------------------*@
-        @*<h6>付款</h6>
-        <div class="card p-5" style="margin-bottom:2%;">
+     
 
-            <a data-bs-toggle="collapse" href="#collapseExample1" aria-expanded="false" id="aArrowPay" aria-controls="collapseExample">
-                <h6><i id="arrowPay" class=" fa-arrow-right fa-solid ">請選擇付款方式</i></h6>
-
-            </a>*@
-        @*<div class="row collapse" id="collapseExample1">
-        <hr>
-        <div style="display:flex;">
-            <input type="radio" checked name="name123" id="linePay" value="" />
-            <label for="linePay">LinePay</label>
-            <img style="margin-left:83px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_linepay_2.svg" class="pmch-logo linepay-point">
-        </div>
-        <hr style="margin:10px">
-
-        <div style="display:flex">
-
-            <input type="radio" name="name123" id="creditPay" data-bs-toggle="collapse" href="#collapseExample2" aria-expanded="false" aria-controls="collapseExample" />
-            <label for="creditPay" style="color: #666565;">信用卡/簽帳金融卡</label>
-            <img style="margin-left:2px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_visa.svg" class="pmch-logo pay-kind-img">
-            <img style="margin-left:2px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_master.svg" class="pmch-logo pay-kind-img">
-            <img style="margin-left:2px" src="https://cdn.kkday.com/pc-web/assets/img/payment/ic_jcb.svg" class="pmch-logo pay-kind-img">
-
-        </div>*@
-        @*<div class="row collapse" id="collapseExample2">
-            <div style="display:flex">
-                <div style="margin-right:10px">
-                    <label>信用卡號碼</label><br>
-                    <input type="text" class="form-control" name="name" value="" />
-                </div>
-                <div style="margin-right:10px">
-                    <label>有效期限</label><br>
-                    <input type="text" class="form-control" name="name" value="" />
-                </div>
-                <div>
-                    <label>背面末三碼</label><br>
-                    <input type="text" class="form-control" name="name" value="" />
-                </div>
-            </div>
-        </div>*@
-
-        @*</div>*@
-
-        @*</div>*@
         <div class="card p-3" style="margin-bottom:2%;">
             <div style="display:flex;justify-content:end">
                 <h4 style="color: #26bec9;margin-top:10px"> TWD @Total 元</h4>
@@ -238,12 +198,10 @@
 
 @section Scripts{
     <script>
-
-
             const aArrowMember = $("#aArrowMember");
             const arrowMember = $("#arrowMember");
             const aArrowPay = $("#aArrowPay");
-            const arrowPay = $("#arrowPay");
+           const arrowPay = $("#arrowPay");
             aArrowMember.click(function () {
                 arrowMember.toggleClass("fa-arrow-right fa-arrow-down");
 
@@ -252,8 +210,31 @@
                 arrowPay.toggleClass("fa-arrow-right fa-arrow-down");
 
             })
+        //==========================優惠券======================================
+        $(document).ready(function () {
+            const btnVoucher = document.querySelectorAll("#btnVoucher")   //優惠券使用按鈕
+            const voucherPrice = $("#voucherPrice") // 折價顯示
+            const voucherConfirm = $("#voucherConfirm") //優惠券確認按鈕
+            const voucherAppear = $("#voucherAppear") //優惠券顯示
+            let voucher = 0; //折價金額
+            btnVoucher.forEach(function (data) {
+                data.addEventListener("click", function () {
+                    console.log($(this).data("value"));
+                    $(btnVoucher).text("使用").prop("disabled", false);
+                    $(this).html('<i class="fa-solid fa-check"></i>');
+                    $(this).prop("disabled", true);
+                    voucherPrice.text(`現金折價${$(this).data("value")}元`);
+                    voucher = $(this).data("value");
+                });
+            })
+            //=======================票券確認================================
+            voucherConfirm.click(function () {
+                voucherAppear.text(`現金折價${voucher}元`);
 
-
+            });
+        })
+       
+    
         //===========================付款方式================================
          const app = Vue.createApp({
             data() {
@@ -269,7 +250,7 @@
                         , CustomerURL: '@ViewData["CustomerURL"]'
                         , NotifyURL: '@ViewData["NotifyURL"]'
                         , ClientBackURL: '@ViewData["ClientBackURL"]'
-                        , Email: 'zeroqazggc0504@gmail.com'
+                        , Email: 'igocompanysender@gmail.com'   /*7/31宜潔修改收件者Email為IGO*/
                     }
                 }
             }
