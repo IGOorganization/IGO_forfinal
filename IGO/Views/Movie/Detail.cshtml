@@ -11,9 +11,9 @@
     </style>
 }
 
-<div class="row" style="padding-top:1rem">
+<div class="row" style="padding-top:1rem;margin-left:20px">
     <h3 class="fw-bold">@Model.Item1.Cname</h3>
-    <div class="col-md-5 col-sm-12">
+    <div  class="col-md-5 col-sm-12">
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 @for (int i = 0; i < Model.Item1.PhotoPathList.Count; i++)
@@ -27,7 +27,7 @@
                     foreach (string path in Model.Item1.PhotoPathList)
                     {
                         <div class="carousel-item text-center @(index == 0 ? "active" : "") ">
-                            <img class="photo-fit" src="@path" />
+                            <img class="photo-fit" src="@path"/>
                         </div>
                         index++;
                     }
