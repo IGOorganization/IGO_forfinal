@@ -133,14 +133,7 @@ namespace IGO.Areas.Admin.Controllers
         }
 
         public IActionResult SentCancelOrderEmail(string lastname, string firstname, decimal totalprice)
-        //public IActionResult SentCancelOrderEmail(string[] cancelinfo)
-        {
-            //Debug.WriteLine(cancelinfo);
-            //for (int i = 0; i < cancelinfo.Length; i++) 
-            //{
-            //    cancelinfo[i]
-            //}
-
+        { 
             //7/26修改
             int year = DateTime.Now.Year;
             int month = DateTime.Now.Month;
@@ -156,23 +149,6 @@ namespace IGO.Areas.Admin.Controllers
             mail.BodyEncoding = System.Text.Encoding.UTF8;
             mail.Subject = "【顧客取消訂單】IGO ticket shop";
             // 內文
-            //mail.Body = body;
-            //mail.Body = "<html><body>" +
-            //"<h1 style='color:lightsalmon;background-color:black'>IGO</h1>" +
-            //"<hr>" +
-            //"<h4>【顧客取消訂單】</h4>" +
-            //"<h5>顧客: 戴樂古 先生/小姐</h5>" +
-            //"<h5>取消訂單編號:236</h5>" +
-            //"<h5>訂單狀態: 取消訂單</h5>" +
-            //"<h5>退款狀態: 申請退款中</h5>" +
-            //"<h5>產品名稱: 新竹芙洛麗大飯店FLEURLIS |食譜自助百匯</h5>" +
-            //"<h5>數量: 1張</h5>" +
-            //"<h5>票種: 下午茶</h5>" +
-            //"<h5>金額: $911</h5>" +
-            //"<br>" +
-            //"<h4 style='color:white;background-color:gray'>IGO 版權所有©Copyright 2022 All Rights Reserved</h4>" +
-            //"</body></html>";
-
             mail.Body = "<html><body>" +
             "<h1 style='color:lightsalmon;background-color:black'>IGO</h1>" +
             "<hr>" +
@@ -188,13 +164,15 @@ namespace IGO.Areas.Admin.Controllers
             "<h4 style='color:white;background-color:gray'>IGO 版權所有©Copyright 2022 All Rights Reserved</h5>" +
             "</body></html>";
 
+            //7/29宜潔刪除註解
+
             // 內文是否為 HTML
             mail.IsBodyHtml = true;
             // 優先權
             mail.Priority = MailPriority.Normal;
 
             System.Net.Mail.SmtpClient client = new SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "eklktfcbelgblutv");
+            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "fxlijfrpaulssvln"); //7/29宜潔更新金鑰
 
             client.Host = "smtp.gmail.com";
             client.Port = 587;

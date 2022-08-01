@@ -11,75 +11,136 @@
         }
     </style>
 }
-<ul class="nav nav-tabs mb-3 container-xxl py-5" style="margin-top:100px" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true"> 訂單狀態查詢</button>
-    </li>
-</ul>
-@*目前訂單*@
-@{ int count = 0;
-    string taq1 = "";
-    string taq2 = "";
-    string taq3 = "";
-    string taq4 = "";}
-<div class="tab-content  container-md py-5">
-    @foreach (var item in Model)
-    {
-        if (item.StatusId == 1)
-        {
-            taq1 = "btn";
-            taq2 = "btn-danger";
-            taq3 = "訂單取消申請";
-            taq4 = "btnCancel";
-        }
-        else
-        {
-            taq1 = "";
-            taq2 = "";
-            taq3 = "無法取消";
-            taq4 = "";
-        }
-        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-            <table class="table table-striped justify-content-sm-center">
-                <thead class="justify-content-sm-center">
-                    <tr align="right"> <th> 訂單日期</th> <th> 訂單編號</th> <th> 訂單狀態</th> <th> 訂購總額</th> <th> </th> </tr>
-                </thead>
-                <tbody class="justify-content-sm-center">
-                    <tr align="right"> <td> @Convert.ToDateTime(item.OrderDate) </td> <td>@item.OrderNum </td> <td>@item.StatusName </td> <td>@String.Format("{0:C0}", item.TotalPrice) </td> <td> <a class="@taq1 @taq2 @taq4" id="Order-@item.OrderId">@taq3 </a> </td> </tr>
-                    <tr>
-                        <th>
-                            <button type="button" class="btn btn-primary btnOrderdetail" data-bs-toggle="modal" data-bs-target="#exampleModal" id="Order-@item.OrderId">
-                                詳細訂單明細
-                            </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"> 訂單明細</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr> <th> 產品</th> <th> 數量</th> <th> 票種</th> <th> 金額</th> </tr>
-                                                </thead>
-                                                <tbody id="orderdetailTable-@count" class="showDetail">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Close</button>
-                                        </div>
-                                    </div>
+@*左邊大頭貼-Start*@
+<div class="container-xxl bg-light p-0">
+    <div class="container">
+        <form action="/Customer/UserData" method="post">
+            <div class="bg-white shadow" style="padding: 35px;">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div>
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <hr />
+                                <div class=" card-title text-center">
+                                    <img width="120" height="150" class="rounded-circle me-lg-2" src="/img/UID47.jpg">
+                                </div>
+                                <label class="text-center">
+                                    <button button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
+                                        <i title="" class="fa fa-camera">  頭貼修改  </i>
+                                    </button>
+                                </label>
+                                <hr />
+                                <div class="card-body">
+                                    <h4 class="text-primary text-center ">&#x6234;&#x6A02;&#x53E4;&#x82B1;&#x5152;</h4>
                                 </div>
                             </div>
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        count++;
-    }
+                            <!--============================================這邊加入超連結======================================================================================-->
+                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-dark">
+                                        <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen"> 個人資訊</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-key"> 修改密碼</i></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/Customer/Delete" onclick="return confirm(&#x27;&#x78BA;&#x5B9A;&#x8981;&#x522A;&#x9664;&#x55CE;?&#x27;)">&#x522A;&#x9664;&#x5E33;&#x6236;&#x8207;&#x500B;&#x4EBA;&#x8CC7;&#x6599;</a>
+                                    </li>
+                                    <li class="list-group-item ">
+                                        <a href="/Order/Order">&#x8A02;&#x55AE;&#x7BA1;&#x7406;</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="/Customer">&#x6211;&#x7684;&#x6536;&#x85CF;</a>
+                                    </li>
+                                    <li class="list-group-item ">
+                                        <a href="/Comment/CommentList">&#x6211;&#x7684;&#x8A55;&#x8AD6;</a>
+                                    </li>
+                                </ul>
+                                <div class="card-body text-end ">
+                                    <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
+                                </div>
+                            </div>
+                            <!--============================================這邊加入超連結======================================================================================-->
+                        </div>
+                    </div>
+                    @*左邊大頭貼-Start*@
+                    <div class="col-md-9">
+                        <div class="border">
+                            <div class="card-header bg-dark">
+                                <h3 class="text-primary">訂單查詢</h3>
+                            </div>
+                            @*目前訂單*@
+                            @{ int count = 0;
+                                string taq1 = "";
+                                string taq2 = "";
+                                string taq3 = "";
+                                string taq4 = "";}
+                            <div class="tab-content  container-md py-5">
+                                @foreach (var item in Model)
+                                {
+                                    if (item.StatusId == 1)
+                                    {
+                                        taq1 = "btn";
+                                        taq2 = "btn-danger";
+                                        taq3 = "訂單取消申請";
+                                        taq4 = "btnCancel";
+                                    }
+                                    else
+                                    {
+                                        taq1 = "";
+                                        taq2 = "";
+                                        taq3 = "無法取消";
+                                        taq4 = "";
+                                    }
+                                    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                        <table class="table table-striped justify-content-sm-center">
+                                            <thead class="justify-content-sm-center">
+                                                <tr align="right"> <th> 訂單日期</th> <th> 訂單編號</th> <th> 訂單狀態</th> <th> 訂購總額</th> <th> </th> </tr>
+                                            </thead>
+                                            <tbody class="justify-content-sm-center">
+                                                <tr align="right"> <td> @Convert.ToDateTime(item.OrderDate) </td> <td>@item.OrderNum </td> <td>@item.StatusName </td> <td>@String.Format("{0:C0}", item.TotalPrice) </td> <td> <a class="@taq1 @taq2 @taq4" id="Order-@item.OrderId">@taq3 </a> </td> </tr>
+                                                <tr>
+                                                    <th>
+                                                        <button type="button" class="btn btn-primary btnOrderdetail" data-bs-toggle="modal" data-bs-target="#exampleModal" id="Order-@item.OrderId">
+                                                            詳細訂單明細
+                                                        </button>
+                                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel"> 訂單明細</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                                <tr> <th> 產品</th> <th> 數量</th> <th> 票種</th> <th> 金額</th> </tr>
+                                                                            </thead>
+                                                                            <tbody id="orderdetailTable-@count" class="showDetail">
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Close</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    count++;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Il68hEdSoVMmekZXMWHEtR39EElY6Jul0qYXNX380VVXbLbSQv97BJ83_AG6iq5yTUgD35VBt5vervWoI8ab3Bz1A_gSfIs1WzfHCU2z_3xwK6w2PLUIGKincPm-dLgXWpYsdqT3nzTHguZ2B-jUI4" />
+        </form>
+    </div>
 </div>
 @*Bottom*@
 <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -125,10 +186,11 @@
                 $.get('@Url.Content("~/Order/OrderDetailList")', { "Orderid": orderid },
                     function (datas)
                     {
-                        console.log(datas);
+                        //console.log(datas);
                         $.each(datas, function (idx, item)
                         {
-                            $(`#orderdetailTable-${idx}`).append(`<tr><td>${item.ProductName}</td><td>${item.TicketName}</td><td>${item.Quantity}</td><td>${item.Price}元</td></tr>`);
+                            /*8/1宜潔修正*/
+                            $('.showDetail').append(`<tr><td>${item.ProductName}</td><td>${item.TicketName}</td><td>${item.Quantity}</td><td>${item.Price}元</td></tr>`);
                         })
                     })
             })

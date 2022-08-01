@@ -315,7 +315,7 @@ namespace IGO.Controllers
 			TOrder order = new TOrder()
 			{
 				FCustomerId = sessionData.UserId,
-				FOrderDate = (DateTime.Now).ToString("yyyy MM dd HH:mm:ss"),
+				FOrderDate = (DateTime.Now).ToString("MM dd yyyy HH:mm:ss"),  /*7/31宜潔修改成日期格式為月日年*/
 				FStatusId = 1,
 				FTotalPrice = Price,
 				FOrderNum = DateTime.Now.ToString("yyyyMMdd") + (sessionData.UserId).ToString() +"IGO" +(OrderNum + 1).ToString()

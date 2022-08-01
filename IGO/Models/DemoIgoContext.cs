@@ -52,6 +52,7 @@ namespace IGO.Models
         public virtual DbSet<TVoucher> TVouchers { get; set; }
 
 
+
 //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //        {
 //            if (!optionsBuilder.IsConfigured)
@@ -60,6 +61,7 @@ namespace IGO.Models
 //                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=DemoIgo;Integrated Security=True;");
 //            }
 //        }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

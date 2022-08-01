@@ -51,7 +51,8 @@
                                         @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
                                     </li>
                                     <li class="list-group-item ">
-                                        @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                        @*宜潔7/30修改*@
+                                        @Html.ActionLink("我的訂單", "Order", "Order", new { /* id=item.PrimaryKey */ }, new { })
                                     </li>
                                     <li class="list-group-item">
                                         @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
