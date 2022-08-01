@@ -131,7 +131,7 @@ namespace IGO.Areas.Admin.Controllers
             p.FEndTime = prod.FEndTime;
             p.FIntroduction = prod.FIntroduction;
 
-            TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 1 && n.FProductId == prod.FProductId);
+            TProductsPhoto tp = _dbIgo.TProductsPhotos.FirstOrDefault(n => n.FPhotoSiteId == 3 && n.FProductId == prod.FProductId);
 
 
             if (Photo != null)
@@ -218,7 +218,7 @@ namespace IGO.Areas.Admin.Controllers
                 }
             }
             _dbIgo.SaveChanges();
-            
+
             return RedirectToAction("takephotos",new { id= fProductId });
         }
         public IActionResult takephotos(int id)

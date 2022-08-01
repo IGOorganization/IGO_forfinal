@@ -110,9 +110,9 @@ namespace IGO.Controllers
                 {
                     FProductId = (int)VMprod.FProductId,
                     FCustomerId = userid,
-                    FTicketId = VMprod.tickets[ToCart.fTickettype].ticketid,
+                    FTicketId = ToCart.fTickettype,
                     FQuantity = ToCart.fQuantity,
-                    FTotalPrice = VMprod.tickets[ToCart.fTickettype].price * ToCart.fQuantity,
+                    FTotalPrice = VMprod.tickets[0].price * ToCart.fQuantity,
                     FTempOrder = s,
                     FBookingTime = ToCart.fBookingTime,
                 };

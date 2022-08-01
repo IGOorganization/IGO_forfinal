@@ -264,16 +264,16 @@
             let bookingTime = document.querySelector("#bookingTime");
 
             if (roomtype.options[roomtype.selectedIndex].value == 0) {
-                console.log("請選擇房型");
+                alert("請選擇房型");
             }
             else if (ticket.options[ticket.selectedIndex].value == 0) {
-                console.log("請選擇人數");
+                alert("請選擇人數");
             }
             else if (bookingTime.value == "") {
-                console.log("請選擇日期");
+                alert("請選擇日期");
             }
             else if (quantity.value == "" || quantity.value == 0) {
-                console.log("請輸入數量");
+                alert("請輸入數量");
             }
             else {
                 let cartform = new FormData(document.AddToCartForm)
