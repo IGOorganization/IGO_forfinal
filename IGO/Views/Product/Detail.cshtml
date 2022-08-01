@@ -358,13 +358,13 @@
             let bookingTime = document.querySelector("#bookingTime").value;
 
             if (ticket == undefined) {
-                console.log("請選擇票種");
+                alert("請選擇票種");
             }
             else if (bookingTime == "") {
-                console.log("請選擇日期");
+                alert("請選擇日期");
             }
             else if (quantity.value == "" || quantity.value == 0) {
-                console.log("請輸入數量");
+                alert("請輸入數量");
             }
             else {
                 let cartform = new FormData(document.cartForm)
