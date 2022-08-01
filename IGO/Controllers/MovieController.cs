@@ -17,12 +17,17 @@ namespace IGO.Controllers
             _dbIgo = dbIgo;
         }
 
-        public IActionResult List()
+        public IActionResult List(string movieName)
         {
             List<CMovieViewModel> List = new List<CMovieViewModel>();
 
             //從DB拿出Movie資料
             List<TMovie> dbList = _dbIgo.TMovies.ToList();
+            if (!string.IsNullOrWhiteSpace(movieName))
+            {
+                dbList = dbList.Where(x => x.Cname.Contains(movieName) || x.Ename.Contains(movieName)).ToList();
+            }
+
 
             //逐筆轉換成CMovieViewModel格式
             foreach (TMovie t in dbList)

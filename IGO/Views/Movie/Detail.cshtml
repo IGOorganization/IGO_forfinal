@@ -51,7 +51,7 @@
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
                             <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat();ChangAddress()">
-                                <option>請選擇影城</option>
+                                <option value="0" >請選擇影城</option>
                                 @foreach (var a in Model.Item2)
                                 {
                                     <option value="@a.FSupplierId">@a.FCompanyName</option>
@@ -105,7 +105,7 @@
                             <input type="text" id="money" readonly>
                         </div>
                         <div class="col-md-4 my-3">
-                            <button type="button" class="btn btn-success" id="btn-seat" data-bs-toggle="modal" data-bs-target="#seatModal">
+                            <button type="button" class="btn btn-success" id="btn-seat" data-bs-toggle="modal" data-bs-target="#seatModal" disabled>
                                 劃位
                             </button>
                         </div>
@@ -263,7 +263,7 @@
                                 <h5 class="mb-0 fw-bold">Jason</h5>
                                 <h6>2022-07-10</h6>
                                 <p>
-                                    必來看的一個展覽
+                                    必來看的一部!
                                 </p>
                             </div>
                             <div class="ratings">
@@ -512,6 +512,18 @@
         }
 
         function ResetSeat() {
+            let data = {
+                supplier: $("#supplier").val(),
+                showing: $('input[name="showing"]:checked').val(),
+                date: $('#movie-date').val(),
+            }
+            if (data.supplier == 0 || data.showing == undefined || data.date == '') {
+                $("#btn-seat").attr("disabled", true);
+            }
+            else {
+                $("#btn-seat").removeAttr("disabled");
+            }
+
             $("#seatText").text('');
             $("#movieSeat").val('');
 
@@ -574,7 +586,7 @@
                 showingID: $('input[name="showing"]:checked').val()
             };
 
-            if (data.movieDate == '' || data.showingID == undefined) { return;}
+            if (data.supplierID==0 ||data.movieDate == '' || data.showingID == undefined) { return;}
 
             $.ajax({
                 url: '@Url.Content("~/Movie/SearchChosenSeat")',
@@ -609,6 +621,9 @@
                 return;
             }
             let errorField = [];
+            if (data.supplierID == 0) {
+                errorField.push("影城");
+            }
             if (data.bookingTime == '') {
                 errorField.push("日期");
             }

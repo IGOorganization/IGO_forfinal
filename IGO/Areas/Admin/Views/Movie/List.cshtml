@@ -9,7 +9,6 @@
                     <input class="form-control bg-dark border-0 " type="search" name="searchName" value="@ViewBag.SearchName" placeholder="輸入電影名稱">
                     <input class="btn btn-secondary m-2" type="submit" value="搜尋" />
                     <button class="btn btn-secondary m-2 float-lg-end" type="button"
-                            onclick="showAdd()"
                             data-bs-toggle="modal" data-bs-target="#modalMoive">
                         新增
                     </button>
@@ -103,22 +102,23 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-xl-12 mb-3">
                                             <label class="form-label">檔案上傳</label>
-                                            <button type="button" class="btn btn-info m-2" onclick="appendImg('', '', '')">新增上傳區塊</button>
+                                            <button type="button" class="btn btn-info m-2" onclick="AppendImg()">新增上傳區塊</button>
                                             <div class="row" id="photoContainer">
-                                                <div class="col-sm-12 col-xl-12" id="photoSub##fProductPhotoID##">
+                                                <div class="col-sm-12 col-xl-12" id="photoSub">
                                                     <input type="hidden" name="PhotoIDList" value="##fProductPhotoID##" />
-                                                    <button type="button" class="btn btn-danger m-2" style="font-size:0.8em; ##img_style##" onclick="doDeleteImg('##fProductPhotoID##')">
-                                                        <i class="bi bi-trash"></i>
-                                                        刪除圖片
-                                                    </button>
-                                                    <input type="file" class="form-control" name="Photo" style="##no_img_style##" accept="image/*" />
-                                                    <a href="##fPhotoPath##" target="_blank" style="##img_style##">##fPhotoName##</a>
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" name="Photo" accept="image/*" />
+                                                        <button type="button" class="btn btn-danger m-2" style="font-size:0.8em" onclick="DeleteImg(this)">
+                                                            <i class="bi bi-trash"></i>
+                                                            刪除圖片
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <button type="button" class="btn btn-primary" id="btn_popup" onclick="mutation()">新增/儲存</button>
+                                        <button type="button" class="btn btn-primary" id="btn_popup" onclick="CreateMovie()">新增/儲存</button>
                                     </div>
                                 </form>
                             </div>
@@ -132,16 +132,50 @@
 @section Scripts
 {
     <script>
-        function showAdd() {
-            data = {
-                Cname=$('[name=Cname]').val(),
-                Ename=$('[name=Ename]').val(),
-                Type=$('[name=Type]').val(),
-                Time=$('[name=Time]').val(),
-                Description=$('[name=Description]').val()
-            }
+        function CreateMovie() {
+
+            var formData = new FormData();
+            formData.append("Cname", $('[name=Cname]').val());
+            formData.append("Ename", $('[name=Ename]').val());
+            formData.append("Type", $('[name=Type]').val());
+            formData.append("Time", $('[name=Time]').val());
+            formData.append("Description", $('[name=Description]').val());
+
+            $('input[name="Photo"]').toArray().filter(function (item) {
+                return item.files.length > 0
+            }).forEach(function (item) {
+                formData.append("Photo", item.files[0]);
+            });
+
+            $.ajax({
+                url:'@Url.Content("~/Admin/Movie/CreateMovie")',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+
+
 
         }
+        function AppendImg() {
+            $("#photoSub").append(`<div class="input-group">
+                                                                <input type="file" class="form-control" name="Photo" accept="image/*" />
+                                                                <button type="button" class="btn btn-danger m-2" style="font-size:0.8em" onclick="DeleteImg(this)">
+                                                                    <i class="bi bi-trash"></i>
+                                                                    刪除圖片
+                                                                </button>
+                                                        </div>`)
+        }
 
+        function DeleteImg(element) {
+            $(element).parent().remove();
+        }
     </script>
 }
