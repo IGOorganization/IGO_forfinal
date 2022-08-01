@@ -111,6 +111,7 @@
 
                         Total += (int)item.FTotalPrice;
                     }
+                   
                 }
             </tbody>
         </table>
@@ -149,7 +150,7 @@
                         <div class="modal-footer">
                             <p id="voucherPrice">未使用任何票券</p>
                             <button type="button" class="btn btn-light btn-lg" id="voucherConfirm" data-bs-dismiss="modal">確認</button>
-
+                            <button type="button" class="btn btn-light btn-lg" id="voucherCancel">取消使用</button>
 
                         </div>
                     </div>
@@ -167,7 +168,7 @@
 
         <div class="card p-3" style="margin-bottom:2%;">
             <div style="display:flex;justify-content:end">
-                <h4 style="color: #26bec9;margin-top:10px"> TWD @Total 元</h4>
+                <h4 id="totalAppear" style="color: #26bec9;margin-top:10px"> TWD @Total 元</h4>
                 @*<a href="@Url.Content("~/ShoppingCart/Finish")">*@<input class="btn btn-light btn-lg" v-on:click="SendToNewebPay('CREDIT')" style="font-family:Arial;color:brown" type="submit" name="btnPay" value="確認付款" />@*</a>*@
             </div>
         </div>
@@ -201,7 +202,9 @@
             const aArrowMember = $("#aArrowMember");
             const arrowMember = $("#arrowMember");
             const aArrowPay = $("#aArrowPay");
-           const arrowPay = $("#arrowPay");
+            const arrowPay = $("#arrowPay");
+            let final = @Total;
+        console.log(final);
             aArrowMember.click(function () {
                 arrowMember.toggleClass("fa-arrow-right fa-arrow-down");
 
@@ -216,10 +219,12 @@
             const voucherPrice = $("#voucherPrice") // 折價顯示
             const voucherConfirm = $("#voucherConfirm") //優惠券確認按鈕
             const voucherAppear = $("#voucherAppear") //優惠券顯示
+            const voucherCancel = $("#voucherCancel") // 優惠券取消
+            const totalAppear = $("#totalAppear");   //最終價錢金額顯示
             let voucher = 0; //折價金額
+
             btnVoucher.forEach(function (data) {
                 data.addEventListener("click", function () {
-                    console.log($(this).data("value"));
                     $(btnVoucher).text("使用").prop("disabled", false);
                     $(this).html('<i class="fa-solid fa-check"></i>');
                     $(this).prop("disabled", true);
@@ -229,14 +234,34 @@
             })
             //=======================票券確認================================
             voucherConfirm.click(function () {
-                voucherAppear.text(`現金折價${voucher}元`);
+                if (voucher == 0) {
+                    voucherAppear.text("未使用任何票券");
+                    final = @Total;
+                }
+                else {
+                    voucherAppear.text(`現金折價${voucher}元`);
+                    totalAppear.text("@Total 元      -      " + `現金折價${voucher}元` + `      =      TWD${@Total-voucher}元`);
+                    final = @Total- voucher;
 
+
+                }
             });
+
+            //========================票券取消================================
+            voucherCancel.click(function(){
+                $(btnVoucher).text("使用").prop("disabled", false);
+                voucher = 0;
+                voucherPrice.text("未使用任何票券");
+                totalAppear.text(`TWD${@Total}元`);
+                final = @Total;
+            })
+
         })
-       
-    
+
+
         //===========================付款方式================================
-         const app = Vue.createApp({
+        const app = Vue.createApp({
+
             data() {
                 return {
                     // 表單資料
@@ -244,13 +269,13 @@
                         MerchantID: '@ViewData["MerchantID"]' //商品代號
                         , MerchantOrderNo: '@ViewData["MerchantOrderNo"]'
                         , ItemDesc: '測試商品'
-                        , Amt: '@Total'
+                        , Amt: final
                         , ExpireDate: '@ViewData["ExpireDate"]'
                         , ReturnURL: '@ViewData["ReturnURL"]'
                         , CustomerURL: '@ViewData["CustomerURL"]'
                         , NotifyURL: '@ViewData["NotifyURL"]'
                         , ClientBackURL: '@ViewData["ClientBackURL"]'
-                        , Email: 'igocompanysender@gmail.com'   /*7/31宜潔修改收件者Email為IGO*/
+                        , Email: 'igocompanysender@gmail.com'
                     }
                 }
             }
@@ -265,7 +290,7 @@
                     postData['MerchantID'] = self.addForm.MerchantID;
                     postData['MerchantOrderNo'] = self.addForm.MerchantOrderNo;
                     postData['ItemDesc'] = self.addForm.ItemDesc;
-                    postData['Amt'] = self.addForm.Amt;
+                    postData['Amt'] = final
                     postData['ExpireDate'] = self.addForm.ExpireDate;
                     postData['ReturnURL'] = self.addForm.ReturnURL;
                     postData['CustomerURL'] = self.addForm.CustomerURL;
