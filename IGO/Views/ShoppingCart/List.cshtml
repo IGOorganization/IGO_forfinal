@@ -36,6 +36,9 @@
                         @Html.DisplayNameFor(model => model.FBookingTime)
                     </th>
                     <th>
+                        票種
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.FQuantity)
                     </th>
                     <th>
@@ -47,28 +50,31 @@
             <tbody style="text-align:center">
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            <span class="form-check" style="float:left">
-                                <input class="form-check-input" data-id="@item.FShoppingCartId" type="checkbox" id="gridCheck">
-                            </span>
+                <tr>
+                    <td>
+                        <span class="form-check" style="float:left">
+                            <input class="form-check-input" data-id="@item.FShoppingCartId" type="checkbox" id="gridCheck">
+                        </span>
 
-                            @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
-                            @Html.DisplayFor(modelItem => item.product.FProductName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FBookingTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FQuantity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FTotalPrice)
-                        </td>
-                        <td>
-                            <i data-id="@item.FShoppingCartId" class='btnGarbage fa-regular fa-trash-can'></i>
-                        </td>
-                    </tr>
+                        @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
+                        @Html.DisplayFor(modelItem => item.product.FProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FBookingTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ticket.FTicketName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FQuantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FTotalPrice)
+                    </td>
+                    <td>
+                        <i data-id="@item.FShoppingCartId" class='btnGarbage fa-regular fa-trash-can'></i>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
