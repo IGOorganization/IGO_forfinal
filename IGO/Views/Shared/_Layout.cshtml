@@ -1,4 +1,6 @@
 ﻿@using IGO.Controllers
+@using Microsoft.AspNetCore.Http
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +65,7 @@
             font-size: 150%;
             color: orange;
         }
+
         .face-fix {
             position: fixed;
             right: 5px;
@@ -197,7 +200,7 @@
                             <br />
                             <br />
                             <br />
-                    <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+                            <a href="#" hidden class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
                             <a href="#" hidden class="message-fix" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><img src="~/img/robot.png" title="客服小幫手" /><p style="font-size:14px;font-weight:bold">客服小幫手</p></a>
                             <a href="/Parking/Parking" hidden class="parking-fix"><img src="~/img/parking.png" title="尋找停車位" /><p style="font-size:14px; font-weight: bold">尋找停車位</p></a>
                         }
@@ -229,7 +232,7 @@
     <div id="chat">
         <div>
             <div class="collapse" id="collapseExample" style="position:absolute;bottom:0; width:100%">
-            <h4 hidden>個人 ID: <span id="SelfID"></span></h4>
+                <h4 hidden>個人 ID: <span id="SelfID"></span></h4>
                 <div class="card card-body" style="width:100%;height:500px">
                     <div style="background-color:coral">
                         <h6>客服小幫手</h6>
@@ -543,7 +546,7 @@
     </div>
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
-<a href="/CheckTicket/Capture" class="face-fix"><img src="~/img/face.png" title="入場票卷辨識" width="50" height="50" /><p style="font-size:14px; font-weight: bold">入場票卷辨識</p></a>
+    <a href="/CheckTicket/Capture" class="face-fix"><img src="~/img/face.png" title="入場票卷辨識" width="50" height="50" /><p style="font-size:14px; font-weight: bold">入場票卷辨識</p></a>
     @*7/28新增入場票券辨識*@
 
     <!-- JavaScript Libraries -->

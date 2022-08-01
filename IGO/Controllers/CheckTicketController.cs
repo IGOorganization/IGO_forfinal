@@ -141,35 +141,40 @@ namespace IGO.Controllers
    
         public IActionResult CheckCustomerOrderDetails(int id)
         {
-            int UserId =(int) HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
-            if (!String.IsNullOrEmpty((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId.ToString()) )
+            if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
-                int SupplierId = (int)(_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId;     //取出SupplierId
-                int Productid = (_dbIgo.TProducts.FirstOrDefault(p => p.FSupplierId == SupplierId)).FProductId;//取出ProductId
-                List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
-                List<int> orderdetailId = new List<int>();  //創造一個這個顧客有的orderId
-                foreach (var data in _dbIgo.TOrders.Where(c => c.FCustomerId == id).ToList())
+                int UserId = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+                if (!String.IsNullOrEmpty((_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId.ToString()))
                 {
-                    orderdetailId.Add(data.FOrderId);
+                    int SupplierId = (int)(_dbIgo.TCustomers.FirstOrDefault(c => c.FCustomerId == UserId)).FSupplierId;     //取出SupplierId
+                    int Productid = (_dbIgo.TProducts.FirstOrDefault(p => p.FSupplierId == SupplierId)).FProductId;//取出ProductId
+                    List<COrderDetailViewModel> lists = new List<COrderDetailViewModel>();
+                    List<int> orderdetailId = new List<int>();  //創造一個這個顧客有的orderId
+                    foreach (var data in _dbIgo.TOrders.Where(c => c.FCustomerId == id).ToList())
+                    {
+                        orderdetailId.Add(data.FOrderId);
+                    }
+                    foreach (var data in _dbIgo.TOrderDetails.Where(c => orderdetailId.Contains(c.FOrderId) && c.FProductId == Productid))
+                    {
+                        COrderDetailViewModel cOrderDetailViewModel = new COrderDetailViewModel(_dbIgo);
+                        cOrderDetailViewModel.orderDetail = data;
+                        lists.Add(cOrderDetailViewModel);
+                    }
+                    if (lists.Count == 0)
+                    {
+
+                        return RedirectToAction("CheckFail");
+                    }
+
+
+                    return View(lists);
                 }
-                foreach (var data in _dbIgo.TOrderDetails.Where(c => orderdetailId.Contains(c.FOrderId) && c.FProductId == Productid))
+                else
                 {
-                    COrderDetailViewModel cOrderDetailViewModel = new COrderDetailViewModel(_dbIgo);
-                    cOrderDetailViewModel.orderDetail = data;
-                    lists.Add(cOrderDetailViewModel);
+                    return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List");
                 }
-                if (lists.Count == 0)
-                {
-
-                    return RedirectToAction("CheckFail");
-                }
-
-
-                return View(lists);
             }
-            else { 
-                 return Redirect($"{Request.Scheme}://{Request.Host}/Coupon/List");
-            }
+            return Redirect($"{Request.Scheme}://{Request.Host}/Home/Home");
         }
 
         public JsonResult Checked([FromBody]List<int> id)

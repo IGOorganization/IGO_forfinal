@@ -27,13 +27,13 @@ namespace IGO.Controllers
 		//public static List<int> BuyedLists;
 		//public static int UserID;
 
-		public JsonResult CheckLogIn(string id)
-		{
-			if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-				return Json(true);
-			else
-				return Json(false);
-		}
+		//public JsonResult CheckLogIn(string id)
+		//{
+		//	if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+		//		return Json(true);
+		//	else
+		//		return Json(false);
+		//}
 
 		public ShoppingCartController(IWebHostEnvironment hostEnvironment, DemoIgoContext db)
         {
@@ -85,7 +85,7 @@ namespace IGO.Controllers
                 return Json(new { Flag = false, Description = "刪除失敗" });
             }
         }
-        public JsonResult Checked([FromBody] List<int> id)
+        public JsonResult Checked(List<int> id)
         {
             HttpContext.Session.SetString(CDictionary.SK_Selected_Item, JsonSerializer.Serialize(id));
 
@@ -369,13 +369,13 @@ namespace IGO.Controllers
             //----------------------------------------------------------寄信------------------------------------------
             MailMessage em = new MailMessage();
             em.From = new System.Net.Mail.MailAddress("igocompanysender@gmail.com");
-            em.To.Add("igocompanysender@gmail.com");
+            em.To.Add("zeroqazggc0504@gmail.com");
             em.SubjectEncoding = System.Text.Encoding.UTF8;
             em.BodyEncoding = System.Text.Encoding.UTF8;
             em.Subject = "IGO訂單已成立";
             em.IsBodyHtml = true;
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "eklktfcbelgblutv");
+            client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "fxlijfrpaulssvln");
             client.Port = 587;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
