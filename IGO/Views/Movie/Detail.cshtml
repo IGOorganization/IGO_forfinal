@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
-                            <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat()">
+                            <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat();ChangAddress()">
                                 @foreach (var a in Model.Item2)
                                 {
                                     <option value="@a.FSupplierId">@a.FCompanyName</option>
@@ -202,7 +202,7 @@
                 <hr />
                 <h3 class="fw-bold text-primary"><u>影城地址</u></h3>
                 <div class="row">
-                    <p style="font-size: 1.3em">台北市中正區八德路一段1號</p>
+                    <p style="font-size: 1.3em" id="Address">台北市中正區八德路一段1號</p>
                 </div>
                 <div class="row">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.705260463208!2d121.52716961400287!3d25.04407464404373!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a96523e0246d%3A0xf1c9276707165c71!2z6I-v5bGxMTkxNOaWh-WMluWJteaEj-eUoualreWckuWNgA!5e0!3m2!1szh-TW!2stw!4v1657453804944!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -362,8 +362,8 @@
                 }
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="SaveSeat()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary" onclick="SaveSeat()">儲存</button>
             </div>
         </div>
     </div>
@@ -399,6 +399,20 @@
                 $("#seat" + item).attr("src", "/img/chosen.png");
             })
         });
+
+       function ChangAddress() {
+            let supplierID = $('#supplier').val();
+            $.ajax({
+                url: "@Url.Content("~/Movie/ChangAddress")",
+                method: 'POST',
+                data: { supplierID} ,
+                success: function (res) {
+                    console.log(res);
+                    $("#Address").text(res);
+                },
+                error: function (res) { }
+            })
+        }
 
         function SaveSeat() {
             let count = +$('#count').val();
