@@ -45,8 +45,11 @@
                 <div id="my_camera"></div>
                 <form>
 
-                    <input type="button" class="btn btn-success" value="Take Snapshot"
-                           onclick="take_snapshot()" />
+                    <button type="button" class="btn btn-success"
+                            onclick="take_snapshot()">
+                        Take SnapShot
+                    </button>  
+                   
                 </form>
             </div>
         </div>
@@ -79,6 +82,8 @@
     </script>
     <script language="JavaScript">
         function take_snapshot() {
+            $(".btn").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loadng...');
+            $(".btn").prop("disabled", true);
             Webcam.snap(function (data_uri) {
                 document.getElementById('results').innerHTML = '<img id="img1" src="' + data_uri + '"/>'
                 Webcam.upload(data_uri, '@Url.Content("~/CheckTicket/Capture")',

@@ -164,8 +164,7 @@
                 $.ajax({
                     url: '@Url.Content("~/ShoppingCart/Checked")',
                     type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(array)
+                    data: { id: array }
                    
 
                 }).done(function () {
