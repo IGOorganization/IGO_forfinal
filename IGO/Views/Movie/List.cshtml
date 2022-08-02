@@ -19,18 +19,18 @@
     <div class="container">
         <div class="bg-white shadow" style="padding: 35px;">
             <form>
-            <div class="row g-2">
-                <div class="col-md-10">
-                    <div class="row g-2">
-                        <div class="col-md-12">
-                            <input type="text" class="form-control" name="movieName">
+                <div class="row g-2">
+                    <div class="col-md-10">
+                        <div class="row g-2">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="movieName">
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">搜尋</button>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">搜尋</button>
-                </div>
-            </div>
             </form>
         </div>
     </div>
@@ -53,10 +53,10 @@
                             <div class="room-item shadow rounded overflow-hidden">
                                 <div class="position-relative">
                                     @*<a href="@Url.Action("Detail", new { ID =  movie.MovieId })"> 123*@
-                                    <a href="@Url.Content("~/Movie/Detail/?ID="+ movie.MovieId)"> 
-                                        <img class="img-fluid" src="@movie.PhotoPathList.FirstOrDefault()" alt="">
+                                    <a href="@Url.Content("~/Movie/Detail/?ID="+ movie.MovieId)">
+                                        <img class="img-fluid" src="/img/@movie.PhotoPathList.FirstOrDefault()" alt="">
                                     </a>
-                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">原售價打 XX 折</small>
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">@movie.Type</small>
                                 </div>
                                 <div class="p-4 mt-2">
                                     <div class="d-flex justify-content-between mb-3">
@@ -66,8 +66,8 @@
                                             <small class="fa fa-star text-primary"><span> 5.0</span></small>
                                         </div>
                                     </div>
-                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#MovieDescription" aria-expanded="false" aria-controls="#Coupon1">電影介紹</p>
-                                    <div class="list-group list-group-flush collapse" id="MovieDescription">
+                                    <p class="text-body mb-3" data-bs-toggle="collapse" data-bs-target="#@('m'+movie.MovieId.ToString())" aria-expanded="false" aria-controls="#Coupon1">電影介紹</p>
+                                    <div class="list-group list-group-flush collapse" id="@('m'+movie.MovieId.ToString())">
                                         <p>@movie.Description</p>
                                     </div>
 
