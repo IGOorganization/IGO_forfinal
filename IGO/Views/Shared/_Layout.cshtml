@@ -289,8 +289,8 @@
                             <a class="btn btn-link" href="/About/Helper">幫助中心</a>
                             <a class="btn btn-link" href="/Privacy/index">隱私權</a>
 
-                            @*<a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>*@
-                            <a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#BackendModal">管理後台</a>
+                            <a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>
+                            @*<a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#BackendModal">管理後台</a>*@
 
                         </div>
                     </div>
@@ -337,13 +337,13 @@
                         <div class="form-floating mb-4">
                             <span id="spwarn" class="text-danger"></span> @*錯誤訊息*@
                         </div>
-                        @*<div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check text-white">
-                                    <input type="checkbox" class="form-check-input" id="reAccount">
-                                    <label class="form-check-label" for="exampleCheck1 ">記住帳號</label>
-                                </div>
-                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#forgetPWD" data-bs-dismiss="modal">忘記密碼</button>
-                            </div>*@
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check text-white">
+                                <input type="checkbox" class="form-check-input" id="reAccount">
+                                <label class="form-check-label" for="exampleCheck1 ">記住帳號</label>
+                            </div>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#MailforgetPwd" data-bs-dismiss="modal">忘記密碼</button>
+                        </div>
                         <h5 class="text-sm-center mb-0 text-white"> 新朋友 ? <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">立即註冊 IGO !</button></h5>
                         <br />
                         <div class="modal-footer">
@@ -358,13 +358,13 @@
                             <div>
                                 <div class="row bg-dark">
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(伊佴叁) </button>
-                                    </div>
+                                            <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(管理員) </button>
+                                        </div>
                                     <div class="col text-center">
                                         <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
                                     </div>
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(祝策厚) </button>
+                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(註冊完) </button>
                                     </div>
                                 </div>
                             </div>
@@ -488,6 +488,53 @@
         </div>
     </div>
     <!-- Register Modal End -->
+    <!-- ForgetPwd Modal 彈出登入視窗 -->
+    <div class="modal fade " id="MailforgetPwd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="rePwd_lbl">重新設定密碼</h5>
+                    <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark">
+                    <br />
+
+                    <form asp-controller="Customer" asp-action="MailforgetPwd" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control text-dark" id="rePwd_FPhone" name="Phone" placeholder="手機號碼">
+                            <label for="floatingInput">帳號 (手機號碼)</label>
+                        </div>
+                        <br />
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control text-dark" id="rePwd_FEmail" name="Email" placeholder="Email">
+                            <label for="floatingPassword">Email</label>
+                        </div>
+                        <div class="modal-footer">
+                            <br />
+                            <input type="submit" value="確認" class="btn btn-primary" id="Forgetmail" />
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                                返回登入頁面
+                            </button>
+                            <br />
+                        </div>
+
+                        <div class="form-group">
+                            <hr />
+                            <div>
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-danger" id="btnDemoForgotPassword">  Demo </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ForgetPwd Modal 彈出登入視窗 -->
     <!-- Backend Modal 彈出登入視窗 -->
     <div class="modal fade " id="BackendModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -498,20 +545,23 @@
                 </div>
                 <div class="modal-body bg-dark">
                     <br />
-                    <form asp-controller="" asp-action="">
+                    <form asp-controller="" asp-action="" enctype="application/x-www-form-urlencoded"  id="loginBEForm">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="Backend_txtAccount" name="txtAccount" placeholder="手機號碼">
-                            <label for="floatingInput">帳號 (手機號碼)</label>
+                            <input type="text" class="form-control text-dark" id="LoginBE_txtAcc" name="txtAccount" placeholder="手機號碼">
+                            <label for="floatingPassword">管理員帳號</label>
                         </div>
                         <br />
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control text-dark" id="Backend_txtPassword" name="txtPassword" placeholder="密碼">
+                            <input type="password" class="form-control text-dark" id="LoginBE_txtPwd" name="txtPassword" placeholder="密碼">
                             <label for="floatingPassword">密碼</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <span id="spBEwarn" class="text-danger"></span> @*錯誤訊息*@
                         </div>
                         <div class="modal-footer">
                             <br />
+                            @*<input type="submit" value="後台登入" class="btn btn-primary" id="btnLoginBEModal" />*@
                             <a href="/Admin/Coupon/List" class="btn btn-primary">後台登入</a>
-                            @*<input type="submit" value="登入" class="btn btn-primary" />*@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 返回首頁 </button>
                             <br />
                         </div>
@@ -533,44 +583,8 @@
         </div>
     </div>
     <!-- Backend Modal End -->
-    <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
-    <!--使用 Register Modal 執行時檢核並顯示錯誤訊息-->
-
-    <div class="modal fade " id="forgetPWD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content bg-dark">
-                <div class="modal-header">
-                    <h5 class="modal-title text-warning" id="rePwd_lbl">重新設定密碼</h5>
-                    <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body bg-dark">
-                    <br />
-                    <form asp-controller="" asp-action="">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control text-dark" id="rePwd_FPhone" name="FPhone" placeholder="手機號碼">
-                            <label for="floatingInput">帳號 (手機號碼)</label>
-                        </div>
-                        <br />
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control text-dark" id="rePwd_FEmail" name="FEmail" placeholder="Email">
-                            <label for="floatingPassword">Email</label>
-                        </div>
-                        <div class="modal-footer">
-                            <br />
-                            <input type="submit" value="確認" class="btn btn-primary" />
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
-                                返回登入頁面
-                            </button>
-                            <br />
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--=============== 鈞傑新增 Login & Register ==========END============== -->
     <!-- Back to Top -->
-
     @*7/28新增入場票券辨識*@
 
     <!-- JavaScript Libraries -->
@@ -788,7 +802,6 @@
         //var str = year + month + day;
         //$("#fRegisterDate").val(str);
 
-
         //
         $('#register_FPhone').on('blur', () => {
             event.preventDefault();
@@ -920,18 +933,31 @@
 
         //--  忘記密碼===================================================================================== -- >
 
+                //忘記密碼寄信
+        $("#Forgetmail").click(function (event) {
+            event.preventDefault();
+            let phone = document.querySelector("#rePwd_FPhone").value;
+            let email = document.querySelector("#rePwd_FEmail").value;
+            $.post('@Url.Content("~/Customer/MailforgetPwd")'+`?Phone=${phone}&Email=${email}`,
+
+                function (result) {
+                    alert(result);
+                })
+            console.log('send');
+        })
+
         //忘記密碼Demo
         $("#btnDemoForgotPassword").click(function () {
-            $("#rePwd_FPhone").val("");
-            $("#rePwd_FEmail").val("");
+            $("#rePwd_FPhone").val("0911911990");
+            $("#rePwd_FEmail").val("igocompanysender@gmail.com");
         });
 
         //--  後台Login==================================================================================== -- >
 
         //後台登入Demo
         $("#Backend_Demo").click(function () {
-            $("#Backend_txtAccount").val("IGO001");
-            $("#Backend_txtPassword").val("123456");
+            $("#LoginBE_txtAcc").val("0912345678");
+            $("#LoginBE_txtPwd").val("a12345678");
         });
 
     </script>
