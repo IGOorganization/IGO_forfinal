@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -88,7 +89,7 @@ namespace IGO.Controllers
             return RedirectToAction("Home", "Home");
         }
 
-        public IActionResult checkUser() 
+        public IActionResult checkUser()
         {
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
@@ -96,7 +97,7 @@ namespace IGO.Controllers
             }
             return Json(Welcomeuser);
         }
-    
+
 
         public IActionResult Register()
         {
@@ -179,9 +180,94 @@ namespace IGO.Controllers
 
         }
 
+
+        //public IActionResult LoginBackEnd()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
+        //public IActionResult LoginBackEnd(CLoginViewModel vModel)
+        //{
+        //    if (vModel.txtAccount == null || vModel.txtAccount == null)
+        //    {
+        //        return Content("empty", "text/plain", System.Text.Encoding.UTF8);
+        //    }
+
+        //    TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(n => n.FPhone == vModel.txtAccount);
+        //    if (cust != null)
+        //    {
+        //        if (cust.FPassword.Equals(vModel.txtPassword))
+        //        {
+        //            HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId); ;
+        //            userid = cust.FCustomerId;
+        //            userName = $"{cust.FLastName}" + "" + $"{cust.FFirstName}";
+        //            imgpath = cust.FUserPhoto;
+
+        //            return RedirectToAction("Home", "Home");
+        //        }
+        //    }
+        //    return RedirectToAction("Home", "Home");
+        //}
+
         //===================================================> 登入系統 <===========================================
 
+        public IActionResult MailforgetPwd(string Phone, string Email)
+        {
+            var customer = _dbIgo.TCustomers.FirstOrDefault(t => t.FPhone == Phone && t.FEmail == Email);
 
+            if (customer != null)
+            {
+                //----------------------------------------------------------寄信------------------------------------------
+                MailMessage em = new MailMessage();
+                // 發信來源,最好與你發送信箱相同,否則容易被其他的信箱判定為垃圾郵件.
+                em.From = new System.Net.Mail.MailAddress("igocompanysender@gmail.com");
+                // 收件人 Email 地址
+                em.To.Add("igocompanysender@gmail.com");
+                // 主旨
+                em.SubjectEncoding = System.Text.Encoding.UTF8;
+                em.BodyEncoding = System.Text.Encoding.UTF8;
+                em.Subject = "【會員修改密碼驗證信】IGO ticket shop";
+                // 內文
+
+                em.Body = "<html><body>" +
+           "<h1 style='color:lightsalmon;background-color:black'>IGO</h1>" +
+           "<hr>" +
+           "<h3>【會員修改密碼驗證信】</h3>" +
+           $"<h4>顧客:{customer.FFirstName}  先生/小姐</h4>" +
+           "<br>" +
+           "<h4 style='color:orange'>請點擊下面連結，進行密碼修改</h4>" +
+           $"<h5> https://localhost:44392/Customer/ForgetPWD?id={customer.FCustomerId} <h5>" +
+           "<h4 style='color:white;background-color:gray'>IGO 版權所有©Copyright 2022 All Rights Reserved</h5>" +
+           "</body></html>";
+
+                // 內文是否為 HTML
+                em.IsBodyHtml = true;
+                // 優先權
+                em.Priority = MailPriority.Normal;
+
+                System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient();
+                client.Credentials = new System.Net.NetworkCredential("igocompanysender@gmail.com", "fxlijfrpaulssvln");
+
+                client.Port = 587;
+                client.Host = "smtp.gmail.com";
+                client.EnableSsl = true;
+
+                try
+                {
+                    // 寄送出去
+                    client.Send(em);
+                }
+                catch
+                {
+
+                }
+                client.Dispose();
+
+                return Json("寄送成功");
+            }
+            return Json("資料有誤");
+        }
 
 
 
@@ -196,69 +282,122 @@ namespace IGO.Controllers
 
         public IActionResult UserData()
         {
-            if (!HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-            {
-                return RedirectToAction("Home", "Home");
-            }
-            else
-            {
-                TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
-                return View(data);
-            }
+
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
+            return View(data);
+
         }
         [HttpPost]
-            public IActionResult UserData(CCustomerViewModel vmodel)
+        public IActionResult UserData(CCustomerViewModel vmodel)
         {
-            if (!HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-            {
-                return RedirectToAction("Home", "Home");
-            }
-            else
-            {
-                TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
 
-                if (cust != null && ModelState.IsValid) //符合驗證
+            TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == vmodel.FCustomerId);
+            try
+            {
+                if (cust != null) //符合驗證
                 {
-                    if (vmodel.photo != null)
-                    {
-                        string imgName = Guid.NewGuid().ToString() + ".jpg";
-                        vmodel.photo.CopyTo(new FileStream(
-                            _environment.WebRootPath + "/img/" + imgName, FileMode.Create));
-                        cust.FUserPhoto = imgName;
-                    }
                     cust.FLastName = vmodel.FLastName;
                     cust.FFirstName = vmodel.FFirstName;
-                    cust.FPhone = vmodel.FPhone;
+                    cust.FCityId = vmodel.FCityId;
                     cust.FEmail = vmodel.FEmail;
                     cust.FAddress = vmodel.FAddress;
                     cust.FGender = vmodel.FGender;
+                    cust.FBirth = vmodel.FBirth;
+                    _dbIgo.SaveChanges();
+                    return Json(true);
                 }
-                _dbIgo.SaveChanges();
-                cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
-                string json = JsonSerializer.Serialize(cust.FCustomerId);
-                HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId);
-
-                return View(cust);
+                else
+                {
+                    return Json(false);
+                }
+            }
+            catch
+            {
+                return Json(false);
             }
         }
-            public IActionResult EditPWD ()
+
+        public IActionResult EditImg()
         {
             TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
             return View(data);
         }
         [HttpPost]
-        public IActionResult EditPWD(CCustomerViewModel vmodel)
+        public IActionResult EditImg(int customerID, IFormFile photo)
+        {
+            try
+            {
+                TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == customerID);
+                if (data != null)
+                {
+                    if (photo != null)
+                    {
+                        string imgName = Guid.NewGuid().ToString() + ".jpg";
+                        photo.CopyTo(new FileStream(
+                            _environment.WebRootPath + "/img/" + imgName, FileMode.Create));
+                        data.FUserPhoto = imgName;
+                    }
+                }
+                _dbIgo.SaveChanges();
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
+
+        }
+
+        public IActionResult EditPWD()
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult EditPWD(CCustomerViewModel vModel)
         {
             TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);
             if (data != null)
             {
-                data.FPassword = vmodel.FPassword;
+                if (data.FPassword == vModel.FPassword)
+                {
+                    return Json("修改失敗");
+                }
+                else
+                {
+                    data.FPassword = vModel.FPassword;
+                    _dbIgo.SaveChanges();
+                }
             }
-            _dbIgo.SaveChanges();
-            return View(data);
+            return Json(true);
         }
 
-        public IActionResult Delete( )
+        public IActionResult ForgetPWD(int id)
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == id);
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult ForgetPWD(int customerid, string FPassword)
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == customerid);
+            if (data != null)
+            {
+                if (FPassword == data.FPassword)
+                {
+                    return Json("修改失敗");
+                }
+                else
+                {
+                    data.FPassword = FPassword;
+                    _dbIgo.SaveChanges();
+                }
+            }
+            return Json(true);
+        }
+
+
+        public IActionResult Delete()
         {
 
             TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == userid);

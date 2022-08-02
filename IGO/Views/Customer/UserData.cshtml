@@ -7,95 +7,88 @@
 
 <div class="container-xxl bg-light p-0">
     <div class="container">
-        <form asp-controller="Customer" asp-action="UserData">
-            <div class="bg-white shadow" style="padding: 35px;">
-                <div class="row ">
-                    <div class="col-md-3">
-                        <div>
-                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
-                                <hr />
-                                <div class=" card-title text-center">
-                                    @{
-                                        if (CustomerController.imgpath == null)
-                                        {
-                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
-
-                                        }
-                                        else
-                                        {
-                                            <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
-
-                                        }
-                                    }
-                                </div>
-                                <label class="text-center">
-                                    <button button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
-                                        <i title="" class="fa fa-camera">  頭貼修改  </i>
-                                    </button>
-                                </label>
-                                <hr />
-                                <div class="card-body">
-                                    <h4 class="text-primary text-center ">@CustomerController.userName</h4>
-                                </div>
+        <div class="bg-white shadow" style="padding: 35px;">
+            <div class="row ">
+                <div class="col-md-3">
+                    <div>
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <hr />
+                            <div class=" card-title text-center">
+                                <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@Model.FUserPhoto" onerror="this.src='/img/UID_0.jpg'" id="Userphoto">
                             </div>
-                            <!--============================================這邊加入超連結======================================================================================-->
-                            <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
-                                <ul class="list-group">
-                                    <li class="list-group-item bg-dark">
-                                        <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen"> 個人資訊</i></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-key"> 修改密碼</i></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
-                                    </li>
-                                    <li class="list-group-item ">
-                                        @*宜潔7/30修改*@
-                                        @Html.ActionLink("我的訂單", "Order", "Order", new { /* id=item.PrimaryKey */ }, new { })
-                                    </li>
-                                    <li class="list-group-item">
-                                        @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
-                                    </li>
-                                    <li class="list-group-item ">
-                                        @Html.ActionLink("我的評論", "CommentList", "Comment", new { }, new { /* id=item.PrimaryKey */ })
-                                    </li>
-                                </ul>
-                                <div class="card-body text-end ">
-                                    <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
-                                </div>
+                            <label class="text-center">
+                                <button button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
+                                    <i title="" class="fa fa-camera">  頭貼修改  </i>
+                                </button>
+                            </label>
+                            <hr />
+                            <div class="card-body">
+                                <h4 class="text-primary text-center ">@CustomerController.userName</h4>
                             </div>
-                            <!--============================================這邊加入超連結======================================================================================-->
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="border">
-                            <div class="card-header bg-dark">
-                                <h1 class="text-primary">帳號設定</h1>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                        <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
+                            <ul class="list-group">
+                                <li class="list-group-item bg-dark">
+                                    <a href="/Customer/UserData" class=" text-center "><i class="fa-solid fa-user-pen"> 個人資訊</i></a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="/Customer/EditPWD" class=" text-center "><i class="fa-solid fa-key"> 修改密碼</i></a>
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
+                                </li>
+                                <li class="list-group-item ">
+                                    @*宜潔7/30修改*@
+                                    @Html.ActionLink("我的訂單", "Order", "Order", new { /* id=item.PrimaryKey */ }, new { })
+                                </li>
+                                <li class="list-group-item">
+                                    @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                </li>
+                                <li class="list-group-item ">
+                                    @Html.ActionLink("我的評論", "CommentList", "Comment", new { }, new { /* id=item.PrimaryKey */ })
+                                </li>
+                            </ul>
+                            <div class="card-body text-end ">
+                                <a href="/Customer/Logout"><i class="fa-solid fa-right-from-bracket"></i> 登出</a>
                             </div>
-                            <div class="border-top-0">
-                                <div class="bg-white shadow" style="padding: 35px;">
+                        </div>
+                        <!--============================================這邊加入超連結======================================================================================-->
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="border">
+                        <div class="card-header bg-dark">
+                            <h1 class="text-primary">帳號設定</h1>
+                        </div>
+                        <div class="border-top-0">
+                            <div class="bg-white shadow" style="padding: 35px;">
+                                <form asp-controller="Customer" asp-action="UserData" name="UserInfo">
                                     <div class="tab-content">
                                         <div class="container px-4">
                                             <div class="row gx-5">
                                                 <div class="col">
+                                                    <input type="hidden" value="@Model.FCustomerId" name="FCustomerId" />
                                                     <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FLastName" class="control-label "></label>
-                                                        <input asp-for="FLastName" class="form-control" />
+                                                        <input asp-for="FLastName" class="form-control" id="editLastName" name="FLastName" />
                                                         <span asp-validation-for="FLastName" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FFirstName" class="control-label"></label>
-                                                        <input asp-for="FFirstName" class="form-control" />
+                                                        <input asp-for="FFirstName" class="form-control" id="editFirstName" name="FFirstName" />
                                                         <span asp-validation-for="FFirstName" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FGender" class="control-label"></label>
-                                                        <input asp-for="FGender" class="form-control" />
+                                                        <select name="FGender" id="sel_gender">
+                                                            <option>男</option>
+                                                            <option>女</option>
+                                                        </select>
                                                         <span asp-validation-for="FGender" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -105,23 +98,16 @@
                                             <div class="row gx-5">
                                                 <div class="col">
                                                     <div class="p-3 list-group-item-primary">
-                                                        <label asp-for="FCityId" class="control-label"></label>
-                                                        <input asp-for="FCityId" class="form-control" />
-                                                        <span asp-validation-for="FCityId" class="text-danger"></span>
+                                                        <label class="control-label">居住城市</label>
+                                                        <select id="sel_city" name="FCityId">
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FBirth" class="control-label"></label>
-                                                        <input asp-for="FBirth" class="form-control" />
+                                                        <input type="date" name="FBirth" id="editBirth" value="@Model.FBirth"/>
                                                         <span asp-validation-for="FBirth" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="p-3 list-group-item-primary">
-                                                        <label asp-for="FPhone" class="control-label"></label>
-                                                        <input asp-for="FPhone" class="form-control" />
-                                                        <span asp-validation-for="FPhone" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +118,7 @@
                                                 <div class="col">
                                                     <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FAddress" class="control-label"></label>
-                                                        <input asp-for="FAddress" class="form-control" />
+                                                        <input asp-for="FAddress" class="form-control" name="FAddress" />
                                                         <span asp-validation-for="FAddress" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -144,7 +130,7 @@
                                                 <div class="col">
                                                     <div class="p-3 border list-group-item-primary">
                                                         <label asp-for="FEmail" class="control-label"></label>
-                                                        <input asp-for="FEmail" class="form-control" />
+                                                        <input asp-for="FEmail" class="form-control" name="FEmail" id="editEmail" />
                                                         <span asp-validation-for="FEmail" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -152,16 +138,16 @@
                                         </div>
                                         <br />
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <input type="submit" value="儲存並修改" class="btn btn-primary " />
+                                            <input type="submit" value="儲存並修改" class="btn btn-primary" id="editUserinfo" />
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -175,30 +161,20 @@
             </div>
             <div class="modal-body bg-dark">
                 <br />
-                <form asp-controller="Customer" asp-action="EditImg" enctype="multipart/form-data">
+                <form asp-controller="Customer" asp-action="EditImg" enctype="multipart/form-data" name="editimg" method="post">
 
+                    <input type="hidden" value="@Model.FCustomerId" name="customerID" />
                     <div class="text-center">
-                        @{
-                            if (CustomerController.imgpath == null)
-                            {
-                                <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
-
-                            }
-                            else
-                            {
-                                <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@CustomerController.imgpath">
-
-                            }
-                        }
+                        <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@Model.FUserPhoto" onerror="this.src='/img/UID_0.jpg'" id="Editphoto">
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label"></label>
-                        <input type="file" name="photo" class="form-control" />
+                        <input type="file" name="photo" class="form-control" id="photofile" aria-describedby="inputGroupFileAddon04" />
+                        <label class="control-label" for="photofile" id="labfile">選擇檔案</label>
                     </div>
                     <div class="modal-footer">
                         <br />
-                        <input type="submit" value="修改並關閉" class="btn btn-primary" />
+                        <button type="submit" class="btn btn-primary" id="memEdit">修改</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 關閉</button>
                         <br />
                     </div>
@@ -223,6 +199,93 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+    //修改頭像預覽圖片
+    let userPhoto = document.querySelector("#Editphoto");
+
+    $("#photofile").change(function () {
+        let file = this.files[0];
+        let objectURL = URL.createObjectURL(file);
+        userPhoto.src = objectURL;
+    })
+
+    let editPhoto = document.querySelector("#memEdit");
+    editPhoto.addEventListener("click",async function (event) {
+        event.preventDefault();
+        let editImg = new FormData(document.editimg);
+
+        let jresult = await fetch("EditImg", {
+            body: editImg,
+            method:"POST",
+        })
+        let result = await jresult.json();
+        console.log(result);
+        alert("頭貼修改成功");
+        window.location.href = "/Customer/UserData";
+    })
+
+    takecitys();
+
+    async function takecitys() {
+        let selcitys = document.querySelector("#sel_city");
+            let frag = document.createDocumentFragment();
+
+            let jcitys = await fetch('@Url.Content("~/Api/getCity")');
+
+            let citys = await jcitys.json();
+            console.log(citys);
+            citys.forEach(item => {
+                let option = new Option;
+                option.value = item.FCityId;
+                option.textContent = item.FCityName;
+                frag.appendChild(option);
+            })
+            selcitys.appendChild(frag);
+        }
+
+        let editUserinfo = document.querySelector("#editUserinfo");
+        editUserinfo.addEventListener("click", async function (event) {
+            event.preventDefault();
+
+            let lastname = document.querySelector("#editLastName");
+            let firstname = document.querySelector("#editFirstName");
+            let birth = document.querySelector("#editBirth");
+            let email = document.querySelector("#editEmail");
+
+
+            if (lastname.value == "") {
+                alert("請輸入姓氏")
+            } else if (firstname.value == "") {
+                alert("請輸入名字")
+            } else if (birth.value == "") {
+                alert("請選擇生日")
+            } else if (email.value == "") {
+                alert("請輸入Email")
+            } else {
+                let userInfo = new FormData(document.UserInfo);
+                //console.log(userInfo);
+                let jresult = await fetch("UserData", {
+                    body: userInfo,
+                    method: "POST",
+                })
+                let result = await jresult.json();
+                if (result == true) {
+                    alert("修改成功");
+                }
+                else {
+                    alert("資料有誤")
+                }
+            }
+
+        })
+
+
+
+    </script>
+
+
 }
 
 
