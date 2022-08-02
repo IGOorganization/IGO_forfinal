@@ -16,8 +16,8 @@
                             <div class="card text-primary bg-dark mb-3" style="max-width: 20rem;">
                                 <hr />
                                 <div class=" card-title text-center">
-                                    <input type="hidden" value="@Model.FCustomerId" id="customerID"/>
-                                    
+                                    <input type="hidden" value="@Model.FCustomerId" id="customerID" />
+                                    @{
                                         if (CustomerController.imgpath == null)
                                         {
                                             <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/UID_0.jpg">
@@ -29,6 +29,7 @@
 
                                         }
                                     }
+
                                 </div>
                                 <label class="text-center">
                                     <button  type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
@@ -53,10 +54,10 @@
                                         @Html.ActionLink("刪除帳戶與個人資料", "Delete", new { /* id=item.PrimaryKey */}, new { onclick = "return confirm('確定要刪除嗎?')" })
                                     </li>
                                     <li class="list-group-item ">
-                                        @Html.ActionLink("訂單管理", "", new { /* id=item.PrimaryKey */ })
+                                        @Html.ActionLink("訂單管理", "Order","Order",new { }, new { /* id=item.PrimaryKey */ })
                                     </li>
                                     <li class="list-group-item">
-                                        @Html.ActionLink("我的收藏", "", new { /* id=item.PrimaryKey */ })
+                                        @Html.ActionLink("我的收藏", "myFavGroup","Collection",new { }, new { /* id=item.PrimaryKey */ })
                                     </li>
                                     <li class="list-group-item ">
                                         @Html.ActionLink("我的評論", "CommentList", "Comment", new { }, new { /* id=item.PrimaryKey */ })
