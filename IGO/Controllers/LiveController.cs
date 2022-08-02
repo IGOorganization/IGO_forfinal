@@ -39,15 +39,28 @@ namespace IGO.Controllers
         }
         public IActionResult searchbycity(int cityid)
         {
-            IEnumerable<TSupplier> suppliers = _dbIgo.TSuppliers.Where(n => n.FSubCategoryId == 1 && n.FCityId==cityid);
             List<TSupplier> list = new List<TSupplier>();
-            for (int i = 0; i < 9; i++)
+            if (cityid == 0)
             {
-                if (i < suppliers.ToList().Count())
+                IEnumerable<TSupplier> suppliers = _dbIgo.TSuppliers.Where(n => n.FSubCategoryId == 1);
+                for (int i = 0; i < 9; i++)
                 {
-                    list.Add(suppliers.ToList()[i]);
+                    if (i < suppliers.ToList().Count())
+                    {
+                        list.Add(suppliers.ToList()[i]);
+                    }
                 }
-
+            }
+            else
+            {
+                IEnumerable<TSupplier> suppliers = _dbIgo.TSuppliers.Where(n => n.FSubCategoryId == 1 && n.FCityId == cityid);
+                for (int i = 0; i < 9; i++)
+                {
+                    if (i < suppliers.ToList().Count())
+                    {
+                        list.Add(suppliers.ToList()[i]);
+                    }
+                }
             }
             string result = System.Text.Json.JsonSerializer.Serialize(list);
             return Json(result);
@@ -73,9 +86,9 @@ namespace IGO.Controllers
         }
         public IActionResult getRoomType(int supid)
         {
-            IEnumerable<TProduct> products = _dbIgo.TProducts.Where(n => n.FSupplierId == supid && n.FSubCategoryId == 1);
+            IEnumerable<TProduct> products = _dbIgo.TProducts.Where(n => n.FSupplierId == supid && n.FSubCategoryId == 1).ToList();
             List<CProductViewModel> list = new List<CProductViewModel>();
-            foreach(TProduct t in products)
+            foreach (TProduct t in products)
             {
                 CProductViewModel product = new CProductViewModel(_dbIgo);
                 product.product = t;
@@ -89,7 +102,7 @@ namespace IGO.Controllers
         {
             CProductViewModel product = new CProductViewModel(_dbIgo);
             product.product = _dbIgo.TProducts.FirstOrDefault(n => n.FProductId == prodid);
-            return Json(product.tickets );
+            return Json(product.tickets);
         }
         public IActionResult AddToCart(CToCart ToCart)
         {
@@ -128,7 +141,7 @@ namespace IGO.Controllers
             }
         }
 
-        public IActionResult TakeSoldOut(int cid, int month ,int ticketid)
+        public IActionResult TakeSoldOut(int cid, int month, int ticketid)
         {
             CProductViewModel p = new CProductViewModel(_dbIgo);
             p.product = _dbIgo.TProducts.Find(cid);
@@ -143,6 +156,22 @@ namespace IGO.Controllers
                 }
             }
             return Json(items);
+        }
+        public IActionResult searchBykeyword(string keyword)
+        {
+            IEnumerable<TSupplier> suppliers = _dbIgo.TSuppliers.Where(n => n.FSubCategoryId == 1&&n.FCompanyName.Contains(keyword));
+            
+            List<TSupplier> list = new List<TSupplier>();
+            for (int i = 0; i < 9; i++)
+            {
+                if (i < suppliers.ToList().Count())
+                {
+                    list.Add(suppliers.ToList()[i]);
+                }
+
+            }
+            string result = System.Text.Json.JsonSerializer.Serialize(list);
+            return Json(result);
         }
     }
 }

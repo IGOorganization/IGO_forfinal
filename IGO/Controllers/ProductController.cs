@@ -77,12 +77,13 @@ namespace IGO.Controllers
                 prod = _dbIgo.TProducts.Where(n => n.FSubCategoryId == subid);
             }
             List<CProductViewModel> products = new List<CProductViewModel>();
-            foreach (TProduct p in prod)
+            for (int i = 0; i < 9; i++)
             {
                 CProductViewModel pvm = new CProductViewModel(_dbIgo);
-                pvm.product = p;
+                pvm.product = prod.ToList()[i];
                 products.Add(pvm);
             }
+
             string result = System.Text.Json.JsonSerializer.Serialize(products);
             return Json(result);
         }
@@ -120,7 +121,7 @@ namespace IGO.Controllers
                     FBookingTime = ToCart.fBookingTime,
                 };
                 _dbIgo.TShoppingCarts.Add(cart);
-                
+
                 _dbIgo.SaveChanges();
                 return Json("加入成功");
             }
@@ -129,6 +130,31 @@ namespace IGO.Controllers
                 string result = System.Text.Json.JsonSerializer.Serialize("失敗");
                 return Json(result);
             }
+        }
+        public IActionResult searchBykeyword(int subid, string keyword)
+        {
+            IEnumerable<TProduct> prod = null;
+            if (keyword != "")
+            {
+                prod = _dbIgo.TProducts.Where(n => n.FSubCategoryId == subid && n.FProductName.Contains(keyword));
+            }
+            else
+            {
+                prod = _dbIgo.TProducts.Where(n => n.FSubCategoryId == subid);
+            }
+            List<CProductViewModel> products = new List<CProductViewModel>();
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i < prod.ToList().Count())
+                {
+                    CProductViewModel pvm = new CProductViewModel(_dbIgo);
+                    pvm.product = prod.ToList()[i];
+                    products.Add(pvm);
+                }
+            }
+            string result = System.Text.Json.JsonSerializer.Serialize(products);
+            return Json(result);
         }
     }
 }

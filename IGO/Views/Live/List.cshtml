@@ -21,33 +21,24 @@
             <div class="row g-2">
                 <div class="col-md-10">
                     <div class="row g-2">
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <select class="form-select" id="sel_citys">
-                                <option selected>請選擇縣市</option>
+                                <option selected value="0">請選擇縣市</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <select class="form-select">
-                                <option selected>評價高到低</option>
-                                <option value="1">評價低到高</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <select class="form-select">
-                                <option selected>人氣高到低</option>
-                                <option value="1">人氣低到高</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 row"style="padding-top:7px">
+                        <div class="col-md-4 row" style="padding-top:7px">
                             <button class="page-link col-md-2" id="prev"><<</button>
                             <input id="pages" type="text" name="page" class="col-md-2" min="1" max="10" value="1" placeholder="1" />
-                            <h6 id="maxPage" class="col-md-2"style="padding-top:12px"></h6>
+                            <h6 id="maxPage" class="col-md-2" style="padding-top:12px"></h6>
                             <button class="page-link col-md-2" id="next">>></button>
+                        </div>
+                        <div class="col-md-4 row" style="padding-top:7px">
+                            <input id="keyword" type="text" name="page" class="col-md-12" placeholder="關鍵字查詢" />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-primary w-100">搜尋</button>
+                    <button class="btn btn-primary w-100" id="search">搜尋</button>
                 </div>
             </div>
         </div>
@@ -93,7 +84,26 @@
 @section Scripts{
 
     <script>
-       
+
+        //搜尋飯店
+        let keyword = document.querySelector("#keyword");
+
+        let search = document.querySelector("#search");
+        search.addEventListener("click", async function (event) {
+            event.preventDefault();
+            if (keyword.value == "") {
+                takeSupplier(1);
+            } else {
+                let jsuppliers = await fetch('@Url.Content("~/Live/searchBykeyword")' + `?keyword=${keyword.value}`);
+
+                 let suppliers = await jsuppliers.json();
+                //console.log(product);
+                showList(suppliers);
+            }
+        })
+
+
+
 
         //取得飯店資訊
         const subcategoryid = 1;
@@ -134,7 +144,7 @@
                 let h4 = document.createElement("h4");
                 let a1 = document.createElement("a");
                 let i = document.createElement("i");
-                
+
 
                 div1.className = "col-lg-4 col-md-6 wow fadeInUp";
                 div1.setAttribute("data-wow-delay", "0.1s");
@@ -245,15 +255,15 @@
         })
 
         //收藏改變圖案
-         //const hearts = document.querySelectorAll("#btn_heart"); 
-         //console.log(hearts); 
-         //hearts.forEach(function (heart) { 
-         //    heart.addEventListener("click", () => { 
-         //        $(this).toggleClass("fa-regular") 
-         //    }) 
-         //}) 
+         //const hearts = document.querySelectorAll("#btn_heart");
+         //console.log(hearts);
+         //hearts.forEach(function (heart) {
+         //    heart.addEventListener("click", () => {
+         //        $(this).toggleClass("fa-regular")
+         //    })
+         //})
 
-          
+
 
     </script>
 }
