@@ -20,8 +20,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="FCollectionGroupName" class="control-label">收藏分類名稱</label>
-                <input asp-for="FCollectionGroupName" class="form-control" />
+                <input asp-for="FCollectionGroupName" class="form-control" name="FCollectionGroupName"/>
                 <span asp-validation-for="FCollectionGroupName" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="FCustomerId" class="control-label"> </label>
+                <input asp-for="FCustomerId" class="form-control" />
+                <span asp-validation-for="FCustomerId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 @*<input type="text" name="id" id="FCollectionGroupId" />*@

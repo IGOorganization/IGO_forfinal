@@ -161,16 +161,24 @@ namespace IGO.Controllers
 
         public IActionResult myFavGroupDetail(int id)
         {
-           
+            List<CCollectionViewModel> list = new List<CCollectionViewModel>();
             var datas = from t in _dbIgo.TCollectionGroupDetails
                         where t.FCollectionGroupId==id
                         select t;
 
-            List<TCollectionGroupDetail> list = new List<TCollectionGroupDetail>();
             foreach (TCollectionGroupDetail t in datas)
             {
+                TCollection tc = db.TCollections.FirstOrDefault(n => n.FCollectionId == t.FCollectionId);
+                TProduct prod = db.TProducts.FirstOrDefault(p => p.FProductId == tc.FProductId);
+                CProductViewModel pvm = new CProductViewModel(_dbIgo);
+                CCollectionViewModel c = new CCollectionViewModel(db);
+                pvm.product = prod;
+                c.VMproduct = pvm;
+                c.collection = tc;
+                
+                list.Add(c);
 
-                list.Add(t);
+
             }
             return Json(list);
 
@@ -185,10 +193,20 @@ namespace IGO.Controllers
 
         public IActionResult CreateGroup(TCollectionGroup g)
         {
-
-            db.TCollectionGroups.Add(g);
-            db.SaveChanges();
-            return RedirectToAction("myFavGroup");
+            
+            string result = "";
+            if (!HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+            {
+                result = "請先登入";
+            }
+            else {
+                int userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
+                g.FCustomerId = userid;
+                db.TCollectionGroups.Add(g);
+               db.SaveChanges();
+               result = "收藏群組創立成功";
+            }
+            return RedirectToAction("myFavGroup"); 
         }
 
         //public IActionResult CreateDetail()
