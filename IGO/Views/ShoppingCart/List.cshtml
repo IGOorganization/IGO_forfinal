@@ -50,31 +50,34 @@
             <tbody style="text-align:center">
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        <span class="form-check" style="float:left">
-                            <input class="form-check-input" data-id="@item.FShoppingCartId" type="checkbox" id="gridCheck">
-                        </span>
+                    <tr>
+                        <td>
+                            <span class="form-check" style="float:left">
+                                <input class="form-check-input" data-id="@item.FShoppingCartId" type="checkbox" id="gridCheck">
+                            </span>
 
-                        @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
-                        @Html.DisplayFor(modelItem => item.product.FProductName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FBookingTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ticket.FTicketName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FQuantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FTotalPrice)
-                    </td>
-                    <td>
-                        <i data-id="@item.FShoppingCartId" class='btnGarbage fa-regular fa-trash-can'></i>
-                    </td>
-                </tr>
+                            @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
+                            @*<span data-bs-toggle="modal" data-bs-target="#@item.FProductId">@Html.DisplayFor(modelItem => item.product.FProductName)</span>*@
+                        <a data-bs-toggle="modal" role="button" data-bs-target="#@("IGO"+item.FProductId)">@item.product.FProductName</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FBookingTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ticket.FTicketName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FQuantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FTotalPrice)
+                        </td>
+                        <td>
+                            <i data-id="@item.FShoppingCartId" class='btnGarbage fa-regular fa-trash-can'></i>
+                        </td>
+                    </tr>
+
+
                 }
             </tbody>
         </table>
@@ -87,27 +90,47 @@
     <div class="col-md-2"></div>
 
 </div>
-@*Bottom*@
-<div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
-    <div class="row justify-content-center">
-        <div @*class="col-lg-10 border rounded p-1"*@>
-            <div @*class="border rounded text-center p-1"*@>
-                <div class="bg-transparent rounded text-center p-5">
-                    <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
-                    <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
-                        @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
-                            <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+@foreach (var item in Model)
+{
+    <!-- Modal -->
+    <div class="modal fade" id="@("IGO"+item.FProductId)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@item.product.FProductName </h5>
+                   
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img style="width:450px;height:350px" src="@Url.Content($"~/img/{item.photo.FPhotoPath}")" />
+                    <p>@item.product.FIntroduction</p>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+}
+    @*Bottom*@
+    <div class="container newsletter mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="row justify-content-center">
+            <div @*class="col-lg-10 border rounded p-1"*@>
+                <div @*class="border rounded text-center p-1"*@>
+                    <div class="bg-transparent rounded text-center p-5">
+                        <h4 class="mb-4">@*Subscribe Our*@ <span class="text-primary text-uppercase">@*Newsletter*@</span></h4>
+                        <div @*class="position-relative mx-auto"*@ style="max-width: 400px;">
+                            @*<input class="form-control w-100 py-3 ps-4 pe-5" type="text" placeholder="Enter your email">
+                                <button type="button" class="btn btn-primary py-2 px-3 position-absolute top-0 end-0 mt-2 me-2">Submit</button>*@
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@*Bottom*@
+    @*Bottom*@
 
-@section Scripts{
+    @section Scripts{
 
-    <script>
+        <script>
 
         let AllCheckFlag = false;
         const chkAll = $("#chkAll");
@@ -171,7 +194,7 @@
                     url: '@Url.Content("~/ShoppingCart/Checked")',
                     type: 'POST',
                     data: { id: array }
-                   
+
 
                 }).done(function () {
                     window.location.href = '@Url.Content("~/ShoppingCart/Pay")';
@@ -179,5 +202,5 @@
             }
         });
 
-    </script>
-}}
+        </script>
+    }}

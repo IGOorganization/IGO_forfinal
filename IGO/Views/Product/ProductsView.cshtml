@@ -179,7 +179,7 @@
                     div4_1.innerHTML += '<i class="fa fa-star text-primary"></i>';
                 }
                 i.className = "fa-solid fa-heart fa-regular";
-                i.style = "padding:0px 0 0 10px ;font-size:150%";
+                i.style = "padding:0px 0 0 10px ;font-size:150%;color:dark";
                 i.setAttribute("data-id", item.FProductId);
 
                 div4_1.appendChild(i);
@@ -284,7 +284,20 @@
             alert(result);
 
 
+            if (result == "已加入收藏") {
 
+                
+                $(this).css("color", "red");
+               
+
+            } else if (result == "取消收藏") {
+
+                $(this).css("color", "black");
+            }
+            else {
+
+                alert("請先登入");
+            }
 
             //if (result == "已加入收藏" ) {
             //    event.currentTarget.addEventListener("click",

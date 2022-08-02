@@ -90,5 +90,14 @@ namespace IGO.ViewModels
             }
 
         }
+        public TProductsPhoto photo
+        {
+            get
+            {
+                TProductsPhoto photo = _dbIgo.TProductsPhotos.FirstOrDefault(c => c.FProductId == FProductId);
+                return photo;
+            }
+
+        }
     }
 }
