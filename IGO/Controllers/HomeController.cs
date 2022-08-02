@@ -367,7 +367,8 @@ namespace IGO.Controllers
                 vModel = new CHomeViewModel()
                 {
                 ProductName = _IgoContext.TProducts.FirstOrDefault(m => m.FProductId == r).FProductName,
-                ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
+                    ProductId = r,
+                    ProductPhotoId = (int)_IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FProductPhotoId,
                 PhotoPath = _IgoContext.TProductsPhotos.Where(m => m.FProductId == r).FirstOrDefault(a => a.FPhotoSiteId == 1).FPhotoPath,
                 };
                 v.Add(vModel);
