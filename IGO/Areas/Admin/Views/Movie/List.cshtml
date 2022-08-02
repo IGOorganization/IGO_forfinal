@@ -9,13 +9,13 @@
                     <input class="form-control bg-dark border-0 " type="search" name="searchName" value="@ViewBag.SearchName" placeholder="輸入電影名稱">
                     <input class="btn btn-secondary m-2" type="submit" value="搜尋" />
                     <button class="btn btn-secondary m-2 float-lg-end" type="button"
-                            data-bs-toggle="modal" data-bs-target="#modalMoive">
+                            data-bs-toggle="modal" data-bs-target="#modalMoiveCreate">
                         新增
                     </button>
                 </div>
             </form>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-dark">
                     <thead>
                         <tr>
                             <th scope="col">序號</th>
@@ -28,20 +28,24 @@
                     </thead>
                     <tbody>
                         @*電影組*@
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <th scope="row">@item.MovieId</th>
-                                <td>@item.Cname</td>
-                                <td>@item.Ename</td>
-                                <td>@item.Type</td>
-                                <td>@item.Time</td>
-                                <td>@item.Description</td>
-                                <td>
-                                    <button type="button" class="btn btn-success m-2" style="font-size:0.8em" onclick="showEdit('@(item.MovieId)')">編輯</button>
-                                    <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" onclick="doDelete('@(item.MovieId)')">刪除</button>
-                                </td>
-                            </tr>
+                        @{
+                            int index = 0;
+                            foreach (var item in Model)
+                            {
+                                index++;
+                                <tr>
+                                    <th scope="row">@index</th>
+                                    <td>@item.Cname</td>
+                                    <td>@item.Ename</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.Time</td>
+                                    <td>@item.Description</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success m-2" style="font-size:0.8em" data-bs-toggle="modal" data-bs-target="#modalMoiveEdit" onclick="showEdit('@(item.MovieId)')">編輯</button>
+                                        <button type="button" class="btn btn-danger  m-2" style="font-size:0.8em" onclick="doDelete('@(item.MovieId)')">刪除</button>
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -49,13 +53,12 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="modalMoive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalMoiveCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg bg-secondary rounded h-100 p-0">
         <div class="modal-content bg-secondary rounded h-100 p-0">
             <div class="modal-header">
                 <h5 class="modal-title" id="popup_title">
-                    電影新增/儲存作業
+                    電影新增作業
                 </h5>
             </div>
             <div class="modal-body">
@@ -63,19 +66,19 @@
                     <div class="row g-4">
                         <div class="col-sm-12 col-xl-12">
                             <div class="bg-secondary rounded p-4">
-                                <form id="modalForm">
+                                <form id="modalForm" class="table-dark">
                                     <input type="hidden" name="MovieId" value="0" />
                                     <div class="row">
                                         <div class="col-sm-12 col-xl-6 mb-3">
                                             <label class="form-label">
                                                 中文名稱
-                                                <input type="text" class="form-control" name="Cname">
+                                                <input type="text" class="form-control" name="Cname" id="CnameCreate">
                                             </label>
                                         </div>
                                         <div class="col-sm-12 col-xl-6 mb-3">
                                             <label class="form-label">
                                                 英文名稱
-                                                <input type="text" class="form-control" name="Ename">
+                                                <input type="text" class="form-control" name="Ename" id="EnameCreate">
                                             </label>
                                         </div>
                                     </div>
@@ -83,20 +86,20 @@
                                         <div class="col-sm-12 col-xl-6 mb-3">
                                             <label class="form-label">
                                                 類型
-                                                <input type="text" class="form-control" name="Type">
+                                                <input type="text" class="form-control" name="Type" id="TypeCreate">
                                             </label>
                                         </div>
                                         <div class="col-sm-12 col-xl-6 mb-3">
                                             <label class="form-label">
                                                 時長
-                                                <input type="number" class="form-control" name="Time">
+                                                <input type="number" class="form-control" name="Time" id="TimeCreate">
                                             </label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-xl-12 mb-3">
                                             <label class="form-label">描述</label>
-                                            <textarea class="form-control" name="Description" rows="5"></textarea>
+                                            <textarea class="form-control" name="Description" rows="5" id="DescriptionCreate"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -108,7 +111,7 @@
                                                     <input type="hidden" name="PhotoIDList" value="##fProductPhotoID##" />
                                                     <div class="input-group">
                                                         <input type="file" class="form-control" name="Photo" accept="image/*" />
-                                                        <button type="button" class="btn btn-danger m-2" style="font-size:0.8em" onclick="DeleteImg(this)">
+                                                        <button type="button" class="btn btn-danger m-2" style="font-size:0.8em" onclick="(this)">
                                                             <i class="bi bi-trash"></i>
                                                             刪除圖片
                                                         </button>
@@ -118,7 +121,87 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <button type="button" class="btn btn-primary" id="btn_popup" onclick="CreateMovie()">新增/儲存</button>
+                                        <button type="button" class="btn btn-primary" id="btn_popup" onclick="CreateMovie()">新增</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalMoiveEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg bg-secondary rounded h-100 p-0">
+        <div class="modal-content bg-secondary rounded h-100 p-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="popup_title">
+                    電影編輯作業
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-xl-12">
+                            <div class="bg-secondary rounded p-4">
+                                <form id="modalForm" class="table-dark">
+                                    <input type="hidden" name="MovieId" value="0" />
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                中文名稱
+                                                <input type="text" class="form-control" name="CnameEdit" id="CnameEdit">
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                英文名稱
+                                                <input type="text" class="form-control" name="EnameEdit" id="EnameEdit">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                類型
+                                                <input type="text" class="form-control" name="TypeEdit" id="TypeEdit">
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-12 col-xl-6 mb-3">
+                                            <label class="form-label">
+                                                時長
+                                                <input type="number" class="form-control" name="TimeEdit" typeof="TimeEdit" id="TimeEdit">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-12 mb-3">
+                                            <label class="form-label">描述</label>
+                                            <textarea class="form-control" name="DescriptionEdit" rows="5" id="DescriptionEdit"></textarea>
+                                        </div>
+                                    </div>
+                                    <div id="SavedPhoto"></div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-xl-12 mb-3">
+                                            <label class="form-label">檔案上傳</label>
+                                            <button type="button" class="btn btn-info m-2" onclick="AppendImgPhoto()">新增上傳區塊</button>
+                                            <div class="row" id="photoContainer">
+                                                <div class="col-sm-12 col-xl-12" id="photoSubImg">
+                                                    <input type="hidden" name="PhotoIDList" value="##fProductPhotoID##" />
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" name="PhotoEdit" accept="image/*" />
+                                                        <button type="button" class="btn btn-danger m-2" style="font-size:0.8em" onclick="(this)">
+                                                            <i class="bi bi-trash"></i>
+                                                            刪除圖片
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-primary" id="btn_popup" onclick="EditMovie()">儲存</button>
                                     </div>
                                 </form>
                             </div>
@@ -132,6 +215,7 @@
 @section Scripts
 {
     <script>
+
         function CreateMovie() {
 
             var formData = new FormData();
@@ -160,9 +244,6 @@
                     }
                 }
             })
-
-
-
         }
         function AppendImg() {
             $("#photoSub").append(`<div class="input-group">
@@ -177,5 +258,111 @@
         function DeleteImg(element) {
             $(element).parent().remove();
         }
+
+        function doDelete(id)
+        {
+            if (confirm("確定要刪除嗎?")) {
+                var movieID = id;
+                $.ajax({
+                    url: '@Url.Content("~/Admin/Movie/DeleteMovie")',
+                    method: 'POST',
+                    data: { movieID },
+                    success: function (res) {
+
+                        if (res) { location.reload(); }
+                    }
+                })
+            }
+        }
+
+        function showEdit(id)
+        {
+            movieID = id;
+            $.ajax({
+                url: '@Url.Content("~/Admin/Movie/Edit")',
+                method: 'POST',
+                data: { movieID },
+                success: function (res) {
+
+                    $("#CnameEdit").val(res[0].Cname);
+                    $("#EnameEdit").val(res[0].Ename);
+                    $("#TypeEdit").val(res[0].Type);
+                    $('#TimeEdit').val(res[0].Time);
+                    $('#DescriptionEdit').val(res[0].Description);
+
+                    let savePhoto = document.querySelector("#SavedPhoto");
+                    savePhoto.innerHTML = '';
+                    for (let i = 0; i < res[0]["PhotoPathList"].length; i++) {
+                        let photoPath = res[0]["PhotoPathList"][i];
+                        console.log(photoPath);
+                        savePhoto.innerHTML += `<img style='width:100px;height:80px' src='/img/${photoPath}' name="${photoPath}"/><button type="button" class="btn btn-danger m-2" style="font-size:0.8em"name="${photoPath}">
+                                                                    <i class="bi bi-trash"></i>
+                                                                    刪除圖片
+                                                                </button>`
+                    }
+                }
+
+            })
+        }
+
+        $("#SavedPhoto").on("click", "button", async function (event) {
+            event.preventDefault();
+            //console.log("AA");
+            let n = event.currentTarget.getAttribute("name");
+            console.log(n);
+            let aa = document.getElementsByName(n);
+            //console.log(targets);
+            aa[1].remove();
+            aa[0].remove();
+
+            let jdeletephoto = await fetch('@Url.Content("~/Admin/Movie/deletephoto")' + `?path=${n}`);
+            let deletephoto = await jdeletephoto.json();
+
+            console.log(deletephoto);
+        })
+
+        function AppendImgPhoto() {
+            $("#photoSubImg").append(`<div class="input-group">
+                                                                <input type="file" class="form-control" name="Photo" accept="image/*" />
+                                                                <button type="button" class="btn btn-danger m-2" style="font-size:0.8em" onclick="DeleteImg(this)">
+                                                                    <i class="bi bi-trash"></i>
+                                                                    刪除圖片
+                                                                </button>
+                                                        </div>`)
+
+        }
+
+        function EditMovie() {
+
+            var formData = new FormData();
+            formData.append("MovieID", movieID);
+            formData.append("Cname", $('[name=CnameEdit]').val());
+            formData.append("Ename", $('[name=EnameEdit]').val());
+            formData.append("Type", $('[name=TypeEdit]').val());
+            formData.append("Time", $('[name=TimeEdit]').val());
+            formData.append("Description", $('[name=DescriptionEdit]').val());
+
+            $('input[name="PhotoEdit"]').toArray().filter(function (item) {
+                return item.files.length > 0
+            }).forEach(function (item) {
+                formData.append("Photo", item.files[0]);
+            });
+
+            $.ajax({
+                url:'@Url.Content("~/Admin/Movie/EditMovie")',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res)
+                    {
+                        location.reload();
+                    }
+                }
+            })
+
+        }
+
     </script>
 }

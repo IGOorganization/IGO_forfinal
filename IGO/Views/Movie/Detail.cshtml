@@ -13,7 +13,7 @@
 
 <div class="row" style="padding-top:1rem;margin-left:20px">
     <h3 class="fw-bold">@Model.Item1.Cname</h3>
-    <div  class="col-md-5 col-sm-12">
+    <div class="col-md-5 col-sm-12">
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 @for (int i = 0; i < Model.Item1.PhotoPathList.Count; i++)
@@ -27,7 +27,7 @@
                     foreach (string path in Model.Item1.PhotoPathList)
                     {
                         <div class="carousel-item text-center @(index == 0 ? "active" : "") ">
-                            <img class="photo-fit" src="@path"/>
+                            <img class="photo-fit" src="/img/@path" />
                         </div>
                         index++;
                     }
@@ -51,7 +51,7 @@
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
                             <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat();ChangAddress()">
-                                <option value="0" >請選擇影城</option>
+                                <option value="0">請選擇影城</option>
                                 @foreach (var a in Model.Item2)
                                 {
                                     <option value="@a.FSupplierId">@a.FCompanyName</option>
@@ -353,7 +353,7 @@
                             var seat = Model.Item4.FirstOrDefault(x => x.FSeatRow == row && x.FSeatColumn == column);
                             <a role="button" onclick="ChooseSeat('@("seat"+row+column)')">
                                 <span>@(row + column)</span>
-                                <img id="@("seat"+row+column)" src="/img/can-choose.png" class="seat"  data-seat-name="@(row+column)" data-id="@seat.FSeatId"/>
+                                <img id="@("seat"+row+column)" src="/img/can-choose.png" class="seat" data-seat-name="@(row+column)" data-id="@seat.FSeatId" />
                             </a>
                         }
 
