@@ -249,6 +249,13 @@
                     <div id="inputspace">
                         <input type="text" class="form-control float-lg-left" id="message1" style="width:85%"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%" id="sendButton"></i>
                     </div>
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-danger" id="Demo1"style="width:40%">  Demo1 </button>
+                        <button type="button" class="btn btn-danger" id="Demo2"style="width:40%">  Demo2 </button>
+                        <button type="button" class="btn btn-danger" id="Demo3"style="width:40%">  Demo3 </button>
+                        <button type="button" class="btn btn-danger" id="Demo4"style="width:40%">  Demo4 </button>
+                        
+                    </div>
                 </div>
             </div>
 
@@ -714,14 +721,31 @@
             $("#Content").append($("<li></li>").attr("class", "list-group-item").text(msg));
         });
 
+        let lastMessage = "";
+        $(function () {
+            $("#message1").keyup(function (event) {
+                if (event.which === 13) {
+                    $('#sendButton').click();
+                }
+                else if (event.which === 38) {
+                    console.log(event.which);
+                    $('#message1').val(lastMessage);
+                }
+            });
+        })
+        
+        
         //傳送訊息
         $('#sendButton').on('click', function () {
             let selfID = $('#SelfID').html();
             let message = $('#message1').val();
+            lastMessage = $('#message1').val();
             let sendToID = $('#sendToID').val();
             connection.invoke("SendMessage", selfID, message, sendToID).catch(function (err) {
                 alert('傳送錯誤: ' + err.toString());
             });
+
+            $('#message1').val("");
         });
     </script>
 
@@ -792,6 +816,22 @@
             $("#Login_txtPwd").val("a8226520");
         });
 
+        $("#Demo1").click(function () {
+            $("#message1").val("您好");
+            
+        });
+        $("#Demo2").click(function () {
+            $("#message1").val("您好 請問有什麼需要服務的嗎?");
+
+        });
+        $("#Demo3").click(function () {
+            $("#message1").val("你們網頁設計的很棒");
+
+        });
+        $("#Demo4").click(function () {
+            $("#message1").val("謝謝您的讚美");
+
+        });
         //--  Register===================================================================================== -- >
 
         //註冊日期
