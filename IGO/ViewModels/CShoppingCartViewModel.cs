@@ -41,7 +41,7 @@ namespace IGO.ViewModels
         public virtual TProduct FProduct { get; set; }
 
         public int? FMovieId { get { return _ShoppingCart.FMovieId; } set { _ShoppingCart.FMovieId = value; } }
-
+        public int? FMovieTicketTypeId { get { return _ShoppingCart.FMovieTicketTypeId; } set { _ShoppingCart.FMovieTicketTypeId=value; } }
 
         public TProduct product
         {
@@ -117,6 +117,24 @@ namespace IGO.ViewModels
                 }
             }
         }
-        
+        public string ticketName
+        {
+            get
+            {
+                if (FMovieTicketTypeId > 0)
+                {
+                    string ticketName = _dbIgo.TMovieTicketTypes.FirstOrDefault(c => c.FTicketTypeId == FMovieTicketTypeId).FTicketName;
+                    return ticketName;
+                }
+                else
+                {
+                    string ticketName = _dbIgo.TTicketTypes.FirstOrDefault(c => c.FTicketId == FTicketId).FTicketName;
+                    return ticketName;
+                }
+            }
+        }
+
+
+
     }
 }
