@@ -141,7 +141,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title">現金@((int)item.FVoucherPrice)元折價券</h5>
                                             <p class="card-text">截止日期:@(item.FVoucherEndDate)</p>
-                                            <button class="btn btn-primary" data-value="@((int)item.FVoucherPrice)" id="btnVoucher" style="float:right">使用</button>
+                                            <button class="btn btn-primary" data-id="@item.FVoucherId" data-value="@((int)item.FVoucherPrice)" id="btnVoucher" style="float:right">使用</button>
                                         </div>
                                     </div>
                                 }
@@ -222,6 +222,7 @@
             const voucherCancel = $("#voucherCancel") // 優惠券取消
             const totalAppear = $("#totalAppear");   //最終價錢金額顯示
             let voucher = 0; //折價金額
+            let voucherData = 0;
 
             btnVoucher.forEach(function (data) {
                 data.addEventListener("click", function () {
@@ -230,6 +231,7 @@
                     $(this).prop("disabled", true);
                     voucherPrice.text(`現金折價${$(this).data("value")}元`);
                     voucher = $(this).data("value");
+                    voucherData = $(this).data("id");
                 });
             })
             //=======================票券確認================================
@@ -237,12 +239,14 @@
                 if (voucher == 0) {
                     voucherAppear.text("未使用任何票券");
                     final = @Total;
+                    voucherData = 0;
+                   
                 }
                 else {
                     voucherAppear.text(`現金折價${voucher}元`);
                     totalAppear.text("@Total 元      -      " + `現金折價${voucher}元` + `      =      TWD${@Total-voucher}元`);
                     final = @Total- voucher;
-
+                   
 
                 }
             });
@@ -303,7 +307,7 @@
                         url: '@Url.Content("~/ShoppingCart/SendToNewebPay")',
                         method: 'POST',
                         dataType: 'json',
-                        data: { inModel: postData, __RequestVerificationToken: $('@Html.AntiForgeryToken()').val() },
+                        data: { inModel: postData, __RequestVerificationToken: $('@Html.AntiForgeryToken()').val()},
                         success: function(returnObj) {
                             // 呼叫藍新金流 API
                             const form = document.createElement('form');

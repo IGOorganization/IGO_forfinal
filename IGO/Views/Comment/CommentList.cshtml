@@ -106,7 +106,7 @@
                                                 @Html.DisplayFor(modelItem => item.FFeedbackDate)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Comment", "Create", new { /* id=item.PrimaryKey */ }) |
+                                                @Html.ActionLink("新增", "Create", new { /* id=item.PrimaryKey */ }) |
                                                 @Html.ActionLink("刪除", "Delete", "Comment", new { id = item.FFeedbackId },
                                                  new { onclick = "return confirm('確定要刪除嗎?')" })
                                             </td>

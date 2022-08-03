@@ -4,34 +4,32 @@
     ViewData["Title"] = "Edit";
 }
 
-<form asp-action="Edit" enctype="multipart/form-data">
-    <div class="container-fluid pt-4 px-4">
-        <div class="col-12">
-            <div class="bg-secondary rounded h-100 p-4">
-                <h1>會員資料修改作業</h1>
-                <hr />
-                <div class="d-none d-md-flex ms-4">
-                    <div class="col-md-3">
-                        <div class="text-center">
-                            <img width="150" height="150" class="rounded-circle " src="/img/UID_0.jpg">
-                        </div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="col-12">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h1>會員資料修改作業</h1>
+            <hr />
+            <div class="d-none d-md-flex ms-4">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@Model.FUserPhoto" onerror="this.src='/img/UID_0.jpg'" id="Editphoto">
+                        <br />
+                        <hr />
+                        <label class="text-center">
+                            <button button type="button" class="btn btn-outline-primary btn" data-bs-toggle="modal" data-bs-target="#EditImgModal">
+                                <i title="" class="fa fa-camera">  頭貼修改  </i>
+                            </button>
+                        </label>
                     </div>
-                    <hr />
-                    <div class="card-body text-white">
+                </div>
+                <hr />
+                <div class="card-body text-white">
+                    <form  asp-action="Edit" enctype="multipart/form-data" name="edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" value="@Model.FCustomerId" name="FCustomerID" />
                         <div class="row">
                             <div class="col-md-4 text-white">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" value="@Model.FCustomerId" name="FCustomerID" />
-                                @*<div class="form-group">
-                                        <label asp-for="FCustomerId" class="control-label"></label>
-                                        <input asp-for="FCustomerId" class="form-control" />
-                                        <span asp-validation-for="FCustomerId" class="text-danger"></span>
-                                    </div>*@
-                                @*<div class="form-group">
-                                        <label asp-for="FCityId" class="control-label"></label>
-                                        <input asp-for="FCityId" class="form-control" />
-                                        <span asp-validation-for="FCityId" class="text-danger"></span>
-                                    </div>*@
                                 <div class="form-group">
                                     <label asp-for="FLastName" class="control-label"></label>
                                     <input asp-for="FLastName" class="form-control" />
@@ -42,15 +40,6 @@
                                     <input asp-for="FFirstName" class="form-control" />
                                     <span asp-validation-for="FFirstName" class="text-danger"></span>
                                 </div>
-                                @*<div class="form-group">
-                                        <label asp-for="FSignUpDate" class="control-label"></label>
-                                        <input asp-for="FSignUpDate" class="form-control" />
-                                        <span asp-validation-for="FSignUpDate" class="text-danger"></span>
-                                    </div>*@
-                                @*<div class="form-group">
-                                        <label class="control-label">會員貼圖</label>
-                                        <input type="file" name="photo" class="form-control" />
-                                    </div>*@
                             </div>
                             <div class="col-md-4 text-white">
                                 <div class="form-group">
@@ -80,26 +69,97 @@
                                         <span asp-validation-for="FEmail" class="text-danger"></span>
                                         <br />
                                         <div class="form-group text-end">
-                                            <input type="submit" value="送出並修改" class="btn btn-primary" />
+                                            <input type="submit" value="送出並修改" class="btn btn-primary" id="#memEdit" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <hr />
-    <div class="text-md-center">
-        <a asp-action="List">返回會員管理列表</a>
-    </div>
-</form>
+</div>
+<hr />
+<div class="text-md-center">
+    <a asp-action="List">返回會員管理列表</a>
+</div>
 
+<!-- 修改頭貼Modal 彈出登入視窗 -->
+<div class="modal fade " id="EditImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="staticBackdropLabel">會員頭貼修改</h5>
+                <button type="button" class="btn-close-white btn-danger text-white-50" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-dark">
+                <br />
+                <form asp-controller="Customer" asp-action="EditImg" enctype="multipart/form-data" name="editimg" method="post">
+
+                    <input type="hidden" value="@Model.FCustomerId" name="customerID" />
+                    <div class="text-center">
+                        <img width="150" height="150" class="rounded-circle me-lg-2" src="/img/@Model.FUserPhoto" onerror="this.src='/img/UID_0.jpg'" id="Editphoto">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="file" name="photo" class="form-control" id="photofile" aria-describedby="inputGroupFileAddon04" />
+                        <label class="control-label" for="photofile" id="labfile">選擇檔案</label>
+                    </div>
+                    <div class="modal-footer">
+                        <br />
+                        <button type="submit" class="btn btn-primary" id="memEdit">修改</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 關閉</button>
+                        <br />
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <hr />
+                        <div>
+                            <div class="row bg-dark">
+                                <div class="col text-center">
+                                    <button type="button" class="btn btn-danger" id="Backend_Demo">  Demo </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Backend Modal End -->
 
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        //修改頭像預覽圖片
+        let userPhoto = document.querySelector("#Editphoto");
+
+        $("#photofile").change(function () {
+            let file = this.files[0];
+            let objectURL = URL.createObjectURL(file);
+            userPhoto.src = objectURL;
+        })
+
+        let editPhoto = document.querySelector("#memEdit");
+        editPhoto.addEventListener("click", async function (event) {
+            event.preventDefault();
+            let editImg = new FormData(document.editimg);
+
+            let jresult = await fetch("Admin/Customer/EditImg", {
+                body: editImg,
+                method: "POST",
+            })
+            let result = await jresult.json();
+            console.log(result);
+            alert("頭貼修改成功");
+            window.location.href = "Admin/Customer/Edit";
+        })
+    </script>
 }
