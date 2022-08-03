@@ -58,7 +58,7 @@
 
                             @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
                             @*<span data-bs-toggle="modal" data-bs-target="#@item.FProductId">@Html.DisplayFor(modelItem => item.product.FProductName)</span>*@
-                        <a data-bs-toggle="modal" role="button" data-bs-target="#@("IGO"+item.FProductId)">@item.product.FProductName</a>
+                        <a data-bs-toggle="modal" role="button" data-bs-target="#@("IGO"+item.FShoppingCartId)">@item.product.FProductName</a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FBookingTime)
@@ -93,7 +93,7 @@
 @foreach (var item in Model)
 {
     <!-- Modal -->
-    <div class="modal fade" id="@("IGO"+item.FProductId)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="@("IGO"+item.FShoppingCartId)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -103,7 +103,7 @@
                 </div>
                 <div class="modal-body">
                     <img style="width:450px;height:350px" src="@Url.Content($"~/img/{item.photo.FPhotoPath}")" />
-                    <p>@item.product.FIntroduction</p>
+                    <p>@item.introduction</p>
                 </div>
                
             </div>
