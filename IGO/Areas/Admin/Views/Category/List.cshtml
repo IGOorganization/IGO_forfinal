@@ -24,11 +24,11 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <label>輸入主類別名稱:</label><br>
-                            <input class="form-text" id="txtCategory" type="text" value=""><button type="button" class="btn btn-warning" id="update">新增</button>
-                        </div>
+                            <label>輸入主類別名稱:</label><br><input class="form-text" id="txtCategory" type="text" value=""><button type="button" class="btn btn-outline-success" id="Demo1">Demo</button><br>
+                            <button type="button" class="btn btn-warning" id="update">新增</button>
+                        </div>                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>                          
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         <hr>
                         <div class="modal-body">
                             <label>輸入欲新增的次類別名稱</label><span>: </span><input class="form-text txtSubCategory" type="text" value="">
-                            <button type="button" class="btn btn-warning Add">新增</button>
+                            <button type="button" class="btn btn-warning Add">新增</button><button type="button" class="btn btn-outline-success" id="Demo2">Demo</button><br>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
@@ -195,5 +195,17 @@
             })
 
         })
+
+                /*8/3 宜潔新增Demo新增主分類*/
+                $('#Demo1').on('click', function ()
+                {
+                    $('#txtCategory').val('交通');
+                })
+                /*8/3 宜潔新增Demo新增次分類*/
+                $('#Demo2').on('click', function () {
+                    $('.txtSubCategory').val('演唱會');
+                })
+
+
             </script>
         }
