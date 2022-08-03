@@ -149,7 +149,7 @@ namespace IGO.Areas.Admin.Controllers
             "<hr>" +
             "<h3>【顧客取消訂單】</h3>" +
             $"<h4>顧客:{lastname}{firstname}  先生/小姐</h4>" +
-             $"<h4>於{year}/{month}/{day}取消訂單<h4>" +
+             $"<h4>訂單日期: {year}/{month}/{day}<h4>" +
             "<h4>訂單狀態: 取消訂單</h4>" +
             "<h4>退款狀態: 申請退款中</h4>" +          
             $"<h4>金額:{totalprice}元</h4>" +
