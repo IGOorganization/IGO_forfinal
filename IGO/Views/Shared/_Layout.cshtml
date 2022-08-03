@@ -926,8 +926,74 @@
             $("#register_FLName").val("林");
             $("#register_FFName").val("炙影");
             $("#register_FPassword").val("a8226520");
-            $("#register_FCheckPwd").val("");
+            $("#register_FCheckPwd").val("a8226520");
             $("#register_FEmail").val("igocompanysender@gmail.com");
+
+            //demo 及時判定
+
+            //Phone
+            var mobileRegex = /^09[0-9]{8}$/
+            var RegAcc = mobileRegex.test($('#register_FPhone').val());
+
+            if (RegAcc) {
+                $("#R_warn_Acc").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+
+            else {
+                $("#R_warn_Acc").html('<i class="fa-solid fa-circle-xmark"> 手機號碼空白或格式有誤</i>');
+            }
+
+            //password
+            var regEx = /^(?=.*\d)(?=.*[a-z]).{8,20}$/; //密碼格式 至少有數字+一個字母，字串8~20
+            var RegPwd = regEx.test($('#register_FPassword').val());
+
+            if (RegPwd) {
+                $("#spwarn_Pwd").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#spwarn_Pwd").html('<i class="fa-solid fa-circle-xmark"> 密碼空白或格式不符</i>');
+            }
+
+            //Checkpassword
+
+            var firstPassword = $('#register_FPassword').val();
+            var confirmPassword = $('#register_FCheckPwd').val();
+
+            if (confirmPassword !== firstPassword) {
+                $("#confirmPwd").html('<i class="fa-solid fa-circle-xmark"> 與輸入的密碼不一致</i>');
+            }
+            else {
+                $("#confirmPwd").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+
+            //Name
+
+
+            var RecLName = $('#register_FLName').val();
+            if (RecLName != "") {
+                $("#R_warn_LN").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_LN").html('<i class="fa-solid fa-circle-xmark"> 請填入您的姓氏</i>');
+            }
+
+            var RecLName = $('#register_FFName').val();
+            if (RecLName != "") {
+                $("#R_warn_FN").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_FN").html('<i class="fa-solid fa-circle-xmark"> 請填入您的名字</i>');
+            }
+
+            //Email
+
+            var RecLName = $('#register_FFName').val();
+            if (RecLName != "") {
+                $("#R_warn_Email").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_Email").html('<i class="fa-solid fa-circle-xmark"> 請填入Email</i>');
+            }
         });
 
 

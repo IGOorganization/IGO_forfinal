@@ -24,6 +24,18 @@
                     <div class="form-group">
                         <input type="submit" value="確認修改" class="btn btn-primary" id="send" />
                     </div>
+                    <div class="form-group">
+                        <hr />
+                        <div>
+                            <div class="row bg-dark">
+                                <div class="col text-center">
+                                    <button type="button" class="btn btn-danger" id="Demo">  Demo </button>
+                                    <button type="button" class="btn btn-danger" id="Demo2">  Demo2 </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
                 </form>
             </div>
         </div>
@@ -89,6 +101,20 @@
 
             /**/
         })
+
+        /*忘記密碼 Demo*/
+
+
+        $("#Demo").click(function () {
+            $("#inputPwd").val("a12345678");
+            $("#checkPwd").val("a12345678");
+        });
+
+        $("#Demo2").click(function () {
+            $("#inputPwd").val("a12345678123");
+            $("#checkPwd").val("a12345678123");
+        });
+            /**/
 
     </script>
 
