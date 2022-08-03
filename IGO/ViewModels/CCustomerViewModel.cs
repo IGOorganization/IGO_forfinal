@@ -119,6 +119,12 @@ namespace IGO.ViewModels
             set { _cust.FUserPhoto = value; }
         }
 
+        //public int FSupplierId 
+        //{
+        //    get {return _cust.FCustomerId; }
+        //    set { _cust.FCustomerId = value; } 
+        //}
+
         public IFormFile photo { get; set; }
 
         public bool RememberMe { get; set; }
@@ -139,6 +145,12 @@ namespace IGO.ViewModels
         [Required(ErrorMessage = "不可為空")]
         [Compare("txtPassword", ErrorMessage = "密碼不一致")]
         public string confirmPassword { get; set; }
+
+        public CCustomerViewModel(TCustomer customer)
+        {
+            _cust = customer;
+
+        }
     }
 
 

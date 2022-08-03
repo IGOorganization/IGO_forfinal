@@ -2,6 +2,7 @@
 using IGO.Models;
 using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,54 +29,39 @@ namespace IGO.Areas.Admin.Controllers
             _enviroment = IGO;
         }
 
-        //public IActionResult Index()
-        //{
-        //    List<CCustomerViewModel> List = new List<CCustomerViewModel>();
+        DemoIgoContext db = new DemoIgoContext();
 
-        //    // 從DB裡拿出Customer的資料
-        //    IEnumerable<TCustomer> datas = _dbIgo.TCustomers.ToList();
 
-        //    //逐筆轉換為CCustomerViewModel
-        //    foreach (TCustomer c in _dbIgo.TCustomers)
-        //    {
-        //        CCustomerViewModel cust = new CCustomerViewModel();
-        //        cust.customer = c;
-        //        List.Add(cust);
-        //    }
-
-        //    return View(List);
-        //}
-
-        public IActionResult List()
+        public IActionResult List(CKeywordViewModel vModel)
         {
-            //IEnumerable<TCustomer> datas = null;
-            //if (string.IsNullOrEmpty(vModel.txtKeyword))
-            //{
-            //    datas = from t in _dbIgo.TCustomers
-            //            select t;
-            //}
-            //else
-            //{
-            //    datas = _dbIgo.TCustomers.Where(t => 
-            //        t.FLastName.Contains(vModel.txtKeyword) ||
-            //        t.FFirstName.Contains(vModel.txtKeyword) ||
-            //        t.FGender.Contains(vModel.txtKeyword) ||
-            //        t.FPhone.Contains(vModel.txtKeyword) ||
-            //        t.FEmail.Contains(vModel.txtKeyword) ||
-            //        t.FAddress.Contains(vModel.txtKeyword));
-            //}
-            IEnumerable<TCustomer> c = _dbIgo.TCustomers;
-
-            List<CCustomerViewModel> datas = new List<CCustomerViewModel>();
-
-            foreach(TCustomer item in c)
+            IEnumerable<TCustomer> datas = null;
+            if (string.IsNullOrEmpty(vModel.txtKeyword))
             {
-                CCustomerViewModel data = new CCustomerViewModel();
-                data.customer = item;
-                datas.Add(data);
+                datas = from t in db.TCustomers
+                        select t;
+            }
+            else
+            {
+                datas = db.TCustomers.Where(t => t.FPhone.Contains(vModel.txtKeyword) ||
+                    t.FLastName.Contains(vModel.txtKeyword) ||
+                    t.FFirstName.Contains(vModel.txtKeyword) ||
+                    t.FAddress.Contains(vModel.txtKeyword) ||
+                    t.FEmail.Contains(vModel.txtKeyword) ||
+                    t.FSignUpDate.Contains(vModel.txtKeyword) ||
+                    t.FGender.Contains(vModel.txtKeyword));
+                    
             }
 
-            return View(datas);
+
+            List<CCustomerViewModel> list = new List<CCustomerViewModel>();
+            foreach (TCustomer item in datas)
+            {
+                CCustomerViewModel vmodel = new CCustomerViewModel();
+                vmodel.customer = item;
+                list.Add(vmodel);
+            }
+
+            return View(list);
 
         }
 
@@ -99,10 +85,10 @@ namespace IGO.Areas.Admin.Controllers
         public IActionResult Edit(int? id)
         {
 
-            TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == id);
-            if (cust == null)
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == id);
+            if (data == null)
                 return RedirectToAction("List");
-            return View(cust);
+            return View(data);
         }
         [HttpPost]
         public IActionResult Edit(CCustomerViewModel vModel)
@@ -111,22 +97,60 @@ namespace IGO.Areas.Admin.Controllers
             TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == vModel.FCustomerId);
             if (cust != null)
             {
-                if (vModel.FUserPhoto != null)
-                {
-                    string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    vModel.photo.CopyTo(new FileStream( _enviroment.WebRootPath+"/img/"+ photoName, FileMode.Create));
-                    cust.FUserPhoto = photoName;
-                }
+                cust.FCustomerId = vModel.FCustomerId;
                 cust.FLastName = vModel.FLastName;
                 cust.FFirstName = vModel.FFirstName;
                 cust.FGender = vModel.FGender;
                 cust.FPhone = vModel.FPhone;
-                cust.FPassword = vModel.FPassword;
                 cust.FEmail = vModel.FEmail;
                 cust.FAddress = vModel.FAddress;
-                
+
             }
             _dbIgo.SaveChanges();
+            return RedirectToAction("List");
+        }
+
+        public IActionResult EditImg(int? id)
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == id);
+            if (data == null)
+                return RedirectToAction("List");
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult EditImg(int customerID, IFormFile photo)
+        {
+            try
+            {
+                TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == customerID);
+                if (data != null)
+                {
+                    if (photo != null)
+                    {
+                        string photoName = Guid.NewGuid().ToString() + ".jpg";
+                        photo.CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + photoName, FileMode.Create));
+                        data.FUserPhoto = photoName;
+                    }
+                }
+                _dbIgo.SaveChanges();
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
+
+        }
+
+        public IActionResult Delete(int? id)
+        {
+
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == id);
+            if (data != null)
+            {
+                _dbIgo.TCustomers.Remove(data);
+                _dbIgo.SaveChanges();
+            }
             return RedirectToAction("List");
         }
     }
