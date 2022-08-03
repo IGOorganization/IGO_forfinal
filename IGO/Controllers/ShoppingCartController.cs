@@ -329,14 +329,16 @@ namespace IGO.Controllers
             int LatestOrderId = _dbIgo.TOrders.OrderByDescending(i => i.FOrderId).FirstOrDefault().FOrderId;
             foreach (CShoppingCartViewModel item in lists)
             {
-                TOrderDetail orderDetail = new TOrderDetail()
-                {
-                    FOrderId = LatestOrderId,
-                    FProductId = item.FProductId,
-                    FBookingTime = item.FBookingTime,
-                    FTicketId = item.FTicketId,
-                    FQuantity = item.FQuantity,
-                    FPrice = item.FTotalPrice
+				TOrderDetail orderDetail = new TOrderDetail()
+				{
+					FOrderId = LatestOrderId,
+					FProductId = item.FProductId,
+					FBookingTime = item.FBookingTime,
+					FTicketId = item.FTicketId,
+					FQuantity = item.FQuantity,
+					FPrice = item.FTotalPrice,
+					FMovieTicketType = item.FMovieTicketTypeId
+				    
                 };
                 _dbIgo.TOrderDetails.Add(orderDetail);
             }
@@ -393,7 +395,7 @@ namespace IGO.Controllers
 				htmlBody += $"<div style='border:1px black solid;display:flex;margin-bottom:10px'><div><h2 style='text-align:center'>{lists[i].product.FProductName}</h2>" +
 				   $"<img src='cid:" + $"{PicNum[i]}'>"+
 				   $"</div>" +
-				   $"<div style='margin-top:60px'><h3>使用時間:{lists[i].FBookingTime}</h3><h3>票種:{lists[i].ticket.FTicketName}</h3>" +
+				   $"<div style='margin-top:60px'><h3>使用時間:{lists[i].FBookingTime}</h3><h3>票種:{lists[i].ticketName}</h3>" +
 				   $"<h3>張數:{lists[i].FQuantity}</h3><h3>價錢:{lists[i].FTotalPrice:C2}</h3>" +
 				   $"<h3>地址:{lists[i].product.FAddress}</h3></div></div>" +
 				   $"<p>{QrcodeContext[i]}</p>";
