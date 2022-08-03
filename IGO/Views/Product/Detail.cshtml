@@ -1,5 +1,9 @@
 ﻿@model IGO.ViewModels.CProductViewModel
 
+@{
+    ViewData["Title"] = Model.FProductName;
+}
+
 <style>
     .photo-fit {
         width: 100%;
@@ -102,7 +106,7 @@
                                 加入購物車
                             </button>
 
-                            <button type="button" class="btn btn-outline-secondary" id="btn-collection">
+                            <button type="button" class="btn btn-outline-secondary" id="btn-collection" data-id="@Model.FProductId">
                                 <i class="bi bi-heart"></i>
                                 加入收藏
                             </button>
@@ -267,6 +271,25 @@
         </script>*@
     <script>
 
+    const Now = new Date();
+    const year = Now.getFullYear();
+    let month = Now.getMonth();
+    let date = Now.getDate();
+
+    //日期物件設定不能選取今日以前
+    if (date < 10) {
+        date = `0${date}`;
+        console.log(date)
+    }
+    if (month < 9) {
+
+        month = `0${month + 1}`;
+        console.log(month)
+    }
+    document.querySelector("#bookingTime").min = `${Now.getFullYear()}-${month}-${date}`;
+
+
+
         //地圖====================
         let map1;
 
@@ -380,9 +403,29 @@
             }
         })
 
+    document.querySelector("#btn-collection").addEventListener("click", async function (event) {
+        console.log(event.target.getAttribute("data-id"));
+
+        let jresult = await fetch('@Url.Content("/Collection/_Fav")' + `?id=${event.target.getAttribute("data-id")}`);
+
+            let result = await jresult.json();
+
+            alert(result);
 
 
+            if (result == "已加入收藏") {
 
+                $(this).css("color", "red");
+
+
+            } else if (result == "取消收藏") {
+
+                $(this).css("color", "black");
+            }
+            else {
+                alert("請先登入");
+            }
+    })
 
     </script>
 
