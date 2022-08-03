@@ -79,9 +79,12 @@ namespace IGO.Controllers
             List<CProductViewModel> products = new List<CProductViewModel>();
             for (int i = 0; i < 9; i++)
             {
-                CProductViewModel pvm = new CProductViewModel(_dbIgo);
-                pvm.product = prod.ToList()[i];
-                products.Add(pvm);
+                if (prod.ToList().Count() > i)
+                {
+                    CProductViewModel pvm = new CProductViewModel(_dbIgo);
+                    pvm.product = prod.ToList()[i];
+                    products.Add(pvm);
+                }
             }
 
             string result = System.Text.Json.JsonSerializer.Serialize(products);

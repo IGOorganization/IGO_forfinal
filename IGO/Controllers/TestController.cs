@@ -1,6 +1,7 @@
 ﻿using IGO.Models;
 using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -64,7 +65,25 @@ namespace IGO.Controllers
 
         }
 
+        public IActionResult getVoucher()
+        {
+            int userid= (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
 
+            TVoucher voucher = new TVoucher()
+            {
+                FCustomerId = userid,
+                FVoucherEndDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"),
+                FVoucherNumber = "LovingIgoForever",
+                FVoucherPrice = 150,
+                FVoucherStartDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                FVoucherStatus=false,
+                FVoucherName="IGO問卷回饋優惠卷"
+            };
+            db.TVouchers.Add(voucher);
+            db.SaveChanges();
+            return RedirectToAction("Home", "Home");
+
+        }
 
 
 
