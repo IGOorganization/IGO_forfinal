@@ -106,7 +106,7 @@
                                                 <div class="col">
                                                     <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FBirth" class="control-label"></label>
-                                                        <input type="date" name="FBirth" id="editBirth" value="@Model.FBirth"/>
+                                                        <input type="date" name="FBirth" id="editBirth" value="@Model.FBirth" />
                                                         <span asp-validation-for="FBirth" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -118,7 +118,7 @@
                                                 <div class="col">
                                                     <div class="p-3 list-group-item-primary">
                                                         <label asp-for="FAddress" class="control-label"></label>
-                                                        <input asp-for="FAddress" class="form-control" name="FAddress" />
+                                                        <input asp-for="FAddress" class="form-control" name="FAddress" id="input"/>
                                                         <span asp-validation-for="FAddress" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -140,6 +140,17 @@
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                             <input type="submit" value="儲存並修改" class="btn btn-primary" id="editUserinfo" />
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <hr />
+                                        <div>
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <button type="button" class="btn btn-danger" id="Demo">  Demo </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
                                     </div>
                                 </form>
                             </div>
@@ -182,11 +193,6 @@
                     <div class="form-group">
                         <hr />
                         <div>
-                            <div class="row bg-dark">
-                                <div class="col text-center">
-                                    <button type="button" class="btn btn-danger" id="Backend_Demo">  Demo </button>
-                                </div>
-                            </div>
                         </div>
                         <hr />
                     </div>
@@ -281,6 +287,10 @@
 
         })
 
+        $("#Demo").click(function () {
+            $("#input").val("106台北市大安區復興南路一段390號2樓");
+
+        });
 
 
     </script>
