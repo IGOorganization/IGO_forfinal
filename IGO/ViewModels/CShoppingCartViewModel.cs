@@ -40,7 +40,9 @@ namespace IGO.ViewModels
         public virtual TCustomer FCustomer { get; set; }
         public virtual TProduct FProduct { get; set; }
 
-        
+        public int? FMovieId { get { return _ShoppingCart.FMovieId; } set { _ShoppingCart.FMovieId = value; } }
+
+
         public TProduct product
         {
             get {
@@ -90,14 +92,31 @@ namespace IGO.ViewModels
             }
 
         }
+    
         public TProductsPhoto photo
         {
             get
             {
-                TProductsPhoto photo = _dbIgo.TProductsPhotos.FirstOrDefault(c => c.FProductId == FProductId);
+                TProductsPhoto photo = _dbIgo.TProductsPhotos.FirstOrDefault(c => FMovieId>0?c.FMovieId == FMovieId:c.FProductId==FProductId);
                 return photo;
             }
 
         }
+        public string introduction
+        {
+            get {
+                if (FMovieId > 0)
+                {
+                    string introduction = _dbIgo.TMovies.FirstOrDefault(c => c.MovieId == FMovieId).Description;
+                    return introduction;
+                }
+                else 
+                {
+                    string introduction = _dbIgo.TProducts.FirstOrDefault(c => c.FProductId == FProductId).FIntroduction;
+                    return introduction;
+                }
+            }
+        }
+        
     }
 }
