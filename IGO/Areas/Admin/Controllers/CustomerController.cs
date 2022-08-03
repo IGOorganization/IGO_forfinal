@@ -2,6 +2,7 @@
 using IGO.Models;
 using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -96,12 +97,6 @@ namespace IGO.Areas.Admin.Controllers
             TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == vModel.FCustomerId);
             if (cust != null)
             {
-                if (vModel.FUserPhoto != null)
-                {
-                    string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    vModel.photo.CopyTo(new FileStream( _enviroment.WebRootPath+"/img/"+ photoName, FileMode.Create));
-                    cust.FUserPhoto = photoName;
-                }
                 cust.FCustomerId = vModel.FCustomerId;
                 cust.FLastName = vModel.FLastName;
                 cust.FFirstName = vModel.FFirstName;
@@ -109,10 +104,42 @@ namespace IGO.Areas.Admin.Controllers
                 cust.FPhone = vModel.FPhone;
                 cust.FEmail = vModel.FEmail;
                 cust.FAddress = vModel.FAddress;
-                
+
             }
             _dbIgo.SaveChanges();
             return RedirectToAction("List");
+        }
+
+        public IActionResult EditImg(int? id)
+        {
+            TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == id);
+            if (data == null)
+                return RedirectToAction("List");
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult EditImg(int customerID, IFormFile photo)
+        {
+            try
+            {
+                TCustomer data = _dbIgo.TCustomers.FirstOrDefault(t => t.FCustomerId == customerID);
+                if (data != null)
+                {
+                    if (photo != null)
+                    {
+                        string photoName = Guid.NewGuid().ToString() + ".jpg";
+                        photo.CopyTo(new FileStream(_enviroment.WebRootPath + "/img/" + photoName, FileMode.Create));
+                        data.FUserPhoto = photoName;
+                    }
+                }
+                _dbIgo.SaveChanges();
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
+
         }
 
         public IActionResult Delete(int? id)
