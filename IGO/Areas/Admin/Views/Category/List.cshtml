@@ -24,11 +24,16 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <label>輸入主類別名稱:</label><br>
-                            <input class="form-text" id="txtCategory" type="text" value=""><button type="button" class="btn btn-warning" id="update">新增</button>
-                        </div>
+                            <label>輸入主類別名稱:</label><br><input class="form-text" id="txtCategory" type="text" value=""><button type="button" class="btn btn-outline-success" id="Demo1">Demo</button><br>
+                            <div class="form-group">
+                                <label class="control-label">類別照片</label>
+                                <input type="file" name="photo" class="form-control" id="catPhoto"/>
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-warning" id="update">新增</button>
+                        </div>                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>                          
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
                         </div>
                     </div>
                 </div>
@@ -40,6 +45,9 @@
                             商品主類別名稱
                         </th>
                         <th>
+                            商品主類別圖片
+                        </th>
+                        <th>
 
                         </th>
 
@@ -49,17 +57,21 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr align="right">
-                            <td>
-                                @item.CategoryName
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-success btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
-                                    檢視/編輯次類別
-                                </button>
-                                <button type="button" class="btn btn-danger btnDelete" id="CategoryId-@item.CategoryId">刪除</button>
-                            </td>
-                        </tr>
+                    <tr align="right">
+                        <td>
+                            @item.CategoryName
+                        </td>
+                        <td>
+                            <img src='/img/@item.CategoryPhotoPath' width="100" height="100"/>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
+                                檢視/編輯次類別
+                            </button>
+                            <button type="button" class="btn btn-light btnAddPhoto" id="CatephotoId-@item.CategoryId">新增照片</button>
+                            <button type="button" class="btn btn-danger btnDelete" id="CategoryId-@item.CategoryId">刪除</button>
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
@@ -81,7 +93,7 @@
                         <hr>
                         <div class="modal-body">
                             <label>輸入欲新增的次類別名稱</label><span>: </span><input class="form-text txtSubCategory" type="text" value="">
-                            <button type="button" class="btn btn-warning Add">新增</button>
+                            <button type="button" class="btn btn-warning Add">新增</button><button type="button" class="btn btn-outline-success" id="Demo2">Demo</button><br>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
@@ -101,10 +113,19 @@
         $('#update').on("click", function ()
         {
             let Categoryname = $('#txtCategory').val();
+            let site = $('#catPhoto').val();
+
+            console.log(site);
+            let len = site.split('\\').length;
+            let phtotoArray = site.split('\\');
+            console.log(len);
+            let photoName = phtotoArray[len - 1];
+            console.log(photoName);
+           /* console.log($('#catPhoto').val());*/
             //console.log(Categoryname);
-            $.post('@Url.Content("~/Admin/Category/CreateCategory")', { "categoryname": Categoryname}, function (datas)
+            $.post('@Url.Content("~/Admin/Category/CreateCategory")', { "categoryname": Categoryname, "addPhoto": photoName}, function (datas)
             {
-                //console.log(datas);
+                console.log(datas);
                 window.location.href = 'List';  //refresh此頁
             })
         })
@@ -130,11 +151,11 @@
                          //console.log('Delete successfully')
                          alert('確定刪除?');
                          window.location.href = 'List';  //refresh此頁
-                     }) 
+                     })
                  }
 
            })
-          
+
         })
 
         let cateID = "";  //商品主分類ID
@@ -195,5 +216,17 @@
             })
 
         })
+
+                /*8/3 宜潔新增Demo新增主分類*/
+                $('#Demo1').on('click', function ()
+                {
+                    $('#txtCategory').val('交通');
+                })
+                /*8/3 宜潔新增Demo新增次分類*/
+                $('#Demo2').on('click', function () {
+                    $('.txtSubCategory').val('演唱會');
+                })
+
+
             </script>
         }

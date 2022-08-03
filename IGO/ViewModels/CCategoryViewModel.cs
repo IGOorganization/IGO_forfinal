@@ -1,4 +1,5 @@
 ﻿using IGO.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,12 @@ namespace IGO.ViewModels
             get { return _cate.FCategoryName; }
             set { _cate.FCategoryName = value; }
         }
+        //8/3新增
+        public string CategoryPhotoPath
+        {
+            get { return _cate.FCategoryPhotoPath; }
+            set { _cate.FCategoryPhotoPath = value; }
+        }
         //TSubCategory
         public TSubCategory tSubCategory
         {
@@ -52,5 +59,6 @@ namespace IGO.ViewModels
             get { return _sb.FSubCategoryPath; }
             set { _sb.FSubCategoryPath = value; }
         }
+        
     }
 }

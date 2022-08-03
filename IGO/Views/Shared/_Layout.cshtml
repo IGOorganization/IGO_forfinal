@@ -116,17 +116,22 @@
                     <div class="navbar-nav mr-auto py-0" id="category">
 
                     </div>
-                    <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-
+                    <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width:1000px">
+                        <div class="offcanvas-header justify-content-center">
+                            <h5 class="offcanvas-title titleName text-white" id="offcanvasExampleLabel"></h5>
                         </div>
-                        <div class="offcanvas-body bg-dark">
-                            <div class="SubSpace">
+                        <div class="offcanvas-body bg-dark Catebg">
+                           
+                            <div @*class="justify-content-between"*@>
+                                <div class="SubSpace justify-item-center" style="width:70%;align-content:center">
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
+
+
                     @*7/28調整版面*@
                     <div class="col-sm-1 px-5 text-end">
                         <div class="d-inline-flex align-items-center py-2">
@@ -249,6 +254,13 @@
                     <div id="inputspace">
                         <input type="text" class="form-control float-lg-left" id="message1" style="width:85%"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%" id="sendButton"></i>
                     </div>
+                    <div class="col text-center">
+                        <button type="button" class="btn btn-danger" id="Demo1"style="width:40%">  Demo1 </button>
+                        <button type="button" class="btn btn-danger" id="Demo2"style="width:40%">  Demo2 </button>
+                        <button type="button" class="btn btn-danger" id="Demo3"style="width:40%">  Demo3 </button>
+                        <button type="button" class="btn btn-danger" id="Demo4"style="width:40%">  Demo4 </button>
+                        
+                    </div>
                 </div>
             </div>
 
@@ -358,8 +370,8 @@
                             <div>
                                 <div class="row bg-dark">
                                     <div class="col text-center">
-                                            <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(管理員) </button>
-                                        </div>
+                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(管理員) </button>
+                                    </div>
                                     <div class="col text-center">
                                         <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
                                     </div>
@@ -460,7 +472,7 @@
                         <div>
                             <div class="row bg-dark">
                                 <div class="col text-center">
-                                    <button type="button" class="btn btn-danger" id="btnDemoRegister">  Demo (林炙影) </button>
+                                    <button type="button" class="btn btn-danger" id="btnDemoRegister">  Demo </button>
                                 </div>
                             </div>
                             <hr />
@@ -545,7 +557,7 @@
                 </div>
                 <div class="modal-body bg-dark">
                     <br />
-                    <form asp-controller="" asp-action="" enctype="application/x-www-form-urlencoded"  id="loginBEForm">
+                    <form asp-controller="" asp-action="" enctype="application/x-www-form-urlencoded" id="loginBEForm">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control text-dark" id="LoginBE_txtAcc" name="txtAccount" placeholder="手機號碼">
                             <label for="floatingPassword">管理員帳號</label>
@@ -639,21 +651,39 @@
                 $(DivCategory).append(`<button class="btn btn-card" type="button" style="color:white" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" CategoryID=${CategoryId}>${CategoryName}</button>`);
             }
 
+            let categoryPhotoPath = "";
             //顯示次分類
             $(".btn-card").click(function () {
+                $('.titleName').text($(this).text());  /*8/3 宜潔 新增標題*/
+                //console.log($(this).text());
+
+                 $.getJSON('@Url.Content("~/Home/layoutCategoryPhoto")', { "idd": $(this).attr("CategoryID") },
+                     function (datas)
+                     {
+                         console.log(datas);
+                         console.log(datas.CategoryPhotoPath);
+                         categoryPhotoPath = datas.CategoryPhotoPath;
+                     })
+
+
                 $.getJSON('@Url.Content("~/Home/layoutSubCategory")', { "idd": $(this).attr("CategoryID") },
                     function (datas) {
                         $(".SubSpace").empty();
+                        $("#Subphoto").empty();
                         //console.log(datas);
+                        //console.log(datas[0].CategoryName);
                         //console.log(datas.subCategoryNameList);
                         $.each(datas, function (idx, item) {
                             //console.log(item);
+                            //console.log(item.CategoryName);
                             //console.log(idx);
 
                             //$(".card-body").append(item + "<hr/>"); //寫法1
-                            $(".SubSpace").append(`<a class="btn btn-secondary justify-item-center" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr/>`); //寫法2
-                        })
+                            $(".SubSpace").append(`<a class="btn btn-light col-xxl-12" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr>`); //寫法2
+                            
 
+                        })
+                        $(".Catebg").attr("style", `background-image: url('/img/${categoryPhotoPath}'); background-size:contain`);
                     })
             })
         };
@@ -714,14 +744,31 @@
             $("#Content").append($("<li></li>").attr("class", "list-group-item").text(msg));
         });
 
+        let lastMessage = "";
+        $(function () {
+            $("#message1").keyup(function (event) {
+                if (event.which === 13) {
+                    $('#sendButton').click();
+                }
+                else if (event.which === 38) {
+                    console.log(event.which);
+                    $('#message1').val(lastMessage);
+                }
+            });
+        })
+        
+        
         //傳送訊息
         $('#sendButton').on('click', function () {
             let selfID = $('#SelfID').html();
             let message = $('#message1').val();
+            lastMessage = $('#message1').val();
             let sendToID = $('#sendToID').val();
             connection.invoke("SendMessage", selfID, message, sendToID).catch(function (err) {
                 alert('傳送錯誤: ' + err.toString());
             });
+
+            $('#message1').val("");
         });
     </script>
 
@@ -789,9 +836,25 @@
         });
         $("#btnDemo3").click(function () {
             $("#Login_txtAcc").val("0911911990");
-            $("#Login_txtPwd").val("123");
+            $("#Login_txtPwd").val("a8226520");
         });
 
+        $("#Demo1").click(function () {
+            $("#message1").val("您好");
+            
+        });
+        $("#Demo2").click(function () {
+            $("#message1").val("您好 請問有什麼需要服務的嗎?");
+
+        });
+        $("#Demo3").click(function () {
+            $("#message1").val("你們網頁設計的很棒");
+
+        });
+        $("#Demo4").click(function () {
+            $("#message1").val("謝謝您的讚美");
+
+        });
         //--  Register===================================================================================== -- >
 
         //註冊日期
@@ -923,11 +986,77 @@
         //註冊Demo
         $("#btnDemoRegister").click(function () {
             $("#register_FPhone").val("0911911990");
-            $("#register_FLName").val("林");
-            $("#register_FFName").val("炙影");
+            $("#register_FLName").val("光頭");
+            $("#register_FFName").val("強");
             $("#register_FPassword").val("a8226520");
-            $("#register_FCheckPwd").val("");
+            $("#register_FCheckPwd").val("a8226520");
             $("#register_FEmail").val("igocompanysender@gmail.com");
+
+            //demo 及時判定
+
+            //Phone
+            var mobileRegex = /^09[0-9]{8}$/
+            var RegAcc = mobileRegex.test($('#register_FPhone').val());
+
+            if (RegAcc) {
+                $("#R_warn_Acc").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+
+            else {
+                $("#R_warn_Acc").html('<i class="fa-solid fa-circle-xmark"> 手機號碼空白或格式有誤</i>');
+            }
+
+            //password
+            var regEx = /^(?=.*\d)(?=.*[a-z]).{8,20}$/; //密碼格式 至少有數字+一個字母，字串8~20
+            var RegPwd = regEx.test($('#register_FPassword').val());
+
+            if (RegPwd) {
+                $("#spwarn_Pwd").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#spwarn_Pwd").html('<i class="fa-solid fa-circle-xmark"> 密碼空白或格式不符</i>');
+            }
+
+            //Checkpassword
+
+            var firstPassword = $('#register_FPassword').val();
+            var confirmPassword = $('#register_FCheckPwd').val();
+
+            if (confirmPassword !== firstPassword) {
+                $("#confirmPwd").html('<i class="fa-solid fa-circle-xmark"> 與輸入的密碼不一致</i>');
+            }
+            else {
+                $("#confirmPwd").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+
+            //Name
+
+
+            var RecLName = $('#register_FLName').val();
+            if (RecLName != "") {
+                $("#R_warn_LN").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_LN").html('<i class="fa-solid fa-circle-xmark"> 請填入您的姓氏</i>');
+            }
+
+            var RecLName = $('#register_FFName').val();
+            if (RecLName != "") {
+                $("#R_warn_FN").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_FN").html('<i class="fa-solid fa-circle-xmark"> 請填入您的名字</i>');
+            }
+
+            //Email
+
+            var RecLName = $('#register_FFName').val();
+            if (RecLName != "") {
+                $("#R_warn_Email").html('<i class="fa fa-check-circle text-success" style="color:#4bf33"></i>');
+            }
+            else {
+                $("#R_warn_Email").html('<i class="fa-solid fa-circle-xmark"> 請填入Email</i>');
+            }
         });
 
 
