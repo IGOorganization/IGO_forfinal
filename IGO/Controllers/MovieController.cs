@@ -49,19 +49,32 @@ namespace IGO.Controllers
             return View(List);
         }
 
-        public IActionResult Detail(int ID)
+        public IActionResult Detail(int? ID,int? row=3,int? col=3,int? dataId=0)
         {
             int userid = 0;
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
             {
                 userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
             }
-
+            if (ID == null)
+            {
+                ID = dataId;
+            }
+            if (row > 3)
+            {
+                row = 3;
+            }
+            if (col > 3)
+            {
+                col = 3;
+            }
             var movie = _dbIgo.TMovies.Where(t => t.MovieId == ID).FirstOrDefault();
             var supplier = _dbIgo.TSuppliers.Where(t => t.FCompanyName.Contains("影城")).ToList();
             var showing = _dbIgo.TShowings.ToList();
             var seat = _dbIgo.TMovieSeats.ToList();
             var ticketType = _dbIgo.TMovieTicketTypes.ToList();
+            ViewBag.row = row;
+            ViewBag.col = col;
 
             List<CMovieSeatViewModel> List = new List<CMovieSeatViewModel>();
 
@@ -178,6 +191,13 @@ namespace IGO.Controllers
             { return Json(' '); }
             string Address = (_dbIgo.TSuppliers.FirstOrDefault(x => x.FSupplierId == supplierID)).FAddress.ToString();
             return Json(Address);
+        }
+
+        public JsonResult SeatChanged(int row, int col)
+        {
+            ViewBag.row = row;
+            ViewBag.col = col;
+            return Json(true);
         }
     }
 }
