@@ -116,17 +116,22 @@
                     <div class="navbar-nav mr-auto py-0" id="category">
 
                     </div>
-                    <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-
+                    <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width:1000px">
+                        <div class="offcanvas-header justify-content-center">
+                            <h5 class="offcanvas-title titleName text-white" id="offcanvasExampleLabel"></h5>
                         </div>
-                        <div class="offcanvas-body bg-dark">
-                            <div class="SubSpace">
+                        <div class="offcanvas-body bg-dark Catebg">
+                           
+                            <div @*class="justify-content-between"*@>
+                                <div class="SubSpace justify-item-center" style="width:70%;align-content:center">
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
+
+
                     @*7/28調整版面*@
                     <div class="col-sm-1 px-5 text-end">
                         <div class="d-inline-flex align-items-center py-2">
@@ -358,8 +363,8 @@
                             <div>
                                 <div class="row bg-dark">
                                     <div class="col text-center">
-                                            <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(管理員) </button>
-                                        </div>
+                                        <button type="button" class="btn btn-danger" id="btnDemo1">  Demo(管理員) </button>
+                                    </div>
                                     <div class="col text-center">
                                         <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
                                     </div>
@@ -545,7 +550,7 @@
                 </div>
                 <div class="modal-body bg-dark">
                     <br />
-                    <form asp-controller="" asp-action="" enctype="application/x-www-form-urlencoded"  id="loginBEForm">
+                    <form asp-controller="" asp-action="" enctype="application/x-www-form-urlencoded" id="loginBEForm">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control text-dark" id="LoginBE_txtAcc" name="txtAccount" placeholder="手機號碼">
                             <label for="floatingPassword">管理員帳號</label>
@@ -639,21 +644,39 @@
                 $(DivCategory).append(`<button class="btn btn-card" type="button" style="color:white" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" CategoryID=${CategoryId}>${CategoryName}</button>`);
             }
 
+            let categoryPhotoPath = "";
             //顯示次分類
             $(".btn-card").click(function () {
+                $('.titleName').text($(this).text());  /*8/3 宜潔 新增標題*/
+                //console.log($(this).text());
+
+                 $.getJSON('@Url.Content("~/Home/layoutCategoryPhoto")', { "idd": $(this).attr("CategoryID") },
+                     function (datas)
+                     {
+                         console.log(datas);
+                         console.log(datas.CategoryPhotoPath);
+                         categoryPhotoPath = datas.CategoryPhotoPath;
+                     })
+
+
                 $.getJSON('@Url.Content("~/Home/layoutSubCategory")', { "idd": $(this).attr("CategoryID") },
                     function (datas) {
                         $(".SubSpace").empty();
+                        $("#Subphoto").empty();
                         //console.log(datas);
+                        //console.log(datas[0].CategoryName);
                         //console.log(datas.subCategoryNameList);
                         $.each(datas, function (idx, item) {
                             //console.log(item);
+                            //console.log(item.CategoryName);
                             //console.log(idx);
 
                             //$(".card-body").append(item + "<hr/>"); //寫法1
-                            $(".SubSpace").append(`<a class="btn btn-secondary justify-item-center" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr/>`); //寫法2
-                        })
+                            $(".SubSpace").append(`<a class="btn btn-light col-xxl-12" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr>`); //寫法2
+                            
 
+                        })
+                        $(".Catebg").attr("style", `background-image: url('/img/${categoryPhotoPath}'); background-size:contain`);
                     })
             })
         };

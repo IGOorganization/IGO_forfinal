@@ -1,8 +1,10 @@
 ﻿using IGO.Models;
 using IGO.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,9 +14,11 @@ namespace IGO.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly DemoIgoContext _IgoContext;
-        public CategoryController(DemoIgoContext db)
+        private readonly IWebHostEnvironment _environment;
+        public CategoryController(DemoIgoContext db, IWebHostEnvironment environment)
         {
             _IgoContext = db;
+            _environment = environment;
         }
         public IActionResult List()   //列出主類別
         {
@@ -30,23 +34,31 @@ namespace IGO.Areas.Admin.Controllers
                 vModel = new CCategoryViewModel()
                 {
                     CategoryId = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == r.FCategoryId).FCategoryId,
-                    CategoryName = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == r.FCategoryId).FCategoryName
+                    CategoryName = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == r.FCategoryId).FCategoryName,
+                    CategoryPhotoPath = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == r.FCategoryId).FCategoryPhotoPath
                 };
                 v.Add(vModel);
             }
 
             return View(v);
         }
-        public IActionResult CreateCategory(TCategory category, string categoryname) //新增主類別
+        //新增主類別
+        public IActionResult CreateCategory(TCategory category, string categoryname, string addPhoto) //8/3 宜潔 新增主類別照片
         {
-
+            //string cPath = Guid.NewGuid().ToString() + ".jpg";
+            //addPhoto.photo.CopyTo(new FileStream(_environment.WebRootPath + "/img/" +  cPath, FileMode.Create));
             category.FCategoryName = categoryname;
+            category.FCategoryPhotoPath = addPhoto;
 
 
             _IgoContext.TCategories.Add(category);
             _IgoContext.SaveChanges();
 
             return RedirectToAction("List");
+        }
+        public IActionResult Create()
+        {
+            return View();
         }
         public IActionResult DeleteCategory(string categoryID) //刪除商品主分類 //宜潔7/29新增
         {

@@ -317,11 +317,30 @@ namespace IGO.Controllers
                 {
                     CategoryName = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == i).FCategoryName,
                     CategoryId = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == i).FCategoryId
-                   
+                  
+
                 };
                 v.Add(vModel);
             }
             return Json(v);
+
+        }
+        public IActionResult layoutCategoryPhoto(int idd)
+        {
+            //var id = (from c in _IgoContext.TCategories
+            //          select c.FCategoryId).ToList();
+
+            CHomeViewModel vModel = null;
+            //List<CHomeViewModel> v = new List<CHomeViewModel>();
+
+                vModel = new CHomeViewModel()
+                {
+                   
+                    CategoryPhotoPath = _IgoContext.TCategories.FirstOrDefault(m => m.FCategoryId == idd).FCategoryPhotoPath
+
+                };
+            
+            return Json(vModel);
 
         }
         //Layout的商品次分類
@@ -335,7 +354,7 @@ namespace IGO.Controllers
             { 
             vModel = new CHomeViewModel()
             {
-
+                CategoryName = _IgoContext.TSubCategories.Include(m=>m.FCategory).FirstOrDefault(m=>m.FSubCategoryId==r.FSubCategoryId).FCategory.FCategoryName,
                 SubCategoryName = _IgoContext.TSubCategories.FirstOrDefault(m=>m.FSubCategoryId==r.FSubCategoryId).FSubCategoryName,
                 SubCategoryPath = _IgoContext.TSubCategories.FirstOrDefault(m => m.FSubCategoryId == r.FSubCategoryId).FSubCategoryPath
             };

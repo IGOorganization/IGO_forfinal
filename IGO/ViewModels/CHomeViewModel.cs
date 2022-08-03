@@ -72,6 +72,13 @@ namespace IGO.ViewModels
             get { return _cg.FCategoryName; }
             set { _cg.FCategoryName = value; }
         }
+        //8/3新增
+        public string CategoryPhotoPath
+        {
+            get { return _cg.FCategoryPhotoPath; }
+            set { _cg.FCategoryPhotoPath = value; }
+        }
+
         //TTicketAndProduct
         public TTicketAndProduct tTicketAndProduct
         {
