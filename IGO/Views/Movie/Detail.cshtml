@@ -50,6 +50,9 @@
                     <div class="row">
                         <div class="col-md-12 my-3">
                             <label class="control-label">影城</label>
+                            <button type="button" class="btn btn-primary" style="float:right"  data-bs-toggle="modal" data-bs-target="#SeatChanged" >
+                                座位數量變更
+                            </button>
                             <select class="form-control" tabindex="1" id="supplier" onchange="ResetSeat();ChangAddress()">
                                 <option value="0">請選擇影城</option>
                                 @foreach (var a in Model.Item2)
@@ -306,8 +309,32 @@
         </div>
     </div>
 </div>
-
-
+@*======================================電影座位變更=========================*@
+<!-- Modal -->
+<div class="modal fade" id="SeatChanged" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    @*fade 淡入淡出*@
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            @*內容會有 header body footer三塊*@
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">座位數量變更</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <label for="rowChanged">列:</label>
+                <input type="text" id="rowChanged"  placeholder="請輸入列的數量" value="" />
+                <label for="colChanged">行:</label>
+                <input type="text" id="colChanged" placeholder="請輸入行的數量" value="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSeatChanged" data-bs-dismiss="modal">變更</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @*Bottom*@
@@ -342,18 +369,20 @@
             </div>
             <div class="modal-body" style="text-align: center;">
                 @{
+                    
                     List<string> rowList = Model.Item4.Select(x => x.FSeatRow).Distinct().OrderBy(x => x).ToList();
 
-                    foreach (string row in rowList)
+                    for (int i = 0; i <= (int)ViewBag.row; i++)
+                    //foreach (string row in rowList)
                     {
-                        List<int> columnList = Model.Item4.Where(x => x.FSeatRow == row).Select(x => x.FSeatColumn).Distinct().OrderBy(x => x).ToList();
-
-                        foreach (int column in columnList)
+                        List<int> columnList = Model.Item4.Where(x => x.FSeatRow == rowList[i]).Select(x => x.FSeatColumn).Distinct().OrderBy(x => x).ToList();
+                        for (int j = 0; j <= (int)ViewBag.col; j++)
+                        //foreach (int column in columnList)
                         {
-                            var seat = Model.Item4.FirstOrDefault(x => x.FSeatRow == row && x.FSeatColumn == column);
-                            <a role="button" onclick="ChooseSeat('@("seat"+row+column)')">
-                                <span>@(row + column)</span>
-                                <img id="@("seat"+row+column)" src="/img/can-choose.png" class="seat" data-seat-name="@(row+column)" data-id="@seat.FSeatId" />
+                            var seat = Model.Item4.FirstOrDefault(x => x.FSeatRow == rowList[i] && x.FSeatColumn == columnList[j]);
+                            <a role="button" onclick="ChooseSeat('@("seat"+rowList[i]+columnList[j])')">
+                                <span>@(rowList[i] + columnList[j])</span>
+                                <img id="@("seat"+rowList[i]+columnList[j])" src="/img/can-choose.png" class="seat" data-seat-name="@(rowList[i]+columnList[j])" data-id="@seat.FSeatId" />
                             </a>
                         }
 
@@ -373,7 +402,29 @@
 {
 
     <script>
+        //===========================座位排版變更=========================
+        $(function () {
+            const btnSeatChanged = $("#btnSeatChanged");
+            btnSeatChanged.click(function () {
+                var row = $("#rowChanged").val()-1;
+                var col = $("#colChanged").val()-1;
+                let ID = @Model.Item1.MovieId;
+                console.log(ID);
+                window.location.href = `Detail?ID=${ID}&row=${row}&col=${col}&dataId=${ID}`
+                @*$.ajax({
+                    url : "@Url.Content("~/Movie/Detail")",
+                    type: "post",
+                    data: {ID:1, row: row, col: col }
 
+                })*@
+
+
+                
+                
+            });
+
+
+        })
         //地圖=====================================================================
         let map1;
 
