@@ -14,6 +14,7 @@ namespace IGO.Models
 
         public int FCategoryId { get; set; }
         public string FCategoryName { get; set; }
+        public string FCategoryPhotoPath { get; set; }
 
         public virtual ICollection<TSubCategory> TSubCategories { get; set; }
     }
