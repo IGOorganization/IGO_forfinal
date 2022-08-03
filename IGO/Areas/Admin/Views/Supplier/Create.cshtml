@@ -14,26 +14,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group" hidden>
                 <label asp-for="FSupplierId" class="control-label"></label>
-                <input asp-for="FSupplierId" class="form-control"style="background-color:white" />
+                <input asp-for="FSupplierId" class="form-control" style="background-color:white" />
                 <span asp-validation-for="FSupplierId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FCompanyName" class="control-label">公司名稱</label>
-                <input asp-for="FCompanyName" class="form-control"style="background-color:white" />
+                <input asp-for="FCompanyName" class="form-control" style="background-color:white" id="createCompanyName"/>
                 <span asp-validation-for="FCompanyName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FPhone" class="control-label">電話</label>
-                <input asp-for="FPhone" class="form-control"style="background-color:white" />
+                <input asp-for="FPhone" class="form-control" style="background-color:white"id="createPhone" />
                 <span asp-validation-for="FPhone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FAddress" class="control-label">地址</label>
-                <input asp-for="FAddress" class="form-control" style="background-color:white" />
+                <input asp-for="FAddress" class="form-control" style="background-color:white"id="createAddress" />
                 <span asp-validation-for="FAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="送出" class="btn btn-warning m-2" />
+                <input type="button" value="Demo" class="btn btn-info m-2 float-lg-end"id="demo" />
             </div>
         </form>
     </div>
@@ -45,4 +46,16 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    let demo = document.querySelector("#demo");
+    let createCompanyName = document.querySelector("#createCompanyName");
+    let createPhone = document.querySelector("#createPhone");
+    let createAddress = document.querySelector("#createAddress");
+    demo.addEventListener("click", function (event) {
+        createCompanyName.value = "資展國際";
+        createAddress.value = "106台北市大安區復興南路一段390號2樓";
+        createPhone.value = "(02)6631-6588";
+    })
+</script>
 }
