@@ -18,7 +18,7 @@ namespace IGO.ViewModels
         }
 
         public TProduct product;
-        
+
         public int FProductId
         {
             get
@@ -122,14 +122,7 @@ namespace IGO.ViewModels
             }
             return null;
         }
-        //public decimal? price
-        //{
-        //    get
-        //    {
-        //        IEnumerable<TTicketType> t = _dbIgo.TTicketTypes.Where(n => n.FSubCategoryId == FSubCategoryId);
-        //        return _dbIgo.TTicketAndProducts.Where(n => n.FTicketId == t.First().FTicketId && n.FProductId==FProductId).Select(n => n.FPrice).FirstOrDefault();
-        //    }
-        //}
+
         public string CityName
         {
             get
@@ -182,12 +175,13 @@ namespace IGO.ViewModels
                     soldout.day = DateTime.Now.AddDays(i).Day;
 
                     int a = 0;
-                    IEnumerable<TOrderDetail> q = _dbIgo.TOrderDetails.Where(n => n.FProductId == FProductId && n.FBookingTime == soldout.Date&&n.FTicketId==ticketid);
+                    IEnumerable<TOrderDetail> q = _dbIgo.TOrderDetails.Where(n => n.FProductId == FProductId && n.FBookingTime == soldout.Date && n.FTicketId == ticketid);
                     foreach (TOrderDetail od in q)
                     {
                         a += (int)od.FQuantity;
                     }
-                    soldout.SoldedNum = (int)FQuantity - a;
+                    if (FQuantity != null)
+                        soldout.SoldedNum = (int)FQuantity - a;
 
                     list.Add(soldout);
                 }
@@ -208,7 +202,7 @@ namespace IGO.ViewModels
                 }
                 else
                 {
-                    foreach(TProductsPhoto p in list)
+                    foreach (TProductsPhoto p in list)
                     {
                         items.Add(p.FPhotoPath);
                     }

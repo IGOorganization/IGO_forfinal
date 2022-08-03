@@ -86,14 +86,21 @@ namespace IGO.Controllers
         }
         public IActionResult getRoomType(int supid)
         {
-            IEnumerable<TProduct> products = _dbIgo.TProducts.Where(n => n.FSupplierId == supid && n.FSubCategoryId == 1).ToList();
+            IEnumerable<TProduct> products = _dbIgo.TProducts.Where(n => n.FSupplierId == supid && n.FSubCategoryId == 1);
             List<CProductViewModel> list = new List<CProductViewModel>();
-            foreach (TProduct t in products)
+            for(int j = 0; j < products.Count(); j++)
             {
-                CProductViewModel product = new CProductViewModel(_dbIgo);
-                product.product = t;
-                list.Add(product);
+                CProductViewModel prod = new CProductViewModel(_dbIgo);
+                prod.product = products.ToList()[j];
+                list.Add(prod);
             }
+            //foreach (TProduct t in products)
+            //{
+            //    i++;
+            //    CProductViewModel product = new CProductViewModel(_dbIgo);
+            //    product.product = t;
+            //    list.Add(product);
+            //}
 
             string result = System.Text.Json.JsonSerializer.Serialize(list);
             return Json(result);
