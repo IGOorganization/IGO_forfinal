@@ -237,7 +237,7 @@ namespace IGO.Controllers
            $"<h4>顧客:{customer.FFirstName}  先生/小姐</h4>" +
            "<br>" +
            "<h4 style='color:orange'>請點擊下面連結，進行密碼修改</h4>" +
-           $"<h5> https://localhost:44392/Customer/ForgetPWD?id={customer.FCustomerId} <h5>" +
+           $"<h5> {Request.Scheme}://{Request.Host}/Customer/ForgetPWD?id={customer.FCustomerId} <h5>" +
            "<h4 style='color:white;background-color:gray'>IGO 版權所有©Copyright 2022 All Rights Reserved</h5>" +
            "</body></html>";
 
