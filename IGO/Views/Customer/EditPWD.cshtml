@@ -79,12 +79,14 @@
                                                 <div class="form-group">
                                                     <input type="hidden" name="FCustomerId" />
                                                     <label asp-for="FPassword" class="control-label">新密碼</label>
-                                                    <input type="password" class="form-control" name="FPassword" id="inputPwd" />
+                                                    <i class="fa fa-eye-slash" aria-hidden="true" style="font-size:larger" id="showEditPassword"></i>
+                                                    <input type="text" class="form-control" name="FPassword" id="inputPwd" />
                                                 </div>
                                                 <br />
                                                 <div class="form-group">
                                                     <label class="control-label">確認密碼</label>
-                                                    <input type="password" class="form-control" id="checkPwd" />
+                                                    <i class="fa fa-eye-slash" aria-hidden="true" style="font-size:larger" id="showConfirmPassword"></i>
+                                                    <input type="text" class="form-control" id="checkPwd" />
                                                 </div>
                                                 <br />
                                                 <div class="form-group">
@@ -163,7 +165,33 @@
         /**/
 
     /**/
-})
+    })
+
+
+        //================================密碼顯示切換=======================================
+        $("#showEditPassword").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#inputPwd").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#inputPwd").attr("type", "password");
+            }
+        });
+
+        $("#showConfirmPassword").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#checkPwd").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#checkPwd").attr("type", "password");
+            }
+        });
+
+
 
     </script>
 

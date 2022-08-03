@@ -344,8 +344,12 @@
                         <br />
                         <div class="form-floating mb-4">
                             <input type="password" class="form-control text-dark" id="Login_txtPwd" name="txtPassword" placeholder="請輸入密碼" autocomplete="off">
-                            <label for="floatingPassword">密碼</label>
+                            <label for="floatingPassword">
+                                密碼
+                            </label>
+                            @*<i class="fa fa-eye text-primary"   aria-hidden="true" style="font-size:larger" id="showPassword"></i>*@
                         </div>
+                        
                         <div class="form-floating mb-4">
                             <span id="spwarn" class="text-danger"></span> @*錯誤訊息*@
                         </div>
@@ -381,7 +385,7 @@
                                 </div>
                             </div>
                             <hr />
-                            <div class=" bg-dark">
+                            @*<div class=" bg-dark">
                                 <br />
                                 <h5 class="text-white text-center">使用其他帳號登入</h5>
                                 <br />
@@ -397,7 +401,7 @@
                                     </div>
                                 </div>
                                 <br />
-                            </div>
+                            </div>*@
                         </div>
                     </form>
                 </div>
@@ -442,13 +446,15 @@
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control text-dark" id="register_FPassword" name="FPassword" placeholder="密碼">
+                            <input type="Password" class="form-control text-dark" id="register_FPassword" name="FPassword" placeholder="密碼">
                             <label for="FPassword">密碼</label>
+                            <i class="fa fa-eye-slash text-primary" aria-hidden="true" style="font-size:larger" id="showregPassword"></i>
                             <span id="spwarn_Pwd" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control text-dark" id="register_FCheckPwd" name="confirmPassword" placeholder="確認密碼" />
+                            <input type="Password" class="form-control text-dark" id="register_FCheckPwd" name="confirmPassword" placeholder="確認密碼" />
                             <label for="confirmPassword">請確認密碼</label>
+                            <i class="fa fa-eye-slash text-primary" aria-hidden="true" style="font-size:larger" id="confirmPassword"></i>
                             <span id="confirmPwd" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
@@ -476,7 +482,7 @@
                                 </div>
                             </div>
                             <hr />
-                            <div class=" bg-dark">
+                            @*<div class=" bg-dark">
                                 <br />
                                 <h5 class="text-white text-center">使用其他社群帳號註冊</h5>
                                 <br />
@@ -492,7 +498,7 @@
                                     </div>
                                 </div>
                                 <br />
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -778,7 +784,7 @@
 
         //--  Login======================================================================================== -- >
 
-        //密碼顯示切換
+        //密碼顯示切換 confirmPassword
 
         $("#showPassword").click(function () {
             if ($(this).hasClass("fa-eye-slash")) {
@@ -788,6 +794,28 @@
             else {
                 $(this).removeClass("fa-eye").addClass("fa-eye-slash");
                 $("#Login_txtPwd").attr("type", "password");
+            }
+        });
+
+        $("#showregPassword").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#register_FPassword").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#register_FPassword").attr("type", "password");
+            }
+        });
+
+        $("#confirmPassword").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#register_FCheckPwd").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#register_FCheckPwd").attr("type", "password");
             }
         });
 
