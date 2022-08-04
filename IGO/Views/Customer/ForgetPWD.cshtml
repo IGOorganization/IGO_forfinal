@@ -13,12 +13,14 @@
                     <div class="form-group">
                         <input type="hidden" name="customerid" value="@Model.FCustomerId" />
                         <label asp-for="FPassword" class="control-label">新密碼</label>
-                        <input type="password" class="form-control" name="FPassword" id="inputPwd" />
+                        <i class="fa fa-eye text-primary" aria-hidden="true" style="font-size:larger" id="forgetPwd"></i>
+                        <input type="text" class="form-control" name="FPassword" id="inputPwd" />
                     </div>
                     <br />
                     <div class="form-group">
                         <label class="control-label">確認密碼</label>
-                        <input type="password" class="form-control" id="checkPwd" />
+                        <i class="fa fa-eye text-primary" aria-hidden="true" style="font-size:larger" id="forgetPwd_new"></i>
+                        <input type="text" class="form-control" id="checkPwd" />
                     </div>
                     <br />
                     <div class="form-group">
@@ -30,7 +32,7 @@
                             <div class="row ">
                                 <div class="col text-center">
                                     <button type="button" class="btn btn-danger" id="Demo">  Demo </button>
-                                    <button type="button" class="btn btn-danger" id="Demo2">  Demo2 </button>
+                                    <button type="button" class="btn btn-danger" id="Demo_2">  Demo2 </button>
                                 </div>
                             </div>
                         </div>
@@ -107,14 +109,38 @@
 
         $("#Demo").click(function () {
             $("#inputPwd").val("a12345678");
-            $("#checkPwd").val("a12345678");
+            $("#checkPwd").val("a1234567");
         });
 
-        $("#Demo2").click(function () {
-            $("#inputPwd").val("a12345678123");
-            $("#checkPwd").val("a12345678123");
+        $("#Demo_2").click(function () {
+            $("#inputPwd").val("a12345678");
+            $("#checkPwd").val("a12345678");
         });
-            /**/
+        /**/
+
+        //密碼顯示切換 confirmPassword
+
+        $("#forgetPwd").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#inputPwd").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#inputPwd").attr("type", "password");
+            }
+        });
+
+        $("#forgetPwd_new").click(function () {
+            if ($(this).hasClass("fa-eye-slash")) {
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+                $("#checkPwd").attr("type", "text");
+            }
+            else {
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+                $("#checkPwd").attr("type", "password");
+            }
+        });
 
     </script>
 
