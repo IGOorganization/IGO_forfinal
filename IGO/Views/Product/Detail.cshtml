@@ -334,11 +334,11 @@
                 if (status == "OK") {
                     console.log(results);
 
-                    console.log(results[0].geometry.viewport.Sa.hi);
-                    console.log(results[0].geometry.viewport.vb.hi);
+                    console.log(results[0].geometry.viewport.Ra.hi);
+                    console.log(results[0].geometry.viewport.ub.hi);
 
-                    lat1 = results[0].geometry.viewport.vb.hi;
-                    lng1 = results[0].geometry.viewport.Sa.hi;
+                    lat1 = results[0].geometry.viewport.ub.hi;
+                    lng1 = results[0].geometry.viewport.Ra.hi;
 
                     initMap(lat1, lng1);
 
