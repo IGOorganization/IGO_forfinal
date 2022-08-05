@@ -353,6 +353,7 @@
                 }
                 let takedate = `${takeyear}-${takemonth}-${takeday}`;
                 checkquantity = event.currentTarget.getAttribute("data-quantity");
+                console.log(checkquantity);
                 $("#bookingTime").val(takedate);
             }
         })
@@ -387,18 +388,20 @@
         addtocart.addEventListener("click", async (event) => {
 
             let ticket = $('input[name="ticket"]:checked').val();
-            let bookingTime = document.querySelector("#bookingTime").value;
+            let bookingTime = document.querySelector("#bookingTime");
 
             if (ticket == undefined) {
                 alert("請選擇票種");
             }
-            else if (bookingTime == "") {
+            else if (bookingTime.value == "") {
                 alert("請選擇日期");
             }
             else if (quantity.value == "" || quantity.value == 0) {
                 alert("請輸入數量");
             }
-            else if (quantity.value > checkquantity) {
+            else if (parseInt(quantity.value) > parseInt(checkquantity)) {
+                console.log(quantity.value);
+                console.log(checkquantity);
                 alert("數量高於庫存")
             }
             else {
