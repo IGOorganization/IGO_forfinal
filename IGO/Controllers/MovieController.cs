@@ -137,7 +137,8 @@ namespace IGO.Controllers
             };
             _dbIgo.TProducts.Add(product);
             _dbIgo.SaveChanges();
-
+            Random ran = new Random();
+            string s = (ran.Next(1, 1000) * ran.Next(1, 1000)).ToString();
             List<int> movieSeats = movieSeat.Split('、').Select(x => int.Parse(x)).ToList();
             foreach (int movieSeatID in movieSeats)
             {
@@ -152,7 +153,8 @@ namespace IGO.Controllers
                     FShowingId = showingID,
                     FMovieId = movieID,
                     FMovieSeatId = movieSeatID,
-                    FMovieTicketTypeId = ticketTypeID
+                    FMovieTicketTypeId = ticketTypeID,
+                    FTempOrder = s
                 };
                 _dbIgo.TShoppingCarts.Add(shoppingCart);
                 _dbIgo.SaveChanges();
