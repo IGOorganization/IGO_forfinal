@@ -55,35 +55,50 @@ namespace IGO.Controllers
 
                 foreach (TShoppingCart data in datas)
                 {
-                    
-                    if (temp != data.FTempOrder)
+                    if (data.FMovieId > 0)
                     {
-                        temp = data.FTempOrder;
                         CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
                         shoppingCartViewModel.shoppingCart = data;
-
                         productInfo info = new productInfo(_dbIgo)
                         {
                             productid = data.FProductId,
-                             movieid = data.FMovieId
-                        };
+                            movieid = data.FMovieId
+                        }; 
                         shoppingCartViewModel.productInfos = new List<productInfo>();
                         shoppingCartViewModel.productInfos.Add(info);
                         lists.Add(shoppingCartViewModel);
-
                     }
                     else
                     {
-                        lists.Last().FTotalPrice += (int)data.FTotalPrice;
-
-                        productInfo info = new productInfo(_dbIgo)
+                        if (temp != data.FTempOrder)
                         {
-                            productid = data.FProductId,
-                           
-                            
-                        };
-                        lists.Last().productInfos.Add(info);
-                        continue;
+                            temp = data.FTempOrder;
+                            CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
+                            shoppingCartViewModel.shoppingCart = data;
+
+                            productInfo info = new productInfo(_dbIgo)
+                            {
+                                productid = data.FProductId,
+                                movieid = data.FMovieId
+                            };
+                            shoppingCartViewModel.productInfos = new List<productInfo>();
+                            shoppingCartViewModel.productInfos.Add(info);
+                            lists.Add(shoppingCartViewModel);
+
+                        }
+                        else
+                        {
+                            lists.Last().FTotalPrice += (int)data.FTotalPrice;
+
+                            productInfo info = new productInfo(_dbIgo)
+                            {
+                                productid = data.FProductId,
+
+
+                            };
+                            lists.Last().productInfos.Add(info);
+                            continue;
+                        }
                     }
                 };
 
@@ -357,12 +372,13 @@ namespace IGO.Controllers
             int Price = 0;  //計算總價
 
             foreach (TShoppingCart data in _dbIgo.TShoppingCarts.Where(c => sessionData.ShoppingCartItems.Contains(c.FShoppingCartId)).ToList())
-            {
+            { 
                 CShoppingCartViewModel shoppingCartViewModel = new CShoppingCartViewModel(_dbIgo);
-                shoppingCartViewModel.shoppingCart = data;
                 Price += (int)data.FTotalPrice;
+                shoppingCartViewModel.shoppingCart = data;
                 lists.Add(shoppingCartViewModel);
                 _dbIgo.TShoppingCarts.Remove(data); //刪除結帳的東西
+
             };
             //=================================將購買商品存入tOrders=====================================
             int OrderNum = _dbIgo.TOrders.Where(c => c.FCustomerId == sessionData.UserId).Count();
