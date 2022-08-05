@@ -74,9 +74,22 @@ namespace IGO.Areas.Admin.Controllers
                 if (cou.FProductId4 != null)
                 {
                     c.FProductId4 = cou.FProductId4;
-                    if (c.FProductId5 != null)
+                    if (cou.FProductId5 != null)
                         c.FProductId5 = cou.FProductId5;
+                    else
+                        c.FProductId5 = null;
                 }
+                else
+                {
+                    c.FProductId4 = null;
+                    c.FProductId5 = null;
+                }
+            }
+            else
+            {
+                c.FProductId3 = null;
+                c.FProductId4 = null;
+                c.FProductId5 = null;
             }
             c.FTimeOut = cou.FTimeOut;
             if (Photo != null)
