@@ -42,6 +42,7 @@ namespace IGO.Controllers
                 p.product = t;
                 list.Add(p);
             }
+
             return View(list);
         }
 
@@ -138,14 +139,24 @@ namespace IGO.Controllers
             return View(data);
         }
 
+        
         public IActionResult getGroup()
         {
             int userid = (int)HttpContext.Session.GetInt32(CDictionary.SK_LOGINED_USER);
 
-            IEnumerable<TCollectionGroup> list = _dbIgo.TCollectionGroups.Where(n => n.FCustomerId == userid);
+            List<CCollectionGroupViewModel> list = new List<CCollectionGroupViewModel>();
 
-            //string result = System.Text.Json.JsonSerializer.Serialize(list);
-            return Json(list);
+            IEnumerable<TCollectionGroup> datas = _dbIgo.TCollectionGroups.Where(n => n.FCustomerId == userid);
+
+            foreach(TCollectionGroup data in datas)
+            {
+                CCollectionGroupViewModel group = new CCollectionGroupViewModel(_dbIgo);
+                group.CollectionGroupID = data.FCollectionGroupId;
+                list.Add(group);
+            }
+
+                //string result = System.Text.Json.JsonSerializer.Serialize(list);
+                return Json(list);
         }
 
 
