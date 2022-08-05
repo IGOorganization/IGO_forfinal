@@ -59,6 +59,6 @@ namespace IGO.ViewModels
             get { return _sb.FSubCategoryPath; }
             set { _sb.FSubCategoryPath = value; }
         }
-        
+
     }
 }

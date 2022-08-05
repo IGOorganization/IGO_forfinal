@@ -116,21 +116,14 @@
                     <div class="navbar-nav mr-auto py-0" id="category">
 
                     </div>
-                    <div class="offcanvas offcanvas-start bg-warning" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width:1000px">
-                        <div class="offcanvas-header justify-content-center">
+                    <div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width:500px">
+                        <div class="offcanvas-header justify-content-center bg-warning">
                             <h5 class="offcanvas-title titleName text-white" id="offcanvasExampleLabel"></h5>
                         </div>
-                        <div class="offcanvas-body bg-dark Catebg">
-                           
-                            <div @*class="justify-content-between"*@>
-                                <div class="SubSpace justify-item-center" style="width:70%;align-content:center">
-                                </div>
-
-                            </div>
+                        @*8/5 宜潔修改次分類顯示方式*@
+                        <div class="offcanvas-body bg-light Catebg">  
                         </div>
-
-                    </div>
-
+                        </div>                 
 
                     @*7/28調整版面*@
                     <div class="col-sm-1 px-5 text-end">
@@ -670,38 +663,41 @@
             }
 
             let categoryPhotoPath = "";
-            //顯示次分類
-            $(".btn-card").click(function () {
+            /*顯示次分類  8/4宜潔修改成動態綁定事件*/
+            $(document).on('click','.btn-card', function () {
                 $('.titleName').text($(this).text());  /*8/3 宜潔 新增標題*/
                 //console.log($(this).text());
 
-                 $.getJSON('@Url.Content("~/Home/layoutCategoryPhoto")', { "idd": $(this).attr("CategoryID") },
+                 @*$.getJSON('@Url.Content("~/Home/layoutCategoryPhoto")', { "idd": $(this).attr("CategoryID") },
                      function (datas)
                      {
-                         console.log(datas);
-                         console.log(datas.CategoryPhotoPath);
-                         categoryPhotoPath = datas.CategoryPhotoPath;
-                     })
+                         //console.log(datas);
+                         //console.log(datas.CategoryPhotoPath);
+                         //categoryPhotoPath = datas.CategoryPhotoPath;
+                     })*@
 
 
                 $.getJSON('@Url.Content("~/Home/layoutSubCategory")', { "idd": $(this).attr("CategoryID") },
                     function (datas) {
-                        $(".SubSpace").empty();
-                        $("#Subphoto").empty();
+                        $(".Catebg").empty();
                         //console.log(datas);
                         //console.log(datas[0].CategoryName);
                         //console.log(datas.subCategoryNameList);
                         $.each(datas, function (idx, item) {
                             //console.log(item);
-                            //console.log(item.CategoryName);
-                            //console.log(idx);
-
-                            //$(".card-body").append(item + "<hr/>"); //寫法1
-                            $(".SubSpace").append(`<a class="btn btn-light col-xxl-12" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}<a><hr>`); //寫法2
-                            
-
-                        })
-                        $(".Catebg").attr("style", `background-image: url('/img/${categoryPhotoPath}'); background-size:contain`);
+                            $('.Catebg').append(`<div class="card mb-3" style="max-width: 540px">
+                                <div class="row g-0 border-radius:20px">
+                                    <div class="col-md-4">
+                                        <img src="/img/${item.ImagePath}" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8 justify-content-center bg-dark">
+                                        <div class="card-body">
+                                            <a class="btn col-xxl-10" style="color:white;font-weight:bold;font-size:20px;" href="${item.SubCategoryPath}" type="button">${item.SubCategoryName}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`)
+                        })                      
                     })
             })
         };

@@ -1,6 +1,7 @@
 ﻿using IGO.Models;
 using IGO.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -43,12 +44,12 @@ namespace IGO.Areas.Admin.Controllers
             return View(v);
         }
         //新增主類別
-        public IActionResult CreateCategory(TCategory category, string categoryname, string addPhoto) //8/3 宜潔 新增主類別照片
+        public IActionResult CreateCategory(TCategory category, string categoryname) //8/3 宜潔 新增主類別照片
         {
             //string cPath = Guid.NewGuid().ToString() + ".jpg";
             //addPhoto.photo.CopyTo(new FileStream(_environment.WebRootPath + "/img/" +  cPath, FileMode.Create));
             category.FCategoryName = categoryname;
-            category.FCategoryPhotoPath = addPhoto;
+            //category.FCategoryPhotoPath = addPhoto;
 
 
             _IgoContext.TCategories.Add(category);
@@ -56,6 +57,19 @@ namespace IGO.Areas.Admin.Controllers
 
             return RedirectToAction("List");
         }
+        //public IActionResult CreateCategory(TCategory category, string categoryname, IFormFile photo) //8/4 宜潔 修改上傳主類別照片作法
+        //{
+        //    string cPath = Guid.NewGuid().ToString() + ".png";
+        //    photo.CopyTo(new FileStream(_environment.WebRootPath + "/img/" + cPath, FileMode.Create));
+        //    category.FCategoryName = categoryname;
+        //    category.FCategoryPhotoPath = cPath;
+
+
+        //    _IgoContext.TCategories.Add(category);
+        //    _IgoContext.SaveChanges();
+
+        //    return RedirectToAction("List");
+        //}
         public IActionResult Create()
         {
             return View();
@@ -99,11 +113,32 @@ namespace IGO.Areas.Admin.Controllers
             return Json(subcategory);
         }
         //新增商品次分類    //新增subcategory:宜潔7/29新增
-        public IActionResult CreateSubcategory(TSubCategory Subcategory, string Subcategoryname, int CategoryID) //新增次類別
+        //public IActionResult CreateSubcategory(TSubCategory Subcategory, string Subcategoryname, int CategoryID, IFormFile subphoto) //新增次類別
+        //{
+        //    string cPath = Guid.NewGuid().ToString() + ".jpg";
+        //    subphoto.CopyTo(new FileStream(_environment.WebRootPath + "/img/" + cPath, FileMode.Create));
+
+        //    Subcategory.FSubCategoryPhotoPath = cPath;
+        //    Subcategory.FSubCategoryName = Subcategoryname;
+        //    Subcategory.FCategoryId = CategoryID;
+
+        //    _IgoContext.TSubCategories.Add(Subcategory);
+        //    _IgoContext.SaveChanges();
+
+        //    return RedirectToAction("List");
+        //}
+
+        //8/5新增 上傳次分類照片
+        public IActionResult CreateSubcategory(TSubCategory Subcategory, string Subcategoryname, string CategoryID, IFormFile subphoto) //新增次類別
         {
 
+            int id = Convert.ToInt32(CategoryID.Split("-")[1]);
+            string cPath = Guid.NewGuid().ToString() + ".jpg";
+            subphoto.CopyTo(new FileStream(_environment.WebRootPath + "/img/" + cPath, FileMode.Create));
+
+            Subcategory.FImagePath = cPath;
             Subcategory.FSubCategoryName = Subcategoryname;
-            Subcategory.FCategoryId = CategoryID;
+            Subcategory.FCategoryId = id;
 
             _IgoContext.TSubCategories.Add(Subcategory);
             _IgoContext.SaveChanges();

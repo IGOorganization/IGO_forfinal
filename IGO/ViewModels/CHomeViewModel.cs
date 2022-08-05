@@ -54,7 +54,12 @@ namespace IGO.ViewModels
             get { return _sb.FSubCategoryPath; }
             set { _sb.FSubCategoryPath = value; }
         }
-      
+        public string ImagePath 
+        {
+            get { return _sb.FImagePath; }
+            set { _sb.FImagePath = value; }
+        }
+
 
         //TCategory
         public TCategory tCategory
