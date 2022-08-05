@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">預定時間:</span>
-                                    <input type="date" name="fBookingTime" class="col-md-8" id="bookingTime" />
+                                    <input type="date" name="fBookingTime" class="col-md-8" id="bookingTime"disabled />
                                 </div>
                                 <div class="col-md-10">
                                     <span class="fw-bold">數量:</span>
@@ -113,12 +113,14 @@
             </div>
         </div>
     </div>
-    @*Bottom*@
+</div>
+@*Bottom*@
 
 
-    @section Scripts{
-        <script>
+@section Scripts{
+    <script>
 
+        let checkquantity;
             let divproduct = document.querySelector("#productList");
             const supplier = document.querySelector("#Supplier");
         const roomtype = document.querySelector("#sel_roomtype");
@@ -275,7 +277,11 @@
             else if (quantity.value == "" || quantity.value == 0) {
                 alert("請輸入數量");
             }
+            else if (quantity.value > checkquantity) {
+                alert("數量高於庫存")
+            }
             else {
+                bookingTime.removeAttribute("disabled");
                 let cartform = new FormData(document.AddToCartForm)
 
                 let jresponce = await fetch("AddToCart", {
@@ -360,9 +366,17 @@
                             if (index < datas.length && datas[index].day == day) {
                                 ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
+                                if (datas[index].SoldedNum == 0) {
+                                    ctd.style = "background-color:lightgray";
+                                } else if (datas[index].SoldedNum <= 5) {
+                                    ctd.style = "background-color:lightcoral";
+                                } else {
+                                    ctd.style = "background-color:lightblue";
+                                }
                                 index++;
                             }
                             else {
+                                ctd.style = "background-color:lightgray";
                                 ctd.innerText = day;
                             }
                         }
@@ -407,10 +421,21 @@
                     takeday = `0${takeday}`
                 }
                 let takedate = `${takeyear}-${takemonth}-${takeday}`;
-
+                checkquantity = event.currentTarget.getAttribute("data-quantity");
                 $("#bookingTime").val(takedate);
             }
         })
+        $("#tbcalender").on("mouseenter", "td", function (event) {
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                event.currentTarget.classList.toggle("bg-info");
+            }
+        });
+
+        $("#tbcalender").on("mouseleave", "td", function (event) {
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                event.currentTarget.classList.toggle("bg-info");
+            }
+        });
 
         //=====================================
 
@@ -435,5 +460,7 @@
 
             })
 
-        </script>
-    }
+    </script>
+}
+
+

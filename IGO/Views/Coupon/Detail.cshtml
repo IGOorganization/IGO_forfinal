@@ -155,7 +155,7 @@
                                     <input type="hidden" name="ToCartId" value="@Model.FCouponId" />
                                     <div class="m-3">
                                         <span class="fw-bold">日期</span>
-                                        <input type="date" class="form-control" id="bookingTime" name="fBookingTime" />
+                                        <input type="date" class="form-control" id="bookingTime" name="fBookingTime"disabled />
                                     </div>
                                     <div class="m-3">
                                         <span class="fw-bold">數量</span>
@@ -169,7 +169,7 @@
                                             加入購物車
                                         </button>
                                         <br />
-                                        <span class="fw-bold" style="color:orangered;">折價後</span>
+                                        <span class="fw-bold" style="color:orangered;">打 @Model.FDiscount 折後</span>
                                         <span id="lbl-price">NT$ - 元</span>
                                         @*<input type="submit" class="btn btn-primary float-lg-end" id="btn-add" value="加入購物車" />*@
 
@@ -208,6 +208,7 @@
         //顯示價格
         let price = document.querySelector("#lbl-price");
         let oprice = document.querySelector("#lbl-oprice");
+        let checkquantity;
 
         $("#TicketArea").on("click", "input", function (event) {
             //console.log(event.currentTarget);
@@ -294,10 +295,17 @@
                                 console.log(index);
                                 ctd.setAttribute("data-quantity", `${datas[index].SoldedNum}`)
                                 ctd.innerText = day + "\n 庫存: " + datas[index].SoldedNum
+                                if (datas[index].SoldedNum == 0) {
+                                    ctd.style = "background-color:lightgray";
+                                } else if (datas[index].SoldedNum <= 10) {
+                                    ctd.style = "background-color:lightcoral";
+                                } else {
+                                    ctd.style = "background-color:lightblue";
+                                }
                                 index++;
                             }
                             else {
-                                console.log("0");
+                                ctd.style = "background-color:lightgray";
                                 ctd.innerText = day;
                             }
                         }
@@ -344,10 +352,23 @@
                     takeday = `0${takeday}`
                 }
                 let takedate = `${takeyear}-${takemonth}-${takeday}`;
-
+                checkquantity = event.currentTarget.getAttribute("data-quantity");
                 $("#bookingTime").val(takedate);
             }
         })
+
+
+        $("#tbcalender").on("mouseenter", "td", function (event) {
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                event.currentTarget.classList.toggle("bg-info");
+            }
+        });
+
+        $("#tbcalender").on("mouseleave", "td", function (event) {
+            if (event.currentTarget.hasAttribute("data-quantity") && event.currentTarget.getAttribute("data-quantity") != 0) {
+                event.currentTarget.classList.toggle("bg-info");
+            }
+        });
 
         //=====================================
 
@@ -377,7 +398,11 @@
             else if (quantity.value == "" || quantity.value == 0) {
                 alert("請輸入數量");
             }
+            else if (quantity.value > checkquantity) {
+                alert("數量高於庫存")
+            }
             else {
+                bookingTime.removeAttribute("disabled");
                 let cartform = new FormData(document.cartForm)
 
                 let jresponce = await fetch("@Url.Content("~/Coupon/AddToCart")", {
