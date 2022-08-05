@@ -121,9 +121,9 @@
                             <h5 class="offcanvas-title titleName text-white" id="offcanvasExampleLabel"></h5>
                         </div>
                         @*8/5 宜潔修改次分類顯示方式*@
-                        <div class="offcanvas-body bg-light Catebg">  
+                        <div class="offcanvas-body bg-light Catebg">
                         </div>
-                        </div>                 
+                    </div>
 
                     @*7/28調整版面*@
                     <div class="col-sm-1 px-5 text-end">
@@ -231,28 +231,28 @@
 
 
     @*聊天室*@
-
+    @*8/5 宜潔改聊天室樣式*@  
     <div id="chat">
         <div>
             <div class="collapse" id="collapseExample" style="position:absolute;bottom:0; width:100%">
                 <h4 hidden>個人 ID: <span id="SelfID"></span></h4>
-                <div class="card card-body" style="width:100%;height:500px">
-                    <div style="background-color:coral">
-                        <h6>客服小幫手</h6>
+                <div class="card card-body" style="width: 100%; height: 500px; border-radius: 20px">
+                    <div style="background-color:navajowhite">
+                        <h6 style="color:black"><img src="~/img/robot2.png" />  客服小幫手</h6>
                     </div>
-                    <div id="context" style="width:100% ;height:90%;border:2px solid black;overflow:auto">
+                    <div id="context" style="width: 100%; height: 90%; border: 2px solid navajowhite; overflow: auto; background-color: whitesmoke">
                         <ul class="list-group" id="Content" style="bottom:auto">
                         </ul>
                     </div>
                     <div id="inputspace">
-                        <input type="text" class="form-control float-lg-left" id="message1" style="width:85%"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%" id="sendButton"></i>
+                        <input type="text" class="form-control float-lg-left" id="message1" style="width: 85%; border: 2px solid navajowhite"><i class="fa-solid fa-paper-plane float-lg-end" style="margin:10px;font-size:130%" id="sendButton"></i>
                     </div>
                     <div class="col text-center">
-                        <button type="button" class="btn btn-danger" id="Demo1"style="width:40%">  Demo1 </button>
-                        <button type="button" class="btn btn-danger" id="Demo2"style="width:40%">  Demo2 </button>
-                        <button type="button" class="btn btn-danger" id="Demo3"style="width:40%">  Demo3 </button>
-                        <button type="button" class="btn btn-danger" id="Demo4"style="width:40%">  Demo4 </button>
-                        
+                        <button type="button" class="btn btn-danger" id="Demo1" style="width:40%">  Demo1 </button>
+                        <button type="button" class="btn btn-danger" id="Demo2" style="width:40%">  Demo2 </button>
+                        <button type="button" class="btn btn-danger" id="Demo3" style="width:40%">  Demo3 </button>
+                        <button type="button" class="btn btn-danger" id="Demo4" style="width:40%">  Demo4 </button>
+
                     </div>
                 </div>
             </div>
@@ -342,7 +342,7 @@
                             </label>
                             @*<i class="fa fa-eye text-primary"   aria-hidden="true" style="font-size:larger" id="showPassword"></i>*@
                         </div>
-                        
+
                         <div class="form-floating mb-4">
                             <span id="spwarn" class="text-danger"></span> @*錯誤訊息*@
                         </div>
@@ -391,22 +391,22 @@
                             <hr />
                             <hr />
                             @*<div class=" bg-dark">
-            <br />
-            <h5 class="text-white text-center">使用其他帳號登入</h5>
-            <br />
-            <div class="row bg-dark">
-                <div class="col text-center">
-                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
-                </div>
-                <div class="col text-center">
-                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
-                </div>
-                <div class="col text-center">
-                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
-                </div>
-            </div>
-            <br />
-        </div>*@
+                                    <br />
+                                    <h5 class="text-white text-center">使用其他帳號登入</h5>
+                                    <br />
+                                    <div class="row bg-dark">
+                                        <div class="col text-center">
+                                            <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                                        </div>
+                                        <div class="col text-center">
+                                            <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
+                                        </div>
+                                        <div class="col text-center">
+                                            <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>*@
                         </div>
                     </form>
                 </div>
@@ -488,22 +488,22 @@
                             </div>
                             <hr />
                             @*<div class=" bg-dark">
-                                <br />
-                                <h5 class="text-white text-center">使用其他社群帳號註冊</h5>
-                                <br />
-                                <div class="row bg-dark">
-                                    <div class="col text-center">
-                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                                    <br />
+                                    <h5 class="text-white text-center">使用其他社群帳號註冊</h5>
+                                    <br />
+                                    <div class="row bg-dark">
+                                        <div class="col text-center">
+                                            <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                                        </div>
+                                        <div class="col text-center">
+                                            <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
+                                        </div>
+                                        <div class="col text-center">
+                                            <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                                        </div>
                                     </div>
-                                    <div class="col text-center">
-                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
-                                    </div>
-                                    <div class="col text-center">
-                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
-                                    </div>
-                                </div>
-                                <br />
-                            </div>*@
+                                    <br />
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -697,7 +697,7 @@
                                     </div>
                                 </div>
                             </div>`)
-                        })                      
+                        })
                     })
             })
         };
@@ -770,8 +770,8 @@
                 }
             });
         })
-        
-        
+
+
         //傳送訊息
         $('#sendButton').on('click', function () {
             let selfID = $('#SelfID').html();
