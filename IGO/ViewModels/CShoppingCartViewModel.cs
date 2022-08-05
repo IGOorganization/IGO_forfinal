@@ -13,13 +13,14 @@ namespace IGO.ViewModels
         private TShoppingCart _ShoppingCart;
         private DemoIgoContext _dbIgo;
 
-        public CShoppingCartViewModel(DemoIgoContext db) {
+        public CShoppingCartViewModel(DemoIgoContext db)
+        {
             _ShoppingCart = new TShoppingCart();
             _dbIgo = db;
 
         }
-        public TShoppingCart shoppingCart { get { return _ShoppingCart; }  set { _ShoppingCart = value; } }
-        public int FShoppingCartId { get {return _ShoppingCart.FShoppingCartId; } set { _ShoppingCart.FShoppingCartId = value; } }
+        public TShoppingCart shoppingCart { get { return _ShoppingCart; } set { _ShoppingCart = value; } }
+        public int FShoppingCartId { get { return _ShoppingCart.FShoppingCartId; } set { _ShoppingCart.FShoppingCartId = value; } }
         public int FProductId { get { return _ShoppingCart.FProductId; } set { _ShoppingCart.FProductId = value; } }
         public int? FCustomerId { get { return _ShoppingCart.FCustomerId; } set { _ShoppingCart.FCustomerId = value; } }
         public int? FTicketId { get { return _ShoppingCart.FTicketId; } set { _ShoppingCart.FTicketId = value; } }
@@ -35,17 +36,18 @@ namespace IGO.ViewModels
         public string FBookingTime { get { return _ShoppingCart.FBookingTime; } set { _ShoppingCart.FBookingTime = value; } }
         public int? FCouponId { get { return _ShoppingCart.FCouponId; } set { _ShoppingCart.FCouponId = value; } }
 
-      
+        public int? FMovieSeatId { get { return _ShoppingCart.FMovieSeatId; } set { _ShoppingCart.FMovieSeatId = value; } }
         public virtual TCoupon FCoupon { get; set; }
         public virtual TCustomer FCustomer { get; set; }
         public virtual TProduct FProduct { get; set; }
 
         public int? FMovieId { get { return _ShoppingCart.FMovieId; } set { _ShoppingCart.FMovieId = value; } }
-        public int? FMovieTicketTypeId { get { return _ShoppingCart.FMovieTicketTypeId; } set { _ShoppingCart.FMovieTicketTypeId=value; } }
+        public int? FMovieTicketTypeId { get { return _ShoppingCart.FMovieTicketTypeId; } set { _ShoppingCart.FMovieTicketTypeId = value; } }
 
         public TProduct product
         {
-            get {
+            get
+            {
                 TProduct prod = _dbIgo.TProducts.Where(p => p.FProductId == FProductId).FirstOrDefault();
                 if (prod != null)
                     return prod;
@@ -83,6 +85,20 @@ namespace IGO.ViewModels
                 return null;
             }
         }
+        public string movieSeat
+        {
+            get
+            {
+                if (FMovieSeatId != null)
+                {
+                    string movieSeat = (_dbIgo.TMovieSeats.FirstOrDefault(c => c.FSeatId == FMovieSeatId)).FSeatRow + (_dbIgo.TMovieSeats.FirstOrDefault(c => c.FSeatId == FMovieSeatId)).FSeatColumn;
+                
+                    return "座位" + movieSeat;
+                }
+                else
+                    return "";
+            }
+        }
         public List<TVoucher> voucher
         {
             get
@@ -92,25 +108,26 @@ namespace IGO.ViewModels
             }
 
         }
-    
+
         public TProductsPhoto photo
         {
             get
             {
-                TProductsPhoto photo = _dbIgo.TProductsPhotos.FirstOrDefault(c => FMovieId>0?c.FMovieId == FMovieId:c.FProductId==FProductId);
+                TProductsPhoto photo = _dbIgo.TProductsPhotos.FirstOrDefault(c => FMovieId > 0 ? c.FMovieId == FMovieId : c.FProductId == FProductId);
                 return photo;
             }
 
         }
         public string introduction
         {
-            get {
+            get
+            {
                 if (FMovieId > 0)
                 {
                     string introduction = _dbIgo.TMovies.FirstOrDefault(c => c.MovieId == FMovieId).Description;
                     return introduction;
                 }
-                else 
+                else
                 {
                     string introduction = _dbIgo.TProducts.FirstOrDefault(c => c.FProductId == FProductId).FIntroduction;
                     return introduction;
@@ -135,6 +152,41 @@ namespace IGO.ViewModels
         }
 
 
+        //顯示所有票券
+        public string TotalProductName
+        {
+
+            get
+            {
+
+
+                if (FMovieId > 0)
+                {
+                    string TotalProductName = (_dbIgo.TMovies.FirstOrDefault(c => c.MovieId == FMovieId)).Cname;
+                    return TotalProductName;
+                }
+                else if (FCouponId > 0)
+                {
+                    string TotalProductName = (_dbIgo.TCoupons.FirstOrDefault(c => c.FCouponId == FCouponId)).FCouponName;
+                    return TotalProductName;
+
+                }
+                else
+                {
+                    string TotalProductName = (_dbIgo.TProducts.FirstOrDefault(c => c.FProductId == FProductId)).FProductName;
+                    return TotalProductName;
+
+                }
+
+
+
+
+            }
+
+
+        }
+       public List<productInfo> productInfos;
 
     }
+    
 }

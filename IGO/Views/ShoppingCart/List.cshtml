@@ -58,19 +58,20 @@
 
                             @*<img src="@Url.Content($"~/ShoppingCartImgs/{item.Name}.jpg")" />*@
                             @*<span data-bs-toggle="modal" data-bs-target="#@item.FProductId">@Html.DisplayFor(modelItem => item.product.FProductName)</span>*@
-                        <a data-bs-toggle="modal" role="button" data-bs-target="#@("IGO"+item.FShoppingCartId)">@item.product.FProductName</a>
+                        <a data-bs-toggle="modal" role="button" data-bs-target="#@("IGO"+item.FShoppingCartId)">@item.TotalProductName</a>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FBookingTime)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ticket.FTicketName)
+                            @Html.DisplayFor(modelItem => item.ticketName)
+                            @item.movieSeat
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FQuantity)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FTotalPrice)
+                              @Html.DisplayFor(modelItem => item.FTotalPrice)
                         </td>
                         <td>
                             <i data-id="@item.FShoppingCartId" class='btnGarbage fa-regular fa-trash-can'></i>
@@ -94,19 +95,22 @@
 {
     <!-- Modal -->
     <div class="modal fade" id="@("IGO"+item.FShoppingCartId)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">@item.product.FProductName </h5>
-                   
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div  class="modal-dialog">
+            <div class="modal-content" >
+                @foreach(var prod in item.productInfos){
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel">@prod.ProductName </h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img style="width:450px;height:350px" src="@Url.Content($"~/img/{prod.PhotoPath}")" />
+                        <p>@prod.Introduction</p>
+                    </div>
+                }
                 </div>
-                <div class="modal-body">
-                    <img style="width:450px;height:350px" src="@Url.Content($"~/img/{item.photo.FPhotoPath}")" />
-                    <p>@item.introduction</p>
-                </div>
-               
-            </div>
         </div>
     </div>
 }

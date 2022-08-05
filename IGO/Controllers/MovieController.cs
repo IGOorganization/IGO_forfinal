@@ -49,7 +49,7 @@ namespace IGO.Controllers
             return View(List);
         }
 
-        public IActionResult Detail(int? ID,int? row=3,int? col=3,int? dataId=0)
+        public IActionResult Detail(int? ID,int? row=10,int? col=10,int? dataId=0)
         {
             int userid = 0;
             if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
@@ -60,13 +60,13 @@ namespace IGO.Controllers
             {
                 ID = dataId;
             }
-            if (row > 3)
+            if (row > 20)
             {
-                row = 3;
+                row = 20;
             }
-            if (col > 3)
+            if (col > 20)
             {
-                col = 3;
+                col = 20;
             }
             var movie = _dbIgo.TMovies.Where(t => t.MovieId == ID).FirstOrDefault();
             var supplier = _dbIgo.TSuppliers.Where(t => t.FCompanyName.Contains("影城")).ToList();
@@ -137,7 +137,8 @@ namespace IGO.Controllers
             };
             _dbIgo.TProducts.Add(product);
             _dbIgo.SaveChanges();
-
+            Random ran = new Random();
+            string s = (ran.Next(1, 1000) * ran.Next(1, 1000)).ToString();
             List<int> movieSeats = movieSeat.Split('、').Select(x => int.Parse(x)).ToList();
             foreach (int movieSeatID in movieSeats)
             {
@@ -152,7 +153,8 @@ namespace IGO.Controllers
                     FShowingId = showingID,
                     FMovieId = movieID,
                     FMovieSeatId = movieSeatID,
-                    FMovieTicketTypeId = ticketTypeID
+                    FMovieTicketTypeId = ticketTypeID,
+                    FTempOrder = s
                 };
                 _dbIgo.TShoppingCarts.Add(shoppingCart);
                 _dbIgo.SaveChanges();

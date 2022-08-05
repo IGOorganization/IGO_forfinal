@@ -174,19 +174,20 @@
                 let img1 = document.createElement("img");
                 let div2 = document.createElement("div");
                 let button = document.createElement("button");
+                let label = document.createElement("label");
 
                 div1.className = "card";
                 div1.style = "width: 18rem; display: inline-block;";
 
-                img1.src = "/img/a-1.jpg";
+                img1.src = `/img/${item.PhotoPath}`;
                 img1.className = "card-img-top";
 
                 div2.className = "card-body";
 
                 button.className = "btn btn-warning";
-                button.textContent = item.FCollectionGroupName;
-                button.id = `group${item.FCollectionGroupId}`;
-                button.setAttribute("data-ToGroupDetail", item.FCollectionGroupId)
+                button.textContent = `${item.CollectionGroupName} (${item.IncludeNum})`;
+                button.id = `group${item.CollectionGroupID}`;
+                button.setAttribute("data-ToGroupDetail", item.CollectionGroupID)
 
                 div2.appendChild(button);
                 div1.appendChild(img1);
@@ -226,7 +227,7 @@
 
             let s = '<option value="0">請選擇收藏群組</option>'
             group.forEach(o => {
-                s += `<option value="${o.FCollectionGroupId}">${o.FCollectionGroupName}</option>`
+                s += `<option value="${o.CollectionGroupID}">${o.CollectionGroupName}</option>`
             })
 
 

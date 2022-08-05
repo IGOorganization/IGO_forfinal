@@ -358,7 +358,7 @@
 <!-- Modal -->
 <div class="modal fade" id="seatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     @*fade 淡入淡出*@
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             @*內容會有 header body footer三塊*@
             <div class="modal-header">
@@ -382,7 +382,7 @@
                             var seat = Model.Item4.FirstOrDefault(x => x.FSeatRow == rowList[i] && x.FSeatColumn == columnList[j]);
                             <a role="button" onclick="ChooseSeat('@("seat"+rowList[i]+columnList[j])')">
                                 <span>@(rowList[i] + columnList[j])</span>
-                                <img id="@("seat"+rowList[i]+columnList[j])" src="/img/can-choose.png" class="seat" data-seat-name="@(rowList[i]+columnList[j])" data-id="@seat.FSeatId" />
+                                <img id="@("seat"+rowList[i]+columnList[j])" src="/img/can-choose.png" width="70" class="seat" data-seat-name="@(rowList[i]+columnList[j])" data-id="@seat.FSeatId" />
                             </a>
                         }
 

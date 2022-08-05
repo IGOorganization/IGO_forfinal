@@ -269,7 +269,7 @@
             <div class="row g-5">
                 <div class="col-md-10 col-lg-4">
                     <div class="bg-primary rounded p-4">
-                        <a href="index.html"><h1 class="text-white text-uppercase mb-3">IGO</h1></a>
+                        <a href="~/Admin/Home/Analyze"><h1 class="text-white text-uppercase mb-3">IGO</h1></a>
                         <p class="text-white mb-0">
                             <a class="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro"></a>
                     </div>
@@ -373,28 +373,40 @@
                                         <button type="button" class="btn btn-danger" id="btnDemo2">  Demo(戴樂古) </button>
                                     </div>
                                     <div class="col text-center">
-                                        <button type="button" class="btn btn-danger" id="btnDemo3">  Demo(註冊完) </button>
+                                        <button type="button" class="btn btn-danger" id="btnDemo4">  Demo(修改後) </button>
+                                    </div>
+                                </div>
+                                <div class="row bg-dark">
+                                    <div class="col text-center">
+
+                                    </div>
+                                    <div class="col text-center">
+
+                                    </div>
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-secondary" id="btnDemo3">  Demo(註冊後) </button>
                                     </div>
                                 </div>
                             </div>
                             <hr />
+                            <hr />
                             @*<div class=" bg-dark">
-                                <br />
-                                <h5 class="text-white text-center">使用其他帳號登入</h5>
-                                <br />
-                                <div class="row bg-dark">
-                                    <div class="col text-center">
-                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
-                                    </div>
-                                    <div class="col text-center">
-                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
-                                    </div>
-                                    <div class="col text-center">
-                                        <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
-                                    </div>
-                                </div>
-                                <br />
-                            </div>*@
+            <br />
+            <h5 class="text-white text-center">使用其他帳號登入</h5>
+            <br />
+            <div class="row bg-dark">
+                <div class="col text-center">
+                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_FB.png" alt="icon" style="width: 55px; height:55px;">
+                </div>
+                <div class="col text-center">
+                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_G.png" alt="icon" style="width: 55px; height:55px;">
+                </div>
+                <div class="col text-center">
+                    <img class="rounded rounded-circle me-lg-2" src="/img/icon_L.png" alt="icon" style="width: 55px; height:55px;">
+                </div>
+            </div>
+            <br />
+        </div>*@
                         </div>
                     </form>
                 </div>
@@ -772,6 +784,26 @@
 
             $('#message1').val("");
         });
+
+        //客服機器人 Demo 鍵
+
+        $("#Demo1").click(function () {
+            $("#message1").val("您好");
+
+        });
+        $("#Demo2").click(function () {
+            $("#message1").val("您好 請問有什麼需要服務的嗎?");
+
+        });
+        $("#Demo3").click(function () {
+            $("#message1").val("你們網頁設計的很棒");
+
+        });
+        $("#Demo4").click(function () {
+            $("#message1").val("謝謝您的讚美");
+
+        });
+
     </script>
 
     <!--========================================================登入系統用script================================ -->
@@ -845,6 +877,14 @@
                     $('#Login_txtPwd').val("");
                 }
 
+                else if (data == "admin") {
+                    $('#loginModal').modal('hide');
+                    window.location.href = "Admin/Home/Analyze";
+                    alert("帳號密碼正確，管理員登入成功");
+                    $('#Login_txtAcc').val("");
+                    $('#Login_txtPwd').val("");
+                }
+
             });
         });
 
@@ -862,23 +902,13 @@
             $("#Login_txtAcc").val("0911911990");
             $("#Login_txtPwd").val("a8226520");
         });
-
-        $("#Demo1").click(function () {
-            $("#message1").val("您好");
-            
+        $("#btnDemo4").click(function () {
+            $("#Login_txtAcc").val("0911911990");
+            $("#Login_txtPwd").val("a12345678123");
         });
-        $("#Demo2").click(function () {
-            $("#message1").val("您好 請問有什麼需要服務的嗎?");
 
-        });
-        $("#Demo3").click(function () {
-            $("#message1").val("你們網頁設計的很棒");
 
-        });
-        $("#Demo4").click(function () {
-            $("#message1").val("謝謝您的讚美");
 
-        });
         //--  Register===================================================================================== -- >
 
         //註冊日期
@@ -1012,8 +1042,8 @@
             $("#register_FPhone").val("0911911990");
             $("#register_FLName").val("光頭");
             $("#register_FFName").val("強");
-            $("#register_FPassword").val("a8226520");
-            $("#register_FCheckPwd").val("a8226520");
+            $("#register_FPassword").val("b12345678");
+            $("#register_FCheckPwd").val("b12345678");
             $("#register_FEmail").val("igocompanysender@gmail.com");
 
             //demo 及時判定

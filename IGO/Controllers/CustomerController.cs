@@ -23,6 +23,7 @@ namespace IGO.Controllers
         public static string Welcomeuser = "";
         public static string userName = "";
         public static string imgpath = "";
+        public int Ad_Sup_id = 215;
         private IWebHostEnvironment _environment;
         public CustomerController(DemoIgoContext db, IWebHostEnvironment igo)
         {
@@ -67,16 +68,25 @@ namespace IGO.Controllers
             TCustomer cust = _dbIgo.TCustomers.FirstOrDefault(n => n.FPhone == vModel.txtAccount);
             if (cust != null)
             {
-                if (cust.FPassword.Equals(vModel.txtPassword))
+                if (cust.FPassword.Equals(vModel.txtPassword) && cust.FSupplierId == Ad_Sup_id)
                 {
                     HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId); ;
                     userid = cust.FCustomerId;
                     userName = $"{cust.FLastName}" + "" + $"{cust.FFirstName}";
-                    Welcomeuser = userName + "您好，歡迎使用 IGO";
+                    //Welcomeuser = userName + "您好，歡迎使用 IGO";
                     imgpath = cust.FUserPhoto;
-
+                    return Content("admin", "text/plain", Encoding.UTF8);
+                }
+                else if (cust.FPassword.Equals(vModel.txtPassword))
+                {
+                    HttpContext.Session.SetInt32(CDictionary.SK_LOGINED_USER, cust.FCustomerId); ;
+                    userid = cust.FCustomerId;
+                    userName = $"{cust.FLastName}" + "" + $"{cust.FFirstName}";
+                    //Welcomeuser = userName + "您好，歡迎使用 IGO";
+                    imgpath = cust.FUserPhoto;
                     return Content("success", "text/plain", Encoding.UTF8);
                 }
+
             }
             return Content("false", "text/plain", Encoding.UTF8);
         }
@@ -264,7 +274,7 @@ namespace IGO.Controllers
                 }
                 client.Dispose();
 
-                return Json("寄送成功");
+                return Json("寄送成功，");
             }
             return Json("資料有誤");
         }
@@ -361,7 +371,7 @@ namespace IGO.Controllers
             {
                 if (data.FPassword == vModel.FPassword)
                 {
-                    return Json("修改失敗");
+                    return Json("修改失敗，與舊的密碼相同");
                 }
                 else
                 {
@@ -385,7 +395,7 @@ namespace IGO.Controllers
             {
                 if (FPassword == data.FPassword)
                 {
-                    return Json("修改失敗");
+                    return Json("修改失敗，與舊的密碼相同");
                 }
                 else
                 {
