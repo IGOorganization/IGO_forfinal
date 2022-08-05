@@ -294,7 +294,7 @@
                             <a class="btn btn-link" href="/About/Helper">幫助中心</a>
                             <a class="btn btn-link" href="/About/HelpByUsage">隱私權</a>
 
-                            <a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>
+                            @*<a href="/Admin/Coupon/List" class="btn btn-link">管理後台</a>*@
                             @*<a class="btn btn-link" data-bs-toggle="modal" data-bs-target="#BackendModal">管理後台</a>*@
 
                         </div>
@@ -879,7 +879,7 @@
 
                 else if (data == "admin") {
                     $('#loginModal').modal('hide');
-                    window.location.href = "Admin/Home/Analyze";
+                    window.location.href = "/Admin/Home/Analyze";
                     alert("帳號密碼正確，管理員登入成功");
                     $('#Login_txtAcc').val("");
                     $('#Login_txtPwd').val("");
@@ -900,7 +900,7 @@
         });
         $("#btnDemo3").click(function () {
             $("#Login_txtAcc").val("0911911990");
-            $("#Login_txtPwd").val("a8226520");
+            $("#Login_txtPwd").val("a12345678");
         });
         $("#btnDemo4").click(function () {
             $("#Login_txtAcc").val("0911911990");
@@ -1040,10 +1040,10 @@
         //註冊Demo
         $("#btnDemoRegister").click(function () {
             $("#register_FPhone").val("0911911990");
-            $("#register_FLName").val("光頭");
-            $("#register_FFName").val("強");
-            $("#register_FPassword").val("b12345678");
-            $("#register_FCheckPwd").val("b12345678");
+            $("#register_FLName").val("祝");
+            $("#register_FFName").val("策厚");
+            $("#register_FPassword").val("a12345678");
+            $("#register_FCheckPwd").val("a12345678");
             $("#register_FEmail").val("igocompanysender@gmail.com");
 
             //demo 及時判定
@@ -1135,13 +1135,6 @@
             $("#rePwd_FEmail").val("igocompanysender@gmail.com");
         });
 
-        //--  後台Login==================================================================================== -- >
-
-        //後台登入Demo
-        $("#Backend_Demo").click(function () {
-            $("#LoginBE_txtAcc").val("0912345678");
-            $("#LoginBE_txtPwd").val("a12345678");
-        });
 
     </script>
     <!--=============================================登入系統用 script ======================================END -->
