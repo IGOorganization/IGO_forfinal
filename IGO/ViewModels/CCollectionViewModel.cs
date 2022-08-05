@@ -61,6 +61,8 @@ namespace IGO.ViewModels
         }
         public CProductViewModel VMproduct;
 
+       
+
 
     }
 }
