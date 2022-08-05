@@ -24,16 +24,29 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <label>輸入主類別名稱:</label><br><input class="form-text" id="txtCategory" type="text" value=""><button type="button" class="btn btn-outline-success" id="Demo1">Demo</button><br>
-                            <div class="form-group">
-                                <label class="control-label">類別照片</label>
-                                <input type="file" name="photo" class="form-control" id="catPhoto"/>
-                            </div>
+                            <label>輸入主類別名稱:</label><br>
+                            <input class="form-text" id="txtCategory" type="text" value="">
+                            <button type="button" class="btn btn-outline-success" id="Demo1">Demo</button><br>
                             <br>
                             <button type="button" class="btn btn-warning" id="update">新增</button>
+
+                            @*8/4 宜潔 刪除原作法，修改商品主分類 上傳主分類圖片*@
+                            @*<form id="form" name="categoryInfo" method="post" enctype="application/x-www-form-urlencoded">*@
+                            <!--<div class="form-group">
+        <div class="form-group">
+            <label>輸入主類別名稱:</label><br>
+            <input class="form-text" id="txtCategory" type="text" value="" name="categoryname">
+            <button type="button" class="btn btn-outline-success" id="Demo1">Demo</button><br>
+        </div>-->
+                            @*<label class="control-label">類別照片</label>
+        <input type="file" class="form-control" id="catPhoto" name="photo" />*@
+                            <!--</div>
+    <br>
+    <button type="button" class="btn btn-warning" id="update">新增</button>-->
+                            @*</form>*@
                         </div>                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="closeAddCategory">關閉</button>
                         </div>
                     </div>
                 </div>
@@ -43,9 +56,6 @@
                     <tr align="right">
                         <th>
                             商品主類別名稱
-                        </th>
-                        <th>
-                            商品主類別圖片
                         </th>
                         <th>
 
@@ -62,13 +72,9 @@
                             @item.CategoryName
                         </td>
                         <td>
-                            <img src='/img/@item.CategoryPhotoPath' width="100" height="100"/>
-                        </td>
-                        <td>
                             <button type="button" class="btn btn-success btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="CategoryId-@item.CategoryId">
                                 檢視/編輯次類別
                             </button>
-                            <button type="button" class="btn btn-light btnAddPhoto" id="CatephotoId-@item.CategoryId">新增照片</button>
                             <button type="button" class="btn btn-danger btnDelete" id="CategoryId-@item.CategoryId">刪除</button>
                         </td>
                     </tr>
@@ -92,8 +98,16 @@
                         </div>
                         <hr>
                         <div class="modal-body">
-                            <label>輸入欲新增的次類別名稱</label><span>: </span><input class="form-text txtSubCategory" type="text" value="">
-                            <button type="button" class="btn btn-warning Add">新增</button><button type="button" class="btn btn-outline-success" id="Demo2">Demo</button><br>
+                            @*8/4 宜潔 刪除原作法，修改商品主分類 上傳主分類圖片*@
+                            <form id="form" name="subcategoryInfo" method="post" enctype="application/x-www-form-urlencoded">
+                                @*隱藏主類別id*@
+                                <input class="form-text txtCategoryid" type="hidden" value="" name="CategoryID">
+                                <label>輸入欲新增的次類別名稱</label><span>: </span>
+                                <input class="form-text txtSubCategory" type="text" value="" name="Subcategoryname">
+                                <label class="control-label">次類別照片</label>
+                                <input type="file" class="form-control" id="subPhoto" name="subphoto" />
+                            </form>
+                                <button type="submit" class="btn btn-warning Add">新增</button><button type="button" class="btn btn-outline-success" id="Demo2">Demo</button><br>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">關閉</button>
@@ -105,30 +119,48 @@
         </div>
     </div>
 </div>
-        @section Scripts
+@section Scripts
 {
-            <script>
-        //宜潔 7/29刪除註解
+    <script>
         //新增商品主分類
         $('#update').on("click", function ()
         {
             let Categoryname = $('#txtCategory').val();
-            let site = $('#catPhoto').val();
-
-            console.log(site);
-            let len = site.split('\\').length;
-            let phtotoArray = site.split('\\');
-            console.log(len);
-            let photoName = phtotoArray[len - 1];
-            console.log(photoName);
+            //let site = $('#catPhoto').val();
+            //console.log(site);
+            //let len = site.split('\\').length;
+            //let phtotoArray = site.split('\\');
+            //console.log(len);
+            //let photoName = phtotoArray[len - 1];
+            //console.log(photoName);
            /* console.log($('#catPhoto').val());*/
             //console.log(Categoryname);
-            $.post('@Url.Content("~/Admin/Category/CreateCategory")', { "categoryname": Categoryname, "addPhoto": photoName}, function (datas)
+            $.post('@Url.Content("~/Admin/Category/CreateCategory")', { "categoryname": Categoryname}, function (datas)
             {
                 console.log(datas);
                 window.location.href = 'List';  //refresh此頁
             })
         })
+
+    //8/4 宜潔 刪除原作法，修改商品主分類 上傳主分類圖片
+    @*const btnUpdate = document.querySelector('#update');
+    btnUpdate.addEventListener('click', (evt) =>
+    {
+        //console.log('submit');
+        evt.preventDefault();
+        const formData = new FormData(document.categoryInfo);
+
+        fetch('@Url.Content("~/Admin/Category/CreateCategory")',
+            {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text());
+
+        alert('將新增一個票卷主類別?');
+        window.location.href = 'List';  //refresh此頁
+    })*@
+
 
         //宜潔 7/29新增'刪除商品主分類'
         $('.btnDelete').on("click", function ()
@@ -166,20 +198,25 @@
            let CategoryId = $(this).attr("id");
            /*console.log(CategoryId);*/
            cateID = CategoryId;
+
+           $('.txtCategoryid').val(cateID);
+
            $.get('@Url.Content("~/Admin/Category/ShowSubcategory")', { "categoryID": CategoryId }, function (datas) {
                //console.log(datas);
                $.each(datas, function (idx, item)
                {
-                   //console.log(item.FSubCategoryName);
+                   console.log(item);
 
-                   $('.showSub').append(`<tr><td class="subname">${item.FSubCategoryName}</td><td><button type="button" class="btn btn-primary btnRemove">刪除</button></td></tr>`)
+                   $('.showSub').append(`<tr><td class="subname">${item.FSubCategoryName}</td><td>
+                            <img src='/img/${item.FImagePath}' width="150" height="100"/>
+                        </td><td><button type="button" class="btn btn-primary btnRemove">刪除</button></td></tr>`)
 
                })
            })
        })
 
           //新增商品次分類
-        $('.Add').on('click', function ()
+        @*$('.Add').on('click', function ()
         {
             let subcategoryname = $('.txtSubCategory').val();
             $('.showSub').append(`<tr><td class="subname">${subcategoryname}</td><td><button type="button" class="btn btn-primary btnRemove">刪除</button></td></tr>`)
@@ -193,7 +230,28 @@
             {
                 //console.log('新增成功');
             })
-        })
+        })*@
+
+    /*8/5新增上傳商品圖片次分類*/
+        const btnAdd = document.querySelector('.Add');
+        btnAdd.addEventListener('click', (evt) =>
+        {
+        console.log('submit');
+        evt.preventDefault();
+        const formData = new FormData(document.subcategoryInfo);
+
+        fetch('@Url.Content("~/Admin/Category/CreateSubcategory")',
+            {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text());
+
+        alert('將新增一個票卷次類別?');
+        window.location.href = 'List';  //refresh此頁
+    })
+
+
 
         //宜潔 7/29新增'刪除商品次分類'
         let subID = "";
@@ -228,5 +286,5 @@
                 })
 
 
-            </script>
+    </script>
         }

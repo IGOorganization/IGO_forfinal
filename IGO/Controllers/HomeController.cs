@@ -356,7 +356,9 @@ namespace IGO.Controllers
             {
                 CategoryName = _IgoContext.TSubCategories.Include(m=>m.FCategory).FirstOrDefault(m=>m.FSubCategoryId==r.FSubCategoryId).FCategory.FCategoryName,
                 SubCategoryName = _IgoContext.TSubCategories.FirstOrDefault(m=>m.FSubCategoryId==r.FSubCategoryId).FSubCategoryName,
-                SubCategoryPath = _IgoContext.TSubCategories.FirstOrDefault(m => m.FSubCategoryId == r.FSubCategoryId).FSubCategoryPath
+                SubCategoryPath = _IgoContext.TSubCategories.FirstOrDefault(m => m.FSubCategoryId == r.FSubCategoryId).FSubCategoryPath,
+                //SubCategoryPhotoPath = _IgoContext.TSubCategories.FirstOrDefault(m => m.FSubCategoryId == r.FSubCategoryId).FSubCategoryPhotoPath,
+                ImagePath = _IgoContext.TSubCategories.FirstOrDefault(m => m.FSubCategoryId == r.FSubCategoryId).FImagePath
             };
                 v.Add(vModel);
             }
