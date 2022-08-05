@@ -36,7 +36,7 @@ namespace IGO.ViewModels
         public string FBookingTime { get { return _ShoppingCart.FBookingTime; } set { _ShoppingCart.FBookingTime = value; } }
         public int? FCouponId { get { return _ShoppingCart.FCouponId; } set { _ShoppingCart.FCouponId = value; } }
 
-
+        public int? FMovieSeatId { get { return _ShoppingCart.FMovieSeatId; } set { _ShoppingCart.FMovieSeatId = value; } }
         public virtual TCoupon FCoupon { get; set; }
         public virtual TCustomer FCustomer { get; set; }
         public virtual TProduct FProduct { get; set; }
@@ -83,6 +83,20 @@ namespace IGO.ViewModels
                 if (ticket != null)
                     return ticket;
                 return null;
+            }
+        }
+        public string movieSeat
+        {
+            get
+            {
+                if (FMovieSeatId != null)
+                {
+                    string movieSeat = (_dbIgo.TMovieSeats.FirstOrDefault(c => c.FSeatId == FMovieSeatId)).FSeatRow + (_dbIgo.TMovieSeats.FirstOrDefault(c => c.FSeatId == FMovieSeatId)).FSeatColumn;
+                
+                    return "座位" + movieSeat;
+                }
+                else
+                    return "";
             }
         }
         public List<TVoucher> voucher

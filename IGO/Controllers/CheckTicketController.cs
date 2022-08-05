@@ -117,7 +117,7 @@ namespace IGO.Controllers
 
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Prediction-Key", "207338f5e8c04e7eb87f1acfc9fd174b");
-                var uri = "https://igofacecheck-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/34852263-31b1-4d21-adef-7842c5a07ff6/classify/iterations/Iteration3/image";
+                var uri = "https://igofacecheck-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/91ed9017-379a-4467-9a0e-39595338268e/classify/iterations/Iteration1/image";
                 string text = "";
                 using (ByteArrayContent ImageContent = new ByteArrayContent(imageBytes))
                 {
