@@ -131,11 +131,33 @@ namespace IGO.Areas.Admin.Controllers
         //8/5新增 上傳次分類照片
         public IActionResult CreateSubcategory(TSubCategory Subcategory, string Subcategoryname, string CategoryID, IFormFile subphoto) //新增次類別
         {
+            string cPath = "";
+            int id = 1;
+            if (Subcategoryname is null && subphoto is null)
+            {
+                Subcategoryname = "預設";
+                id = Convert.ToInt32(CategoryID.Split("-")[1]);
+                cPath = "SubConcert.jpg";
+            }
+            else if (subphoto is null) 
+            {
+                id = Convert.ToInt32(CategoryID.Split("-")[1]);
+                cPath = "SubConcert.jpg";
+                //subphoto.CopyTo(new FileStream(_environment.WebRootPath + "/img/" + cPath, FileMode.Create));
 
-            int id = Convert.ToInt32(CategoryID.Split("-")[1]);
-            string cPath = Guid.NewGuid().ToString() + ".jpg";
-            subphoto.CopyTo(new FileStream(_environment.WebRootPath + "/img/" + cPath, FileMode.Create));
-
+            }
+            else if (Subcategoryname is null) 
+            {
+                Subcategoryname = "預設";
+                id = Convert.ToInt32(CategoryID.Split("-")[1]);
+                cPath = "SubConcert.jpg";
+            }         
+            else
+            {
+                id = Convert.ToInt32(CategoryID.Split("-")[1]);
+                cPath = Guid.NewGuid().ToString() + ".jpg";
+                subphoto.CopyTo(new FileStream(_environment.WebRootPath + "/img/" + cPath, FileMode.Create));
+            }
             Subcategory.FImagePath = cPath;
             Subcategory.FSubCategoryName = Subcategoryname;
             Subcategory.FCategoryId = id;
