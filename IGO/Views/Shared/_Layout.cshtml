@@ -132,29 +132,31 @@
                     </div>
                     @*宜潔新增*@
                     <a href="/Coupon/List" class="nav-item nav-link" style="font-size:120%">特惠組合</a>
-                    <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
 
-                    <div class="nav-item">
-                        @{
-                            if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
-                            {
+                    @{
+                        if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
+                        {
+                            <a href="/Test/Index" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
+                            <div class="nav-item">
                                 <a href="@Url.Content("~/ShoppingCart/List")">
                                     <i class="fa-solid fa-cart-plus"></i>
                                     <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
                                 </a>
-                            }
-                            else
-                            {
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="#loginModal" data-bs-toggle="modal" class="nav-item nav-link" style="font-size:120%">玩樂性格測驗</a>
+                            <div class="nav-item">
                                 <a href="#loginModal" data-bs-toggle="modal">
                                     <i class="fa-solid fa-cart-plus"></i>
                                     <span style="font-size:120%">購物車</span><span style="color: #DEDEBE; font-size: 120%"></span>
                                 </a>
-
-                            }
-
+                            </div>
                         }
 
-                    </div>
+                    }
+
                     @{
                         if (Context.Session.Keys.Contains(CDictionary.SK_LOGINED_USER))
                         {
@@ -212,7 +214,7 @@
                     <a href=""></a>
 
                 </nav>
-            </div>
+                </div>
         </div>
     </div>
     <!-- Header End -->
@@ -231,7 +233,7 @@
 
 
     @*聊天室*@
-    @*8/5 宜潔改聊天室樣式*@  
+    @*8/5 宜潔改聊天室樣式*@
     <div id="chat">
         <div>
             <div class="collapse" id="collapseExample" style="position:absolute;bottom:0; width:100%">
