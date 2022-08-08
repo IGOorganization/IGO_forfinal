@@ -277,7 +277,7 @@
             else if (quantity.value == "" || quantity.value == 0) {
                 alert("請輸入數量");
             }
-            else if (quantity.value > checkquantity) {
+            else if (parseInt(quantity.value) >parseInt(checkquantity)) {
                 alert("數量高於庫存")
             }
             else {
