@@ -381,7 +381,7 @@
                         {
                             var seat = Model.Item4.FirstOrDefault(x => x.FSeatRow == rowList[i] && x.FSeatColumn == columnList[j]);
                             <a role="button" onclick="ChooseSeat('@("seat"+rowList[i]+columnList[j])')">
-                                <span>@(rowList[i] + columnList[j])</span>
+                                <span style="font-family:Consolas">@(rowList[i] + columnList[j])</span>
                                 <img id="@("seat"+rowList[i]+columnList[j])" src="/img/can-choose.png" width="70" class="seat" data-seat-name="@(rowList[i]+columnList[j])" data-id="@seat.FSeatId" />
                             </a>
                         }
